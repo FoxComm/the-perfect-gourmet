@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './checkout.css';
+import styles from '../checkout.css';
 import { autobind, debounce } from 'core-decorators';
 import { connect } from 'react-redux';
 
@@ -16,10 +16,10 @@ import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
 
 type EditShippingProps = Localized & {
-  setAddressData: Function;
-  selectedCountry: Object;
-  state: Object;
-}
+  setAddressData: Function,
+  selectedCountry: Object,
+  state: Object,
+};
 
 function mapStateToProps(state, props) {
   const { addressKind } = props;

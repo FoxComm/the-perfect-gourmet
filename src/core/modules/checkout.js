@@ -57,6 +57,10 @@ function _fetchShippingMethods() {
   return this.api.get('/v1/my/cart/shipping-methods');
 }
 
+function _fetchAddresses() {
+  return this.api.get('/v1/my/addresses');
+}
+
 function _fetchCreditCards() {
   return foxApi.creditCards.list();
 }
@@ -65,9 +69,11 @@ function _fetchCreditCards() {
 
 const shippingMethodsActions = createAsyncActions('shippingMethods', _fetchShippingMethods);
 const creditCardsActions = createAsyncActions('creditCards', _fetchCreditCards);
+const addressesActions = createAsyncActions('addresses', _fetchAddresses);
 
 export const fetchShippingMethods = shippingMethodsActions.fetch;
 export const fetchCreditCards = creditCardsActions.fetch;
+export const fetchAddresses = addressesActions.fetch;
 export const toggleSeparateBillingAddress = createAction('CHECKOUT_TOGGLE_BILLING_ADDRESS');
 
 export function initAddressData(kind: AddressKindType): Function {
@@ -209,6 +215,7 @@ const initialState: CheckoutState = {
   billingAddressIsSame: true,
   shippingMethods: [],
   creditCards: [],
+  addresses: [],
 };
 
 const reducer = createReducer({
@@ -245,6 +252,12 @@ const reducer = createReducer({
     return {
       ...state,
       creditCards: list,
+    };
+  },
+  [addressesActions.succeeded]: (state, list) => {
+    return {
+      ...state,
+      addresses: list,
     };
   },
   [toggleSeparateBillingAddress]: state => {

@@ -8,7 +8,7 @@ import { autobind } from 'core-decorators';
 import { browserHistory } from 'react-router';
 
 // components
-import Shipping from './shipping';
+import Shipping from './shipping/shipping';
 import Delivery from './delivery';
 import Billing from './billing';
 import OrderSummary from './summary/order-summary';

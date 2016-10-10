@@ -18,10 +18,10 @@ import Checkbox from 'ui/checkbox';
 import EditableBlock from 'ui/editable-block';
 import Autocomplete from 'ui/autocomplete';
 import InputMask from 'react-input-mask';
-import EditAddress from './edit-address';
+import EditAddress from './shipping/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
-import ViewAddress from './view-address';
+import ViewAddress from './shipping/view-address';
 import CvcHelp from './cvc-help';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
