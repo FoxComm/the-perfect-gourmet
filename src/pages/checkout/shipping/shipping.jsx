@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { autobind } from 'core-decorators';
 import localized from 'lib/i18n';
 
 // components
@@ -25,8 +26,26 @@ import type { CheckoutBlockProps } from '../types';
 class Shipping extends Component {
   props: CheckoutBlockProps;
 
+  state = {
+    isEditing: false,
+  };
+
   componentWillMount() {
     this.props.fetchAddresses();
+  }
+
+  @autobind
+  editAddress() {
+    this.setState({
+      isEditing: true,
+    })
+  }
+
+  @autobind
+  saveAddress() {
+    this.setState({
+      isEditing: false,
+    })
   }
 
   renderAddresses() {
@@ -41,11 +60,12 @@ class Shipping extends Component {
 
       return (
         <EditableBlock
-          isEditing={false}
+          isEditing={this.state.isEditing}
           styleName="checkout-block"
           title={t('SHIPPING')}
           content={content}
           key={`address-${key}`}
+          editAction={(address) => this.editAddress(address)}
         />
       );
     });
@@ -55,7 +75,20 @@ class Shipping extends Component {
     );
   }
 
-  render() {
+  renderEditingForm() {
+    const { t } = this.props;
+
+    return (
+      <Form onSubmit={this.saveAddress}>
+        <EditAddress {...this.props} addressKind={AddressKind.SHIPPING} />;
+
+        <ErrorAlerts error={this.props.error} />
+        <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
+      </Form>
+    )
+  }
+
+  renderList() {
     const { t } = this.props;
 
     return (
@@ -66,6 +99,10 @@ class Shipping extends Component {
         <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
       </Form>
     );
+  }
+
+  render() {
+    return this.state.isEditing ? this.renderEditingForm() : this.renderList();
   }
 }
 
