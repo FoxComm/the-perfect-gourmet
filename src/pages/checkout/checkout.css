@@ -12,14 +12,6 @@
     margin-top: 146px;
   }
 
-  .summary {
-    position: fixed;
-    width: 100%;
-    z-index: 2;
-    max-height: calc(100% - 146px);
-    display: flex;
-  }
-
   .forms {
     padding-top: 70px;
   }

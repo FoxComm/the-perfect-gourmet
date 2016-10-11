@@ -58,12 +58,27 @@ class Checkout extends Component {
     deliveryInProgress: false,
     shippingInProgress: false,
     error: null,
+    isScrolled: false,
   };
 
   componentDidMount() {
     this.props.fetchCart();
     this.props.hideCart();
+
+    this.checkScroll();
+    window.addEventListener('scroll', this.checkScroll);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.checkScroll);
+  }
+
+  checkScroll = () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const isScrolled = scrollTop > 136;
+
+    this.setState({isScrolled});
+  };
 
   performStageTransition(name: string, perform: () => PromiseType): PromiseType {
     return new Promise(resolve => {
@@ -135,14 +150,15 @@ class Checkout extends Component {
 
   render() {
     const props = this.props;
+    const contentStyle = this.state.isScrolled ? 'content-scrolled' : 'content';
 
     return (
       <section styleName="checkout">
-        <Header />
+        <Header isScrolled={this.state.isScrolled}/>
 
         <div styleName="content">
           <div styleName="summary">
-            <OrderSummary />
+            <OrderSummary isScrolled={this.state.isScrolled} />
           </div>
 
           <div styleName="forms">

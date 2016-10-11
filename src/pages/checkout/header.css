@@ -7,6 +7,15 @@
   width: 100%;
 }
 
+.header-scrolled {
+  composes: header;
+
+  & .logo,
+  & .title {
+    display: none;
+  }
+}
+
 .logo {
   display: flex;
   justify-content: center;
@@ -94,6 +103,10 @@
     height: 96px;
     letter-spacing: 2px;
     font-size: 15px;
+  }
+
+  .header-scrolled {
+
   }
 }
 

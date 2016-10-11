@@ -9,10 +9,6 @@
   color: #212121;
 }
 
-.order-summary-collapsed {
-  composes: order-summary;
-}
-
 .divider {
   height: 1px;
   width: 100%;
@@ -75,17 +71,24 @@
   }
 
   .order-summary {
+    position: fixed;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
     overflow-y: auto;
-  }
+    max-height: calc(100% - 146px);
 
-  .order-summary-collapsed {
-    & .header:after {
-      content: "▼";
+    &.collapsed {
+      & .header:after {
+        content: "▼";
+      }
+
+      & .content {
+        display: none;
+      }
     }
 
-    & .content {
-      display: none;
+    &.scrolled {
+      top: 60px;
+      max-height: calc(100% - 60px);
     }
   }
 }
