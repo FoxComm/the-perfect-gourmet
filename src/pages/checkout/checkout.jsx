@@ -8,13 +8,10 @@ import { autobind } from 'core-decorators';
 import { browserHistory } from 'react-router';
 
 // components
-import Shipping from './shipping/shipping';
-import Delivery from './delivery';
-import Billing from './billing';
+import Shipping from './01-shipping/shipping';
+import Delivery from './02-delivery/delivery';
+import Billing from './03-billing/billing';
 import OrderSummary from './summary/order-summary';
-import GiftCard from './gift-card';
-import CouponCode from '../../components/coupon-code/coupon-code';
-import EditableBlock from 'ui/editable-block';
 import Header from './header';
 
 import type { Promise as PromiseType } from 'types/promise';
@@ -188,14 +185,6 @@ class Checkout extends Component {
               continueAction={this.placeOrder}
               error={this.errorsFor(EditStages.BILLING)}
             />
-            <EditableBlock
-              styleName="checkout-block"
-              title="PROMO CODE"
-              isEditing
-              collapsed={false}
-              content={<CouponCode />}
-            />
-            <GiftCard />
           </div>
         </div>
       </section>

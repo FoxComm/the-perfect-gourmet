@@ -3,6 +3,7 @@
 .editable-block {
   padding: 20px;
   background: var(--color-panels-bg);
+  margin-bottom: 10px;
 }
 
 .header {

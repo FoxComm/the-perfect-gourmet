@@ -8,10 +8,10 @@ import localized from 'lib/i18n';
 
 // components
 import EditableBlock from 'ui/editable-block';
-import EditAddress from './edit-address';
+import EditAddress from '../address/edit-address';
 import { Form } from 'ui/forms';
 import Button from 'ui/buttons';
-import ViewAddress from './view-address';
+import ViewAddress from '../address/view-address';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 // styles

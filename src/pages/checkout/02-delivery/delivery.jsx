@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './checkout.css';
+import styles from '../checkout.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
@@ -14,7 +14,7 @@ import Currency from 'ui/currency';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
-import type { CheckoutBlockProps } from './types';
+import type { CheckoutBlockProps } from '../types';
 import * as cartActions from 'modules/cart';
 import { fetchShippingMethods } from 'modules/checkout';
 

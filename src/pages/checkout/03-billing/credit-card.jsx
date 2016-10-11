@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'ui/icon';
 import Checkbox from 'ui/checkbox';
 
-import styles from './checkout.css';
+import styles from '../checkout.css';
 
 type CreditCardType = {
   id: number,
