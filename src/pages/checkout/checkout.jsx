@@ -29,6 +29,8 @@ type Props = CheckoutState & {
   addCreditCard: () => PromiseType,
   checkout: () => PromiseType,
   hideCart: () => PromiseType,
+  addresses: Array<any>,
+  fetchAddresses: Function,
 };
 
 function isDeliveryDirty(state) {
@@ -165,6 +167,8 @@ class Checkout extends Component {
               inProgress={this.state.shippingInProgress}
               continueAction={this.setDeliveryStage}
               error={this.errorsFor(EditStages.SHIPPING)}
+              addresses={this.props.addresses}
+              fetchAddresses={this.props.fetchAddresses}
             />
             <Delivery
               isEditing={props.editStage == EditStages.DELIVERY}
