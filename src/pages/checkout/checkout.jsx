@@ -147,7 +147,6 @@ class Checkout extends Component {
 
   render() {
     const props = this.props;
-    const contentStyle = this.state.isScrolled ? 'content-scrolled' : 'content';
 
     return (
       <section styleName="checkout">

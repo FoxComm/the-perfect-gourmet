@@ -38,14 +38,14 @@ class Shipping extends Component {
   editAddress() {
     this.setState({
       isEditing: true,
-    })
+    });
   }
 
   @autobind
   saveAddress() {
     this.setState({
       isEditing: false,
-    })
+    });
   }
 
   renderAddresses() {
@@ -65,7 +65,7 @@ class Shipping extends Component {
           title={t('SHIPPING')}
           content={content}
           key={`address-${key}`}
-          editAction={(address) => this.editAddress(address)}
+          editAction={(adr) => this.editAddress(adr)}
         />
       );
     });
@@ -85,7 +85,7 @@ class Shipping extends Component {
         <ErrorAlerts error={this.props.error} />
         <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
       </Form>
-    )
+    );
   }
 
   renderList() {
@@ -101,7 +101,23 @@ class Shipping extends Component {
     );
   }
 
+  renderSavedAddress(address) {
+    const { t } = this.props;
+
+    return (
+      <EditableBlock
+        isEditing={false}
+        styleName="checkout-block"
+        title={t('SHIPPING')}
+        content={<ViewAddress { ...address } />}
+      />
+    );
+  }
+
   render() {
+    const addressIsSet = _.find(this.props.addresses, (adr) => adr.isDefault === true);
+    if (addressIsSet) return this.renderSavedAddress(addressIsSet);
+
     return this.state.isEditing ? this.renderEditingForm() : this.renderList();
   }
 }
