@@ -2,7 +2,7 @@
 
 /* eslint camelcase: 0 */
 
-const _ = require('lodash');
+// const _ = require('lodash');
 const child_process = require('child_process');
 const runSequence = require('run-sequence');
 
@@ -25,8 +25,9 @@ module.exports = function(gulp) {
     }
   }
 
-  let affectTasksRunning = 0;
+  const affectTasksRunning = 0;
 
+  /*
   function checkForPause(e) {
     if (e.task in affectsServerTasks) {
       affectTasksRunning++;
@@ -45,7 +46,7 @@ module.exports = function(gulp) {
         });
       }
     }
-  }
+  }*/
 
   gulp.task('server.stop', killServer);
 
