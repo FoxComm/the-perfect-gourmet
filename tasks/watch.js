@@ -10,5 +10,5 @@ module.exports = function(gulp) {
     return acc;
   }, []);
 
-  gulp.task('watch', watchTasks);
+  gulp.task('watch', watchTasks.concat('browserSync'));
 };
