@@ -21,8 +21,20 @@ import { fetchAddresses } from 'modules/checkout';
 // types
 import type { CheckoutBlockProps } from '../types';
 
+type Props = {
+  addresses: Array<any>,
+  collapsed: boolean,
+  continueAction: Function,
+  editAction: Function,
+  error: Array<any>,
+  fetchAddresses: Function,
+  inProgress: boolean,
+  isEditing: boolean,
+  t: any,
+};
+
 class Shipping extends Component {
-  props: CheckoutBlockProps;
+  props: Props;
 
   state = {
     isEditing: false,
@@ -32,17 +44,14 @@ class Shipping extends Component {
     this.props.fetchAddresses();
   }
 
-  @autobind
-  editAddress() {
-    this.setState({isEditing: true})
-  }
-
   content() {
     const savedAddress = _.find(this.props.addresses, (adr) => adr.isDefault === true);
-    if (savedAddress && !this.state.isEditing) return <ViewAddress { ...savedAddress } />;
+    if (savedAddress && !this.props.isEditing) return <ViewAddress { ...savedAddress } />;
+
+    const activeAddress = _.get(savedAddress, 'id');
 
     return (
-      <AddressList { ...this.props }/>
+      <AddressList { ...this.props } activeAddress={activeAddress}/>
     );
   }
 
@@ -52,11 +61,11 @@ class Shipping extends Component {
 
     return (
       <EditableBlock
-        isEditing={this.state.isEditing}
+        isEditing={this.props.isEditing}
         styleName="checkout-block"
         title={t('SHIPPING')}
         content={this.content()}
-        editAction={this.editAddress}
+        editAction={this.props.editAction}
       />
     );
   }

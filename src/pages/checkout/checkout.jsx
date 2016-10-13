@@ -25,6 +25,7 @@ type Props = CheckoutState & {
   setEditStage: (stage: EditStage) => Object,
   saveShippingAddress: () => PromiseType,
   saveShippingMethod: () => PromiseType,
+  setDefaultAddress: () => PromiseType,
   fetchCart: () => PromiseType,
   addCreditCard: () => PromiseType,
   checkout: () => PromiseType,
@@ -108,9 +109,9 @@ class Checkout extends Component {
   }
 
   @autobind
-  setDeliveryStage() {
+  setDeliveryStage(id) {
     this.performStageTransition('shippingInProgress', () => {
-      return this.props.saveShippingAddress().then(() => {
+      return this.props.setDefaultAddress(id).then(() => {
         this.props.setEditStage(EditStages.DELIVERY);
       });
     });

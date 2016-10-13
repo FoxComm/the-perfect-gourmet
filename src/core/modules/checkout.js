@@ -167,6 +167,15 @@ export function saveCouponCode(code: string): Function {
   };
 }
 
+export function setDefaultAddress(id: number): Function {
+  return (dispatch, getState, api) => {
+    return api.post(`/v1/my/addresses/${id}/default`)
+      .then(() => {
+        dispatch(fetchAddresses());
+      });
+  };
+}
+
 export function addCreditCard(): Function {
   return (dispatch, getState) => {
     const creditCard = getState().cart.creditCard;
