@@ -20,7 +20,7 @@ import { AddressKind } from 'modules/checkout';
 import styles from '../checkout.css';
 
 type Props = {
-  activeAddress?: number,
+  activeAddress?: number|string,
   addresses: Array<any>,
   collapsed: boolean,
   continueAction: Function,

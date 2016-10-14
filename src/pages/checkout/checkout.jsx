@@ -109,9 +109,9 @@ class Checkout extends Component {
   }
 
   @autobind
-  setDeliveryStage(id) {
+  setDeliveryStage() {
     this.performStageTransition('shippingInProgress', () => {
-      return this.props.setDefaultAddress(id).then(() => {
+      return this.props.saveShippingAddress().then(() => {
         this.props.setEditStage(EditStages.DELIVERY);
       });
     });
@@ -170,6 +170,7 @@ class Checkout extends Component {
               error={this.errorsFor(EditStages.SHIPPING)}
               addresses={this.props.addresses}
               fetchAddresses={this.props.fetchAddresses}
+              shippingAddress={this.props.shippingAddress}
             />
             <Delivery
               isEditing={props.editStage == EditStages.DELIVERY}

@@ -26,7 +26,6 @@ type Props = {
   collapsed: boolean,
   continueAction: Function,
   editAction: Function,
-  error: Array<any>,
   fetchAddresses: Function,
   inProgress: boolean,
   isEditing: boolean,
@@ -48,7 +47,7 @@ class Shipping extends Component {
     const savedAddress = _.find(this.props.addresses, (adr) => adr.isDefault === true);
     if (savedAddress && !this.props.isEditing) return <ViewAddress { ...savedAddress } />;
 
-    const activeAddress = _.get(savedAddress, 'id');
+    const activeAddress = _.get(savedAddress, 'id', '');
 
     return (
       <AddressList { ...this.props } activeAddress={activeAddress}/>
