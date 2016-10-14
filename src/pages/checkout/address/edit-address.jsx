@@ -50,8 +50,8 @@ export default class EditAddress extends Component {
   lookupXhr: ?XMLHttpRequest;
 
   componentDidMount() {
-    const { initAddressData, addressKind } = this.props;
-    initAddressData(addressKind);
+    const { initAddressData, addressKind, address } = this.props;
+    initAddressData(addressKind, address);
   }
 
   setAddressData(key, value) {

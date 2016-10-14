@@ -32,6 +32,7 @@ type Props = CheckoutState & {
   hideCart: () => PromiseType,
   addresses: Array<any>,
   fetchAddresses: Function,
+  updateAddress: Function,
 };
 
 function isDeliveryDirty(state) {
@@ -109,9 +110,9 @@ class Checkout extends Component {
   }
 
   @autobind
-  setDeliveryStage() {
+  setDeliveryStage(id) {
     this.performStageTransition('shippingInProgress', () => {
-      return this.props.saveShippingAddress().then(() => {
+      return this.props.saveShippingAddress(id).then(() => {
         this.props.setEditStage(EditStages.DELIVERY);
       });
     });
@@ -171,6 +172,7 @@ class Checkout extends Component {
               addresses={this.props.addresses}
               fetchAddresses={this.props.fetchAddresses}
               shippingAddress={this.props.shippingAddress}
+              updateAddress={this.props.updateAddress}
             />
             <Delivery
               isEditing={props.editStage == EditStages.DELIVERY}

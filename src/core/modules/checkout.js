@@ -76,11 +76,9 @@ export const fetchCreditCards = creditCardsActions.fetch;
 export const fetchAddresses = addressesActions.fetch;
 export const toggleSeparateBillingAddress = createAction('CHECKOUT_TOGGLE_BILLING_ADDRESS');
 
-export function initAddressData(kind: AddressKindType): Function {
+export function initAddressData(kind: AddressKindType, savedAddress): Function {
   return (dispatch, getState) => {
     const state = getState();
-
-    const shippingAddress = getState().cart.shippingAddress;
 
     const countries = state.countries.list;
 
@@ -92,13 +90,13 @@ export function initAddressData(kind: AddressKindType): Function {
       state: countryDetails.regions[0],
     };
 
-    if (kind == AddressKind.SHIPPING && shippingAddress && shippingAddress.region) {
-      dispatch(fetchCountry(shippingAddress.region.countryId)).then(() => {
-        const countryInfo = getState().countries.details[shippingAddress.region.countryId];
+    if (kind == AddressKind.SHIPPING && savedAddress && savedAddress.region) {
+      dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
+        const countryInfo = getState().countries.details[savedAddress.region.countryId];
 
-        uiAddressData = _.pick(shippingAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
+        uiAddressData = _.pick(savedAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
         uiAddressData.country = countryInfo;
-        uiAddressData.state = _.find(countryInfo.regions, { id: shippingAddress.region.id });
+        uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
 
         dispatch(extendAddressData(kind, uiAddressData));
       });
@@ -122,12 +120,11 @@ function addressToPayload(address, countries = []) {
   return payload;
 }
 
-export function saveShippingAddress(): Function {
+export function saveShippingAddress(id): Function {
   return (dispatch, getState, api) => {
-    const shippingAddress = getState().checkout.shippingAddress;
-    const payload = addressToPayload(shippingAddress);
+    const address = getState().checkout.addresses[id];
 
-    return api.post('/v1/my/cart/shipping-address', payload)
+    return api.patch(`/v1/my/cart/shipping-address/${id}`, address)
       .then(res => {
         dispatch(updateCart(res.result));
       });
@@ -167,9 +164,12 @@ export function saveCouponCode(code: string): Function {
   };
 }
 
-export function setDefaultAddress(id: number): Function {
+export function updateAddress(id: number): Function {
   return (dispatch, getState, api) => {
-    return api.post(`/v1/my/addresses/${id}/default`)
+    const shippingAddress = getState().checkout.shippingAddress;
+    const payload = addressToPayload(shippingAddress);
+
+    return api.patch(`/v1/my/addresses/${id}`, payload)
       .then(() => {
         dispatch(fetchAddresses());
       });

@@ -34,31 +34,40 @@ class AddressList extends Component {
   props: Props;
 
   state = {
-    isEditing: false,
+    isEditing: {},
     activeAddress: this.props.activeAddress,
   };
 
   @autobind
-  editAddress() {
+  editAddress(address) {
     this.setState({
-      isEditing: true,
+      isEditing: address,
+    });
+  }
+
+  @autobind
+  finishEditingAddress(id) {
+    this.props.updateAddress(id).then(() => {
+      this.setState({
+        isEditing: {},
+      });
     });
   }
 
   @autobind
   saveAddress() {
     this.setState({
-      isEditing: false,
+      isEditing: {},
     });
 
-    this.props.continueAction(this.state.activeAddress)
+    this.props.continueAction(this.state.activeAddress);
   }
 
   @autobind
   chooseAddress(id) {
     this.setState({
       activeAddress: id,
-    })
+    });
   }
 
   renderAddresses() {
@@ -81,11 +90,11 @@ class AddressList extends Component {
           onChange={() => this.chooseAddress(address.id)}
         >
           <EditableBlock
-            isEditing={this.state.isEditing}
+            isEditing={!_.isEmpty(this.state.isEditing)}
             styleName="checkout-block"
             title={t('SHIPPING')}
             content={content}
-            editAction={(adr) => this.editAddress(adr)}
+            editAction={() => this.editAddress(address)}
           />
         </RadioButton>
       );
@@ -96,12 +105,12 @@ class AddressList extends Component {
     );
   }
 
-  renderEditingForm() {
+  renderEditingForm(address) {
     const { t } = this.props;
 
     return (
-      <Form onSubmit={this.saveAddress}>
-        <EditAddress {...this.props} addressKind={AddressKind.SHIPPING} />
+      <Form onSubmit={() => this.finishEditingAddress(address.id)}>
+        <EditAddress {...this.props} address={address} addressKind={AddressKind.SHIPPING} />
 
         <ErrorAlerts error={this.props.error} />
         <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
@@ -123,7 +132,7 @@ class AddressList extends Component {
   }
 
   render() {
-    return this.state.isEditing ? this.renderEditingForm() : this.renderList();
+    return !_.isEmpty(this.state.isEditing) ? this.renderEditingForm(this.state.isEditing) : this.renderList();
   }
 }
 
