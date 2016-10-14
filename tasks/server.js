@@ -2,7 +2,7 @@
 
 /* eslint camelcase: 0 */
 
-// const _ = require('lodash');
+const _ = require('lodash');
 const child_process = require('child_process');
 const runSequence = require('run-sequence');
 
@@ -25,9 +25,9 @@ module.exports = function(gulp) {
     }
   }
 
-  const affectTasksRunning = 0;
+  let affectTasksRunning = 0;
 
-  /*
+
   function checkForPause(e) {
     if (e.task in affectsServerTasks) {
       affectTasksRunning++;
@@ -46,7 +46,7 @@ module.exports = function(gulp) {
         });
       }
     }
-  }*/
+  }
 
   gulp.task('server.stop', killServer);
 
@@ -58,12 +58,14 @@ module.exports = function(gulp) {
     }
   });
 
-  gulp.task('server.start', function() {
+  gulp.task('server.start', function (cb) {
     if (node) {
       console.warn('Server already started');
     } else {
       node = child_process.fork('server/boot.js');
     }
+
+    cb();
   });
 
   gulp.task('server', function(cb) {
@@ -78,13 +80,13 @@ module.exports = function(gulp) {
     runSequence('server', cb);
   });
 
-  // gulp.task('server.watch', function() {
-  //   gulp.on('task_start', checkForPause);
-  //   gulp.on('task_err', checkForResume);
-  //   gulp.on('task_stop', checkForResume);
-  // });
+  gulp.task('server.watch', function() {
+    // gulp.on('task_start', checkForPause);
+    // gulp.on('task_err', checkForResume);
+    // gulp.on('task_stop', checkForResume);
+    gulp.watch(['server/**/*.js', 'public/app.js'], ['server.restart']);
+  });
 
-  gulp.watch(['server/**.*.js', 'src/server.jsx'], ['server.restart']);
 
   function silentlyKill() {
     if (node) node.kill();

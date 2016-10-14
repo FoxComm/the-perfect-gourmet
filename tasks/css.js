@@ -2,13 +2,9 @@ const browserSync = require('browser-sync');
 
 module.exports = function(gulp, $) {
   const src = [
-    // 'src/css/fonts.css',
     'node_modules/evil-icons/assets/evil-icons.css',
-    // 'src/css/reset.css',
-    // 'src/css/inputs.css',
     'node_modules/wings/lib/bundle.css',
     'build/bundle.css',
-    // 'public/app.css',
     'src/**/*.css',
   ];
 
