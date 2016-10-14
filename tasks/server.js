@@ -84,7 +84,7 @@ module.exports = function(gulp) {
     // gulp.on('task_start', checkForPause);
     // gulp.on('task_err', checkForResume);
     // gulp.on('task_stop', checkForResume);
-    gulp.watch(['server/**/*.js', 'public/app.js'], ['server.restart']);
+    gulp.watch(['server/**/*.js', /*'public/app.js'*/], ['server.restart']);
   });
 
 
