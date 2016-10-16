@@ -17,7 +17,7 @@ import RadioButton from 'ui/radiobutton/radiobutton';
 import { AddressKind } from 'modules/checkout';
 
 // styles
-import styles from '../checkout.css';
+import styles from './address-list.css';
 
 type Props = {
   activeAddress?: number|string,
@@ -91,7 +91,7 @@ class AddressList extends Component {
         >
           <EditableBlock
             isEditing={!_.isEmpty(this.state.isEditing)}
-            styleName="checkout-block"
+            styleName="item-content"
             title={t('SHIPPING')}
             content={content}
             editAction={() => this.editAddress(address)}

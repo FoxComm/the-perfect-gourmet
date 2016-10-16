@@ -1,0 +1,7 @@
+.item-content {
+  padding: 0;
+}
+
+.checkout-submit {
+  composes: checkout-submit from '../checkout.css';
+}

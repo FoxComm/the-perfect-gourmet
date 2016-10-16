@@ -9,20 +9,20 @@ import styles from './radiobutton.css';
 // types
 import type { HTMLElement } from 'types';
 
-type CheckboxProps = {
+type Props = {
   id: string|number,
   children?: HTMLElement|string,
   className?: string,
 };
 
-const Checkbox = (props: CheckboxProps) => {
+const Radiobutton = (props: Props) => {
   const { children, className, ...rest } = props;
   return (
-    <div className={className}>
-      <input type="radio" styleName="radiobutton" {...rest} />
-      <label htmlFor={props.id}>{children}</label>
+    <div styleName="radiobutton" className={className}>
+      <input styleName="input" type="radio" {...rest} />
+      <label styleName="label" htmlFor={props.id}>{children}</label>
     </div>
   );
 };
 
-export default Checkbox;
+export default Radiobutton;
