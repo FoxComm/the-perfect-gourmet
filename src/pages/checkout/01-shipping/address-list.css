@@ -20,6 +20,18 @@
   composes: checkout-submit from '../checkout.css';
 }
 
+.form-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-link {
+  padding: 1.71em 0;
+  color: #8D757A;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
 .legend {
   padding: 1.71em 0;
   font-weight: 300;

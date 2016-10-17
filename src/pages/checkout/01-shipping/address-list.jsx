@@ -105,16 +105,26 @@ class AddressList extends Component {
     );
   }
 
+  @autobind
+  calcelEditing() {
+    this.setState({
+      isEditing: {},
+    });
+  }
+
   renderEditingForm(address) {
-    const { t } = this.props;
 
     return (
       <Form onSubmit={() => this.finishEditingAddress(address.id)}>
+        <div styleName="form-header">
+          <legend styleName="legend">EDIT ADDRESS</legend>
+          <span styleName="action-link" onClick={this.calcelEditing}>Cancel</span>
+        </div>
         <EditAddress {...this.props} address={address} addressKind={AddressKind.SHIPPING} />
 
         <ErrorAlerts error={this.props.error} />
         <div styleName="button-wrap">
-          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
+          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">Save & Continue</Button>
         </div>
       </Form>
     );
