@@ -5,6 +5,37 @@
 
 .checkout {
   width: 100%;
+  counter-reset: item;
+}
+
+.checkout-block {
+  margin-bottom: 10px;
+  padding: 0 20px;
+  background: var(--color-panels-bg);
+
+  & > header {
+    height: 4.62em;
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: 0.9px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+
+    &:only-child {
+      border-bottom: none;
+    }
+
+    & > h3 {
+      font-weight: 600;
+
+      &:before {
+        content: counter(item) "";
+        counter-increment: item;
+        margin-right: .4em;
+        font-weight: 300;
+      }
+    }
+  }
 }
 
 @media (--small-only), (--medium-only) {
@@ -35,17 +66,14 @@
   .forms {
     lost-column: 6/10;
   }
-}
 
-.checkout-block {
-  composes: editable-block from "ui/editable-block/editable-block.css";
-  width: 100%;
-  margin-bottom: 20px;
-  padding-bottom: 30px;
-}
+  .checkout-block {
+    margin-bottom: 20px;
 
-.checkout-block-content {
-  margin-top: 25px;
+    & header {
+      font-size: 15px;
+    }
+  }
 }
 
 .union-fields {
@@ -163,7 +191,6 @@
 }
 
 .gift-card-content {
-  composes: checkout-block-content;
   display: flex;
 }
 

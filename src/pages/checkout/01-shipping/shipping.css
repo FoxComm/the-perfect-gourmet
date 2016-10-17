@@ -1,0 +1,5 @@
+@import "colors.css";
+
+.shipping {
+  composes: checkout-block from '../checkout.css';
+}

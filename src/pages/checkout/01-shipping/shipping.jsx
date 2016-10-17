@@ -10,7 +10,7 @@ import ViewAddress from '../address/view-address';
 import AddressList from './address-list';
 
 // styles
-import styles from '../checkout.css';
+import styles from './shipping.css';
 
 type Props = {
   addresses: Array<any>,
@@ -21,6 +21,7 @@ type Props = {
   inProgress: boolean,
   isEditing: boolean,
   t: any,
+  shippingAddress: Object,
 };
 
 class Shipping extends Component {
@@ -31,8 +32,11 @@ class Shipping extends Component {
   }
 
   content() {
-    const savedAddress = _.find(this.props.addresses, (adr) => adr.isDefault === true);
-    if (savedAddress && !this.props.isEditing) return <ViewAddress { ...savedAddress } />;
+    // const savedAddress = _.find(this.props.addresses, (adr) => adr.isDefault === true);
+    // TODO: add savedAddress
+
+    const savedAddress = this.props.shippingAddress;
+    if (!_.isEmpty(savedAddress) && !this.props.isEditing) return <ViewAddress { ...savedAddress } />;
 
     const activeAddress = _.get(savedAddress, 'id', '');
 
@@ -45,13 +49,15 @@ class Shipping extends Component {
     const { t } = this.props;
 
     return (
-      <EditableBlock
-        isEditing={this.props.isEditing}
-        styleName="checkout-block"
-        title={t('SHIPPING')}
-        content={this.content()}
-        editAction={this.props.editAction}
-      />
+      <div >
+        <EditableBlock
+          isEditing={this.props.isEditing}
+          styleName="shipping"
+          title={t('SHIPPING')}
+          content={this.content()}
+          editAction={this.props.editAction}
+        />
+      </div>
     );
   }
 }

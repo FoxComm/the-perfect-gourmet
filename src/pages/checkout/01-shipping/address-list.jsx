@@ -71,14 +71,12 @@ class AddressList extends Component {
   }
 
   renderAddresses() {
-    const { t } = this.props;
-
     if (_.isEmpty(this.props.addresses)) {
       return <EditAddress {...this.props} addressKind={AddressKind.SHIPPING} />;
     }
 
     const items = _.map(this.props.addresses, (address, key) => {
-      const content = <ViewAddress { ...address } />;
+      const content = <ViewAddress { ...address } hideName />;
       const checked = address.id === this.state.activeAddress;
 
       return (
@@ -92,7 +90,7 @@ class AddressList extends Component {
           <EditableBlock
             isEditing={!_.isEmpty(this.state.isEditing)}
             styleName="item-content"
-            title={t('SHIPPING')}
+            title={address.name}
             content={content}
             editAction={() => this.editAddress(address)}
           />

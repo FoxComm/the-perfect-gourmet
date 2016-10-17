@@ -2,7 +2,7 @@
 @import "colors.css";
 
 .order-summary {
-  composes: checkout-block from "../checkout.css";
+  width: 100%;
   margin: 0;
   padding: 0;
   background: #FFFFFF;

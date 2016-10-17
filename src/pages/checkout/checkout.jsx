@@ -33,23 +33,8 @@ type Props = CheckoutState & {
   addresses: Array<any>,
   fetchAddresses: Function,
   updateAddress: Function,
+  shippingAddress: Object,
 };
-
-function isDeliveryDirty(state) {
-  return !!state.cart.shippingMethod;
-}
-
-function isBillingDirty(state) {
-  return !_.isEmpty(state.checkout.billingData) || !_.isEmpty(state.checkout.billingAddress);
-}
-
-function mapStateToProps(state) {
-  return {
-    ...state.checkout,
-    isBillingDirty: isBillingDirty(state),
-    isDeliveryDirty: isDeliveryDirty(state),
-  };
-}
 
 class Checkout extends Component {
   props: Props;
@@ -197,6 +182,23 @@ class Checkout extends Component {
       </section>
     );
   }
+}
+
+function isDeliveryDirty(state) {
+  return !!state.cart.shippingMethod;
+}
+
+function isBillingDirty(state) {
+  return !_.isEmpty(state.checkout.billingData) || !_.isEmpty(state.checkout.billingAddress);
+}
+
+function mapStateToProps(state) {
+  return {
+    ...state.checkout,
+    ...state.cart.shippingAddress,
+    isBillingDirty: isBillingDirty(state),
+    isDeliveryDirty: isDeliveryDirty(state),
+  };
 }
 
 export default connect(mapStateToProps, { ...actions, fetchCart, hideCart })(Checkout);
