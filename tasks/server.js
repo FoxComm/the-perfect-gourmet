@@ -12,7 +12,7 @@ function affectsServer(task) {
   affectsServerTasks[task] = 1;
 }
 
-module.exports = function(gulp) {
+module.exports = function (gulp, $, opts) {
   let node = null;
 
   function killServer(cb) {
@@ -81,12 +81,13 @@ module.exports = function(gulp) {
   });
 
   gulp.task('server.watch', function() {
-    // gulp.on('task_start', checkForPause);
-    // gulp.on('task_err', checkForResume);
-    // gulp.on('task_stop', checkForResume);
-    gulp.watch(['server/**/*.js', /*'public/app.js'*/], ['server.restart']);
+    if (!opts.enableBrowserSync) {
+      gulp.on('task_start', checkForPause);
+      gulp.on('task_err', checkForResume);
+      gulp.on('task_stop', checkForResume);
+      gulp.watch(['server/**/*.js', 'src/server.jsx'], ['server.restart']);
+    }
   });
-
 
   function silentlyKill() {
     if (node) node.kill();
