@@ -33,7 +33,7 @@ type Props = CheckoutState & {
   addresses: Array<any>,
   fetchAddresses: Function,
   updateAddress: Function,
-  shippingAddress: Object,
+  cart: Object,
 };
 
 class Checkout extends Component {
@@ -156,7 +156,7 @@ class Checkout extends Component {
               error={this.errorsFor(EditStages.SHIPPING)}
               addresses={this.props.addresses}
               fetchAddresses={this.props.fetchAddresses}
-              shippingAddress={this.props.shippingAddress}
+              shippingAddress={this.props.cart.shippingAddress}
               updateAddress={this.props.updateAddress}
             />
             <Delivery
@@ -195,7 +195,7 @@ function isBillingDirty(state) {
 function mapStateToProps(state) {
   return {
     ...state.checkout,
-    ...state.cart.shippingAddress,
+    cart: state.cart,
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
   };

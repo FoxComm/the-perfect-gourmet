@@ -3,3 +3,13 @@
 .shipping {
   composes: checkout-block from '../checkout.css';
 }
+
+.savedAddress {
+  padding: 15px 0;
+  line-height: 1.6;
+  text-align: center;
+
+  & li:first-child {
+    font-weight: 500;
+  }
+}

@@ -80,26 +80,28 @@ class AddressList extends Component {
       const checked = address.id === this.state.activeAddress;
 
       return (
-        <RadioButton
-          id={`address-radio-${key}`}
-          key={`address-radio-${key}`}
-          name={`address-radio-${key}`}
-          checked={checked}
-          onChange={() => this.chooseAddress(address.id)}
-        >
-          <EditableBlock
-            isEditing={!_.isEmpty(this.state.isEditing)}
-            styleName="item-content"
-            title={address.name}
-            content={content}
-            editAction={() => this.editAddress(address)}
-          />
-        </RadioButton>
+        <li styleName="item">
+          <RadioButton
+            id={`address-radio-${key}`}
+            key={`address-radio-${key}`}
+            name={`address-radio-${key}`}
+            checked={checked}
+            onChange={() => this.chooseAddress(address.id)}
+          >
+            <EditableBlock
+              isEditing={!_.isEmpty(this.state.isEditing)}
+              styleName="item-content"
+              title={address.name}
+              content={content}
+              editAction={() => this.editAddress(address)}
+            />
+          </RadioButton>
+        </li>
       );
     });
 
     return (
-      <div>{items}</div>
+      <ul styleName="list">{items}</ul>
     );
   }
 
@@ -111,7 +113,9 @@ class AddressList extends Component {
         <EditAddress {...this.props} address={address} addressKind={AddressKind.SHIPPING} />
 
         <ErrorAlerts error={this.props.error} />
-        <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
+        <div styleName="button-wrap">
+          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('SAVE')}</Button>
+        </div>
       </Form>
     );
   }
@@ -121,10 +125,13 @@ class AddressList extends Component {
 
     return (
       <Form onSubmit={this.saveAddress}>
+        <legend styleName="legend">SHIPPING ADDRESS</legend>
         {this.renderAddresses()}
 
         <ErrorAlerts error={this.props.error} />
-        <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
+        <div styleName="button-wrap">
+          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
+        </div>
       </Form>
     );
   }

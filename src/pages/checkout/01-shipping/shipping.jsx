@@ -21,7 +21,7 @@ type Props = {
   inProgress: boolean,
   isEditing: boolean,
   t: any,
-  shippingAddress: Object,
+  shippingAddress?: Object,
 };
 
 class Shipping extends Component {
@@ -36,7 +36,9 @@ class Shipping extends Component {
     // TODO: add savedAddress
 
     const savedAddress = this.props.shippingAddress;
-    if (!_.isEmpty(savedAddress) && !this.props.isEditing) return <ViewAddress { ...savedAddress } />;
+    if (!_.isEmpty(savedAddress) && !this.props.isEditing) return (
+      <ViewAddress { ...savedAddress } styleName="savedAddress"/>
+    );
 
     const activeAddress = _.get(savedAddress, 'id', '');
 

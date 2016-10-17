@@ -135,13 +135,17 @@ function totalSkuQuantity(cart) {
 }
 
 function updateCartState(state, cart) {
+  console.log(cart);
+
   const data = getLineItems(cart);
   const quantity = totalSkuQuantity(cart);
+  const shippingAddress = _.get(cart, 'shippingAddress', {});
 
   return {
     ...state,
     skus: data,
     quantity,
+    shippingAddress,
     ...cart,
   };
 }
