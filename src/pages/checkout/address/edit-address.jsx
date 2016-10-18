@@ -1,17 +1,24 @@
 
+// libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from '../checkout.css';
 import { autobind, debounce } from 'core-decorators';
 import { connect } from 'react-redux';
 
+// localization
 import localized from 'lib/i18n';
 import type { Localized } from 'lib/i18n';
 
+// components
 import { TextInput } from 'ui/inputs';
 import { FormField } from 'ui/forms';
 import Autocomplete from 'ui/autocomplete';
+import Checkbox from 'ui/checkbox';
 
+// styles
+import styles from '../checkout.css';
+
+// actions
 import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
 
@@ -110,12 +117,27 @@ export default class EditAddress extends Component {
     this.setAddressData('state', item);
   }
 
+  @autobind
+  changeDefault(value) {
+    this.setAddressData('isDefault', value);
+  }
+
   render() {
     const props: EditShippingProps = this.props;
     const { countries, selectedCountry, data, t } = props;
+    const checked = _.get(data, 'isDefault', false);
 
     return (
       <div styleName="checkout-form">
+        <Checkbox
+          name="isDefault"
+          checked={checked}
+          onChange={({target}) => this.changeDefault(target.checked)}
+          id="set-default-address"
+        >
+          Make this address my default
+        </Checkbox>
+
         <FormField styleName="text-field">
           <TextInput required
             name="name" placeholder={t('FIRST & LAST NAME')} value={data.name} onChange={this.changeFormData}

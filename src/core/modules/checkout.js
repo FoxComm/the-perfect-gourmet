@@ -94,7 +94,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
       dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
         const countryInfo = getState().countries.details[savedAddress.region.countryId];
 
-        uiAddressData = _.pick(savedAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
+        uiAddressData = _.pick(savedAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber', 'isDefault']);
         uiAddressData.country = countryInfo;
         uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
 
@@ -107,7 +107,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
 }
 
 function addressToPayload(address, countries = []) {
-  const payload = _.pick(address, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
+  const payload = _.pick(address, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber', 'isDefault']);
   payload.phoneNumber = String(payload.phoneNumber);
   payload.regionId = _.get(address, 'region.id', _.get(address, 'state.id', ''));
 
@@ -164,21 +164,37 @@ export function saveCouponCode(code: string): Function {
   };
 }
 
+function createOrUpdateAddress(api, payload, id) {
+  if (id) {
+    return api.patch(`/v1/my/addresses/${id}`, payload);
+  }
+  return api.post(`/v1/my/addresses`, payload);
+}
+
+function setDefaultAddress(id: number): Function {
+  return (dispatch, getState, api) => {
+    console.log(id);
+    return api.post(`/v1/my/addresses/${id}/default`)
+      .then(() => {
+        dispatch(fetchAddresses());
+      });
+  };
+}
+
 export function updateAddress(id?: number): Function {
   return (dispatch, getState, api) => {
     const shippingAddress = getState().checkout.shippingAddress;
     const payload = addressToPayload(shippingAddress);
 
-    if (id) {
-      return api.patch(`/v1/my/addresses/${id}`, payload)
-        .then(() => {
+    return createOrUpdateAddress(api, payload, id)
+      .then((address) => {
+        console.log(address);
+        if (payload.isDefault) {
+          console.log(payload);
+          dispatch(setDefaultAddress(address.id));
+        } else {
           dispatch(fetchAddresses());
-        });
-    }
-
-    return api.post(`/v1/my/addresses`, payload)
-      .then(() => {
-        dispatch(fetchAddresses());
+        }
       });
   };
 }
