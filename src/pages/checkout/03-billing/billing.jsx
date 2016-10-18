@@ -14,7 +14,7 @@ import { api as foxApi } from 'lib/api';
 import { Form, FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import Button from 'ui/buttons';
-import Checkbox from 'ui/checkbox';
+import Checkbox from 'ui/checkbox/checkbox';
 import EditableBlock from 'ui/editable-block';
 import Autocomplete from 'ui/autocomplete';
 import InputMask from 'react-input-mask';

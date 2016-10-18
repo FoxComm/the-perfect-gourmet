@@ -94,7 +94,15 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
       dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
         const countryInfo = getState().countries.details[savedAddress.region.countryId];
 
-        uiAddressData = _.pick(savedAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber', 'isDefault']);
+        uiAddressData = _.pick(savedAddress, [
+          'name',
+          'address1',
+          'address2',
+          'city',
+          'zip',
+          'phoneNumber',
+          'isDefault'
+        ]);
         uiAddressData.country = countryInfo;
         uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
 
@@ -173,7 +181,6 @@ function createOrUpdateAddress(api, payload, id) {
 
 function setDefaultAddress(id: number): Function {
   return (dispatch, getState, api) => {
-    console.log(id);
     return api.post(`/v1/my/addresses/${id}/default`)
       .then(() => {
         dispatch(fetchAddresses());
@@ -188,9 +195,7 @@ export function updateAddress(id?: number): Function {
 
     return createOrUpdateAddress(api, payload, id)
       .then((address) => {
-        console.log(address);
         if (payload.isDefault) {
-          console.log(payload);
           dispatch(setDefaultAddress(address.id));
         } else {
           dispatch(fetchAddresses());

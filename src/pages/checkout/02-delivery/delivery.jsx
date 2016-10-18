@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import localized from 'lib/i18n';
 
 import Button from 'ui/buttons';
-import Checkbox from 'ui/checkbox';
+import Checkbox from 'ui/checkbox/checkbox';
 import EditableBlock from 'ui/editable-block';
 import { Form } from 'ui/forms';
 import Currency from 'ui/currency';

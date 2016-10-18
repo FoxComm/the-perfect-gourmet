@@ -13,7 +13,7 @@ import type { Localized } from 'lib/i18n';
 import { TextInput } from 'ui/inputs';
 import { FormField } from 'ui/forms';
 import Autocomplete from 'ui/autocomplete';
-import Checkbox from 'ui/checkbox';
+import Checkbox from 'ui/checkbox/checkbox';
 
 // styles
 import styles from '../checkout.css';
@@ -130,6 +130,7 @@ export default class EditAddress extends Component {
     return (
       <div styleName="checkout-form">
         <Checkbox
+          styleName="checkbox-field"
           name="isDefault"
           checked={checked}
           onChange={({target}) => this.changeDefault(target.checked)}
