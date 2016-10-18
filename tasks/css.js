@@ -5,7 +5,8 @@ module.exports = function(gulp, $) {
     'node_modules/evil-icons/assets/evil-icons.css',
     'node_modules/wings/lib/bundle.css',
     'build/bundle.css',
-    'src/**/*.css',
+    'src/css/fonts.css',
+    'src/css/reset.css',
   ];
 
   gulp.task('css', function() {
