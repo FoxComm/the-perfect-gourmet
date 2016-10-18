@@ -44,6 +44,12 @@ class AddressList extends Component {
     isEditFormActive: false,
   };
 
+  componentWillMount() {
+    if (_.isEmpty(this.props.addresses)) {
+      this.addAddress();
+    }
+  }
+
   @autobind
   editAddress(address) {
     this.setState({
@@ -82,10 +88,6 @@ class AddressList extends Component {
   }
 
   renderAddresses() {
-    if (_.isEmpty(this.props.addresses)) {
-      return <EditAddress {...this.props} addressKind={AddressKind.SHIPPING} />;
-    }
-
     const items = _.map(this.props.addresses, (address, key) => {
       const content = <ViewAddress { ...address } hideName />;
       const checked = address.id === this.state.activeAddress;
