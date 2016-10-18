@@ -164,12 +164,19 @@ export function saveCouponCode(code: string): Function {
   };
 }
 
-export function updateAddress(id: number): Function {
+export function updateAddress(id?: number): Function {
   return (dispatch, getState, api) => {
     const shippingAddress = getState().checkout.shippingAddress;
     const payload = addressToPayload(shippingAddress);
 
-    return api.patch(`/v1/my/addresses/${id}`, payload)
+    if (id) {
+      return api.patch(`/v1/my/addresses/${id}`, payload)
+        .then(() => {
+          dispatch(fetchAddresses());
+        });
+    }
+
+    return api.post(`/v1/my/addresses`, payload)
       .then(() => {
         dispatch(fetchAddresses());
       });

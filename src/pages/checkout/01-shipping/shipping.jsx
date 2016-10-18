@@ -36,9 +36,12 @@ class Shipping extends Component {
     // TODO: add savedAddress
 
     const savedAddress = this.props.shippingAddress;
-    if (!_.isEmpty(savedAddress) && !this.props.isEditing) return (
-      <ViewAddress { ...savedAddress } styleName="savedAddress"/>
-    );
+
+    if (!_.isEmpty(savedAddress) && !this.props.isEditing) {
+      return (
+        <ViewAddress { ...savedAddress } styleName="savedAddress"/>
+      );
+    }
 
     const activeAddress = _.get(savedAddress, 'id', '');
 

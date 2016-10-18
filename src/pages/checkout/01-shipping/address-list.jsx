@@ -26,22 +26,36 @@ type Props = {
   continueAction: Function,
   editAction: Function,
   inProgress: boolean,
-  isEditing: boolean,
   t: any,
+};
+
+type State = {
+  addressToEdit: Object,
+  isEditFormActive: boolean,
+  activeAddress?: number|string,
 };
 
 class AddressList extends Component {
   props: Props;
 
-  state = {
-    isEditing: {},
+  state: State = {
+    addressToEdit: {},
     activeAddress: this.props.activeAddress,
+    isEditFormActive: false,
   };
 
   @autobind
   editAddress(address) {
     this.setState({
-      isEditing: address,
+      addressToEdit: address,
+      isEditFormActive: true,
+    });
+  }
+
+  @autobind
+  addAddress() {
+    this.setState({
+      isEditFormActive: true,
     });
   }
 
@@ -49,25 +63,22 @@ class AddressList extends Component {
   finishEditingAddress(id) {
     this.props.updateAddress(id).then(() => {
       this.setState({
-        isEditing: {},
+        addressToEdit: {},
+        isEditFormActive: false,
       });
     });
   }
 
   @autobind
-  saveAddress() {
-    this.setState({
-      isEditing: {},
-    });
-
-    this.props.continueAction(this.state.activeAddress);
-  }
-
-  @autobind
-  chooseAddress(id) {
+  changeAddressOption(id) {
     this.setState({
       activeAddress: id,
     });
+  }
+
+  @autobind
+  saveAndContinue() {
+    this.props.continueAction(this.state.activeAddress);
   }
 
   renderAddresses() {
@@ -80,16 +91,15 @@ class AddressList extends Component {
       const checked = address.id === this.state.activeAddress;
 
       return (
-        <li styleName="item">
+        <li styleName="item" key={`address-radio-${key}`}>
           <RadioButton
             id={`address-radio-${key}`}
-            key={`address-radio-${key}`}
             name={`address-radio-${key}`}
             checked={checked}
-            onChange={() => this.chooseAddress(address.id)}
+            onChange={() => this.changeAddressOption(address.id)}
           >
             <EditableBlock
-              isEditing={!_.isEmpty(this.state.isEditing)}
+              isEditing={!_.isEmpty(this.state.addressToEdit)}
               styleName="item-content"
               title={address.name}
               content={content}
@@ -101,24 +111,32 @@ class AddressList extends Component {
     });
 
     return (
-      <ul styleName="list">{items}</ul>
+      <div>
+        <ul styleName="list">{items}</ul>
+        <button styleName="add-address-button" type="button" onClick={this.addAddress}>
+          Add Address
+        </button>
+      </div>
     );
   }
 
   @autobind
-  calcelEditing() {
+  cancelEditing() {
     this.setState({
-      isEditing: {},
+      addressToEdit: {},
+      isEditFormActive: false,
     });
   }
 
   renderEditingForm(address) {
+    const id = _.get(address, 'id');
+    const title = _.isEmpty(this.state.addressToEdit) ? 'Add Address' : 'Edit Address';
 
     return (
-      <Form onSubmit={() => this.finishEditingAddress(address.id)}>
+      <Form onSubmit={() => this.finishEditingAddress(id)}>
         <div styleName="form-header">
-          <legend styleName="legend">EDIT ADDRESS</legend>
-          <span styleName="action-link" onClick={this.calcelEditing}>Cancel</span>
+          <legend styleName="legend">{title}</legend>
+          <span styleName="action-link" onClick={this.cancelEditing}>Cancel</span>
         </div>
         <EditAddress {...this.props} address={address} addressKind={AddressKind.SHIPPING} />
 
@@ -134,7 +152,7 @@ class AddressList extends Component {
     const { t } = this.props;
 
     return (
-      <Form onSubmit={this.saveAddress}>
+      <Form onSubmit={this.saveAndContinue}>
         <legend styleName="legend">SHIPPING ADDRESS</legend>
         {this.renderAddresses()}
 
@@ -147,7 +165,7 @@ class AddressList extends Component {
   }
 
   render() {
-    return !_.isEmpty(this.state.isEditing) ? this.renderEditingForm(this.state.isEditing) : this.renderList();
+    return this.state.isEditFormActive ? this.renderEditingForm(this.state.addressToEdit) : this.renderList();
   }
 }
 
