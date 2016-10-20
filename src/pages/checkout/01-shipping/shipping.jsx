@@ -21,7 +21,7 @@ type Props = {
   inProgress: boolean,
   isEditing: boolean,
   t: any,
-  shippingAddress?: Object,
+  shippingAddress: Object,
 };
 
 class Shipping extends Component {

@@ -156,7 +156,7 @@ class Checkout extends Component {
               error={this.errorsFor(EditStages.SHIPPING)}
               addresses={this.props.addresses}
               fetchAddresses={this.props.fetchAddresses}
-              shippingAddress={this.props.cart.shippingAddress}
+              shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
               updateAddress={this.props.updateAddress}
             />
             <Delivery

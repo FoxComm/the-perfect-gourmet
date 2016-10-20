@@ -15,7 +15,9 @@
 }
 
 .edit {
-  color: #9E9E9E;
+  color: #8D757A;
+  font-size: 13px;
+  font-weight: 400;
   text-align: right;
   cursor: pointer;
 }

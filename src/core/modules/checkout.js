@@ -76,7 +76,7 @@ export const fetchCreditCards = creditCardsActions.fetch;
 export const fetchAddresses = addressesActions.fetch;
 export const toggleSeparateBillingAddress = createAction('CHECKOUT_TOGGLE_BILLING_ADDRESS');
 
-export function initAddressData(kind: AddressKindType, savedAddress): Function {
+function emptyAddress() {
   return (dispatch, getState) => {
     const state = getState();
 
@@ -85,12 +85,26 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
     const usaCountry = _.find(countries, { alpha3: 'USA' });
     const countryDetails = state.countries.details[usaCountry && usaCountry.id] || { regions: [] };
 
-    let uiAddressData = {
+    return {
+      name: '',
+      address1: '',
+      address2: '',
+      city: '',
+      zip: '',
+      phoneNumber: '',
+      isDefault: false,
       country: usaCountry,
       state: countryDetails.regions[0],
     };
+  };
+}
+export function initAddressData(kind: AddressKindType, savedAddress): Function {
+  return (dispatch, getState) => {
+    let uiAddressData;
 
-    if (kind == AddressKind.SHIPPING && savedAddress && savedAddress.region) {
+    const validAddress = kind == AddressKind.SHIPPING && !_.isEmpty(savedAddress) && savedAddress.region;
+
+    if (validAddress) {
       dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
         const countryInfo = getState().countries.details[savedAddress.region.countryId];
 
@@ -101,7 +115,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
           'city',
           'zip',
           'phoneNumber',
-          'isDefault'
+          'isDefault',
         ]);
         uiAddressData.country = countryInfo;
         uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
@@ -109,6 +123,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
         dispatch(extendAddressData(kind, uiAddressData));
       });
     } else {
+      uiAddressData = dispatch(emptyAddress());
       dispatch(extendAddressData(kind, uiAddressData));
     }
   };
