@@ -8,6 +8,11 @@
   counter-reset: item;
 }
 
+.summary {
+  position: relative;
+  z-index: 2;
+}
+
 .checkout-block {
   width: 100%;
   margin-bottom: 10px;
@@ -58,13 +63,19 @@
       }
     }
   }
+
+  .forms {
+    padding-top: 50px;
+  }
 }
 
 @media (--small-only), (--medium-only) {
   .content {
     margin-top: 146px;
   }
+}
 
+@media (--medium-only) {
   .forms {
     padding-top: 70px;
   }

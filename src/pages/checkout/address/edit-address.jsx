@@ -108,11 +108,6 @@ export default class EditAddress extends Component {
   }
 
   @autobind
-  changeCountry(item) {
-    this.setAddressData('country', item);
-  }
-
-  @autobind
   changeState(item) {
     this.setAddressData('state', item);
   }
@@ -124,7 +119,8 @@ export default class EditAddress extends Component {
 
   render() {
     const props: EditShippingProps = this.props;
-    const { countries, selectedCountry, data, t } = props;
+    const { selectedCountry, data, t } = props;
+
     const checked = _.get(data, 'isDefault', false);
 
     return (
@@ -156,38 +152,23 @@ export default class EditAddress extends Component {
             onChange={this.changeFormData}
           />
         </FormField>
-        <div styleName="union-fields">
-          <FormField styleName="text-field">
-            <Autocomplete
-              inputProps={{
-                placeholder: t('COUNTRY'),
-              }}
-              getItemValue={item => item.name}
-              items={countries}
-              onSelect={this.changeCountry}
-              selectedItem={selectedCountry}
-            />
-          </FormField>
-          <FormField styleName="text-field" validator="zipCode">
-            <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} value={data.zip} />
-          </FormField>
-        </div>
-        <div styleName="union-fields">
-          <FormField styleName="text-field">
-            <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city} />
-          </FormField>
-          <FormField styleName="text-field">
-            <Autocomplete
-              inputProps={{
-                placeholder: t('STATE'),
-              }}
-              getItemValue={item => item.name}
-              items={selectedCountry.regions}
-              onSelect={this.changeState}
-              selectedItem={props.state}
-            />
-          </FormField>
-        </div>
+        <FormField styleName="text-field" validator="zipCode">
+          <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} value={data.zip} />
+        </FormField>
+        <FormField styleName="text-field">
+          <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>
+        </FormField>
+        <FormField styleName="text-field">
+          <Autocomplete
+            inputProps={{
+              placeholder: t('STATE'),
+            }}
+            getItemValue={item => item.name}
+            items={selectedCountry.regions}
+            onSelect={this.changeState}
+            selectedItem={props.state}
+          />
+        </FormField>
         <FormField label={t('Phone Number')} styleName="text-field" validator="phoneNumber">
           <TextInput
             required

@@ -39,6 +39,7 @@
   justify-content: center;
   counter-reset: item;
   text-transform: uppercase;
+  font-size: 13px;
 }
 
 .nav-item {
