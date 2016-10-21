@@ -61,7 +61,8 @@ class Checkout extends Component {
 
   checkScroll = () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const isScrolled = scrollTop > 136;
+    const checkoutHeaderHeight = 136;
+    const isScrolled = scrollTop > checkoutHeaderHeight;
 
     this.setState({isScrolled});
   };
