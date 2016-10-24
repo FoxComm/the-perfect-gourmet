@@ -25,6 +25,7 @@ type Props = {
   collapsed: boolean,
   continueAction: Function,
   editAction: Function,
+  updateAddress: Promise,
   inProgress: boolean,
   t: any,
 };
@@ -67,12 +68,19 @@ class AddressList extends Component {
 
   @autobind
   finishEditingAddress(id) {
-    this.props.updateAddress(id).then(() => {
-      this.setState({
-        addressToEdit: {},
-        isEditFormActive: false,
-      });
-    });
+    this.props.updateAddress(id)
+      .then(() => {
+        this.setState({
+          addressToEdit: {},
+          isEditFormActive: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error,
+        })
+      }
+    );
   }
 
   @autobind
@@ -142,7 +150,7 @@ class AddressList extends Component {
         </div>
         <EditAddress {...this.props} address={address} addressKind={AddressKind.SHIPPING} />
 
-        <ErrorAlerts error={this.props.error} />
+        <ErrorAlerts error={this.state.error} />
         <div styleName="button-wrap">
           <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">Save & Continue</Button>
         </div>
