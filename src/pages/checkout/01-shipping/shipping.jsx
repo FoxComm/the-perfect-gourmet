@@ -32,9 +32,6 @@ class Shipping extends Component {
   }
 
   content() {
-    // const savedAddress = _.find(this.props.addresses, (adr) => adr.isDefault === true);
-    // TODO: add savedAddress
-
     const savedAddress = this.props.shippingAddress;
 
     if (!_.isEmpty(savedAddress) && !this.props.isEditing) {
