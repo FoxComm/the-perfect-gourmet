@@ -1,19 +1,20 @@
+archive = the-perfect-gourmet.tar.bz2
 
 setup:
 	npm install
 
-build:
+build: setup
 	test -f .env && export eval `cat .env` || true && ./node_modules/.bin/gulp build
+	touch $(archive)
+	tar --exclude '$(archive)' -jcf $(archive) ./
 
-build-production:
-	test -f .env && export eval `cat .env` || true && NODE_ENV=production ./node_modules/.bin/gulp build
+docker: build
+	docker build --tag storefront .
 
-package: build
-	touch firebrand.tar.bz2
-	tar --exclude 'firebrand.tar.bz2' -jcf firebrand.tar.bz2 ./
+clean:
+	rm -rf ./node_modules
 
-package-production: build-production
-	touch firebrand.tar.bz2
-	tar --exclude 'firebrand.tar.bz2' -jcf firebrand.tar.bz2 ./
+test:
+	npm test
 
-.PHONY: setup build package
+.PHONY: setup build docker clean test

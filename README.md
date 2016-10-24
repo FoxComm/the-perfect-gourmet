@@ -1,5 +1,7 @@
 # The Perfect Gourmet
 
+[![Build status](https://badge.buildkite.com/68cb05a9ec22487b81ecc2ab3befcd42c7648b78416a65e708.svg)](https://buildkite.com/foxcommerce/the-perfect-gourmet)
+
 The Perfect Gourmet store. Isomorphic React app powered by FoxComm's backend API.
 
 ## Local Development
@@ -36,6 +38,10 @@ In order to checkout to work you should set Stripe key by exporting `STRIPE_PUBL
 
 
 1. Develop it at http://localhost:4044/
+
+1. Use `--browser-sync` flag to enable CSS hot reloading:
+
+`npm run dev -- --browser-sync`, then open `http://localhost:3000`
 
 
 You can set the backend API URL as a shell variable `API_URL`.
