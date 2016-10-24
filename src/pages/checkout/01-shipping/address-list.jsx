@@ -49,6 +49,10 @@ class AddressList extends Component {
     if (_.isEmpty(this.props.addresses)) {
       this.addAddress();
     }
+
+    if (this.props.addresses.length == 1) {
+      this.changeAddressOption(this.props.addresses[0].id);
+    }
   }
 
   @autobind
