@@ -14,6 +14,7 @@ import { TextInput } from 'ui/inputs';
 import { FormField } from 'ui/forms';
 import Autocomplete from 'ui/autocomplete';
 import Checkbox from 'ui/checkbox/checkbox';
+import Loader from 'ui/loader';
 
 // styles
 import styles from '../checkout.css';
@@ -118,6 +119,8 @@ export default class EditAddress extends Component {
   }
 
   render() {
+    if (!this.props.isAddressLoaded) return <Loader size="m"/>;
+
     const props: EditShippingProps = this.props;
     const { selectedCountry, data, t } = props;
 

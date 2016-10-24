@@ -34,6 +34,7 @@ type Props = CheckoutState & {
   fetchAddresses: Function,
   updateAddress: Function,
   cart: Object,
+  isAddressLoaded: boolean,
 };
 
 class Checkout extends Component {
@@ -159,6 +160,7 @@ class Checkout extends Component {
               fetchAddresses={this.props.fetchAddresses}
               shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
               updateAddress={this.props.updateAddress}
+              isAddressLoaded={this.props.isAddressLoaded}
             />
             <Delivery
               isEditing={props.editStage == EditStages.DELIVERY}

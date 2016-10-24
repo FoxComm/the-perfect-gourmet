@@ -50,6 +50,8 @@ export const setAddressData = createAction('CHECKOUT_SET_ADDRESS_DATA', (kind, k
 export const extendAddressData = createAction('CHECKOUT_EXTEND_ADDRESS_DATA', (kind, props) => [kind, props]);
 export const resetCheckout = createAction('CHECKOUT_RESET');
 const orderPlaced = createAction('CHECKOUT_ORDER_PLACED');
+const finishLoadingAddress = createAction('FINISH_LOADING_ADDRESS');
+const startLoadingAddress = createAction('START_LOADING_ADDRESS');
 
 /* eslint-disable quotes, quote-props */
 
@@ -100,6 +102,8 @@ function emptyAddress() {
 }
 export function initAddressData(kind: AddressKindType, savedAddress): Function {
   return (dispatch, getState) => {
+    dispatch(startLoadingAddress());
+
     let uiAddressData;
 
     const validAddress = kind == AddressKind.SHIPPING && !_.isEmpty(savedAddress) && savedAddress.region;
@@ -121,10 +125,12 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
         uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
 
         dispatch(extendAddressData(kind, uiAddressData));
+        dispatch(finishLoadingAddress());
       });
     } else {
       uiAddressData = dispatch(emptyAddress());
       dispatch(extendAddressData(kind, uiAddressData));
+      dispatch(finishLoadingAddress());
     }
   };
 }
@@ -210,6 +216,8 @@ export function updateAddress(id?: number): Function {
 
     return createOrUpdateAddress(api, payload, id)
       .then((address) => {
+        dispatch(extendAddressData('shippingAddress', dispatch(emptyAddress())));
+
         if (payload.isDefault) {
           dispatch(setDefaultAddress(address.id));
         } else {
@@ -268,6 +276,7 @@ const initialState: CheckoutState = {
   shippingMethods: [],
   creditCards: [],
   addresses: [],
+  isAddressLoaded: false,
 };
 
 const reducer = createReducer({
@@ -288,6 +297,18 @@ const reducer = createReducer({
     return assoc(state,
       [ns], props
     );
+  },
+  [startLoadingAddress]: (state) => {
+    return {
+      ...state,
+      isAddressLoaded: false,
+    };
+  },
+  [finishLoadingAddress]: (state) => {
+    return {
+      ...state,
+      isAddressLoaded: true,
+    };
   },
   [setBillingData]: (state, [key, value]) => {
     return assoc(state,

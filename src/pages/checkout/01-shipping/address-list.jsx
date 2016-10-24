@@ -25,7 +25,7 @@ type Props = {
   collapsed: boolean,
   continueAction: Function,
   editAction: Function,
-  updateAddress: Promise,
+  updateAddress: Function,
   inProgress: boolean,
   t: any,
 };
@@ -78,7 +78,7 @@ class AddressList extends Component {
       .catch((error) => {
         this.setState({
           error,
-        })
+        });
       }
     );
   }
