@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import { browserHistory } from 'react-router';
 
 // i18n
 import localized from 'lib/i18n';
@@ -156,17 +155,7 @@ class Pdp extends Component {
 
   @autobind
   addToCart(): void {
-    const { actions, auth } = this.props;
-    const user = _.get(auth, 'user', null);
-
-    if (_.isEmpty(user)) {
-      browserHistory.push({
-        pathname: `/products/${this.productId}`,
-        query: { auth: 'login' },
-      });
-
-      return;
-    }
+    const { actions } = this.props;
 
     const quantity = this.state.quantity;
     const skuId = _.get(this.firstSku, 'attributes.code.v', '');
