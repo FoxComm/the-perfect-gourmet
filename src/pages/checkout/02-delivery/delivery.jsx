@@ -1,22 +1,28 @@
+/* @flow */
+
+// libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './delivery.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-
 import localized from 'lib/i18n';
 
-import Button from 'ui/buttons';
+// components
 import Radiobutton from 'ui/radiobutton/radiobutton';
 import EditableBlock from 'ui/editable-block';
-import { Form } from 'ui/forms';
 import Currency from 'ui/currency';
 import Loader from 'ui/loader';
-import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
+import CheckoutForm from '../checkout-form';
 
-import type { CheckoutBlockProps } from '../types';
+// styles
+import styles from './delivery.css';
+
+// actions
 import * as cartActions from 'modules/cart';
 import { fetchShippingMethods } from 'modules/checkout';
+
+//types
+import type { CheckoutBlockProps } from '../types';
 
 const shippingMethodCost = (t, cost) => {
   return cost == 0
@@ -69,18 +75,19 @@ class EditDelivery extends Component {
 
     return shippingMethods.map(shippingMethod => {
       const cost = shippingMethodCost(t, shippingMethod.price);
+      const checked = selectedMethod && selectedMethod.id == shippingMethod.id;
 
       return (
         <div key={shippingMethod.id} styleName="shipping-method">
           <Radiobutton
             name="delivery"
-            checked={selectedMethod && selectedMethod.id == shippingMethod.id}
+            checked={checked}
             onChange={() => selectShippingMethod(shippingMethod)}
             id={`delivery${shippingMethod.id}`}
           >
             {shippingMethod.name}
           </Radiobutton>
-          {cost}
+          <div className="price">{cost}</div>
         </div>
       );
     });
@@ -94,19 +101,19 @@ class EditDelivery extends Component {
     }
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <CheckoutForm
+        submit={this.handleSubmit}
+        title="DELIVERY METHOD"
+        error={this.props.error}
+      >
         {this.shippingMethods}
-        <ErrorAlerts error={this.props.error} />
-        <div styleName="button-wrap">
-          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
-        </div>
-      </Form>
+      </CheckoutForm>
     );
   }
 }
 
 const Delivery = (props: CheckoutBlockProps) => {
-  const deliveryContent = (
+  const content = (
     props.isEditing ? <EditDelivery {...props} /> : <ViewDelivery />
   );
 
@@ -117,7 +124,7 @@ const Delivery = (props: CheckoutBlockProps) => {
       {...props}
       styleName="delivery"
       title={t('DELIVERY')}
-      content={deliveryContent}
+      content={content}
     />
   );
 };

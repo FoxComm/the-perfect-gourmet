@@ -1,20 +1,21 @@
+/* @flow */
 
 // libs
 import React, { Component } from 'react';
-
-// styles
-import styles from './header.css';
 
 // components
 import { Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
+// styles
+import styles from './checkout-form.css';
+
 type Props = {
   title: string,
-  error: Array<any>,
+  error: ?Array<any>,
   submit: Function,
-  action: Function,
+  action: ?Object,
 };
 
 class CheckoutForm extends Component {
@@ -40,9 +41,9 @@ class CheckoutForm extends Component {
 
         {this.props.children}
 
-        <ErrorAlerts error={this.state.error} />
+        <ErrorAlerts error={this.props.error} />
         <div styleName="button-wrap">
-          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">Save & Continue</Button>
+          <Button styleName="checkout-submit" type="submit">Continue</Button>
         </div>
       </Form>
     );
