@@ -50,7 +50,9 @@ class Delivery extends Component {
 
     return (
       <EditableBlock
-        {...this.props}
+        isEditing={this.props.isEditing}
+        editAction={this.props.editAction}
+        editAllowed={this.props.editAllowed}
         styleName="delivery"
         title={t('DELIVERY')}
         content={this.renderContent()}

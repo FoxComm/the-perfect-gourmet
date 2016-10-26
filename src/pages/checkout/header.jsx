@@ -27,9 +27,9 @@ const Header = (props: Props) => {
       <h1 styleName="title">Checkout</h1>
       <nav styleName="navigation">
         <ol styleName="nav-list">
-          <li styleName="nav-item"><a href="">Shipping</a></li>
-          <li styleName="nav-item"><a href="">Delivery</a></li>
-          <li styleName="nav-item"><a href="">Billing</a></li>
+          <li styleName="nav-item"><a onClick={props.setShippingStage}>Shipping</a></li>
+          <li styleName="nav-item"><a onClick={props.setDeliveryStage}>Delivery</a></li>
+          <li styleName="nav-item"><a onClick={props.setBillingState}>Billing</a></li>
         </ol>
       </nav>
     </header>

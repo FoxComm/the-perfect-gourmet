@@ -97,10 +97,15 @@ class Checkout extends Component {
   }
 
   @autobind
-  setDeliveryStage(id) {
+  setDeliveryStage() {
+    this.props.setEditStage(EditStages.DELIVERY);
+  }
+
+  @autobind
+  saveShippingAddress(id) {
     this.performStageTransition('shippingInProgress', () => {
       return this.props.saveShippingAddress(id).then(() => {
-        this.props.setEditStage(EditStages.DELIVERY);
+        this.setDeliveryStage();
       });
     });
   }
@@ -139,9 +144,18 @@ class Checkout extends Component {
   render() {
     const props = this.props;
 
+    const setStates = {
+      setShippingStage: this.setShippingStage,
+      setDeliveryStage: this.setDeliveryStage,
+      setBillingState: this.setBillingState
+    };
+
     return (
       <section styleName="checkout">
-        <Header isScrolled={this.state.isScrolled}/>
+        <Header
+          isScrolled={this.state.isScrolled}
+          {...setStates}
+        />
 
         <div styleName="content">
           <div styleName="summary">
@@ -154,7 +168,7 @@ class Checkout extends Component {
               collapsed={props.editStage < EditStages.SHIPPING}
               editAction={this.setShippingStage}
               inProgress={this.state.shippingInProgress}
-              continueAction={this.setDeliveryStage}
+              continueAction={this.saveShippingAddress}
               error={this.errorsFor(EditStages.SHIPPING)}
               addresses={this.props.addresses}
               fetchAddresses={this.props.fetchAddresses}
