@@ -1,0 +1,21 @@
+.delivery {
+  composes: checkout-block from '../checkout.css';
+}
+
+.button-wrap {
+  padding: 20px 0 30px;
+  text-align: center;
+}
+
+.checkout-submit {
+  composes: checkout-submit from '../checkout.css';
+}
+
+.shipping-method {
+  margin: 20px 0;
+  display: flex;
+
+  & > div:first-child {
+    flex-grow: 1;
+  }
+}

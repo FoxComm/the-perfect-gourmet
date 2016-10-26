@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from '../checkout.css';
+import styles from './delivery.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 
 import localized from 'lib/i18n';
 
 import Button from 'ui/buttons';
-import Checkbox from 'ui/checkbox/checkbox';
+import Radiobutton from 'ui/radiobutton/radiobutton';
 import EditableBlock from 'ui/editable-block';
 import { Form } from 'ui/forms';
 import Currency from 'ui/currency';
@@ -72,14 +72,14 @@ class EditDelivery extends Component {
 
       return (
         <div key={shippingMethod.id} styleName="shipping-method">
-          <Checkbox
+          <Radiobutton
             name="delivery"
             checked={selectedMethod && selectedMethod.id == shippingMethod.id}
             onChange={() => selectShippingMethod(shippingMethod)}
             id={`delivery${shippingMethod.id}`}
           >
             {shippingMethod.name}
-          </Checkbox>
+          </Radiobutton>
           {cost}
         </div>
       );
@@ -97,7 +97,9 @@ class EditDelivery extends Component {
       <Form onSubmit={this.handleSubmit}>
         {this.shippingMethods}
         <ErrorAlerts error={this.props.error} />
-        <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
+        <div styleName="button-wrap">
+          <Button isLoading={this.props.inProgress} styleName="checkout-submit" type="submit">{t('CONTINUE')}</Button>
+        </div>
       </Form>
     );
   }
@@ -105,9 +107,7 @@ class EditDelivery extends Component {
 
 const Delivery = (props: CheckoutBlockProps) => {
   const deliveryContent = (
-    <div styleName="checkout-block-content">
-      {props.isEditing ? <EditDelivery {...props} /> : <ViewDelivery />}
-    </div>
+    props.isEditing ? <EditDelivery {...props} /> : <ViewDelivery />
   );
 
   const { t } = props;
@@ -115,7 +115,7 @@ const Delivery = (props: CheckoutBlockProps) => {
   return (
     <EditableBlock
       {...props}
-      styleName="checkout-block"
+      styleName="delivery"
       title={t('DELIVERY')}
       content={deliveryContent}
     />

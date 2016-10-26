@@ -160,16 +160,6 @@
     }
   }
 }
-
-.shipping-method {
-  margin: 20px 0;
-  display: flex;
-
-  & > div:first-child {
-    flex-grow: 1;
-  }
-}
-
 .credit-cards-title {
   display: flex;
   justify-content: space-between;
