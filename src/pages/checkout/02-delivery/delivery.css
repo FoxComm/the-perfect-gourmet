@@ -16,6 +16,24 @@
   font-weight: 300;
 }
 
+.selected {
+  padding: 15px 0;
+  text-align: center;
+  text-transform: uppercase;
+
+  & .name {
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  & .price {
+    font-weight: 500;
+  }
+}
+
 @media (--large) {
-  font-size: 15px;
+  .shipping-method,
+  .selected {
+    font-size: 15px;
+  }
 }
