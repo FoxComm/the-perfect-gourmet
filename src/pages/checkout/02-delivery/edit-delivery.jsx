@@ -15,8 +15,7 @@ import CheckoutForm from '../checkout-form';
 import styles from './delivery.css';
 
 // actions
-import * as cartActions from 'modules/cart';
-import { fetchShippingMethods } from 'modules/checkout';
+import { selectShippingMethod } from 'modules/cart';
 
 type Props = {
   continueAction: Function,
@@ -45,7 +44,7 @@ class EditDelivery extends Component {
   }
 
   get shippingMethods() {
-    const { shippingMethods, selectedShippingMethod: selectedMethod, selectShippingMethod } = this.props;
+    const { shippingMethods, selectedShippingMethod: selectedMethod } = this.props;
 
     return shippingMethods.map(shippingMethod => {
       const cost = this.props.shippingMethodCost(shippingMethod.price);
@@ -56,7 +55,7 @@ class EditDelivery extends Component {
           <Radiobutton
             name="delivery"
             checked={checked || false}
-            onChange={() => selectShippingMethod(shippingMethod)}
+            onChange={() => this.props.selectShippingMethod(shippingMethod)}
             id={`delivery${shippingMethod.id}`}
           >
             {shippingMethod.name}
@@ -88,10 +87,8 @@ class EditDelivery extends Component {
 
 function mapStateToProps(state) {
   return {
-    shippingMethods: state.checkout.shippingMethods,
-    selectedShippingMethod: state.cart.shippingMethod,
     isLoading: _.get(state.asyncActions, ['shippingMethods', 'inProgress'], true),
   };
 }
 
-export default connect(mapStateToProps, {...cartActions, fetchShippingMethods})(EditDelivery);
+export default connect(mapStateToProps, { selectShippingMethod })(EditDelivery);

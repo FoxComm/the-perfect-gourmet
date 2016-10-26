@@ -38,6 +38,8 @@ type Props = CheckoutState & {
   addresses: Array<any>,
   fetchAddresses: Function,
   updateAddress: Function,
+  fetchShippingMethods: Function,
+  shippingMethods: Object,
   cart: Object,
   isAddressLoaded: boolean,
 };
@@ -186,6 +188,9 @@ class Checkout extends Component {
               editAllowed={props.editStage >= EditStages.DELIVERY}
               collapsed={!props.isDeliveryDirty && props.editStage < EditStages.DELIVERY}
               editAction={this.setDeliveryStage}
+              shippingMethods={props.shippingMethods}
+              selectedShippingMethod={props.cart.shippingMethod}
+              fetchShippingMethods={props.fetchShippingMethods}
               inProgress={this.state.deliveryInProgress}
               continueAction={this.setBillingState}
               error={this.errorsFor(EditStages.DELIVERY)}
