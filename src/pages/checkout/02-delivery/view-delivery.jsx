@@ -1,16 +1,21 @@
 /* @flow */
 
 // libs
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 // styles
 import styles from './delivery.css';
 
-const ViewDelivery = (props) => {
+type Props = {
+  shippingMethod: ?Object,
+  shippingMethodCost: Function,
+};
+
+const ViewDelivery = (props: Props) => {
   const { shippingMethod } = props;
 
-  if (!shippingMethod) return <div></div>;
+  if (!shippingMethod) return null;
 
   return (
     <div styleName="selected">

@@ -161,8 +161,6 @@ class AddressList extends Component {
   }
 
   renderList() {
-    const { t } = this.props;
-
     return (
       <CheckoutForm
         submit={this.saveAndContinue}

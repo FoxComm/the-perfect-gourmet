@@ -1,7 +1,6 @@
 /* @flow */
 
 // libs
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import localized from 'lib/i18n';
@@ -15,10 +14,7 @@ import ViewDelivery from './view-delivery';
 // styles
 import styles from './delivery.css';
 
-// actions
-import { fetchShippingMethods } from 'modules/checkout';
-
-//types
+// types
 import type { CheckoutBlockProps } from '../types';
 
 class Delivery extends Component {
@@ -31,18 +27,22 @@ class Delivery extends Component {
     return cost == 0
       ? <div styleName="delivery-cost">{t('FREE')}</div>
       : <Currency styleName="delivery-cost" value={cost}/>;
-  };
+  }
 
   @autobind
   renderContent() {
-    if (this.props.isEditing) return (
-      <EditDelivery {...this.props} shippingMethodCost={this.shippingMethodCost} />
-    );
+    if (this.props.isEditing) {
+      return (
+        <EditDelivery {...this.props} shippingMethodCost={this.shippingMethodCost} />
+      );
+    }
 
-    return <ViewDelivery
-      shippingMethodCost={this.shippingMethodCost}
-      shippingMethod={this.props.shippingMethod}
-    />
+    return (
+      <ViewDelivery
+        shippingMethodCost={this.shippingMethodCost}
+        shippingMethod={this.props.shippingMethod}
+      />
+    );
   }
 
   render() {
@@ -59,6 +59,6 @@ class Delivery extends Component {
       />
     );
   }
-};
+}
 
 export default localized(Delivery);

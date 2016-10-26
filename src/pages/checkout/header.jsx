@@ -12,6 +12,9 @@ import Icon from 'ui/icon';
 
 type Props = {
   isScrolled: boolean,
+  setShippingStage: Function,
+  setDeliveryStage: Function,
+  setBillingState: Function,
 };
 
 const Header = (props: Props) => {

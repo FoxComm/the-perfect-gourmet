@@ -1,8 +1,8 @@
 /* @flow */
 
+// libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './checkout.css';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { browserHistory } from 'react-router';
@@ -14,11 +14,16 @@ import Billing from './03-billing/billing';
 import OrderSummary from './summary/order-summary';
 import Header from './header';
 
-import type { Promise as PromiseType } from 'types/promise';
+// styles
+import styles from './checkout.css';
 
+// types
+import type { Promise as PromiseType } from 'types/promise';
+import type { CheckoutState, EditStage } from 'modules/checkout';
+
+// actions
 import * as actions from 'modules/checkout';
 import { EditStages } from 'modules/checkout';
-import type { CheckoutState, EditStage } from 'modules/checkout';
 import { fetch as fetchCart, hideCart } from 'modules/cart';
 
 type Props = CheckoutState & {
@@ -147,7 +152,7 @@ class Checkout extends Component {
     const setStates = {
       setShippingStage: this.setShippingStage,
       setDeliveryStage: this.setDeliveryStage,
-      setBillingState: this.setBillingState
+      setBillingState: this.setBillingState,
     };
 
     return (

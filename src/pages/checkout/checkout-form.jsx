@@ -15,7 +15,8 @@ type Props = {
   title: string,
   error: ?Array<any>,
   submit: Function,
-  action: ?Object,
+  action?: ?Object,
+  children?: any,
 };
 
 class CheckoutForm extends Component {

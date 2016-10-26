@@ -5,7 +5,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import localized from 'lib/i18n';
 
 // components
 import Radiobutton from 'ui/radiobutton/radiobutton';
@@ -23,6 +22,7 @@ type Props = {
   continueAction: Function,
   shippingMethods: Array<any>,
   selectedShippingMethod: Object,
+  selectShippingMethod: Function,
   fetchShippingMethods: Function,
   shippingMethodCost: Function,
   isLoading: boolean,
@@ -45,7 +45,7 @@ class EditDelivery extends Component {
   }
 
   get shippingMethods() {
-    const { shippingMethods, selectedShippingMethod: selectedMethod, selectShippingMethod, t } = this.props;
+    const { shippingMethods, selectedShippingMethod: selectedMethod, selectShippingMethod } = this.props;
 
     return shippingMethods.map(shippingMethod => {
       const cost = this.props.shippingMethodCost(shippingMethod.price);
@@ -68,7 +68,7 @@ class EditDelivery extends Component {
   }
 
   render() {
-    const { isLoading, t } = this.props;
+    const { isLoading } = this.props;
 
     if (isLoading) {
       return <Loader size="m" />;
@@ -94,4 +94,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {...cartActions, fetchShippingMethods})(localized(EditDelivery));
+export default connect(mapStateToProps, {...cartActions, fetchShippingMethods})(EditDelivery);
