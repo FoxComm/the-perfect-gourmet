@@ -13,7 +13,7 @@ import Button from 'ui/buttons';
 import { FormField } from 'ui/forms';
 
 @localized
-class EditGiftCard extends Component {
+class GiftCard extends Component {
 
   state = {
     code: '',
@@ -61,19 +61,5 @@ class EditGiftCard extends Component {
     );
   }
 }
-
-const GiftCard = props => {
-  const { t } = props;
-
-  return (
-    <EditableBlock
-      styleName="checkout-block"
-      title={t('GIFT CARD')}
-      isEditing
-      collapsed={false}
-      content={<EditGiftCard saveGiftCard={props.saveGiftCard} />}
-    />
-  );
-};
 
 export default connect(null, { saveGiftCard })(localized(GiftCard));

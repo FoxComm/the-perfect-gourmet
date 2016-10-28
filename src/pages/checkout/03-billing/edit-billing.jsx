@@ -1,19 +1,18 @@
 /* @flow weak */
 
+// libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from '../checkout.css';
 import textStyles from 'ui/css/input.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { cardMask } from 'wings/lib/payment-cards';
-
 import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
 
+// components
 import { Form, FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
-import Button from 'ui/buttons';
 import Checkbox from 'ui/checkbox/checkbox';
 import EditableBlock from 'ui/editable-block';
 import Autocomplete from 'ui/autocomplete';
@@ -22,11 +21,14 @@ import EditAddress from '../address/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
 import CvcHelp from './cvc-help';
-import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import GiftCard from './gift-card';
 import CouponCode from '../../../components/coupon-code/coupon-code';
+import CheckoutForm from '../checkout-form';
 
+// styles
+import styles from './billing.css';
 
+// actions
 import * as cartActions from 'modules/cart';
 import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
@@ -139,20 +141,29 @@ class EditBilling extends Component {
   }
 
   @autobind
+  cancelEditing() {
+    this.setState({ addingNew: false });
+  }
+
+  @autobind
   selectCreditCard(creditCard) {
     this.props.selectCreditCard(creditCard);
     this.setState({ addingNew: false });
   }
 
-  get form() {
+  @autobind
+  addCreditCard() {
+    this.props.addCreditCard()
+      .then(() => this.setState({ addingNew: false }));
+  }
+
+  get editCardForm() {
     const { props } = this;
     const { data, inProgress, t } = props;
 
     return (
-      <div>
-        <div>{t('NEW CREDIT CARD')}</div>
-        <Form onSubmit={this.props.addCreditCard} styleName="checkout-form">
-          <FormField styleName="text-field">
+      <div styleName="edit-card-form">
+         <FormField styleName="text-field">
             <TextInput
               required
               name="holderName"
@@ -225,13 +236,11 @@ class EditBilling extends Component {
             id="billingAddressIsSame"
             checked={props.billingAddressIsSame}
             onChange={props.toggleSeparateBillingAddress}
+            styleName="same-address-checkbox"
           >
             {t('Billing address is same as shipping')}
           </Checkbox>
           {this.billingAddress}
-          <ErrorAlerts error={this.props.error} />
-          <Button isLoading={inProgress} styleName="checkout-submit" type="submit">{t('Add Card')}</Button>
-        </Form>
       </div>
     );
   }
@@ -239,37 +248,48 @@ class EditBilling extends Component {
   render() {
     const { inProgress, t } = this.props;
 
-    let form;
-
     if (this.state.addingNew) {
-      form = this.form;
-    } else {
-      form = (
-        <Button isLoading={inProgress} styleName="checkout-submit" onClick={this.handleSubmit}>
-          {t('PLACE ORDER')}
-        </Button>
+      const action = {
+        action: this.cancelEditing,
+        title: 'Cancel',
+      };
+
+      return (
+        <CheckoutForm
+          submit={this.addCreditCard}
+          title={t('Add Card')}
+          error={this.props.error}
+          buttonLabel="SAVE & CONTINUE"
+          action={action}
+        >
+          {this.editCardForm}
+        </CheckoutForm>
       );
     }
 
-
     return (
-      <div>
-        <div styleName="credit-cards-title">
-          <div>{t('SELECT CREDIT CARD')}</div>
-          <div onClick={this.addNew} styleName="credit-card-add">{t('ADD')}</div>
-        </div>
-        <CreditCards selectCreditCard={this.selectCreditCard} />
-        {form}
+      <CheckoutForm
+        submit={this.handleSubmit}
+        title="PAYMENT METHOD"
+        error={this.props.error}
+        buttonLabel="Place Order"
+      >
+        <fieldset styleName="fieldset-cards">
+          <CreditCards selectCreditCard={this.selectCreditCard}/>
+          <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
+        </fieldset>
 
-        <EditableBlock
-          styleName="checkout-block"
-          title="PROMO CODE"
-          isEditing
-          collapsed={false}
-          content={<CouponCode />}
-        />
-        <GiftCard />
-      </div>
+        <fieldset styleName="fieldset-coupon">
+          <h3>PROMO CODE</h3>
+          <CouponCode />
+        </fieldset>
+
+        <fieldset styleName="fieldset-gift">
+          <h3>Gift Card</h3>
+          <GiftCard />
+        </fieldset>
+
+      </CheckoutForm>
     );
   }
 }

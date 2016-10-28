@@ -122,32 +122,6 @@
   }
 }
 
-.union-fields {
-  display: flex;
-
-  & > div {
-    width: 50%;
-  }
-}
-
-.checkout-form {
-  & > .union-fields {
-    margin: 10px 0;
-
-    & > .text-field {
-      margin: 0;
-
-      &:first-child {
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.checkbox-field {
-  margin-bottom: 15px;
-}
-
 .text-field {
   margin: 10px 0;
 
@@ -165,6 +139,7 @@
     }
   }
 }
+
 .credit-cards-title {
   display: flex;
   justify-content: space-between;
@@ -196,32 +171,6 @@
   font-size: 14px;
   color: #666;
   margin-left: 15px;
-}
-
-.payment-icon {
-  vertical-align: middle;
-  width: 44px;
-  height: 30px;
-  margin-top: -3px;
-  margin-right: 4px;
-}
-
-.payment-input {
-  padding-right: 64px;
-}
-
-.payment-card-info {
-  padding-left: 0.5em;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.payment-last-four {
-  margin-right: 0.7em;
-}
-
-.billing-address {
-  margin-top: 1em;
 }
 
 .gift-card-content {
