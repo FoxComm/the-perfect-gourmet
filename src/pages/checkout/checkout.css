@@ -83,9 +83,11 @@
 @media (--medium) {
   .checkout-block {
     & > header {
+      position: relative;
+
       & > h3 + div {
         position: absolute;
-        right: 20px;
+        right: 0;
       }
     }
   }
