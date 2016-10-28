@@ -219,6 +219,7 @@ class Checkout extends Component {
               inProgress={this.state.isPerformingCheckout}
               continueAction={this.checkAuthAndplaceOrder}
               error={this.errorsFor(EditStages.BILLING)}
+              addCreditCard={props.addCreditCard}
             />
           </div>
 

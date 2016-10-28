@@ -151,7 +151,7 @@ class EditBilling extends Component {
     return (
       <div>
         <div>{t('NEW CREDIT CARD')}</div>
-        <Form onSubmit={this.handleSubmit} styleName="checkout-form">
+        <Form onSubmit={this.props.addCreditCard} styleName="checkout-form">
           <FormField styleName="text-field">
             <TextInput
               required
@@ -230,7 +230,7 @@ class EditBilling extends Component {
           </Checkbox>
           {this.billingAddress}
           <ErrorAlerts error={this.props.error} />
-          <Button isLoading={inProgress} styleName="checkout-submit" type="submit">{t('PLACE ORDER')}</Button>
+          <Button isLoading={inProgress} styleName="checkout-submit" type="submit">{t('Add Card')}</Button>
         </Form>
       </div>
     );
