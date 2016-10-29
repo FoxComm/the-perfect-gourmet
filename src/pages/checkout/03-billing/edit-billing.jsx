@@ -11,18 +11,16 @@ import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
 
 // components
-import { Form, FormField } from 'ui/forms';
+import { FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import Checkbox from 'ui/checkbox/checkbox';
-import EditableBlock from 'ui/editable-block';
 import Autocomplete from 'ui/autocomplete';
 import InputMask from 'react-input-mask';
 import EditAddress from '../address/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
 import CvcHelp from './cvc-help';
-import GiftCard from './gift-card';
-import CouponCode from '../../../components/coupon-code/coupon-code';
+import PromoCode from '../../../components/promo-code/promo-code';
 import CheckoutForm from '../checkout-form';
 
 // styles
@@ -159,7 +157,7 @@ class EditBilling extends Component {
 
   get editCardForm() {
     const { props } = this;
-    const { data, inProgress, t } = props;
+    const { data, t } = props;
 
     return (
       <div styleName="edit-card-form">
@@ -261,6 +259,7 @@ class EditBilling extends Component {
           error={this.props.error}
           buttonLabel="SAVE & CONTINUE"
           action={action}
+          inProgress={inProgress}
         >
           {this.editCardForm}
         </CheckoutForm>
@@ -273,6 +272,7 @@ class EditBilling extends Component {
         title="PAYMENT METHOD"
         error={this.props.error}
         buttonLabel="Place Order"
+        inProgress={inProgress}
       >
         <fieldset styleName="fieldset-cards">
           <CreditCards selectCreditCard={this.selectCreditCard}/>
@@ -281,12 +281,15 @@ class EditBilling extends Component {
 
         <fieldset styleName="fieldset-coupon">
           <h3>PROMO CODE</h3>
-          <CouponCode />
+          <PromoCode saveCode={this.props.saveCouponCode} />
         </fieldset>
 
         <fieldset styleName="fieldset-gift">
           <h3>Gift Card</h3>
-          <GiftCard />
+          <PromoCode
+            saveCode={this.props.saveGiftCard}
+            buttonLabel="Reedem"
+          />
         </fieldset>
 
       </CheckoutForm>
