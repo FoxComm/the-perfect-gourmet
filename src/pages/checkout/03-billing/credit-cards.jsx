@@ -1,14 +1,17 @@
+// libs
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-
-import styles from '../checkout.css';
-
 import localized from 'lib/i18n';
 
+// styles
+import styles from '../checkout.css';
+
+// components
 import Loader from 'ui/loader';
 import CreditCard from './credit-card';
 
+// actions
 import { fetchCreditCards } from 'modules/checkout';
 
 function mapStateToProps(state) {

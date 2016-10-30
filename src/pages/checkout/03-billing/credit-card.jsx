@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Icon from 'ui/icon';
-import Checkbox from 'ui/checkbox/checkbox';
+import Radiobutton from 'ui/radiobutton/radiobutton';
 
 import styles from '../checkout.css';
 
@@ -25,7 +25,7 @@ const CreditCard = (props: Props) => {
 
   return (
     <div key={id} styleName="credit-card">
-      <Checkbox
+      <Radiobutton
         name="credit-card"
         checked={selected}
         onChange={() => onSelect(creditCard)}
@@ -37,7 +37,7 @@ const CreditCard = (props: Props) => {
             {expMonth}/{expYear.toString().slice(-2)}
           </span>
         </span>
-      </Checkbox>
+      </Radiobutton>
       <Icon styleName="payment-icon" name={`fc-payment-${brand.toLowerCase()}`} />
     </div>
   );
