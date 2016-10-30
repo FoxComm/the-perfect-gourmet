@@ -22,6 +22,7 @@ import Icon from 'ui/icon';
 import CvcHelp from './cvc-help';
 import PromoCode from '../../../components/promo-code/promo-code';
 import CheckoutForm from '../checkout-form';
+import Accordion from '../../../components/accordion/accordion';
 
 // styles
 import styles from './billing.css';
@@ -279,18 +280,16 @@ class EditBilling extends Component {
           <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
         </fieldset>
 
-        <fieldset styleName="fieldset-coupon">
-          <h3>PROMO CODE</h3>
+        <Accordion title="PROMO CODE?">
           <PromoCode saveCode={this.props.saveCouponCode} />
-        </fieldset>
+        </Accordion>
 
-        <fieldset styleName="fieldset-gift">
-          <h3>Gift Card</h3>
+        <Accordion title="GIFT CARD?">
           <PromoCode
             saveCode={this.props.saveGiftCard}
             buttonLabel="Reedem"
           />
-        </fieldset>
+        </Accordion>
 
       </CheckoutForm>
     );
