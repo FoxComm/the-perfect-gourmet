@@ -1,6 +1,46 @@
 
+@import "colors.css";
 @import "media-queries.css";
+@import "variables.css";
 
 .profile {
   composes: inner-wrap from "ui/css/layout.css";
+}
+
+.button {
+  composes: button from "ui/css/buttons.css";
+  border: 1px solid #8D757A;
+  background-color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 300;
+  color: #212121;
+  margin: 10px 0;
+
+  &:hover {
+    border: 1px solid #3E3436;
+    color: var(--whitish)
+  }
+}
+
+.subtitle {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 14px;
+  color: #212121;
+  line-height: 20px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 13px;
+  color: #212121;
+  line-height: 20px;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
 }

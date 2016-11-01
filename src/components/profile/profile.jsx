@@ -9,7 +9,7 @@ const Profile = () => {
     <div styleName="profile">
       <Details/>
     </div>
-  )
+  );
 };
 
 export default Profile;

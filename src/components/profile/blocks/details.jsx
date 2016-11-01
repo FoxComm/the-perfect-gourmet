@@ -2,21 +2,31 @@
 import React from 'react';
 
 import Block from '../common/block';
-import { SecondaryButton } from 'ui/buttons';
+import Button from 'ui/buttons';
 
-type Props = {
-}
+import profileStyles from '../profile.css';
+import detailsStyles from './details.css';
 
-const Details = (props: Props) => {
+const styles = {...profileStyles, ...detailsStyles};
+
+const Details = () => {
   return (
     <Block title="My Details">
-      <dl>
-        <dt>First and last name</dt>
-        <dd>Bree Swineford</dd>
-        <dt>Email</dt>
-        <dd>bree@foxcommerce.com</dd>
-      </dl>
-      <SecondaryButton>CHANGE PASSWORD</SecondaryButton>
+      <div styleName="section">
+        <div styleName="line">
+          <div styleName="subtitle">First and last name</div>
+          <div>EDIT</div>
+        </div>
+        <div>Bree Swineford</div>
+      </div>
+      <div styleName="section">
+        <div styleName="line">
+          <div styleName="subtitle">Email</div>
+          <div>EDIT</div>
+        </div>
+        <div>bree@foxcommerce.com</div>
+      </div>
+      <Button styleName="button">CHANGE PASSWORD</Button>
     </Block>
   );
 };
