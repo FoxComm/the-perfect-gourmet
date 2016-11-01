@@ -11,6 +11,7 @@ import countries from './countries';
 import search from './search';
 import auth from './auth';
 import usermenu from './usermenu';
+import profile from './profile';
 
 import { reducer as asyncReducer } from './async-utils';
 
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   search,
   auth,
   usermenu,
+  profile,
 });
 
 export default reducer;
