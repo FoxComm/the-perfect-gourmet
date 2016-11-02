@@ -5,7 +5,7 @@ setup:
 build: setup
 	test -f .env && export eval `cat .env` || true && ./node_modules/.bin/gulp build
 
-docker:
+docker: build
 	docker build -t tpg-storefront .
 
 docker-push:
