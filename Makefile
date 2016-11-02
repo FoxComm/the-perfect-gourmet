@@ -8,7 +8,7 @@ build: setup
 	touch $(archive)
 	tar --exclude '$(archive)' -jcf $(archive) ./
 
-docker:
+docker: build
 	docker build -t tpg-storefront .
 
 docker-push:
