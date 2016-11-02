@@ -4,6 +4,7 @@ import styles from '../profile.css';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import type { Promise as PromiseType } from 'types/promise';
+import { browserHistory } from 'react-router';
 
 import { Link } from 'react-router';
 import Block from '../common/block';
@@ -36,6 +37,8 @@ type State = {
 }
 
 class EditName extends Component {
+  static title = 'Edit first & last name';
+
   props: EditNameProps;
   state: State = {
     name: this.props.account.name || '',
@@ -56,12 +59,14 @@ class EditName extends Component {
   handleSave() {
     this.props.updateAccount({
       name: this.state.name,
+    }).then(() => {
+      browserHistory.push('/profile');
     });
   }
 
   render() {
     return (
-      <Block title="Edit first & last name">
+      <Block title={EditName.title}>
         <div styleName="section">Use this form to update your first and last name.</div>
         <TextInput
           styleName="text-input"
