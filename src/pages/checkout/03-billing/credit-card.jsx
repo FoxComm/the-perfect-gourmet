@@ -23,7 +23,7 @@ type Props = {
 };
 
 const CreditCard = (props: Props) => {
-  const { creditCard, selected, onSelect } = props;
+  const { creditCard, selected, onSelect, editCard } = props;
   const { id } = creditCard;
 
   return (
@@ -37,7 +37,7 @@ const CreditCard = (props: Props) => {
         <ViewBilling billingData={creditCard} />
       </Radiobutton>
       <div styleName="actions">
-        <span styleName="action">Edit</span>
+        <span styleName="action" onClick={() => editCard(creditCard)}>Edit</span>
         <span styleName="action">Delete</span>
       </div>
     </div>

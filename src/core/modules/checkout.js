@@ -46,6 +46,8 @@ export type BillingData = {
 
 export const setEditStage = createAction('CHECKOUT_SET_EDIT_STAGE');
 export const setBillingData = createAction('CHECKOUT_SET_BILLING_DATA', (key, value) => [key, value]);
+export const resetBillingData = createAction('CHECKOUT_RESET_BILLING_DATA');
+export const loadBillingData = createAction('CHECKOUT_LOAD_BILLING_DATA');
 
 export const setAddressData = createAction('CHECKOUT_SET_ADDRESS_DATA', (kind, key, value) => [kind, key, value]);
 export const extendAddressData = createAction('CHECKOUT_EXTEND_ADDRESS_DATA', (kind, props) => [kind, props]);
@@ -254,6 +256,14 @@ export function addCreditCard(): Function {
   };
 }
 
+export function updateCreditCard(id): Function {
+  return (dispatch, getState) => {
+    const creditCard = getState().checkout.billingData;
+
+    return foxApi.creditCards.update(id, creditCard);
+  }
+}
+
 // Place order from cart.
 export function checkout(): Function {
   return (dispatch) => {
@@ -268,6 +278,16 @@ export function checkout(): Function {
 export function saveEmail(email): Function {
   return () => {
     return foxApi.account.update({email});
+  };
+}
+
+function setEmptyCard() {
+  return {
+    holderName: "",
+    number: "",
+    cvc: "",
+    expMonth: "",
+    expYear: "",
   };
 }
 
@@ -318,6 +338,18 @@ const reducer = createReducer({
     return assoc(state,
       ['billingData', key], value
     );
+  },
+  [resetBillingData]: (state) => {
+    return {
+      ...state,
+      billingData: setEmptyCard(),
+    };
+  },
+  [loadBillingData]: (state, billingData) => {
+    return {
+      ...state,
+      billingData,
+    };
   },
   [shippingMethodsActions.succeeded]: (state, list) => {
     return {

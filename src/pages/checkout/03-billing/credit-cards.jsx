@@ -33,7 +33,7 @@ class CreditCards extends Component {
   }
 
   get creditCards() {
-    const { creditCards, selectedCreditCard, selectCreditCard } = this.props;
+    const { creditCards, selectedCreditCard, selectCreditCard, editCard } = this.props;
 
     return creditCards.map(creditCard => {
       return (
@@ -42,6 +42,7 @@ class CreditCards extends Component {
           selected={!!selectedCreditCard && selectedCreditCard.id === creditCard.id}
           onSelect={selectCreditCard}
           key={creditCard.id}
+          editCard={editCard}
         />
       );
     });

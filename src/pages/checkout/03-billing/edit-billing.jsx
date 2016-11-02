@@ -32,13 +32,6 @@ import * as cartActions from 'modules/cart';
 import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
 
-function mapStateToProps(state) {
-  return {
-    data: state.checkout.billingData,
-    billingAddressIsSame: state.checkout.billingAddressIsSame,
-  };
-}
-
 const months = _.range(1, 13, 1).map(x => _.padStart(x.toString(), 2, '0'));
 const currentYear = new Date().getFullYear();
 const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
@@ -135,7 +128,7 @@ class EditBilling extends Component {
 
   @autobind
   addNew() {
-    this.props.resetCreditCard();
+    this.props.resetBillingData();
     this.setState({ addingNew: true });
   }
 
@@ -151,9 +144,22 @@ class EditBilling extends Component {
   }
 
   @autobind
-  addCreditCard() {
+  updateCreditCard() {
+    const { id } = this.props.billingData;
+
+    if (id) {
+      return this.props.updateCreditCard(id)
+        .then(() => this.setState({ addingNew: false }));
+    }
+
     this.props.addCreditCard()
       .then(() => this.setState({ addingNew: false }));
+  }
+
+  @autobind
+  editCard(data) {
+    this.props.loadBillingData(data);
+    this.setState({ addingNew: true });
   }
 
   get editCardForm() {
@@ -255,7 +261,7 @@ class EditBilling extends Component {
 
       return (
         <CheckoutForm
-          submit={this.addCreditCard}
+          submit={this.updateCreditCard}
           title={t('Add Card')}
           error={this.props.error}
           buttonLabel="SAVE & CONTINUE"
@@ -276,7 +282,10 @@ class EditBilling extends Component {
         inProgress={inProgress}
       >
         <fieldset styleName="fieldset-cards">
-          <CreditCards selectCreditCard={this.selectCreditCard}/>
+          <CreditCards
+            selectCreditCard={this.selectCreditCard}
+            editCard={this.editCard}
+          />
           <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
         </fieldset>
 
@@ -294,6 +303,13 @@ class EditBilling extends Component {
       </CheckoutForm>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return {
+    data: state.checkout.billingData,
+    billingAddressIsSame: state.checkout.billingAddressIsSame,
+  };
 }
 
 export default connect(mapStateToProps, { ...checkoutActions, ...cartActions })(localized(EditBilling));
