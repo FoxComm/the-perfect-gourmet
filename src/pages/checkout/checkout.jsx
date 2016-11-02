@@ -220,6 +220,7 @@ class Checkout extends Component {
               continueAction={this.checkAuthAndplaceOrder}
               error={this.errorsFor(EditStages.BILLING)}
               addCreditCard={props.addCreditCard}
+              isAddressLoaded={this.props.isAddressLoaded}
             />
           </div>
 

@@ -36,6 +36,10 @@
 
 .same-address-checkbox {
   margin-top: 30px;
+
+  & + div {
+    margin-top: 30px;
+  }
 }
 
 .edit-card-form {
