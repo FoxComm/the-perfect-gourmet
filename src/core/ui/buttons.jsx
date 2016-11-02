@@ -31,10 +31,4 @@ const Button = (props: ButtonProps) => {
   );
 };
 
-export const SecondaryButton = (props: ButtonProps) => {
-  const className = classNames(styles['button-secondary'], props.className);
-  return <Button {...props} className={className} />;
-};
-
-
 export default Button;

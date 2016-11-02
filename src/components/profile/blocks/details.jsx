@@ -1,16 +1,15 @@
 // @flow
 import React, { Component } from 'react';
-import profileStyles from '../profile.css';
-import detailsStyles from './details.css';
+import styles from '../profile.css';
 import { connect } from 'react-redux';
 import type { Promise as PromiseType } from 'types/promise';
 
 import Block from '../common/block';
 import Button from 'ui/buttons';
+import { Link } from 'react-router';
 
 import * as actions from 'modules/profile';
 
-const styles = {...profileStyles, ...detailsStyles};
 
 function mapStateToProps(state) {
   return {
@@ -25,8 +24,13 @@ type Account = {
   id: number,
 }
 
+type EmptyAccount = {
+  name?: string,
+  email?: string,
+}
+
 type DetailsProps = {
-  account: Account|{},
+  account: Account|EmptyAccount,
   fetchAccount: () => PromiseType,
 }
 
@@ -43,18 +47,20 @@ class Details extends Component {
         <div styleName="section">
           <div styleName="line">
             <div styleName="subtitle">First and last name</div>
-            <div>EDIT</div>
+            <Link styleName="link" to="/profile/edit/name">EDIT</Link>
           </div>
           <div styleName="value">{account.name}</div>
         </div>
         <div styleName="section">
           <div styleName="line">
             <div styleName="subtitle">Email</div>
-            <div>EDIT</div>
+            <Link styleName="link">EDIT</Link>
           </div>
           <div styleName="value">{account.email}</div>
         </div>
-        <Button styleName="button">CHANGE PASSWORD</Button>
+        <div styleName="buttons-footer">
+          <Button styleName="link-button">CHANGE PASSWORD</Button>
+        </div>
       </Block>
     );
   }

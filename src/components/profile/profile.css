@@ -7,18 +7,33 @@
   composes: inner-wrap from "ui/css/layout.css";
 }
 
-.button {
+.link-button {
   composes: button from "ui/css/buttons.css";
   border: 1px solid #8D757A;
   background-color: #FFFFFF;
   font-size: 13px;
   font-weight: 300;
   color: #212121;
-  margin: 10px 0;
 
   &:hover {
     border: 1px solid #3E3436;
     color: var(--whitish)
+  }
+}
+
+.link {
+  display: inline-block;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 13px;
+  color: #8D757A;
+  line-height: 20px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: #3E3436;
   }
 }
 
@@ -43,4 +58,32 @@
 .line {
   display: flex;
   justify-content: space-between;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.buttons-footer {
+  margin: 30px 0 10px;
+  display: flex;
+  align-items: center;
+
+  & > .link, & > button {
+    &:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
+}
+
+.save-button {
+  text-transform: uppercase;
+  width: 100px;
+}
+
+.text-input {
+  composes: text-input from "ui/css/input.css";
+  background-color: #f4f4f4;
+  color: var(--text-color-dark);
+  width: 100%;
 }
