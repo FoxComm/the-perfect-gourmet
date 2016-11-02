@@ -16,6 +16,7 @@ import * as actions from 'modules/profile';
 import type { Promise as PromiseType } from 'types/promise';
 import type { AsyncStatus } from 'types/async-actions';
 
+
 function mapStateToProps(state) {
   return {
     account: state.profile.account,
@@ -30,7 +31,7 @@ type Account = {
   id: number,
 }
 
-type EditNameProps = {
+type EditEmailProps = {
   account: Account|{},
   fetchAccount: () => PromiseType,
   updateAccount: (payload: Object) => PromiseType,
@@ -38,15 +39,15 @@ type EditNameProps = {
 }
 
 type State = {
-  name: string,
+  email: string,
 }
 
-class EditName extends Component {
-  static title = 'Edit first & last name';
+class EditEmail extends Component {
+  static title = 'Edit email';
 
-  props: EditNameProps;
+  props: EditEmailProps;
   state: State = {
-    name: this.props.account.name || '',
+    email: this.props.account.email || '',
   };
 
   componentWillMount() {
@@ -54,16 +55,16 @@ class EditName extends Component {
   }
 
   @autobind
-  handleNameChange(event) {
+  handleEmailChange(event) {
     this.setState({
-      name: event.target.value,
+      email: event.target.value,
     });
   }
 
   @autobind
   handleSave() {
     this.props.updateAccount({
-      name: this.state.name,
+      email: this.state.email,
     }).then(() => {
       browserHistory.push('/profile');
     });
@@ -71,12 +72,12 @@ class EditName extends Component {
 
   render() {
     return (
-      <Block title={EditName.title}>
-        <div styleName="section">Use this form to update your first and last name.</div>
+      <Block title={EditEmail.title}>
+        <div styleName="section">Use this form to update your email address.</div>
         <TextInput
           styleName="text-input"
-          value={this.state.name}
-          onChange={this.handleNameChange}
+          value={this.state.email}
+          onChange={this.handleEmailChange}
         />
         <div styleName="buttons-footer">
           <Button
@@ -93,4 +94,4 @@ class EditName extends Component {
   }
 }
 
-export default connect(mapStateToProps, actions)(EditName);
+export default connect(mapStateToProps, actions)(EditEmail);

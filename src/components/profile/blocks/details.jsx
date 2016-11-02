@@ -54,7 +54,7 @@ class Details extends Component {
         <div styleName="section">
           <div styleName="line">
             <div styleName="subtitle">Email</div>
-            <Link styleName="link">EDIT</Link>
+            <Link styleName="link" to="/profile/edit/email">EDIT</Link>
           </div>
           <div styleName="value">{account.email}</div>
         </div>
