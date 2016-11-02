@@ -52,28 +52,11 @@
   }
 }
 
-.payment-icon {
-  vertical-align: middle;
-  width: 44px;
-  height: 30px;
-  margin-top: -3px;
-  margin-right: 4px;
-}
-
-.payment-input {
-  padding-right: 64px;
-}
-
-.payment-card-info {
-  padding-left: 0.5em;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.payment-last-four {
-  margin-right: 0.7em;
-}
-
 .billing-address {
   margin-top: 1em;
+}
+
+.credit-cards-empty {
+  line-height: 53px;
+  margin-bottom: 40px;
 }

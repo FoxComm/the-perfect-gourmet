@@ -1,9 +1,12 @@
+// libs
 import React from 'react';
 
-import Icon from 'ui/icon';
+// components
 import Radiobutton from 'ui/radiobutton/radiobutton';
+import ViewBilling from './view-billing';
 
-import styles from '../checkout.css';
+// styles
+import styles from './credit-card.css';
 
 type CreditCardType = {
   id: number,
@@ -21,7 +24,7 @@ type Props = {
 
 const CreditCard = (props: Props) => {
   const { creditCard, selected, onSelect } = props;
-  const { id, brand, lastFour, expMonth, expYear } = creditCard;
+  const { id } = creditCard;
 
   return (
     <div key={id} styleName="credit-card">
@@ -31,14 +34,12 @@ const CreditCard = (props: Props) => {
         onChange={() => onSelect(creditCard)}
         id={`credit-card-${id}`}
       >
-        <span>
-          <span>•••• {lastFour}</span>
-          <span styleName="credit-card-valid">
-            {expMonth}/{expYear.toString().slice(-2)}
-          </span>
-        </span>
+        <ViewBilling billingData={creditCard} />
       </Radiobutton>
-      <Icon styleName="payment-icon" name={`fc-payment-${brand.toLowerCase()}`} />
+      <div styleName="actions">
+        <span styleName="action">Edit</span>
+        <span styleName="action">Delete</span>
+      </div>
     </div>
   );
 };

@@ -1,40 +1,44 @@
 /* @flow weak */
 
+// libs
 import _ from 'lodash';
 import React from 'react';
-import styles from '../checkout.css';
-import { connect } from 'react-redux';
 
 // components
 import Icon from 'ui/icon';
 import ViewAddress from '../address/view-address';
 
+// styles
+import styles from './credit-card.css';
+
+// types
 import type { BillingData } from 'modules/checkout';
 
-const ViewBilling = (props) => {
-  const billingData: BillingData = props.creditCard ? props.creditCard : props.billingData;
+type Props = {
+  billingData: BillingData,
+};
 
-  const paymentType = billingData.brand ? _.kebabCase(billingData.brand) : '';
+const ViewBilling = (props: Props) => {
+  const { billingData } = props;
+  const { brand, expMonth, expYear, billingAddress, holderName, lastFour } = billingData;
 
-  const lastTwoYear = billingData.expYear && billingData.expYear.toString().slice(-2);
-  const monthYear = billingData.expMonth || billingData.expYear ?
-    <span>{billingData.expMonth}/{lastTwoYear}</span> : null;
-  const addressInfo = !_.isEmpty(props.billingAddress) ?
-    <ViewAddress styleName="billing-address" {...props.billingAddress} /> : null;
+  const paymentType = brand ? _.kebabCase(brand) : '';
+
+  const lastTwoYear = expYear && expYear.toString().slice(-2);
+  const monthYear = expMonth || expYear ?
+    <li>{ expMonth }/{ lastTwoYear }</li> : null;
+  const addressInfo = !_.isEmpty(billingAddress) ?
+    <li><ViewAddress styleName="billing-address" {...billingAddress} /></li> : null;
 
   return (
-    <div>
-      {paymentType && <Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} />}
-      <div styleName="payment-card-info">
-        <span styleName="payment-last-four">•••• {billingData.lastFour}</span>
-        {monthYear}
-      </div>
+    <ul styleName="view-billing">
+      <li>{paymentType && <Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} />}</li>
+      <li styleName="payment-name">{ holderName }</li>
+      <li styleName="payment-last-four">{ lastFour }</li>
+      {monthYear}
       {addressInfo}
-    </div>
+    </ul>
   );
 };
 
-export default connect(state => ({
-  billingData: state.checkout.billingData,
-  creditCard: state.cart.creditCard,
-}))(ViewBilling);
+export default ViewBilling;
