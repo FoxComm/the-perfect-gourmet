@@ -110,7 +110,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
 
     let uiAddressData;
 
-    const validAddress = kind == AddressKind.SHIPPING && !_.isEmpty(savedAddress) && savedAddress.region;
+    const validAddress = !_.isEmpty(savedAddress) && savedAddress.region;
 
     if (validAddress) {
       dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
@@ -259,6 +259,12 @@ export function chooseCreditCard(): Function {
 export function updateCreditCard(id): Function {
   return (dispatch, getState) => {
     const creditCard = getState().checkout.billingData;
+    const billingAddress = getState().checkout.billingAddress;
+    const address = addressToPayload(billingAddress, getState().countries.list);
+
+    creditCard.address = address;
+    console.log(billingAddress);
+    console.log(creditCard);
 
     return foxApi.creditCards.update(id, creditCard);
   };

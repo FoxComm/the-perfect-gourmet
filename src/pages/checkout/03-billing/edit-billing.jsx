@@ -38,13 +38,23 @@ const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
 
 type State = {
   addingNew: boolean,
+  billingAddressIsSame: boolean,
 };
 
 class EditBilling extends Component {
 
   state: State = {
     addingNew: false,
+    billingAddressIsSame: false,
   };
+
+  componentDidMount() {
+    if (this.props.data.address) {
+      this.setState({
+        billingAddressIsSame: false,
+      })
+    }
+  }
 
   @autobind
   handleSubmit() {
@@ -82,13 +92,19 @@ class EditBilling extends Component {
   }
 
   get billingAddress() {
-    const { billingAddressIsSame } = this.props;
+    const { billingAddressIsSame } = this.state;
 
     if (billingAddressIsSame) {
       return null;
     }
 
-    return <EditAddress addressKind={AddressKind.BILLING} {...this.props} />;
+    return (
+      <EditAddress
+        {...this.props}
+        addressKind={AddressKind.BILLING}
+        address={this.props.data.address}
+      />
+    );
   }
 
   get cardType() {
@@ -244,7 +260,7 @@ class EditBilling extends Component {
           </div>
           <Checkbox
             id="billingAddressIsSame"
-            checked={props.billingAddressIsSame}
+            checked={this.state.billingAddressIsSame}
             onChange={props.toggleSeparateBillingAddress}
             styleName="same-address-checkbox"
           >
@@ -314,7 +330,6 @@ class EditBilling extends Component {
 function mapStateToProps(state) {
   return {
     data: state.checkout.billingData,
-    billingAddressIsSame: state.checkout.billingAddressIsSame,
   };
 }
 
