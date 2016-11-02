@@ -157,6 +157,11 @@ class EditBilling extends Component {
   }
 
   @autobind
+  deleteCreditCard(id) {
+    this.props.deleteCreditCard(id);
+  }
+
+  @autobind
   editCard(data) {
     this.props.loadBillingData(data);
     this.setState({ addingNew: true });
@@ -285,6 +290,7 @@ class EditBilling extends Component {
           <CreditCards
             selectCreditCard={this.selectCreditCard}
             editCard={this.editCard}
+            deleteCard={this.deleteCreditCard}
           />
           <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
         </fieldset>

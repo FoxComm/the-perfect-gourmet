@@ -42,6 +42,7 @@ export type BillingData = {
   expMonth?: string|number;
   expYear?: string|number;
   lastFour?: string|number;
+  billingAddress?: Object,
 }
 
 export const setEditStage = createAction('CHECKOUT_SET_EDIT_STAGE');
@@ -228,12 +229,6 @@ export function updateAddress(id?: number): Function {
 
 export function addCreditCard(): Function {
   return (dispatch, getState) => {
-    const creditCard = getState().cart.creditCard;
-
-    if (creditCard && creditCard.id) {
-      return foxApi.cart.addCreditCard(creditCard.id);
-    }
-
     let billingAddress;
 
     const cardData = _.pick(getState().checkout.billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
@@ -246,10 +241,15 @@ export function addCreditCard(): Function {
 
     const address = addressToPayload(billingAddress, getState().countries.list);
 
-    return foxApi.creditCards.create(cardData, address, !getState().checkout.billingAddressIsSame)
-      .then(creditCardRes => {
-        return foxApi.cart.addCreditCard(creditCardRes.id);
-      })
+    return foxApi.creditCards.create(cardData, address, !getState().checkout.billingAddressIsSame);
+  };
+}
+
+export function chooseCreditCard(): Function {
+  return (dispatch, getState) => {
+    const creditCard = getState().cart.creditCard;
+
+    return foxApi.cart.addCreditCard(creditCard.id)
       .then(res => {
         dispatch(updateCart(res.result));
       });
@@ -261,7 +261,14 @@ export function updateCreditCard(id): Function {
     const creditCard = getState().checkout.billingData;
 
     return foxApi.creditCards.update(id, creditCard);
-  }
+  };
+}
+
+export function deleteCreditCard(id): Function {
+  return (dispatch) => {
+    return foxApi.creditCards.delete(id)
+      .then(() => dispatch(fetchCreditCards()));
+  };
 }
 
 // Place order from cart.
@@ -283,11 +290,11 @@ export function saveEmail(email): Function {
 
 function setEmptyCard() {
   return {
-    holderName: "",
-    number: "",
-    cvc: "",
-    expMonth: "",
-    expYear: "",
+    holderName: '',
+    number: '',
+    cvc: '',
+    expMonth: '',
+    expYear: '',
   };
 }
 
