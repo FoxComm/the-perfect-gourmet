@@ -80,7 +80,6 @@ const addressesActions = createAsyncActions('addresses', _fetchAddresses);
 export const fetchShippingMethods = shippingMethodsActions.fetch;
 export const fetchCreditCards = creditCardsActions.fetch;
 export const fetchAddresses = addressesActions.fetch;
-export const toggleSeparateBillingAddress = createAction('CHECKOUT_TOGGLE_BILLING_ADDRESS');
 
 function emptyAddress() {
   return (dispatch, getState) => {
@@ -227,18 +226,18 @@ export function updateAddress(id?: number): Function {
   };
 }
 
-export function addCreditCard(): Function {
+function getUpdatedBllingAddress(getState, billingAddressIsSame) {
+  if (billingAddressIsSame) {
+    return getState().cart.shippingAddress;
+  } else {
+    return getState().checkout.billingAddress;
+  }
+}
+
+export function addCreditCard(billingAddressIsSame: boolean): Function {
   return (dispatch, getState) => {
-    let billingAddress;
-
     const cardData = _.pick(getState().checkout.billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
-
-    if (getState().checkout.billingAddressIsSame) {
-      billingAddress = getState().cart.shippingAddress;
-    } else {
-      billingAddress = getState().checkout.billingAddress;
-    }
-
+    const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
     const address = addressToPayload(billingAddress, getState().countries.list);
 
     return foxApi.creditCards.create(cardData, address, !getState().checkout.billingAddressIsSame);
@@ -256,17 +255,14 @@ export function chooseCreditCard(): Function {
   };
 }
 
-export function updateCreditCard(id): Function {
+export function updateCreditCard(id, billingAddressIsSame: boolean): Function {
   return (dispatch, getState) => {
     const creditCard = getState().checkout.billingData;
-    const billingAddress = getState().checkout.billingAddress;
+    const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
     const address = addressToPayload(billingAddress, getState().countries.list);
+    const updatedCard = assoc(creditCard, 'address', address);
 
-    creditCard.address = address;
-    console.log(billingAddress);
-    console.log(creditCard);
-
-    return foxApi.creditCards.update(id, creditCard);
+    return foxApi.creditCards.update(id, updatedCard);
   };
 }
 
@@ -309,7 +305,6 @@ const initialState: CheckoutState = {
   shippingAddress: {},
   billingAddress: {},
   billingData: {},
-  billingAddressIsSame: true,
   shippingMethods: [],
   creditCards: [],
   addresses: [],
@@ -381,11 +376,6 @@ const reducer = createReducer({
       ...state,
       addresses: list,
     };
-  },
-  [toggleSeparateBillingAddress]: state => {
-    return assoc(state,
-      ['billingAddressIsSame'], !state.billingAddressIsSame
-    );
   },
   [resetCheckout]: () => {
     return initialState;

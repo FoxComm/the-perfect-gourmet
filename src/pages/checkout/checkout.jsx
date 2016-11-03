@@ -33,7 +33,6 @@ type Props = CheckoutState & {
   saveShippingMethod: () => PromiseType,
   setDefaultAddress: () => PromiseType,
   fetchCart: () => PromiseType,
-  addCreditCard: () => PromiseType,
   checkout: () => PromiseType,
   hideCart: () => PromiseType,
   addresses: Array<any>,
@@ -219,7 +218,6 @@ class Checkout extends Component {
               inProgress={this.state.isPerformingCheckout}
               continueAction={this.checkAuthAndplaceOrder}
               error={this.errorsFor(EditStages.BILLING)}
-              addCreditCard={props.addCreditCard}
               isAddressLoaded={this.props.isAddressLoaded}
             />
           </div>

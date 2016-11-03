@@ -45,7 +45,7 @@ class EditBilling extends Component {
 
   state: State = {
     addingNew: false,
-    billingAddressIsSame: false,
+    billingAddressIsSame: true,
   };
 
   componentDidMount() {
@@ -162,13 +162,14 @@ class EditBilling extends Component {
   @autobind
   updateCreditCard() {
     const { id } = this.props.billingData;
+    const { billingAddressIsSame} = this.state;
 
     if (id) {
-      return this.props.updateCreditCard(id)
+      return this.props.updateCreditCard(id, billingAddressIsSame)
         .then(() => this.setState({ addingNew: false }));
     }
 
-    this.props.addCreditCard()
+    this.props.addCreditCard(billingAddressIsSame)
       .then(() => this.setState({ addingNew: false }));
   }
 
@@ -181,6 +182,13 @@ class EditBilling extends Component {
   editCard(data) {
     this.props.loadBillingData(data);
     this.setState({ addingNew: true });
+  }
+
+  @autobind
+  toggleSeparateBillingAddress() {
+    this.setState({
+      billingAddressIsSame: !this.state.billingAddressIsSame
+    });
   }
 
   get editCardForm() {
@@ -261,7 +269,7 @@ class EditBilling extends Component {
           <Checkbox
             id="billingAddressIsSame"
             checked={this.state.billingAddressIsSame}
-            onChange={props.toggleSeparateBillingAddress}
+            onChange={this.toggleSeparateBillingAddress}
             styleName="same-address-checkbox"
           >
             {t('Billing address is same as shipping')}
