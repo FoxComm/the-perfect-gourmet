@@ -227,11 +227,8 @@ export function updateAddress(id?: number): Function {
 }
 
 function getUpdatedBllingAddress(getState, billingAddressIsSame) {
-  if (billingAddressIsSame) {
-    return getState().cart.shippingAddress;
-  } else {
-    return getState().checkout.billingAddress;
-  }
+  if (billingAddressIsSame) return getState().cart.shippingAddress;
+  return getState().checkout.billingAddress;
 }
 
 export function addCreditCard(billingAddressIsSame: boolean): Function {

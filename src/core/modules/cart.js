@@ -142,6 +142,7 @@ export function saveLineItems() {
       return dispatch(submitChange(newCartItems));
     });
   };
+}
 
 const {fetch, ...actions} = createAsyncActions('cart', fetchMyCart);
 

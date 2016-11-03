@@ -48,11 +48,11 @@ class EditBilling extends Component {
     billingAddressIsSame: true,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.data.address) {
       this.setState({
         billingAddressIsSame: false,
-      })
+      });
     }
   }
 
@@ -187,7 +187,7 @@ class EditBilling extends Component {
   @autobind
   toggleSeparateBillingAddress() {
     this.setState({
-      billingAddressIsSame: !this.state.billingAddressIsSame
+      billingAddressIsSame: !this.state.billingAddressIsSame,
     });
   }
 

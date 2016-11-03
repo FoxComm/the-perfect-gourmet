@@ -42,6 +42,7 @@ type Props = CheckoutState & {
   fetchAddresses: Function,
   updateAddress: Function,
   fetchShippingMethods: Function,
+  addCreditCard: Function,
   shippingMethods: Object,
   cart: Object,
   isAddressLoaded: boolean,
