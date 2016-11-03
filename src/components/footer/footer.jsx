@@ -8,6 +8,7 @@ import styles from './footer.css';
 import Icon from 'ui/icon';
 import Button from 'ui/buttons';
 import { TextInput } from 'ui/inputs';
+import { Link } from 'react-router';
 
 const Footer = () : HTMLElement => {
   return (
@@ -28,30 +29,30 @@ const Footer = () : HTMLElement => {
           <li><a href="#">STORES</a></li>
           <li><a href="#">GIFT CARDS</a></li>
           <li><a href="#">FAQ</a></li>
-          <li><a href="#">SHIPPING & RETURNS</a></li>
+          <li><Link to="shipping-and-returns">SHIPPING & RETURNS</Link></li>
         </ul>
 
         <div styleName="social-links">
-          <a href="https://www.instagram.com/theperfectgourmet/" target="_blank">
+          <Link to="https://www.instagram.com/theperfectgourmet/" target="_blank">
             <Icon name="fc-instagram" styleName="social-icon"/>
-          </a>
-          <a href="https://www.facebook.com/PerfectGourmet/" target="_blank">
+          </Link>
+          <Link to="https://www.facebook.com/PerfectGourmet/" target="_blank">
             <Icon name="fc-facebook" styleName="social-icon"/>
-          </a>
-          <a href="https://twitter.com/perfectgourmet1">
-            <Icon name="fc-twitter" styleName="social-icon" target="_blank"/>
-          </a>
-          <a href="https://www.pinterest.com/perfectgourmet/" target="_blank">
+          </Link>
+          <Link to="https://twitter.com/perfectgourmet1" target="_blank">
+            <Icon name="fc-twitter" styleName="social-icon"/>
+          </Link>
+          <Link to="https://www.pinterest.com/perfectgourmet/" target="_blank">
             <Icon name="fc-pinterest" styleName="social-icon"/>
-          </a>
+          </Link>
         </div>
       </div>
 
       <div styleName="copyright">
         <p>&copy; COPYRIGHT 2016. THE PERFECT GOURMET</p>
         <ul>
-          <li><a href="">Terms</a></li>
-          <li><a href="">Privacy</a></li>
+          <li><Link to="terms-of-use">Terms</Link></li>
+          <li><Link to="privacy-policy">Privacy</Link></li>
         </ul>
         <p><a href="http://foxcommerce.com/" target="_blank">POWERED BY FOXCOMMERCE</a>.</p>
       </div>

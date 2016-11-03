@@ -3,10 +3,6 @@
 @import "colors.css";
 @import "variables.css";
 
-.content {
-  position: relative;
-}
-
 .checkout {
   width: 100%;
   counter-reset: item;
@@ -14,7 +10,6 @@
 
 .summary {
   position: relative;
-  z-index: 2;
 }
 
 .checkout-block {

@@ -27,6 +27,9 @@ import * as actions from 'modules/checkout';
 import { EditStages } from 'modules/checkout';
 import { fetch as fetchCart, hideCart } from 'modules/cart';
 
+// paragons
+import { emailIsSet } from 'paragons/auth';
+
 type Props = CheckoutState & {
   setEditStage: (stage: EditStage) => Object,
   saveShippingAddress: () => PromiseType,
@@ -42,6 +45,7 @@ type Props = CheckoutState & {
   shippingMethods: Object,
   cart: Object,
   isAddressLoaded: boolean,
+  location: Object,
 };
 
 class Checkout extends Component {
@@ -145,14 +149,26 @@ class Checkout extends Component {
 
   @autobind
   checkAuthAndplaceOrder() {
-    if (false) {
-      return this.placeOrder();
-    }
-
-    this.performStageTransition('guestAuthInProgress', () => {
-      return new Promise(() => {
-        return this.props.setEditStage(EditStages.GUEST_AUTH);
+    const user = _.get(this.props, ['auth', 'user'], null);
+    if (emailIsSet(user)) {
+      this.placeOrder();
+    } else {
+      this.performStageTransition('guestAuthInProgress', () => {
+        return Promise.resolve().then(() => {
+          return this.props.setEditStage(EditStages.GUEST_AUTH);
+        });
       });
+    }
+  }
+
+  @autobind
+  checkoutAfterSignIn() {
+    this.props.updateAddress().then(() => {
+      return this.saveShippingAddress();
+    }).then(() => {
+      return this.props.saveShippingMethod();
+    }).then(() => {
+      return this.placeOrder();
     });
   }
 
@@ -227,6 +243,8 @@ class Checkout extends Component {
             inProgress={this.state.guestAuthInProgress}
             error={this.errorsFor(EditStages.GUEST_AUTH)}
             continueAction={this.placeOrder}
+            checkoutAfterSignIn={this.checkoutAfterSignIn}
+            location={this.props.location}
           />
         </div>
       </section>
@@ -246,6 +264,7 @@ function mapStateToProps(state) {
   return {
     ...state.checkout,
     cart: state.cart,
+    auth: state.auth,
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
   };

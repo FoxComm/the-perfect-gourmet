@@ -14,7 +14,7 @@ import Button from 'ui/buttons';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart } from 'modules/cart';
+import { fetch as fetchCart, saveLineItems } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 
@@ -32,10 +32,13 @@ type Props = Localized & {
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
+  saveLineItems: Function,
+  onGuestCheckout?: Function,
   displayTitle: boolean,
 };
 
 const mapState = state => ({
+  cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
 });
 
@@ -74,12 +77,23 @@ class Login extends Component {
     e.stopPropagation();
     const { email, password } = this.state;
     const kind = 'merchant';
-    this.props.authenticate({email, password, kind}).then(() => {
-      this.props.fetchCart();
+    const auth = this.props.authenticate({email, password, kind}).then(() => {
+      const lineItems = _.get(this.props, 'cart.lineItems', []);
+      if (_.isEmpty(lineItems)) {
+        this.props.fetchCart();
+      } else {
+        this.props.saveLineItems();
+      }
       browserHistory.push(this.props.getPath());
     }, () => {
       this.setState({error: 'Email or password is invalid'});
     });
+
+    if (this.props.onGuestCheckout != null) {
+      auth.then(() => {
+        this.props.onGuestCheckout();
+      });
+    }
   }
 
   @autobind
@@ -149,4 +163,5 @@ class Login extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
+  saveLineItems,
 })(localized(Login));

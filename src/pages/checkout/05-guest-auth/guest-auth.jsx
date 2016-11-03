@@ -26,8 +26,14 @@ class GuestAuth extends Component {
   }
 
   @autobind
+  onCheckoutAfterAuth() {
+    this.props.checkoutAfterSignIn();
+  }
+
+  @autobind
   getPath(newType: ?string): Object {
-    return newType ? assoc(this.props.path, ['query', 'auth'], newType) : dissoc(this.props.path, ['query', 'auth']);
+    const { location } = this.props;
+    return newType ? assoc(location, ['query', 'auth'], newType) : dissoc(location, ['query', 'auth']);
   }
 
   render() {
@@ -41,7 +47,11 @@ class GuestAuth extends Component {
           <header styleName="header">SIGN IN & CHECKOUT</header>
           <div styleName="form">
             <div styleName="form-content">
-              <Login getPath={this.getPath} displayTitle={false} />
+              <Login
+                getPath={this.getPath}
+                displayTitle={false}
+                onGuestCheckout={this.onCheckoutAfterAuth}
+              />
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ type Props = {
   saveCouponCode: Function,
   skus: Array<any>,
   totals: Object,
-  user?: Object,
+  user?: ?Object,
   isVisible: boolean,
   t: any,
 };
@@ -56,8 +56,9 @@ class Cart extends Component {
   componentDidMount() {
     if (this.props.user) {
       this.props.fetch(this.props.user);
+    } else {
+      this.props.fetch();
     }
-    this.props.fetch();
   }
 
   @autobind
@@ -112,14 +113,6 @@ class Cart extends Component {
 
   @autobind
   onCheckout() {
-    if (!this.props.user) {
-      browserHistory.push({
-        pathname: document.location.pathname,
-        query: { auth: 'login' },
-      });
-
-      return;
-    }
     browserHistory.push('/checkout');
   }
 
