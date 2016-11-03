@@ -8,7 +8,8 @@ import Search from './pages/search/search';
 import ShippingAndReturns from './pages/static/shipping-and-returns';
 import PrivacyPolicy from './pages/static/privacy-policy';
 import TermsOfUse from './pages/static/terms-of-use';
-import Profile from './pages/profile/profile';
+import Profile from './components/profile/profile';
+import Page from './components/profile/page';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
@@ -18,7 +19,9 @@ const routes = (
     <Route path="/checkout" component={Checkout} />
     <Route component={StoreFront}>
       <IndexRoute component={Products} />
-      <Route path="/profile" component={Profile} name="profile" />
+      <Route path="/profile" component={Page}>
+        <IndexRoute component={Profile} />
+      </Route>
       <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns" />
       <Route path="/privacy-policy" component={PrivacyPolicy} name="privacy-policy" />
       <Route path="/terms-of-use" component={TermsOfUse} name="terms-of-use" />
