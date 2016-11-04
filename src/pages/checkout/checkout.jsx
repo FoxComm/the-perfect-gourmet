@@ -42,7 +42,7 @@ type Props = CheckoutState & {
   fetchAddresses: Function,
   updateAddress: Function,
   fetchShippingMethods: Function,
-  addCreditCard: Function,
+  chooseCreditCard: Function,
   shippingMethods: Object,
   cart: Object,
   isAddressLoaded: boolean,
@@ -135,7 +135,7 @@ class Checkout extends Component {
   @autobind
   placeOrder() {
     this.performStageTransition('isPerformingCheckout', () => {
-      return this.props.addCreditCard()
+      return this.props.chooseCreditCard()
         .then(() => {
           return this.props.setEditStage(EditStages.FINISHED);
         })
