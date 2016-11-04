@@ -9,7 +9,7 @@ import { autobind } from 'core-decorators';
 import styles from './accordion.css';
 
 type Props = {
-  isCollapsed: boolean,
+  isInitiallyCollapsed: boolean,
   title: string,
   children?: any,
 };
@@ -22,11 +22,11 @@ class Accordion extends Component {
   props: Props;
 
   static defaultProps = {
-    isCollapsed: true,
+    isInitiallyCollapsed: true,
   };
 
   state: State = {
-    isCollapsed: this.props.isCollapsed,
+    isCollapsed: this.props.isInitiallyCollapsed,
   };
 
   @autobind

@@ -26,24 +26,14 @@ export const EditStages = {
 export type EditStage = number;
 
 export type ShippingAddress = {
-  city?: string;
-}
-
-export type CheckoutState = {
-  editStage: EditStage;
-  shippingAddress: ShippingAddress;
-  billingAddress: ShippingAddress;
+  city?: string,
 };
 
-export type BillingData = {
-  holderName?: string;
-  number?: string|number;
-  brand?: string;
-  expMonth?: string|number;
-  expYear?: string|number;
-  lastFour?: string|number;
-  billingAddress?: Object,
-}
+export type CheckoutState = {
+  editStage: EditStage,
+  shippingAddress: ShippingAddress,
+  billingAddress: ShippingAddress,
+};
 
 export const setEditStage = createAction('CHECKOUT_SET_EDIT_STAGE');
 export const setBillingData = createAction('CHECKOUT_SET_BILLING_DATA', (key, value) => [key, value]);
@@ -139,7 +129,16 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
 }
 
 function addressToPayload(address, countries = []) {
-  const payload = _.pick(address, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber', 'isDefault']);
+  let payload = _.pick(address, [
+    'name',
+    'address1',
+    'address2',
+    'city',
+    'zip',
+    'phoneNumber',
+    'isDefault',
+    'id'
+  ]);
   payload.phoneNumber = String(payload.phoneNumber);
   payload.regionId = _.get(address, 'region.id', _.get(address, 'state.id', ''));
 
@@ -227,8 +226,9 @@ export function updateAddress(id?: number): Function {
 }
 
 function getUpdatedBllingAddress(getState, billingAddressIsSame) {
-  if (billingAddressIsSame) return getState().cart.shippingAddress;
-  return getState().checkout.billingAddress;
+  return billingAddressIsSame
+    ? getState().cart.shippingAddress
+    : getState().checkout.billingAddress;
 }
 
 export function addCreditCard(billingAddressIsSame: boolean): Function {
@@ -236,9 +236,8 @@ export function addCreditCard(billingAddressIsSame: boolean): Function {
     const billingData = getState().checkout.billingData;
     const cardData = _.pick(billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
     const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
-    const address = addressToPayload(billingAddress, getState().countries.list);
-
-    if (billingAddressIsSame) address.id = _.get(billingAddress, 'id');
+    const countries = getState().countries.list;
+    const address = addressToPayload(billingAddress, countries, billingAddressIsSame);
 
     return foxApi.creditCards.create(cardData, address, !billingAddressIsSame);
   };

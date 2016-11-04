@@ -1,3 +1,5 @@
+/* @flow weak */
+
 // libs
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -13,20 +15,20 @@ import CreditCard from './credit-card';
 
 // actions
 import { fetchCreditCards } from 'modules/checkout';
+import type { CreditCardType } from '../types';
 
-function mapStateToProps(state) {
-  return {
-    isLoading: _.get(state.asyncActions, ['creditCards', 'inProgress'], true),
-    creditCards: state.checkout.creditCards,
-    selectedCreditCard: state.cart.creditCard,
-  };
-}
+type Props = {
+  fetchCreditCards: Function,
+  creditCards: Array<CreditCardType>,
+  selectedCreditCard: Object,
+  selectCreditCard: Function,
+  editCard: Function,
+  deleteCard: Function,
+  isLoading: boolean,
+};
 
-/* ::`*/
-@connect(mapStateToProps, { fetchCreditCards })
-@localized
-  /* ::`*/
 class CreditCards extends Component {
+  props: Props;
 
   componentWillMount() {
     this.props.fetchCreditCards();
@@ -64,4 +66,12 @@ class CreditCards extends Component {
   }
 }
 
-export default localized(CreditCards);
+function mapStateToProps(state) {
+  return {
+    isLoading: _.get(state.asyncActions, ['creditCards', 'inProgress'], true),
+    creditCards: state.checkout.creditCards,
+    selectedCreditCard: state.cart.creditCard,
+  };
+}
+
+export default connect(mapStateToProps, { fetchCreditCards })(localized(CreditCards));

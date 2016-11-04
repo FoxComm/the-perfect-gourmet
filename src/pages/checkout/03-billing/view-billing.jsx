@@ -12,10 +12,10 @@ import ViewAddress from '../address/view-address';
 import styles from './credit-card.css';
 
 // types
-import type { BillingData } from 'modules/checkout';
+import type { BillingData } from '../types';
 
 type Props = {
-  billingData: ?BillingData,
+  billingData: BillingData,
 };
 
 const ViewBilling = (props: Props) => {

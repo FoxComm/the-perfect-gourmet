@@ -36,8 +36,7 @@ class PromoCode extends Component {
 
   get buttonLabel() {
     const { buttonLabel } = this.props;
-    if (buttonLabel) return buttonLabel;
-    return 'Apply';
+    return buttonLabel ? buttonLabel : 'Apply';
   }
 
   @autobind

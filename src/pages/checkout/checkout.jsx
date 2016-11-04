@@ -21,6 +21,7 @@ import styles from './checkout.css';
 // types
 import type { Promise as PromiseType } from 'types/promise';
 import type { CheckoutState, EditStage } from 'modules/checkout';
+import type { CheckoutActions } from './types';
 
 // actions
 import * as actions from 'modules/checkout';
@@ -30,19 +31,11 @@ import { fetch as fetchCart, hideCart } from 'modules/cart';
 // paragons
 import { emailIsSet } from 'paragons/auth';
 
-type Props = CheckoutState & {
+type Props = CheckoutState & CheckoutActions & {
   setEditStage: (stage: EditStage) => Object,
-  saveShippingAddress: () => PromiseType,
-  saveShippingMethod: () => PromiseType,
-  setDefaultAddress: () => PromiseType,
-  fetchCart: () => PromiseType,
-  checkout: () => PromiseType,
   hideCart: () => PromiseType,
+  fetchCart: () => PromiseType,
   addresses: Array<any>,
-  fetchAddresses: Function,
-  updateAddress: Function,
-  fetchShippingMethods: Function,
-  chooseCreditCard: Function,
   shippingMethods: Object,
   cart: Object,
   isAddressLoaded: boolean,

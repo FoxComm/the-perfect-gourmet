@@ -32,9 +32,17 @@ import * as cartActions from 'modules/cart';
 import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
 
-const months = _.range(1, 13, 1).map(x => _.padStart(x.toString(), 2, '0'));
-const currentYear = new Date().getFullYear();
-const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
+// types
+import type { CreditCardType, CheckoutActions } from '../types';
+
+type Props = CheckoutActions & {
+  error: Array<any>,
+  data: CreditCardType,
+  billingData: CreditCardType,
+  continueAction: Function,
+  t: any,
+  inProgress: boolean,
+};
 
 type State = {
   addingNew: boolean,
@@ -42,6 +50,7 @@ type State = {
 };
 
 class EditBilling extends Component {
+  props: Props;
 
   state: State = {
     addingNew: false,
@@ -138,10 +147,6 @@ class EditBilling extends Component {
     return foxApi.creditCards.validateCVC(cvc) ? null : t(`Please enter a valid cvc number`);
   }
 
-  get cvcHelp() {
-    return <CvcHelp />;
-  }
-
   @autobind
   addNew() {
     this.props.resetBillingData();
@@ -195,6 +200,10 @@ class EditBilling extends Component {
     const { props } = this;
     const { data, t } = props;
 
+    const months = _.range(1, 13, 1).map(x => _.padStart(x.toString(), 2, '0'));
+    const currentYear = new Date().getFullYear();
+    const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
+
     return (
       <div styleName="edit-card-form">
          <FormField styleName="text-field">
@@ -229,7 +238,7 @@ class EditBilling extends Component {
             <FormField styleName="text-field" validator={this.validateCvcNumber}>
               <TextInputWithLabel
                 required
-                label={this.cvcHelp}
+                label={<CvcHelp />}
                 type="number"
                 maxLength="4"
                 placeholder={t('CVC')}

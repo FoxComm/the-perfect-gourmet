@@ -1,3 +1,5 @@
+/* @flow weak */
+
 // libs
 import React from 'react';
 
@@ -5,21 +7,19 @@ import React from 'react';
 import Radiobutton from 'ui/radiobutton/radiobutton';
 import ViewBilling from './view-billing';
 
+// types
+import type { CreditCardType } from '../types';
+
 // styles
 import styles from './credit-card.css';
 
-type CreditCardType = {
-  id: number,
-  brand: string,
-  lastFour: string,
-  expMonth: number,
-  expYear: number,
-};
 
 type Props = {
   creditCard: CreditCardType,
   selected: boolean,
   onSelect: (cc: CreditCardType) => void,
+  editCard: Function,
+  deleteCard: Function,
 };
 
 const CreditCard = (props: Props) => {
