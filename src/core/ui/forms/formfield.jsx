@@ -204,7 +204,7 @@ class FormField extends Component {
         }
       }
     } else if ('required' in this.props) {
-      errors = [...errors, formatString(t('Field is required'), label)];
+      errors = [...errors, 'Field is required'];
     }
 
     this.setState({

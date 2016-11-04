@@ -129,7 +129,7 @@ export function initAddressData(kind: AddressKindType, savedAddress): Function {
 }
 
 function addressToPayload(address, countries = []) {
-  let payload = _.pick(address, [
+  const payload = _.pick(address, [
     'name',
     'address1',
     'address2',
@@ -137,7 +137,7 @@ function addressToPayload(address, countries = []) {
     'zip',
     'phoneNumber',
     'isDefault',
-    'id'
+    'id',
   ]);
   payload.phoneNumber = String(payload.phoneNumber);
   payload.regionId = _.get(address, 'region.id', _.get(address, 'state.id', ''));

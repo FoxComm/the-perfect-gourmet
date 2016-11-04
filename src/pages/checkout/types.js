@@ -1,3 +1,4 @@
+import type { Address } from 'types/address';
 
 export type CheckoutBlockProps = {
   isEditing: boolean,
@@ -23,7 +24,7 @@ export type BillingData = {
   expMonth: number,
   expYear: number,
   billingAddress?: Object,
-  address?: Object,
+  address?: Address,
 };
 
 type CardActions = {

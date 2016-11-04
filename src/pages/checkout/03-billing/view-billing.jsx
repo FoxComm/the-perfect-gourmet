@@ -32,10 +32,12 @@ const ViewBilling = (props: Props) => {
     <li>{ expMonth }/{ lastTwoYear }</li> : null;
   const addressInfo = !_.isEmpty(billingAddress) ?
     <li><ViewAddress styleName="billing-address" {...billingAddress} /></li> : null;
+  const paymentIcon = paymentType ?
+    <li><Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} /></li> : null;
 
   return (
     <ul styleName="view-billing">
-      <li>{paymentType && <Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} />}</li>
+      {paymentIcon}
       <li styleName="payment-name">{ holderName }</li>
       <li styleName="payment-last-four">{ lastFour }</li>
       {monthYear}

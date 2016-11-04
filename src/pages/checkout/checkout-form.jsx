@@ -34,8 +34,7 @@ class CheckoutForm extends Component {
   }
 
   get buttonLabel(): string {
-    if (this.props.buttonLabel) return this.props.buttonLabel;
-    return 'Continue';
+    return this.props.buttonLabel || 'Continue';
   }
 
   render() {
