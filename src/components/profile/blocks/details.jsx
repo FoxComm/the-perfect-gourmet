@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styles from '../profile.css';
 import { connect } from 'react-redux';
 import type { Promise as PromiseType } from 'types/promise';
+import { browserHistory } from 'react-router';
 
 import Block from '../common/block';
 import Button from 'ui/buttons';
@@ -36,8 +37,13 @@ type DetailsProps = {
 
 class Details extends Component {
   props: DetailsProps;
+
   componentWillMount() {
     this.props.fetchAccount();
+  }
+
+  handleChangePasswordClick() {
+    browserHistory.push('/profile/edit/password');
   }
 
   render() {
@@ -59,7 +65,7 @@ class Details extends Component {
           <div styleName="value">{account.email}</div>
         </div>
         <div styleName="buttons-footer">
-          <Button styleName="link-button">CHANGE PASSWORD</Button>
+          <Button styleName="link-button" onClick={this.handleChangePasswordClick}>CHANGE PASSWORD</Button>
         </div>
       </Block>
     );

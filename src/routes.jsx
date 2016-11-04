@@ -13,6 +13,7 @@ import Page from './components/profile/page';
 import EditProfile from './components/profile/edit-profile';
 import EditName from './components/profile/blocks/edit-name';
 import EditEmail from './components/profile/blocks/edit-email';
+import ChangePassword from './components/profile/blocks/change-password';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
@@ -27,6 +28,7 @@ const routes = (
         <Route path="/profile/edit" component={EditProfile}>
           <Route path="name" component={EditName} />
           <Route path="email" component={EditEmail} />
+          <Route path="password" component={ChangePassword} />
         </Route>
       </Route>
       <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns" />
