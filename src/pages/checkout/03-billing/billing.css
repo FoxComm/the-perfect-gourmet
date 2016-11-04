@@ -1,6 +1,15 @@
 @import "media-queries.css";
 @import "colors.css";
 
+.billing {
+  composes: checkout-block from '../checkout.css';
+}
+
+.billing-summary {
+  text-align: center;
+  padding: 20px 0;
+}
+
 .fieldset {
   border-bottom: 1px solid var(--border-color);
 }

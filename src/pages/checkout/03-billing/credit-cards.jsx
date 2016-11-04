@@ -50,15 +50,11 @@ class CreditCards extends Component {
   }
 
   render() {
-    const { isLoading, creditCards, t } = this.props;
+    const { isLoading, creditCards } = this.props;
 
-    if (isLoading) {
-      return <Loader size="m" />;
-    }
+    if (isLoading) return <Loader size="m" />;
 
-    if (_.isEmpty(creditCards)) {
-      return <div styleName="credit-cards-empty">{t('No credit cards yet')}</div>;
-    }
+    if (_.isEmpty(creditCards)) return null;
 
     return (
       <div>

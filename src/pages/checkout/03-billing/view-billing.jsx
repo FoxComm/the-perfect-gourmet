@@ -15,11 +15,14 @@ import styles from './credit-card.css';
 import type { BillingData } from 'modules/checkout';
 
 type Props = {
-  billingData: BillingData,
+  billingData: ?BillingData,
 };
 
 const ViewBilling = (props: Props) => {
   const { billingData } = props;
+
+  if (!billingData || _.isEmpty(billingData)) return null;
+
   const { brand, expMonth, expYear, billingAddress, holderName, lastFour } = billingData;
 
   const paymentType = brand ? _.kebabCase(brand) : '';

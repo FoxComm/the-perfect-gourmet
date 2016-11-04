@@ -233,11 +233,14 @@ function getUpdatedBllingAddress(getState, billingAddressIsSame) {
 
 export function addCreditCard(billingAddressIsSame: boolean): Function {
   return (dispatch, getState) => {
-    const cardData = _.pick(getState().checkout.billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
+    const billingData = getState().checkout.billingData;
+    const cardData = _.pick(billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
     const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
     const address = addressToPayload(billingAddress, getState().countries.list);
 
-    return foxApi.creditCards.create(cardData, address, !getState().checkout.billingAddressIsSame);
+    if (billingAddressIsSame) address.id = _.get(billingAddress, 'id');
+
+    return foxApi.creditCards.create(cardData, address, !billingAddressIsSame);
   };
 }
 

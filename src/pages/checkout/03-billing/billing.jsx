@@ -11,33 +11,30 @@ import EditBilling from './edit-billing';
 import ViewBilling from './view-billing';
 
 // styles
-import styles from '../checkout.css';
+import styles from './billing.css';
 
 // types
 import type { CheckoutBlockProps } from '../types';
-import type { BillingData } from 'modules/checkout';
 
 const Billing = (props: CheckoutBlockProps) => {
-  const billingData: BillingData = props.creditCard ? props.creditCard : props.billingData;
-
-  const content = props.isEditing
-    ? <EditBilling {...props} />
-    : <ViewBilling billingData={billingData} />;
-
-  const billingContent = (
-    <div styleName="checkout-block-content">
-      {content}
-    </div>
-  );
-
   const { t } = props;
+
+  let content = <EditBilling {...props} />;
+
+  if (!props.isEditing) {
+    content = (
+      <div styleName="billing-summary">
+        <ViewBilling billingData={props.creditCard} />
+      </div>
+    );
+  }
 
   return (
     <EditableBlock
       {...props}
-      styleName="checkout-block"
+      styleName="billing"
       title={t('BILLING')}
-      content={billingContent}
+      content={content}
     />
   );
 };
