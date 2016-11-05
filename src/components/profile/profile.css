@@ -91,3 +91,30 @@
 .form-field {
   margin-bottom: 10px;
 }
+
+.simple-table {
+  border-collapse: collapse;
+  font-family: var(--font-main);
+  font-size: 15px;
+  color: #212121;
+  line-height: 20px;
+
+  & > thead {
+    border-bottom: 1px solid #f4f4f4;
+
+    & th {
+      padding-bottom: 20px;
+      text-transform: uppercase;
+    }
+  }
+
+  & > tbody {
+    & td {
+      padding: 20px 0;
+    }
+
+    & > tr {
+      border-bottom: 1px solid #f4f4f4;
+    }
+  }
+}

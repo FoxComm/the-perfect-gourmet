@@ -11,7 +11,6 @@ import { Link } from 'react-router';
 
 import * as actions from 'modules/profile';
 
-
 function mapStateToProps(state) {
   return {
     account: state.profile.account,
@@ -43,7 +42,7 @@ class Details extends Component {
   }
 
   handleChangePasswordClick() {
-    browserHistory.push('/profile/edit/password');
+    browserHistory.push('/profile/password');
   }
 
   render() {
@@ -53,14 +52,14 @@ class Details extends Component {
         <div styleName="section">
           <div styleName="line">
             <div styleName="subtitle">First and last name</div>
-            <Link styleName="link" to="/profile/edit/name">EDIT</Link>
+            <Link styleName="link" to="/profile/name">EDIT</Link>
           </div>
           <div styleName="value">{account.name}</div>
         </div>
         <div styleName="section">
           <div styleName="line">
             <div styleName="subtitle">Email</div>
-            <Link styleName="link" to="/profile/edit/email">EDIT</Link>
+            <Link styleName="link" to="/profile/email">EDIT</Link>
           </div>
           <div styleName="value">{account.email}</div>
         </div>

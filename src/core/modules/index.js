@@ -12,6 +12,7 @@ import search from './search';
 import auth from './auth';
 import usermenu from './usermenu';
 import profile from './profile';
+import orders from './orders';
 
 import { reducer as asyncReducer } from './async-utils';
 
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   auth,
   usermenu,
   profile,
+  orders,
 });
 
 export default reducer;

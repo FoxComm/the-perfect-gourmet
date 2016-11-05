@@ -18,7 +18,7 @@ type Props = {
   routes: Array<Route>,
 }
 
-const EditProfile = (props: Props) => {
+const ProfileUnit = (props: Props) => {
   const lastRoute = props.routes[props.routes.length - 1];
   return (
     <div styleName="profile">
@@ -28,4 +28,4 @@ const EditProfile = (props: Props) => {
   );
 };
 
-export default EditProfile;
+export default ProfileUnit;
