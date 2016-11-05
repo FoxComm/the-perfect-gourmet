@@ -21,8 +21,16 @@ const _updateAccount = createAsyncActions(
   }
 );
 
+const _changePassword = createAsyncActions(
+  'changePassword',
+  function(oldPassword: string, newPassword: string) {
+    return this.api.account.changePassword(oldPassword, newPassword);
+  }
+);
+
 export const fetchAccount = _fetchAccount.perform;
 export const updateAccount = _updateAccount.perform;
+export const changePassword = _changePassword.perform;
 
 const initialState = {
   account: {},

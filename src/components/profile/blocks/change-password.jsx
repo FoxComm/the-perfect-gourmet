@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import styles from '../profile.css';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-// import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 import { Link } from 'react-router';
 import Block from '../common/block';
@@ -12,6 +12,7 @@ import Button from 'ui/buttons';
 import { TextInput } from 'ui/inputs';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { Form, FormField } from 'ui/forms';
+import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/profile';
 
@@ -35,7 +36,7 @@ type Account = {
 type ChangePasswordProps = {
   account: Account|{},
   fetchAccount: () => PromiseType,
-  updateAccount: (payload: Object) => PromiseType,
+  changePassword: (oldPassword: string, newPassword: string) => PromiseType,
   changeState: AsyncStatus,
 }
 
@@ -43,6 +44,7 @@ type State = {
   currentPassword: string,
   newPassword1: string,
   newPassword2: string,
+  error: any,
 }
 
 class ChangePassword extends Component {
@@ -53,6 +55,7 @@ class ChangePassword extends Component {
     currentPassword: '',
     newPassword1: '',
     newPassword2: '',
+    error: null,
   };
 
   @autobind
@@ -60,25 +63,36 @@ class ChangePassword extends Component {
     const { target } = event;
     this.setState({
       [target.name]: target.value,
+      error: null,
     });
   }
 
   @autobind
   handleSave() {
-    /*
-    this.props.updateAccount({
-      name: this.state.name,
-    }).then(() => {
+    const { newPassword1, newPassword2, currentPassword } = this.state;
+
+    if (newPassword1 != newPassword2) {
+      return Promise.reject({
+        newPassword2: 'Passwords must match',
+      });
+    }
+
+    this.props.changePassword(
+      currentPassword,
+      newPassword1
+    ).then(() => {
       browserHistory.push('/profile');
-    });*/
+    }).catch(err => {
+      this.setState({error: err});
+    });
   }
 
   render() {
     return (
       <Block title={ChangePassword.title}>
         <div styleName="section">Use this form to change your password.</div>
-        <Form onChange={this.handleFormChange}>
-          <FormField styleName="form-field">
+        <Form onChange={this.handleFormChange} onSubmit={this.handleSave}>
+          <FormField name="currentPassword" styleName="form-field" required>
             <TextInput
               placeholder="CURRENT PASSWORD"
               styleName="text-input"
@@ -86,7 +100,7 @@ class ChangePassword extends Component {
               name="currentPassword"
             />
           </FormField>
-          <FormField styleName="form-field">
+          <FormField name="newPassword1" styleName="form-field" required>
             <ShowHidePassword
               placeholder="NEW PASSWORD"
               styleName="text-input"
@@ -94,7 +108,7 @@ class ChangePassword extends Component {
               name="newPassword1"
             />
           </FormField>
-          <FormField styleName="form-field">
+          <FormField name="newPassword2" styleName="form-field" required>
             <ShowHidePassword
               placeholder="RETYPE NEW PASSWORD"
               styleName="text-input"
@@ -102,10 +116,11 @@ class ChangePassword extends Component {
               name="newPassword2"
             />
           </FormField>
+          <ErrorAlerts error={this.state.error} />
           <div styleName="buttons-footer">
             <Button
+              type="submit"
               styleName="save-button"
-              onClick={this.handleSave}
               isLoading={this.props.changeState.inProgress}
             >
               Save
