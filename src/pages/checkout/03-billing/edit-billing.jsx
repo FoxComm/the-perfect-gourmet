@@ -42,6 +42,7 @@ type Props = CheckoutActions & {
   continueAction: Function,
   t: any,
   inProgress: boolean,
+  isEmailSet: boolean,
 };
 
 type State = {
@@ -169,13 +170,17 @@ class EditBilling extends Component {
     const id = _.get(this.props, 'billingData.id');
     const { billingAddressIsSame } = this.state;
 
-    if (id) {
-      return this.props.updateCreditCard(id, billingAddressIsSame)
+    if (this.props.isEmailSet) {
+      if (id) {
+        return this.props.updateCreditCard(id, billingAddressIsSame)
+          .then(() => this.setState({ addingNew: false }));
+      }
+
+      return this.props.addCreditCard(billingAddressIsSame)
         .then(() => this.setState({ addingNew: false }));
     }
 
-    return this.props.addCreditCard(billingAddressIsSame)
-      .then(() => this.setState({ addingNew: false }));
+    return this.handleSubmit(!!billingAddressIsSame);
   }
 
   @autobind
