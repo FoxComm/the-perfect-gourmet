@@ -142,6 +142,25 @@ class Checkout extends Component {
   }
 
   @autobind
+  saveCardAndCheckout() {
+    this.performStageTransition('isPerformingCheckout', () => {
+      return this.props.addCreditCard(true)
+        .then(() => {
+          return this.props.chooseCreditCard();
+        })
+        .then(() => {
+          return this.props.setEditStage(EditStages.FINISHED);
+        })
+        .then(() => {
+          return this.props.checkout();
+        })
+        .then(() => {
+          browserHistory.push('/checkout/done');
+        });
+    });
+  }
+
+  @autobind
   checkAuthAndPlaceOrder() {
     const user = _.get(this.props, ['auth', 'user'], null);
     if (emailIsSet(user)) {
@@ -156,13 +175,19 @@ class Checkout extends Component {
   }
 
   @autobind
+  isEmailSetForCheckout() {
+    const user = _.get(this.props, ['auth', 'user'], null);
+    return emailIsSet(user);
+  }
+
+  @autobind
   checkoutAfterSignIn() {
     this.props.updateAddress().then(() => {
       return this.saveShippingAddress();
     }).then(() => {
       return this.props.saveShippingMethod();
     }).then(() => {
-      return this.placeOrder();
+      return this.saveCardAndCheckout();
     });
   }
 
@@ -229,6 +254,7 @@ class Checkout extends Component {
               continueAction={this.checkAuthAndPlaceOrder}
               error={this.errorsFor(EditStages.BILLING)}
               isAddressLoaded={this.props.isAddressLoaded}
+              isGuest={this.isEmailSetForCheckout()}
             />
           </div>
 
@@ -236,7 +262,7 @@ class Checkout extends Component {
             isEditing={props.editStage == EditStages.GUEST_AUTH}
             inProgress={this.state.guestAuthInProgress}
             error={this.errorsFor(EditStages.GUEST_AUTH)}
-            continueAction={this.placeOrder}
+            continueAction={this.saveCardAndCheckout}
             checkoutAfterSignIn={this.checkoutAfterSignIn}
             location={this.props.location}
           />
