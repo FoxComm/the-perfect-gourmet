@@ -16,6 +16,7 @@ type Route = {
 type Props = {
   children: HTMLElement|Array<HTMLElement>,
   routes: Array<Route>,
+  params: Object,
 }
 
 const ProfileUnit = (props: Props) => {
