@@ -132,15 +132,20 @@ class Checkout extends Component {
 
   @autobind
   placeOrder() {
-    this.performStageTransition('isPerformingCheckout', () => {
+    if (this.props.cart.creditCard) {
       return this.props.chooseCreditCard()
+        .then(() => this.checkout())
+    }
+
+    return this.checkout();
+  }
+
+  @autobind
+  checkout() {
+    this.performStageTransition('isPerformingCheckout', () => {
+      return this.props.checkout()
         .then(() => {
-          return this.props.setEditStage(EditStages.FINISHED);
-        })
-        .then(() => {
-          return this.props.checkout();
-        })
-        .then(() => {
+          this.props.setEditStage(EditStages.FINISHED);
           browserHistory.push('/checkout/done');
         });
     });
