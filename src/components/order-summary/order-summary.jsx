@@ -31,6 +31,11 @@ type Props = {
   paymentMethods?: Object,
   t: any,
   isScrolled: boolean,
+  isCollapsed: boolean,
+  header?: any,
+  className?: string,
+  embedded?: boolean,
+  totalTitle?: string,
 };
 
 type State = {
@@ -40,12 +45,14 @@ type State = {
 class OrderSummary extends Component {
   props: Props;
 
-  state: State = {
-    isCollapsed: true,
-  };
-
   static defaultProps = {
     paymentMethods: {},
+    isCollapsed: true,
+    isScrolled: false,
+  };
+
+  state: State = {
+    isCollapsed: this.props.isCollapsed,
   };
 
   renderGiftCard(amount) {
@@ -99,14 +106,20 @@ class OrderSummary extends Component {
     const style = classNames({
       [styles.collapsed]: this.state.isCollapsed,
       [styles.scrolled]: this.props.isScrolled,
-    });
+      [styles.embedded]: this.props.embedded,
+    }, props.className);
+
+    const header = (
+      <header styleName="header" onClick={this.toggleCollapsed}>
+        <div styleName="title">{t('ORDER TOTAL')}</div>
+        <Currency styleName="price" value={grandTotalResult} />
+      </header>
+    );
 
     return (
       <section styleName="order-summary" className={style}>
-        <header styleName="header" onClick={this.toggleCollapsed}>
-          <div styleName="title">{t('ORDER TOTAL')}</div>
-          <Currency styleName="price" value={grandTotalResult} />
-        </header>
+        { this.props.header !== void 0 ? this.props.header : header }
+
         <div styleName="content">
           <ProductTable skus={props.skus} />
 
@@ -133,7 +146,7 @@ class OrderSummary extends Component {
             {couponBlock}
           </ul>
           <TermValueLine styleName="grand-total">
-            <span>{t('GRAND TOTAL')}</span>
+            <span>{this.props.totalTitle || t('GRAND TOTAL')}</span>
             <Currency value={grandTotalResult} />
           </TermValueLine>
         </div>
@@ -142,6 +155,4 @@ class OrderSummary extends Component {
   }
 }
 
-const mapStateToProps = state => state.cart;
-
-export default connect(mapStateToProps, {})(localized(OrderSummary));
+export default connect(null, {})(localized(OrderSummary));
