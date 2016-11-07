@@ -4,12 +4,9 @@ import React, { Component } from 'react';
 import styles from '../profile.css';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import moment from 'moment';
-import { stateTitles } from 'paragons/order';
 
 import Block from '../common/block';
-import { Link } from 'react-router';
-import Currency from 'ui/currency';
+import OrderRow from './order-row';
 
 import * as actions from 'modules/orders';
 
@@ -27,26 +24,7 @@ class MyOrders extends Component {
 
   @autobind
   renderOrder(order) {
-    return (
-      <tr key={order.referenceNumber}>
-        <td>
-          {moment(order.placedAt).format('L')}
-        </td>
-        <td>{order.referenceNumber}</td>
-        <td>
-          <Currency value={order.grandTotal} currency={order.currency} />
-        </td>
-        <td>
-          <span>{stateTitles[order.state]}</span>
-        </td>
-        <td>
-          TRACKING ID
-        </td>
-        <td>
-          <Link to={`/profile/orders/${order.referenceNumber}`}>View Details</Link>
-        </td>
-      </tr>
-    );
+    return <OrderRow order={order} showDetailsLink />;
   }
 
   render() {

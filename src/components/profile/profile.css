@@ -101,20 +101,42 @@
 
   & > thead {
     border-bottom: 1px solid #f4f4f4;
-
-    & th {
-      padding-bottom: 20px;
-      text-transform: uppercase;
-    }
+  }
+  & th {
+    padding-bottom: 20px;
+    text-transform: uppercase;
   }
 
   & > tbody {
     & td {
       padding: 20px 0;
+      vertical-align: top;
+    }
+
+    & th {
+      padding-top: 20px;
     }
 
     & > tr {
       border-bottom: 1px solid #f4f4f4;
     }
   }
+}
+
+.payment-icon {
+  compose: payment-icon from '../../pages/checkout/checkout.css';
+}
+
+.payment-method {
+  margin-bottom: 20px;
+}
+
+.order-service {
+  & tr:first-child {
+    border-bottom: 0 none;
+  }
+}
+
+.delivery-name {
+  padding-bottom: 10px;
 }

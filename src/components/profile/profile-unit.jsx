@@ -20,9 +20,13 @@ type Props = {
 
 const ProfileUnit = (props: Props) => {
   const lastRoute = props.routes[props.routes.length - 1];
+  let title = lastRoute.component.title;
+  if (typeof title == 'function') {
+    title = title(props.params);
+  }
   return (
     <div styleName="profile">
-      <Breadcrumb title={lastRoute.component.title} />
+      <Breadcrumb title={title} />
       {props.children}
     </div>
   );
