@@ -37,7 +37,7 @@ const reducer = createReducer({
   [_fetchOrder.succeeded]: (state, response) => {
     return {
       ...state,
-      current: response,
+      current: response.result,
     };
   },
   [clearOrder]: state => {

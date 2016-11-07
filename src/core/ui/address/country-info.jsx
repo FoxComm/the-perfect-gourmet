@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 
 import * as actions from 'modules/countries';
 
+function mapStateToProps(state) {
+  return {
+    countries: state.countries.details,
+  };
+}
 
 class CountryInfo extends Component {
 
@@ -23,4 +28,4 @@ class CountryInfo extends Component {
   }
 }
 
-export default connect(state => state, actions)(CountryInfo);
+export default connect(mapStateToProps, actions)(CountryInfo);

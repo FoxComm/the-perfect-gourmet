@@ -63,7 +63,7 @@ class Order extends Component {
 
   renderGiftCard(paymentMethod) {
     return (
-      <div styleName="payment-method" key={paymentMethod.type}>
+      <div styleName="payment-method" key={paymentMethod.code}>
         <div>GIFT CARD {paymentMethod.code}</div>
         <div>
           <strong><Currency value={paymentMethod.amount} /></strong>
