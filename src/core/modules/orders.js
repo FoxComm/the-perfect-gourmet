@@ -14,12 +14,8 @@ const _fetchOrders = createAsyncActions(
 
 const _fetchOrder = createAsyncActions(
   'fetchOrder',
-  function() {
-    return new Promise(resolve => {
-      const orderData = require('./mock/order.json');
-      resolve(orderData.result);
-    });
-    // return this.api.orders.get(referenceNumber);
+  function(referenceNumber) {
+    return this.api.orders.get(referenceNumber);
   }
 );
 
