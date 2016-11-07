@@ -134,7 +134,7 @@ class Checkout extends Component {
   placeOrder() {
     if (this.props.cart.creditCard) {
       return this.props.chooseCreditCard()
-        .then(() => this.checkout())
+        .then(() => this.checkout());
     }
 
     return this.checkout();
@@ -239,7 +239,8 @@ class Checkout extends Component {
               inProgress={this.state.isPerformingCheckout}
               continueAction={this.placeOrder}
               error={this.errorsFor(EditStages.BILLING)}
-              isAddressLoaded={this.props.isAddressLoaded}
+              isAddressLoaded={props.isAddressLoaded}
+              paymentMethods={_.get(props.cart, 'paymentMethods', [])}
             />
           </div>
 
