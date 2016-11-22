@@ -27,7 +27,12 @@ type Props = {
   shippingMethodCost: Function,
   isLoading: boolean,
   error: ?Array<any>,
+  skus: Array<any>,
 };
+
+function isGiftCard (sku) {
+  return !_.isEmpty(sku.attributes);
+}
 
 class EditDelivery extends Component {
   props: Props;
@@ -46,11 +51,19 @@ class EditDelivery extends Component {
   }
 
   get shippingMethods() {
-    const { shippingMethods, selectedShippingMethod: selectedMethod } = this.props;
+    const {
+      shippingMethods,
+      selectedShippingMethod: selectedMethod,
+      skus,
+    } = this.props;
 
     return shippingMethods.map(shippingMethod => {
       const cost = this.props.shippingMethodCost(shippingMethod.price);
       const checked = selectedMethod && selectedMethod.id == shippingMethod.id;
+
+      if (skus.length === 1 && isGiftCard(skus[0]) && shippingMethod.code !== 'EMAIL') {
+        return null;
+      }
 
       return (
         <div key={shippingMethod.id} styleName="shipping-method">
@@ -90,6 +103,7 @@ class EditDelivery extends Component {
 function mapStateToProps(state) {
   return {
     isLoading: _.get(state.asyncActions, ['shippingMethods', 'inProgress'], true),
+    ...state.cart,
   };
 }
 
