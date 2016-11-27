@@ -150,8 +150,8 @@ export function saveLineItems(merge: boolean = false) {
         }, []);
 
         newCartItems = originalCart.concat(guestCartSkus);
-      
-      // We are going to only persist the items in the guest cart on the case of signup.  
+
+      // We are going to only persist the items in the guest cart on the case of signup.
       // We will delete any items that are persisted, although there should be no persisted items for a freshly signed-up user.
       } else {
         const lis = _.get(data, 'lineItems.skus', []);
