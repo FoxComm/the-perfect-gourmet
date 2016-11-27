@@ -14,8 +14,7 @@ import Button from 'ui/buttons';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart, saveLineItems } from 'modules/cart';
-import { saveCouponCode } from 'modules/checkout';
+import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 
@@ -33,8 +32,7 @@ type Props = Localized & {
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
-  saveLineItems: Function,
-  saveCouponCode: Function,
+  saveLineItemsAndCoupons: Function,
   onGuestCheckout?: Function,
   displayTitle: boolean,
 };
@@ -82,10 +80,7 @@ class Login extends Component {
     const auth = this.props.authenticate({email, password, kind}).then(() => {
       const merge = this.props.onGuestCheckout == null;
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
-      this.props.saveLineItems(merge);
-      if (!_.isNil(couponCode)) {
-        this.props.saveCouponCode(couponCode);
-      }
+      this.props.saveLineItemsAndCoupons(merge);
       browserHistory.push(this.props.getPath());
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
@@ -176,6 +171,5 @@ class Login extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
-  saveLineItems,
-  saveCouponCode,
+  saveLineItemsAndCoupons,
 })(localized(Login));

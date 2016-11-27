@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { createAction, createReducer } from 'redux-act';
 import createAsyncActions from './async-utils';
 import { api as foxApi } from 'lib/api';
+import { saveCouponCode } from 'modules/checkout';
 
 export const toggleCart = createAction('TOGGLE_CART');
 export const hideCart = createAction('HIDE_CART');
@@ -71,11 +72,11 @@ function addToLineItems(items, sku, quantity, attributes) {
   return collectItemsToSubmit(toCollect);
 }
 
-function changeCart(payload) {
+function changeCartLineItems(payload) {
   return this.api.post('/v1/my/cart/line-items', payload);
 }
 
-const { fetch: submitChange, ...changeCartActions } = createAsyncActions('cartChange', changeCart);
+const { fetch: submitLineItemChange, ...changeCartActions } = createAsyncActions('cartChange', changeCartLineItems);
 
 // add line item to cart
 export function addLineItem(sku, quantity, attributes = {}) {
@@ -83,7 +84,7 @@ export function addLineItem(sku, quantity, attributes = {}) {
     const state = getState();
     const lineItems = _.get(state, ['cart', 'skus'], []);
     const newLineItems = addToLineItems(lineItems, sku, quantity, attributes);
-    return dispatch(submitChange(newLineItems));
+    return dispatch(submitLineItemChange(newLineItems));
   };
 }
 
@@ -99,7 +100,7 @@ export function updateLineItemQuantity(sku, qtt) {
         quantity,
       };
     });
-    return dispatch(submitChange(newLineItems));
+    return dispatch(submitLineItemChange(newLineItems));
   };
 }
 
@@ -114,10 +115,11 @@ function fetchMyCart(user): global.Promise {
 }
 
 // push cart to server
-export function saveLineItems(merge: boolean = false) {
+export function saveLineItemsAndCoupons(merge: boolean = false) {
   return (dispatch, getState) => {
     const state = getState();
     const guestLineItems = _.get(state, ['cart', 'skus'], []);
+    const guestCouponCode = _.get(state, 'cart.coupon.code', null);
     const guestLineItemsToSubmit = collectItemsToSubmit(guestLineItems);
     return fetchMyCart().then((data) => {
       let newCartItems = [];
@@ -173,7 +175,14 @@ export function saveLineItems(merge: boolean = false) {
 
       return newCartItems;
     }).then((newCartItems) => {
-      return dispatch(submitChange(newCartItems));
+      return dispatch(submitLineItemChange(newCartItems));
+    }).then(() => {
+      if (!_.isNil(guestCouponCode)) {
+        foxApi.cart.addCoupon(guestCouponCode)
+          .then(res => {
+            dispatch(updateCart(res.result));
+          });
+        }
     });
   };
 }

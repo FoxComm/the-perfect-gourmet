@@ -19,8 +19,7 @@ import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart, saveLineItems } from 'modules/cart';
-import { saveCouponCode } from 'modules/checkout';
+import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'modules/auth';
@@ -38,8 +37,7 @@ type Props = Localized & {
   getPath: Function,
   isLoading: boolean,
   fetchCart: Function,
-  saveLineItems: Function,
-  saveCouponCode: Function,
+  saveLineItemsAndCoupons: Function,
 };
 
 const mapState = state => ({
@@ -89,13 +87,10 @@ class Signup extends Component {
     this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
-      if (_.isEmpty(lineItems)) {
+      if (_.isEmpty(lineItems) && _.isNil(couponCode)) {
         this.props.fetchCart();
       } else {
-        this.props.saveLineItems();
-      }
-      if (!_.isNil(couponCode)) {
-        this.props.saveCouponCode(couponCode);
+        this.props.saveLineItemsAndCoupons();
       }
       browserHistory.push(this.props.getPath());
     }).catch(err => {
@@ -185,6 +180,5 @@ class Signup extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
-  saveLineItems,
-  saveCouponCode,
+  saveLineItemsAndCoupons,
 })(localized(Signup));
