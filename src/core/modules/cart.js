@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { createAction, createReducer } from 'redux-act';
 import createAsyncActions from './async-utils';
 import { api as foxApi } from 'lib/api';
-import { saveCouponCode } from 'modules/checkout';
 
 export const toggleCart = createAction('TOGGLE_CART');
 export const hideCart = createAction('HIDE_CART');
@@ -182,7 +181,7 @@ export function saveLineItemsAndCoupons(merge: boolean = false) {
           .then(res => {
             dispatch(updateCart(res.result));
           });
-        }
+      }
     });
   };
 }

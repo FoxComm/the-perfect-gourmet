@@ -79,7 +79,6 @@ class Login extends Component {
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
       const merge = this.props.onGuestCheckout == null;
-      const couponCode = _.get(this.props, 'cart.coupon.code', null);
       this.props.saveLineItemsAndCoupons(merge);
       browserHistory.push(this.props.getPath());
     }, (err) => {
