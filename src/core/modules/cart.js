@@ -122,6 +122,7 @@ export function saveLineItems(merge: boolean = false) {
     return fetchMyCart().then((data) => {
       let newCartItems = [];
 
+      // We are merging a guest cart what is already persisted for this user (because they are logging in).
       if (merge) {
         const persistedLineItems = _.get(data, 'lineItems.skus', []);
         const persistedPayload = collectItemsToSubmit(persistedLineItems);
@@ -149,6 +150,9 @@ export function saveLineItems(merge: boolean = false) {
         }, []);
 
         newCartItems = originalCart.concat(guestCartSkus);
+      
+      // We are going to only persist the items in the guest cart on the case of signup.  
+      // We will delete any items that are persisted, although there should be no persisted items for a freshly signed-up user.
       } else {
         const lis = _.get(data, 'lineItems.skus', []);
         const newSkus = _.map(guestLineItemsToSubmit, li => li.sku);
