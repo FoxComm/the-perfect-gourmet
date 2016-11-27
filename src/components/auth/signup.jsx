@@ -81,8 +81,8 @@ class Signup extends Component {
   @autobind
   submitUser() {
     const {email, password, username: name} = this.state;
-    const paylaod: SignUpPayload = {email, password, name};
-    this.props.signUp(paylaod).then(() => {
+    const payload: SignUpPayload = {email, password, name};
+    this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       if (_.isEmpty(lineItems)) {
         this.props.fetchCart();
