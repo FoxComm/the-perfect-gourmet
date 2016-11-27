@@ -117,41 +117,41 @@ function fetchMyCart(user): global.Promise {
 export function saveLineItems(merge: boolean = false) {
   return (dispatch, getState) => {
     const state = getState();
-    const lineItems = _.get(state, ['cart', 'skus'], []);
-    const lineItemsToSubmit = collectItemsToSubmit(lineItems);
+    const guestLineItems = _.get(state, ['cart', 'skus'], []);
+    const guestLineItemsToSubmit = collectItemsToSubmit(guestLineItems);
     return fetchMyCart().then((data) => {
       let newCartItems = [];
 
       if (merge) {
-        const savedLineItems = _.get(data, 'lineItems.skus', []);
-        const savedPayload = collectItemsToSubmit(savedLineItems);
+        const persistedLineItems = _.get(data, 'lineItems.skus', []);
+        const persistedPayload = collectItemsToSubmit(persistedLineItems);
 
-        const onePart = _.map(savedPayload, item => {
-          const itemInOtherPart = _.find(lineItemsToSubmit, { sku: item.sku });
+        const originalCart = _.map(persistedPayload, item => {
+          const itemInNewCart = _.find(guestLineItemsToSubmit, { sku: item.sku });
 
-          if (itemInOtherPart) {
-            const itemQuantity = item.quantity;
-            const otherQuantity = itemInOtherPart.quantity;
-            const sum = itemQuantity + otherQuantity;
+          if (itemInNewCart) {
+            const originalItemQuantity = item.quantity;
+            const guestItemQuantity = itemInNewCart.quantity;
+            const sum = originalItemQuantity + guestItemQuantity;
             return { sku: item.sku, quantity: sum };
           }
 
           return item;
         });
 
-        const onePartSkus = _.map(onePart, li => li.sku);
-        const otherPart = _.reduce(lineItemsToSubmit, (acc, item) => {
-          if (onePartSkus.indexOf(item.sku) >= 0) {
+        const originalCartSkus = _.map(originalCart, li => li.sku);
+        const guestCartSkus = _.reduce(guestLineItemsToSubmit, (acc, item) => {
+          if (originalCartSkus.indexOf(item.sku) >= 0) {
             return acc;
           }
 
           return acc.concat(item);
         }, []);
 
-        newCartItems = onePart.concat(otherPart);
+        newCartItems = originalCart.concat(guestCartSkus);
       } else {
         const lis = _.get(data, 'lineItems.skus', []);
-        const newSkus = _.map(lineItemsToSubmit, li => li.sku);
+        const newSkus = _.map(guestLineItemsToSubmit, li => li.sku);
         const oldPayload = collectItemsToSubmit(lis);
         const oldSkus = _.map(oldPayload, li => li.sku);
 
@@ -164,7 +164,7 @@ export function saveLineItems(merge: boolean = false) {
           };
         });
 
-        newCartItems = lineItemsToSubmit.concat(itemsToDelete);
+        newCartItems = guestLineItemsToSubmit.concat(itemsToDelete);
       }
 
       return newCartItems;
