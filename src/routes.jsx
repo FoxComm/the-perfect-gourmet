@@ -21,15 +21,18 @@ import AddressForm from './components/profile/blocks/address-form';
 import StoresPage from './pages/stores/stores-page';
 import HomePage from './pages/home/home-page';
 import FAQPage from './pages/static/faqs-page';
+import ContactUsPage from './pages/static/contact-us-page';
 import AboutPage from './pages/about/about-page';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
+import { isGuest } from 'paragons/auth';
+
 export default function makeRoutes(store) {
   function handleProfileEnter(nextState, replace, callback) {
     const auth = store.getState().auth;
-    if (!auth || !auth.user) {
+    if (!auth || !auth.user || isGuest(auth.user)) {
       replace('/?auth=LOGIN');
     }
     callback();
@@ -56,6 +59,7 @@ export default function makeRoutes(store) {
         <Route path="/frequently-asked-questions" component={FAQPage} name="frequently-asked-questions" />
         <Route path="/stores" component={StoresPage} name="stores" />
         <Route path="/about" component={AboutPage} name="about" />
+        <Route path="/contact-us" component={ContactUsPage} name="contact-us" />
         <Route path="/checkout/done" component={OrderPlaced} />
         <Route path="/products/:productId" component={Pdp} name="product" />
         <Route path="/gift-cards" component={Pdp} name="gift-cards" />
