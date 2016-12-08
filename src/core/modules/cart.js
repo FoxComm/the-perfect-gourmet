@@ -18,7 +18,7 @@ export type ProductInCart = {
   imagePath: string;
   referenceNumbers: Array<string>;
   name: string;
-  sku: string;
+  skuId: number;
   price: number;
   quantity: number;
   totalPrice: number;
@@ -57,18 +57,9 @@ function getLineItems(payload) {
   return reducedSkus;
 }
 
-// collect items for submit
-function collectItemsToSubmit(items) {
-  return _.map(items,
-    ({ sku, quantity, attributes }) => (
-      { sku, quantity, attributes }
-    ));
-}
-
 // collect line items to submit change
-function addToLineItems(items, sku, quantity, attributes) {
-  const toCollect = items.concat([{ sku, quantity, attributes }]);
-  return collectItemsToSubmit(toCollect);
+function addToLineItems(items, skuId, quantity, attributes) {
+  return items.concat([{ skuId, quantity, attributes }]);
 }
 
 function changeCartLineItems(payload) {
@@ -78,22 +69,22 @@ function changeCartLineItems(payload) {
 const { fetch: submitLineItemChange, ...changeCartActions } = createAsyncActions('cartChange', changeCartLineItems);
 
 // add line item to cart
-export function addLineItem(sku, quantity, attributes = {}) {
+export function addLineItem(skuId, quantity, attributes = {}) {
   return (dispatch, getState) => {
     const state = getState();
     const lineItems = _.get(state, ['cart', 'skus'], []);
-    const newLineItems = addToLineItems(lineItems, sku, quantity, attributes);
+    const newLineItems = addToLineItems(lineItems, skuId, quantity, attributes);
     return dispatch(submitLineItemChange(newLineItems));
   };
 }
 
 // update line item quantity
-export function updateLineItemQuantity(sku, qtt) {
+export function updateLineItemQuantity(skuId, qtt) {
   return (dispatch, getState) => {
     const state = getState();
     const lineItems = _.get(state, ['cart', 'skus'], []);
     const newLineItems = _.map(lineItems, (item) => {
-      const quantity = item.sku === sku ? parseInt(qtt, 10) : item.quantity;
+      const quantity = item.skuId === skuId ? parseInt(qtt, 10) : item.quantity;
       return {
         ...item,
         quantity,
@@ -104,8 +95,8 @@ export function updateLineItemQuantity(sku, qtt) {
 }
 
 // remove item from cart
-export function deleteLineItem(sku) {
-  return updateLineItemQuantity(sku, 0);
+export function deleteLineItem(skuId) {
+  return updateLineItemQuantity(skuId, 0);
 }
 
 function fetchMyCart(user): global.Promise {
@@ -119,31 +110,29 @@ export function saveLineItemsAndCoupons(merge: boolean = false) {
     const state = getState();
     const guestLineItems = _.get(state, ['cart', 'skus'], []);
     const guestCouponCode = _.get(state, 'cart.coupon.code', null);
-    const guestLineItemsToSubmit = collectItemsToSubmit(guestLineItems);
     return fetchMyCart().then((data) => {
       let newCartItems = [];
 
       // We are merging a guest cart what is already persisted for this user (because they are logging in).
       if (merge) {
         const persistedLineItems = _.get(data, 'lineItems.skus', []);
-        const persistedPayload = collectItemsToSubmit(persistedLineItems);
 
-        const originalCart = _.map(persistedPayload, item => {
-          const itemInNewCart = _.find(guestLineItemsToSubmit, { sku: item.sku });
+        const originalCart = _.map(persistedLineItems, item => {
+          const itemInNewCart = _.find(guestLineItems, { skuId: item.skuId });
 
           if (itemInNewCart) {
             const originalItemQuantity = item.quantity;
             const guestItemQuantity = itemInNewCart.quantity;
             const sum = originalItemQuantity + guestItemQuantity;
-            return { sku: item.sku, quantity: sum };
+            return { skuId: item.skuId, quantity: sum };
           }
 
           return item;
         });
 
-        const originalCartSkus = _.map(originalCart, li => li.sku);
-        const guestCartSkus = _.reduce(guestLineItemsToSubmit, (acc, item) => {
-          if (originalCartSkus.indexOf(item.sku) >= 0) {
+        const originalCartSkus = _.map(originalCart, li => li.skuId);
+        const guestCartSkus = _.reduce(guestLineItems, (acc, item) => {
+          if (originalCartSkus.indexOf(item.skuId) >= 0) {
             return acc;
           }
 
@@ -152,24 +141,23 @@ export function saveLineItemsAndCoupons(merge: boolean = false) {
 
         newCartItems = originalCart.concat(guestCartSkus);
 
-      // We are going to only persist the items in the guest cart on the case of signup.
-      // We will delete any items that are persisted, although there should be no persisted items for a freshly signed-up user.
+        // We are going to only persist the items in the guest cart on the case of signup.
+        // We will delete any items that are persisted, although there should be no persisted items for a freshly signed-up user.
       } else {
         const lis = _.get(data, 'lineItems.skus', []);
-        const newSkus = _.map(guestLineItemsToSubmit, li => li.sku);
-        const oldPayload = collectItemsToSubmit(lis);
-        const oldSkus = _.map(oldPayload, li => li.sku);
+        const newSkus = _.map(guestLineItems, li => li.skuId);
+        const oldSkus = _.map(lis, li => li.skuId);
 
         const toDelete = _.difference(oldSkus, newSkus);
 
-        const itemsToDelete = _.map(toDelete, sku => {
+        const itemsToDelete = _.map(toDelete, skuId => {
           return {
-            sku,
+            skuId,
             quantity: 0,
           };
         });
 
-        newCartItems = guestLineItemsToSubmit.concat(itemsToDelete);
+        newCartItems = guestLineItems.concat(itemsToDelete);
       }
 
       return newCartItems;

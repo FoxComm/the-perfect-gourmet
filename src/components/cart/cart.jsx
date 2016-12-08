@@ -68,7 +68,7 @@ class Cart extends Component {
   @autobind
   deleteLineItem(sku) {
     tracking.removeFromCart(sku, sku.quantity);
-    this.props.deleteLineItem(sku.sku).catch(ex => {
+    this.props.deleteLineItem(sku.skuId).catch(ex => {
       this.setState({
         errors: parseError(ex),
       });
@@ -83,7 +83,7 @@ class Cart extends Component {
     } else if (diff < 0) {
       tracking.removeFromCart(sku, -diff);
     }
-    this.props.updateLineItemQuantity(sku.sku, quantity).catch(ex => {
+    this.props.updateLineItemQuantity(sku.skuId, quantity).catch(ex => {
       this.setState({
         errors: parseError(ex),
       });
@@ -105,7 +105,7 @@ class Cart extends Component {
           {...sku}
           deleteLineItem={() => this.deleteLineItem(sku)}
           updateLineItemQuantity={(id, quantity) => this.updateLineItemQuantity(sku, quantity)}
-          key={sku.sku}
+          key={sku.skuId}
         />
       );
     });

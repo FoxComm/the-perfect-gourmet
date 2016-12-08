@@ -19,7 +19,7 @@ import Autocomplete from 'ui/autocomplete';
 const QUANTITY_ITEMS = _.range(1, 1 + 10, 1).map(x => x.toString());
 
 type Props = {
-  sku: string,
+  skuId: number,
   name: string,
   imagePath: string,
   price: number,
@@ -34,12 +34,12 @@ class LineItem extends Component {
 
   @autobind
   changeQuantity(quantity) {
-    this.props.updateLineItemQuantity(this.props.sku, quantity);
+    this.props.updateLineItemQuantity(this.props.skuId, quantity);
   }
 
   @autobind
   deleteItem() {
-    this.props.deleteLineItem(this.props.sku);
+    this.props.deleteLineItem(this.props.skuId);
   }
 
   render() {
