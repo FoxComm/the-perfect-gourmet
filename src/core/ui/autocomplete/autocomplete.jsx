@@ -11,9 +11,9 @@ import { TextInputWithLabel } from 'ui/inputs';
 /* eslint react/sort-comp: 0 */
 
 function matchStateToTerm(item, value) {
-  const v = this.getItemValue(item) + '';
+  const v = `${this.getItemValue(item)}`.toLowerCase();
 
-  return v.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+  return v.indexOf(value.toLowerCase()) !== -1;
 }
 
 type Props = {
