@@ -211,7 +211,7 @@ class Pdp extends Component {
   addToCart(): void {
     const { actions } = this.props;
     const { quantity } = this.state;
-    const skuId = _.get(this.currentSku, 'attributes.code.v', '');
+    const skuId = this.currentSku.id;
     tracking.addToCart(this.product, quantity);
     actions.addLineItem(skuId, quantity, this.state.attributes)
       .then(() => {
