@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import textStyles from 'ui/css/input.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { cardMask } from 'wings/lib/payment-cards';
+import { cardMask } from '@foxcomm/wings/lib/payment-cards';
 import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
 
@@ -132,9 +132,10 @@ class EditBilling extends Component {
     );
   }
 
+  // Possible values: https://stripe.com/docs/stripe.js?#card-cardType
   get cardType() {
     const { number } = this.props.data;
-    return _.kebabCase(foxApi.creditCards.cardType(number));
+    return foxApi.creditCards.cardType(number);
   }
 
   get cardMask() {
@@ -143,7 +144,12 @@ class EditBilling extends Component {
 
   get paymentIcon() {
     if (this.cardType) {
-      return <Icon styleName="payment-icon" name={`fc-payment-${this.cardType}`} />;
+      return (
+        <Icon
+          styleName="payment-icon"
+          name={`fc-payment-${_.kebabCase(this.cardType)}`}
+        />
+      );
     }
   }
 
@@ -172,7 +178,9 @@ class EditBilling extends Component {
   @autobind
   cancelEditing() {
     this.props.performStageTransition('billingInProgress', () => {
-      this.setState({ addingNew: false, cardAdded: false });
+      return new Promise(resolve => {
+        this.setState({ addingNew: false, cardAdded: false }, () => resolve());
+      });
     });
   }
 
@@ -237,7 +245,7 @@ class EditBilling extends Component {
         >
           Make this card my default
         </Checkbox>
-         <FormField styleName="text-field">
+          <FormField styleName="text-field">
             <TextInput
               required
               name="holderName"
