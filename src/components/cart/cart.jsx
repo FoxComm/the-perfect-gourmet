@@ -19,7 +19,7 @@ import Button from 'ui/buttons';
 import Icon from 'ui/icon';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { skuIdentity } from '@foxcomm/wings/lib/paragons/sku';
-import { parseError } from 'api-js';
+import { parseError } from '@foxcomm/api-js';
 import CouponCode from '../promo-code/promo-code';
 
 // styles
@@ -32,15 +32,13 @@ import type { Totals } from 'modules/cart';
 import * as actions from 'modules/cart';
 import { saveCouponCode, removeCouponCode } from 'modules/checkout';
 
-const mapStateToProps = state => ({ ...state.cart, ...state.auth });
-
 type Props = {
   fetch: Function,
   deleteLineItem: Function,
   updateLineItemQuantity: Function,
   toggleCart: Function,
-  saveCouponCode: Function,
-  removeCouponCode: Function,
+  saveCode: Function,
+  removeCode: Function,
   skus: Array<any>,
   coupon: ?Object,
   promotion: ?Object,
@@ -72,7 +70,7 @@ class Cart extends Component {
   @autobind
   deleteLineItem(sku) {
     tracking.removeFromCart(sku, sku.quantity);
-    this.props.deleteLineItem(sku.sku).catch(ex => {
+    this.props.deleteLineItem(sku).catch(ex => {
       this.setState({
         errors: parseError(ex),
       });
@@ -87,7 +85,7 @@ class Cart extends Component {
     } else if (diff < 0) {
       tracking.removeFromCart(sku, -diff);
     }
-    this.props.updateLineItemQuantity(sku.sku, quantity).catch(ex => {
+    this.props.updateLineItemQuantity(sku, quantity).catch(ex => {
       this.setState({
         errors: parseError(ex),
       });
@@ -140,7 +138,17 @@ class Cart extends Component {
   }
 
   render() {
-    const { t, totals, coupon, toggleCart, skus, promotion, isVisible } = this.props;
+    const {
+      t,
+      totals,
+      coupon,
+      toggleCart,
+      skus,
+      promotion,
+      isVisible,
+      saveCode,
+      removeCode,
+    } = this.props;
 
     const cartClass = classNames({
       'cart-hidden': !isVisible,
@@ -163,16 +171,16 @@ class Cart extends Component {
               {this.lineItems}
             </div>
 
-            <div styleName="coupon">
-              <CouponCode
-                coupon={coupon}
-                promotion={promotion}
-                discountValue={totals.adjustments}
-                saveCode={saveCouponCode}
-                removeCode={removeCouponCode}
-                disabled={checkoutDisabled}
-              />
-            </div>
+            <CouponCode
+              coupon={coupon}
+              promotion={promotion}
+              discountValue={totals.adjustments}
+              saveCode={saveCode}
+              removeCode={removeCode}
+              disabled={checkoutDisabled}
+              placeholder="Coupon Code"
+              theme="dark"
+            />
 
             <div styleName="cart-subtotal">
               <div styleName="subtotal-title">{t('SUBTOTAL')}</div>
@@ -195,8 +203,10 @@ class Cart extends Component {
   }
 }
 
+const mapStateToProps = state => ({ ...state.cart, ...state.auth });
+
 export default connect(mapStateToProps, {
   ...actions,
-  saveCouponCode,
-  removeCouponCode,
+  saveCode: saveCouponCode,
+  removeCode: removeCouponCode,
 })(localized(Cart));
