@@ -11,6 +11,9 @@
   },
   "author": "FoxCommerce",
   "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-transform-styles": "file:src/opt/babel-plugin-transform-styles"
+  },
   "dependencies": {
     "@foxcomm/api-js": "^1.0.0",
     "@foxcomm/wings": "^1.7.1",
@@ -22,7 +25,6 @@
     "babel-plugin-transform-class-properties": "^6.9.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-plugin-transform-styles": "file:src/opt/babel-plugin-transform-styles",
     "babel-plugin-typecheck": "github:anru/babel-plugin-typecheck#dont-throw-2",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
