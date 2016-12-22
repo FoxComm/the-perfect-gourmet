@@ -1,6 +1,6 @@
-@import "variables";
-@import "media-queries";
-@import "colors";
+@import "variables.css";
+@import "media-queries.css";
+@import "colors.css";
 
 
 .instagram-info {

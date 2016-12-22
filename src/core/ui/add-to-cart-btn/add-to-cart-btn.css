@@ -1,6 +1,6 @@
 @import "colors.css";
 @import "variables.css";
-@import "media-queries";
+@import "media-queries.css";
 
 .add-to-cart-btn {
   white-space: nowrap;

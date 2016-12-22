@@ -1,5 +1,5 @@
 @import "media-queries.css";
-@import "colors";
+@import "colors.css";
 
 .gallery {
   height: 100%;
