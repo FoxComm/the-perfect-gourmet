@@ -7,6 +7,7 @@ const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const $ = require('gulp-load-plugins')();
 const opts = require('./config/gulp');
+const nightwatch = require('gulp-nightwatch');
 
 let exitStatus = 0;
 
@@ -45,6 +46,27 @@ function handleErrors(err) {
   exitStatus = 1;
   $.util.beep();
 }
+
+gulp.task('nightwatch', function (cb) {
+  require('env2')('.env-test');
+
+  runSequence(
+    'build',
+    'server',
+    'run-nightwatch',
+    'server.stop',
+    cb);
+});
+
+gulp.task('run-nightwatch', function () {
+  return gulp.src('')
+    .pipe(nightwatch(/*{
+      configFile: "nightwatch.json",
+      cliArgs: {
+        env: "phantomjs"
+      }
+    }*/));
+});
 
 process.on('unhandledRejection', handleErrors);
 process.on('uncaughtException', handleErrors);
