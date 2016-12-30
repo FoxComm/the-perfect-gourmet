@@ -2,6 +2,9 @@
   "src_folders": [
     "tests/ui"
   ],
+  "page_objects_path": ["tests/ui/pages"],
+  "globals_path": "nightwatch-globals.js",
+  "__test_runner" : "mocha",
   "output_folder": "./node_modules/nightwatch/reports",
   "selenium": {
     "start_process": true,
@@ -20,8 +23,9 @@
       "selenium_port": 4444,
       "selenium_host": "127.0.0.1",
       "silent": true,
+      "exclude" : "tests/ui/pages/*",
       "globals": {
-        "waitForConditionTimeout": 1500
+        "waitForConditionTimeout": 3000
       },
       "desiredCapabilities": {
         "browserName": "chrome",

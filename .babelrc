@@ -27,7 +27,8 @@
       "disable": {
         "production": true
       }
-    }]
+    }],
+    "add-module-exports"
   ],
-  "presets": ["stage-0", "react"]
+  "presets": ["stage-0", "react", "es2015"]
 }

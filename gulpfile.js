@@ -48,14 +48,22 @@ function handleErrors(err) {
 }
 
 gulp.task('nightwatch', function (cb) {
-  require('env2')('.env-test');
+  const dev = process.env.NODE_ENV !== 'production';
 
-  runSequence(
-    'build',
-    'server',
-    'run-nightwatch',
-    'server.stop',
-    cb);
+  if (!dev) {
+    require('env2')('.env-test');
+  }
+
+  const tasks = dev ?
+    ['run-nightwatch'] :
+    [
+      'build',
+      'server',
+      'run-nightwatch',
+      'server.stop',
+    ];
+
+  runSequence.apply(this, tasks.concat(cb));
 });
 
 gulp.task('run-nightwatch', function () {
