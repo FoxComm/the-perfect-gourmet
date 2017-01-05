@@ -68,12 +68,9 @@ gulp.task('nightwatch', function (cb) {
 
 gulp.task('run-nightwatch', function () {
   return gulp.src('')
-    .pipe(nightwatch(/*{
-      configFile: "nightwatch.json",
-      cliArgs: {
-        env: "phantomjs"
-      }
-    }*/));
+    .pipe(nightwatch({
+      configFile: 'nightwatch.conf.js',
+    }));
 });
 
 process.on('unhandledRejection', handleErrors);
