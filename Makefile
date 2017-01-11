@@ -7,7 +7,7 @@ dev d:
 
 setup:
 	rm -rf ./node_modules
-	npm install
+	yarn install
 
 build: setup
 	test -f .env && export eval `cat .env` || true && NODE_ENV=production ./node_modules/.bin/gulp build
