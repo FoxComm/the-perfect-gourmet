@@ -2,6 +2,7 @@ DOCKER_REPO ?= docker-stage.foxcommerce.com:5000
 DOCKER_TAG ?= tpg-storefront
 DOCKER_BRANCH ?= master
 BRANCH_NAME_ESCAPED = $(shell git name-rev --name-only HEAD | sed 's/[^a-zA-Z0-9]/-/g')
+PROJECT_PREFIX = tpg
 
 dev d:
 	source .env && yarn dev
@@ -27,7 +28,7 @@ test: setup
 
 deploy-now:
 	now ./hello-now
-	cd hello-now && ../node_modules/.bin/babel-node now-realias.js $(BRANCH_NAME_ESCAPED).now.sh
+	cd hello-now && ../node_modules/.bin/babel-node now-realias.js $(PROJECT_PREFIX)-$(BRANCH_NAME_ESCAPED).now.sh
 
 
 .PHONY: dev d setup build docker docker-push clean test deploy-now
