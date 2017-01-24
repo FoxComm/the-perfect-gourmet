@@ -3,6 +3,7 @@ DOCKER_IMAGE ?= tpg-storefront
 DOCKER_TAG ?= master
 BRANCH_NAME_ESCAPED = $(shell git name-rev --name-only HEAD | sed 's/[^a-zA-Z0-9]/-/g')
 PROJECT_PREFIX = tpg
+NOW_ALIAS = $(PROJECT_PREFIX)-$(BRANCH_NAME_ESCAPED)
 
 dev d:
 	source .env && yarn dev
@@ -26,9 +27,11 @@ clean:
 test: setup
 	yarn test
 
-deploy-now:
-	now ./hello-now
-	cd hello-now && ../node_modules/.bin/babel-node now-realias.js $(PROJECT_PREFIX)-$(BRANCH_NAME_ESCAPED).now.sh
+now-deploy:
+	now ./hello-now -e API_URL=https://httpbin.org/ -e LOG_STREAM=$(NOW_ALIAS)
+	cd hello-now && ../node_modules/.bin/babel-node now-realias.js $(NOW_ALIAS).now.sh
 
+now-logs:
+	now-logs $(NOW_ALIAS)
 
 .PHONY: dev d setup build docker docker-push clean test deploy-now
