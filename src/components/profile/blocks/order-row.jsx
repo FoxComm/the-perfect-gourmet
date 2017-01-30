@@ -45,7 +45,7 @@ const OrderRow = props => {
         <span>{stateTitles[order.state]}</span>
       </td>
       <td>
-        TRACKING ID
+        {order.shippingMethod.id}
       </td>
       {detailsColumn}
     </tr>

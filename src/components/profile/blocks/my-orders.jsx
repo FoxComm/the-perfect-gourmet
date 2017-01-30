@@ -59,7 +59,7 @@ class MyOrders extends Component {
           <th>Order #</th>
           <th>Total</th>
           <th>Status</th>
-          <th>Tracking</th>
+          <th>Tracking ID</th>
           <th>&nbsp;</th>
         </tr>
         </thead>
