@@ -10,21 +10,21 @@ import { assoc } from 'sprout-data';
 import * as tracking from 'lib/analytics';
 
 // i18n
-import localized from 'lib/i18n';
-import type { Localized } from 'lib/i18n';
+import localized from '../../core/lib/i18n';
+import type { Localized } from '../../core/lib/i18n';
 
 // modules
-import { searchGiftCards } from 'modules/products';
-import { fetch, getNextId, getPreviousId, resetProduct } from 'modules/product-details';
-import { addLineItem, toggleCart } from 'modules/cart';
+import { searchGiftCards } from '../../core/modules/products';
+import { fetch, getNextId, getPreviousId, resetProduct } from '../../core/modules/product-details';
+import { addLineItem, toggleCart } from '../../core/modules/cart';
 
 // types
-import type { HTMLElement } from 'types';
-import type { ProductResponse, ProductSlug } from 'modules/product-details';
+import type { HTMLElement } from '../../core/types';
+import type { ProductResponse, ProductSlug } from '../../core/modules/product-details';
 
 // components
-import Gallery from 'ui/gallery/gallery';
-import Loader from 'ui/loader';
+import Gallery from '../../core/ui/gallery/gallery';
+import Loader from '../../core/ui/loader';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import ProductDetails from './product-details';
 import GiftCardForm from '../../components/gift-card-form';

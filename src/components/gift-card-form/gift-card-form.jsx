@@ -3,17 +3,17 @@
 // libs
 import React from 'react';
 import _ from 'lodash';
-import formatCurrency from 'lib/format-currency';
-import { email } from 'ui/forms/validators';
+import formatCurrency from '../../core/lib/format-currency';
+import { email } from '../../core/ui/forms/validators';
 
 // styles
 import styles from './gift-card-form.css';
 
 // components
-import { TextInput } from 'ui/inputs';
-import { Form, FormField } from 'ui/forms';
-import AddToCartBtn from 'ui/add-to-cart-btn';
-import Select from 'ui/select/select';
+import { TextInput } from '../../core/ui/inputs';
+import { Form, FormField } from '../../core/ui/forms';
+import AddToCartBtn from '../../core/ui/add-to-cart-btn';
+import Select from '../../core/ui/select/select';
 
 
 type Props = {
