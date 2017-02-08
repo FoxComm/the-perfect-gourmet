@@ -86,7 +86,7 @@ const GiftCardForm = (props: Props) => {
           <textarea
             styleName="message-field"
             placeholder="Your message"
-            value={message}
+            value={message.split('<br>').join('\n')}
             onChange={props.onAttributeChange}
             name="giftCard.message"
           />
