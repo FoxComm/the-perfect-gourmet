@@ -187,11 +187,14 @@ class Pdp extends Component {
 
   @autobind
   setAttributeFromField({ target: { name, value } }) {
-    if (name == 'giftCard.message') {
-      value = value.split('\n').join('<br>')
-    }
     const namePath = ['attributes', ...name.split('.')];
-    this.setState(assoc(this.state, namePath, value));
+    if (name == 'giftCard.message') {
+      const messageValue = value.split('\n').join('<br>');
+      this.setState(assoc(this.state, namePath, messageValue));
+    }
+    if (name != 'giftCard.message') {
+      this.setState(assoc(this.state, namePath, value));
+    }
   }
 
   get product(): Product {
