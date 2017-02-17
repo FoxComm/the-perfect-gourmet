@@ -15,7 +15,7 @@
         var gaOpts = enableLocal ? { cookieDomain: 'none' } : 'auto';
 
         ga('create', gaId, gaOpts);
-        ga('send', 'pageview');
+        ga('send', 'pageview', null, null, null, { nonInteraction: true });
       }
 
       function initGAStub() {
