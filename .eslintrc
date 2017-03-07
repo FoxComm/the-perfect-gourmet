@@ -36,7 +36,8 @@
   },
   "globals": {
     "makeXhr": false,
-    "ga": false
+    "ga": false,
+    "fbq": false
   },
   "parser": "babel-eslint"
 }

@@ -7,6 +7,7 @@ import styles from './auth.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import * as analytics from 'lib/analytics';
 
 import { browserHistory } from 'lib/history';
 
@@ -125,6 +126,9 @@ class Signup extends Component {
         usernameError,
         generalErrors: restErrors,
       });
+    }).then(response => {
+      analytics.completeRegistration();
+      return response;
     });
 
     if (this.props.onAuthenticated) {
