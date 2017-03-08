@@ -44,8 +44,10 @@ class App extends KoaApp {
     this
       // serve all static in dev mode through one middleware,
       // enable the second one to add cache headers to app*.js and app*.css
-      .use(test(mount(serve('public')), ctx => !shouldCacheForLongTime(ctx)))
-      .use(test(mount(serve('public'), { maxage: 31536000 }), shouldCacheForLongTime))
+      // --
+      // use minimal max-age for proper imgix proxying
+      .use(test(mount(serve('public', { maxage: 1000 })), ctx => !shouldCacheForLongTime(ctx)))
+      .use(test(mount(serve('public', { maxage: 31536000 })), shouldCacheForLongTime))
       .use(log4js.koaLogger(log4js.getLogger('http'), { level: 'auto' }))
       .use(makeApiProxy())
       .use(makeElasticProxy())
