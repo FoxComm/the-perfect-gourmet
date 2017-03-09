@@ -76,8 +76,7 @@ class HomePage extends Component {
 
       document.body.appendChild(pixleeJs);
     } else {
-      /* eslint-disable new-cap */
-      window.PixleeAsyncInit();
+      window.PixleeAsyncInit(); // eslint-disable-line new-cap
     }
   }
 
