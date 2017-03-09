@@ -1,16 +1,21 @@
 /* @flow */
 
 // libs
-import React from 'react';
-import _ from 'lodash';
+import React, { Component } from 'react';
 import { assetsUrl } from 'lib/env';
 
 // components
 import ActionBlock from './action-block';
-import Icon from 'ui/icon';
 
 // styles
 import styles from './home-page.css';
+
+const pixleeWidgetCode = `
+window.PixleeAsyncInit = function() {
+  Pixlee.init({ apiKey:"ttWLWvqKl2dWPMDKAjgr" });
+  Pixlee.addSimpleWidget({ widgetId:507462 });
+};
+`;
 
 const mainBlocks = [
   {
@@ -33,13 +38,9 @@ const mainBlocks = [
   },
 ];
 
-const instagramLinks = [
-  'https://www.instagram.com/p/BPvzneyhjGD',
-  'https://www.instagram.com/p/BPTXM6qhcQ6',
-  'https://www.instagram.com/p/BJI5BhJhGpO',
-  'https://www.instagram.com/p/BOAOMe_BiKB',
-  'https://www.instagram.com/p/BPd3_L9Bjk1',
-];
+const actionBlocks = mainBlocks.map(
+  (blockProps, i) => <ActionBlock {...blockProps} key={i} />
+);
 
 const magazineLogos = [
   { name: 'Washington_Post.svg', height: 40 },
@@ -54,56 +55,62 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
       src={assetsUrl(`/images/home-page/${name}`)}
       height={height}
       styleName="magazine-logo"
+      key={name}
     />
   );
 });
 
-const HomePage = () => {
-  const actionBlocks = mainBlocks.map(
-    (blockProps, i) => <ActionBlock {...blockProps} key={i}/>
-  );
+class HomePage extends Component {
+  componentDidMount() {
+    if (!document.getElementById('pixlee')) {
+      const pixleeScript = document.createElement('script');
 
-  const instagramImages = _.range(1, 6).map(i => {
-    const imageUrl = assetsUrl(`/images/home-page/Instagram_${i}_2x.jpg`);
+      pixleeScript.id = 'pixlee';
+      pixleeScript.type = 'text/javascript';
+      pixleeScript.innerHTML = pixleeWidgetCode;
+      document.body.appendChild(pixleeScript);
+
+      const pixleeJs = document.createElement('script');
+
+      pixleeJs.src = '//assets.pixlee.com/assets/pixlee_widget_1_0_0.js';
+
+      document.body.appendChild(pixleeJs);
+    } else {
+      /* eslint-disable new-cap */
+      window.PixleeAsyncInit();
+    }
+  }
+
+  render() {
+    const actionBlocks = mainBlocks.map(
+      (blockProps, i) => <ActionBlock {...blockProps} key={i} />
+    );
+
     return (
-      <div
-        styleName="instagram-image"
-        style={{ backgroundImage: `url(${imageUrl})`}}
-        key={i}
-      >
-        <a href={instagramLinks[i - 1]} target="_blank">
-          <div styleName="instagram-image-hover">
-            <Icon name="fc-instagram" styleName="instagram-icon"/>
+      <div>
+        {actionBlocks}
+        <div styleName="instagram-info">
+          <h1 styleName="instagram-title">BAKE. SNAP. WIN!</h1>
+          <div styleName="hashtag-image" />
+          <div styleName="instagram-description">
+            Love The Perfect Gourmet? Let us know!
+            Share the love using #mygourmet for a chance to be featured here!
           </div>
-        </a>
+        </div>
+        <div styleName="as-seen-in">
+          <div styleName="as-seen-in-title">As seen in</div>
+          <div styleName="magazine-logos">
+            {magazineBlocks}
+          </div>
+        </div>
+        <div styleName="instagram-gallery">
+          <div styleName="gallery-wrap">
+            <div id="pixlee_container" />
+          </div>
+        </div>
       </div>
     );
-  });
-
-  return (
-    <div>
-      {actionBlocks}
-      <div styleName="instagram-info">
-        <h1 styleName="instagram-title">BAKE. SNAP. WIN!</h1>
-        <div styleName="hashtag-image" />
-        <div styleName="instagram-description">
-          Love The Perfect Gourmet? Let us know!
-          Share the love using #mygourmet for a chance to be featured here!
-        </div>
-      </div>
-      <div styleName="instagram-gallery">
-        <div styleName="gallery-wrap">
-          {instagramImages}
-        </div>
-      </div>
-      <div styleName="as-seen-in">
-        <div styleName="as-seen-in-title">As seen in</div>
-        <div styleName="magazine-logos">
-          {magazineBlocks}
-        </div>
-      </div>
-    </div>
-  );
-};
+  };
+}
 
 export default HomePage;
