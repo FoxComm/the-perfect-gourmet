@@ -33,6 +33,11 @@ function shouldCacheForLongTime(ctx) {
   return isProduction && ctx.path.match(/\/app.*\.(js|css)/);
 }
 
+// use minimal max-age for proper imgix proxying
+function shouldAddImgixMinimalCache(ctx) {
+  return isProduction && ctx.path.match(/\.(jpg|jpeg|png|gif|tiff)$/);
+}
+
 class App extends KoaApp {
 
   constructor(...args) {
@@ -42,10 +47,11 @@ class App extends KoaApp {
     log4js.configure(path.join(`${__dirname}`, '../log4js.json'));
 
     this
+      .use(test(mount(serve('public', { maxage: 1000 })), shouldAddImgixMinimalCache))
       // serve all static in dev mode through one middleware,
       // enable the second one to add cache headers to app*.js and app*.css
       .use(test(mount(serve('public')), ctx => !shouldCacheForLongTime(ctx)))
-      .use(test(mount(serve('public'), { maxage: 31536000 }), shouldCacheForLongTime))
+      .use(test(mount(serve('public', { maxage: 31536000 })), shouldCacheForLongTime))
       .use(log4js.koaLogger(log4js.getLogger('http'), { level: 'auto' }))
       .use(makeApiProxy())
       .use(makeElasticProxy())
