@@ -41,6 +41,23 @@ const instagramLinks = [
   'https://www.instagram.com/p/BPd3_L9Bjk1',
 ];
 
+const magazineLogos = [
+  { name: 'Washington_Post.svg', height: 40 },
+  { name: 'Baltimore_Magazine.svg', height: 40 },
+  { name: 'WBALTV.svg', height: 60 },
+  { name: 'Baltimore_Sun.svg', height: 30 },
+];
+
+const magazineBlocks = magazineLogos.map(({ name, height }) => {
+  return (
+    <img
+      src={assetsUrl(`/images/home-page/${name}`)}
+      height={height}
+      styleName="magazine-logo"
+    />
+  );
+});
+
 const HomePage = () => {
   const actionBlocks = mainBlocks.map(
     (blockProps, i) => <ActionBlock {...blockProps} key={i}/>
@@ -77,6 +94,12 @@ const HomePage = () => {
       <div styleName="instagram-gallery">
         <div styleName="gallery-wrap">
           {instagramImages}
+        </div>
+      </div>
+      <div styleName="as-seen-in">
+        <div styleName="as-seen-in-title">As seen in</div>
+        <div styleName="magazine-logos">
+          {magazineBlocks}
         </div>
       </div>
     </div>
