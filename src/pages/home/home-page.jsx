@@ -51,7 +51,7 @@ const magazineLogos = [
 const magazineBlocks = magazineLogos.map(({ name, height }) => {
   return (
     <img
-      src={`/images/home-page/${name}`}
+      src={assetsUrl(`/images/home-page/${name}`)}
       height={height}
       styleName="magazine-logo"
     />
