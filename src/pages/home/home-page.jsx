@@ -14,10 +14,10 @@ import styles from './home-page.css';
 
 const mainBlocks = [
   {
-    imageUrl: '/images/home-page/About_Us_Hero_1_03.jpg',
-    description: '',
-    title: 'WHAT MAKES US DIFFERENT?',
-    action: { title: 'Learn more', link: '/about' },
+    imageUrl: '/images/home-page/Home_Section_3_1_03.jpg',
+    description: 'No planning, shopping, prepping, or cleaning required',
+    title: 'DINNER IS SERVED',
+    action: { title: 'Shop Now', link: '/ENTRÉES' },
   },
   {
     imageUrl: '/images/home-page/Home_Section_2_1_03.jpg',
@@ -26,10 +26,10 @@ const mainBlocks = [
     action: { title: 'Shop Now', link: '/APPETIZERS' },
   },
   {
-    imageUrl: '/images/home-page/Home_Section_3_1_03.jpg',
-    description: 'No planning, shopping, prepping, or cleaning required',
-    title: 'DINNER IS SERVED',
-    action: { title: 'Shop Now', link: '/ENTRÉES' },
+    imageUrl: '/images/home-page/About_Us_Hero_1_03.jpg',
+    description: '',
+    title: 'WHAT MAKES US DIFFERENT?',
+    action: { title: 'Learn more', link: '/about' },
   },
 ];
 
