@@ -10,12 +10,16 @@ import ActionBlock from './action-block';
 // styles
 import styles from './home-page.css';
 
-const pixleeWidgetCode = `
-window.PixleeAsyncInit = function() {
-  Pixlee.init({ apiKey:"ttWLWvqKl2dWPMDKAjgr" });
-  Pixlee.addSimpleWidget({ widgetId:507462 });
-};
-`;
+function initPixlee() {
+  if (Pixlee) {
+    Pixlee.init({
+      apiKey: "ttWLWvqKl2dWPMDKAjgr",
+    });
+    Pixlee.addSimpleWidget({
+      widgetId: 511610,
+    });
+  }
+}
 
 const mainBlocks = [
   {
@@ -38,10 +42,6 @@ const mainBlocks = [
   },
 ];
 
-const actionBlocks = mainBlocks.map(
-  (blockProps, i) => <ActionBlock {...blockProps} key={i} />
-);
-
 const magazineLogos = [
   { name: 'Washington_Post.svg', height: 40 },
   { name: 'Baltimore_Magazine.svg', height: 40 },
@@ -62,22 +62,7 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 class HomePage extends Component {
   componentDidMount() {
-    if (!document.getElementById('pixlee')) {
-      const pixleeScript = document.createElement('script');
-
-      pixleeScript.id = 'pixlee';
-      pixleeScript.type = 'text/javascript';
-      pixleeScript.innerHTML = pixleeWidgetCode;
-      document.body.appendChild(pixleeScript);
-
-      const pixleeJs = document.createElement('script');
-
-      pixleeJs.src = '//assets.pixlee.com/assets/pixlee_widget_1_0_0.js';
-
-      document.body.appendChild(pixleeJs);
-    } else {
-      window.PixleeAsyncInit(); // eslint-disable-line new-cap
-    }
+    initPixlee()
   }
 
   render() {
@@ -88,14 +73,6 @@ class HomePage extends Component {
     return (
       <div>
         {actionBlocks}
-        <div styleName="instagram-info">
-          <h1 styleName="instagram-title">BAKE. SNAP. WIN!</h1>
-          <div styleName="hashtag-image" />
-          <div styleName="instagram-description">
-            Love The Perfect Gourmet? Let us know!
-            Share the love using #mygourmet for a chance to be featured here!
-          </div>
-        </div>
         <div styleName="as-seen-in">
           <div styleName="as-seen-in-title">As seen in</div>
           <div styleName="magazine-logos">
@@ -104,7 +81,15 @@ class HomePage extends Component {
         </div>
         <div styleName="instagram-gallery">
           <div styleName="gallery-wrap">
-            <div id="pixlee_container" />
+            <div styleName="instagram-info">
+              <h1 styleName="instagram-title">BAKE. SNAP. WIN!</h1>
+              <div styleName="hashtag-image" />
+              <div styleName="instagram-description">
+                Love The Perfect Gourmet? Let us know!
+                Share the love using #mygourmet for a chance to be featured here!
+              </div>
+            </div>
+            <div styleName="feed" id="pixlee_container" />
           </div>
         </div>
       </div>
