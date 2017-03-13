@@ -10,15 +10,19 @@ import ActionBlock from './action-block';
 // styles
 import styles from './home-page.css';
 
+declare var Pixlee: any;
+
 function initPixlee() {
+  /* eslint-disable no-undef */
   if (Pixlee) {
     Pixlee.init({
-      apiKey: "ttWLWvqKl2dWPMDKAjgr",
+      apiKey: 'ttWLWvqKl2dWPMDKAjgr',
     });
     Pixlee.addSimpleWidget({
       widgetId: 511610,
     });
   }
+  /* eslint-enable no-undef */
 }
 
 const mainBlocks = [
@@ -62,7 +66,7 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 class HomePage extends Component {
   componentDidMount() {
-    initPixlee()
+    initPixlee();
   }
 
   render() {
@@ -94,7 +98,7 @@ class HomePage extends Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 export default HomePage;
