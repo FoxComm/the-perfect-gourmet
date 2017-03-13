@@ -9,6 +9,8 @@ import type { HTMLElement } from 'types';
 // styles
 import styles from './gallery.css';
 
+// components
+import ProductImage from '../../../components/imgix/product-image';
 
 type State = {
   selected: number,
@@ -42,7 +44,9 @@ class Gallery extends Component {
     return (
       <div styleName="previews">
         {this.props.images.map((image, index) => (
-          <img
+          <ProductImage
+            width={150}
+            height={150}
             key={`image-${index}`}
             src={image}
             styleName={index === selected ? 'selected' : null}
@@ -56,7 +60,7 @@ class Gallery extends Component {
   get currentImage(): HTMLElement {
     return (
       <div styleName="image">
-        <img src={this.props.images[this.state.selected]} />
+        <ProductImage height={700} src={this.props.images[this.state.selected]} />
       </div>
     );
   }

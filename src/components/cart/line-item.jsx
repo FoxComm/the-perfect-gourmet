@@ -15,6 +15,7 @@ import localized from 'lib/i18n';
 import Icon from 'ui/icon';
 import Currency from 'ui/currency';
 import Select from 'ui/select/select';
+import ProductImage from '../../components/imgix/product-image';
 
 const QUANTITY_ITEMS = _.range(1, 1 + 10, 1).map(x => x.toString());
 
@@ -54,7 +55,7 @@ class LineItem extends Component {
     return (
       <div styleName="box">
         <div styleName="image">
-          <img src={this.props.imagePath} />
+          <ProductImage src={this.props.imagePath} width={63} height={63} />
         </div>
         <div styleName="container">
           <div styleName="details">
