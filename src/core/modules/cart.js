@@ -246,6 +246,8 @@ function updateCartState(state, cart) {
     skus: data,
     quantity,
     shippingAddress,
+    coupon: cart.coupon, // handling coupon deletion when state migrates from Object to null
+    promotion: cart.promotion,
     ...cart,
   };
 }
