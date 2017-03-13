@@ -4512,7 +4512,7 @@ jquery@>=1.7.2:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
-js-base64@^2.1.9:
+js-base64@^2.1.9, js-base64@~2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
@@ -4696,6 +4696,10 @@ jstransform@^11.0.3:
     esprima-fb "^15001.1.0-dev-harmony-fb"
     object-assign "^2.0.0"
     source-map "^0.4.2"
+
+jsuri@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/jsuri/-/jsuri-1.3.1.tgz#cd93fc6a87b255142cb7b0f479f00517ab9395ed"
 
 jwa@^1.1.4:
   version "1.1.5"
@@ -6749,9 +6753,21 @@ react-gestures@^0.1.8:
   dependencies:
     babel-runtime "^5.4.3"
 
+react-imgix@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-imgix/-/react-imgix-5.2.1.tgz#b97756fb45d28774c56ce9c9153d51061fcee32f"
+  dependencies:
+    js-base64 "~2.1.9"
+    jsuri "^1.3.1"
+    react-is-deprecated "^0.1.2"
+
 "react-input-mask@github:anru/react-input-mask#a7b8dc04debe9e8dfe7eee3ad31facb79b7c1826":
   version "1.0.1"
   resolved "https://codeload.github.com/anru/react-input-mask/tar.gz/a7b8dc04debe9e8dfe7eee3ad31facb79b7c1826"
+
+react-is-deprecated@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-is-deprecated/-/react-is-deprecated-0.1.2.tgz#301148f86ea428fe8e673eca7a372160b7579dbd"
 
 react-proxy@^1.1.2:
   version "1.1.8"
