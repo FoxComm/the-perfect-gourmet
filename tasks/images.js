@@ -1,6 +1,6 @@
 'use strict';
 
-const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-image');
 const _if = require('gulp-if');
 
 module.exports = function(gulp) {
