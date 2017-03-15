@@ -72,6 +72,7 @@ export function *renderReact() {
         URL_PREFIX: process.env.URL_PREFIX,
         STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY || null,
         GA_TRACKING_ID: process.env.GA_TRACKING_ID,
+        FB_PIXEL_ID: process.env.FB_PIXEL_ID,
         // use GA_LOCAL=1 gulp dev command for enable tracking events in google analytics from localhost
         GA_LOCAL: process.env.GA_LOCAL,
       }),

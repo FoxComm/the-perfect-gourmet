@@ -71,6 +71,8 @@ export function addToCart(product, quantity) {
   });
   ga('ec:setAction', 'add');
   ga('send', 'event', 'UX', 'click', 'add to cart');
+  // facebook
+  fbq('track', 'AddToCart');
 }
 
 export function removeFromCart(product, quantity) {
@@ -102,6 +104,7 @@ export function checkoutStart(lineItems) {
     step: 1,
   });
   ga('send', 'event', 'Checkout', 'Start');
+  fbq('track', 'InitiateCheckout');
 }
 
 
@@ -119,6 +122,8 @@ export function chooseBillingMethod(method) {
     option: method,
   });
   ga('send', 'event', 'Checkout', 'Option');
+
+  fbq('track', 'AddPaymentInfo');
 }
 
 function moneyToString(value) {
@@ -131,10 +136,12 @@ export function purchase(cart) {
   const grandTotal = cart.totals.total - giftCardAmount;
   const appliedCoupon = _.get(cart, 'coupon.coupon.attributes.name.v');
 
+  const revenue = moneyToString(grandTotal);
+
   const data = {
     id: cart.referenceNumber,
     // affiliation: 'Google Store - Online',
-    revenue: moneyToString(grandTotal),
+    revenue,
     tax: moneyToString(cart.totals.taxes),
     shipping: moneyToString(cart.totals.shipping),
   };
@@ -145,4 +152,10 @@ export function purchase(cart) {
 
   ga('ec:setAction', 'purchase', data);
   ga('send', 'event', 'Checkout', 'Purchase');
+
+  fbq('track', 'Purchase', {value: revenue, currency: 'USD'});
+}
+
+export function completeRegistration() {
+  fbq('track', 'CompleteRegistration');
 }
