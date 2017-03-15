@@ -18,8 +18,7 @@ export default class ProductImage extends React.Component {
 
     const [, s3RelativeUrl] = this.props.src.match(s3PrefixRegExp);
     const imgixUrl = `${IMGIX_PRODUCTS_SOURCE}/${s3RelativeUrl}`;
-    const props = { ...this.props, src: imgixUrl };
 
-    return <Imgix {...props} />;
+    return <Imgix {...this.props} src={imgixUrl} />;
   }
 }
