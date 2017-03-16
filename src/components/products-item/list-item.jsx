@@ -14,6 +14,7 @@ import * as tracking from 'lib/analytics';
 import AddToCartBtn from 'ui/add-to-cart-btn';
 import Currency from 'ui/currency';
 import ImagePlaceholder from './image-placeholder';
+import ProductImage from '../imgix/product-image';
 
 type Image = {
   alt?: string,
@@ -78,7 +79,7 @@ class ListItem extends React.Component {
     const previewImageUrl = _.get(this.props.albums, [0, 'images', 0, 'src']);
 
     return previewImageUrl
-      ? <img src={previewImageUrl} styleName="preview-image" ref="image" />
+      ? <ProductImage src={previewImageUrl} styleName="preview-image" ref="image" />
       : <ImagePlaceholder ref="image" />;
   }
 

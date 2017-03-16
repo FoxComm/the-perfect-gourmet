@@ -8,6 +8,7 @@ import styles from './summary-line-item.css';
 
 // components
 import Currency from 'ui/currency';
+import ProductImage from '../imgix/product-image';
 
 type Props = {
   imagePath: string,
@@ -20,7 +21,7 @@ const LineItemRow = (props: Props) => {
   return (
     <tr>
       <td styleName="product-image">
-        <img src={props.imagePath} />
+        <ProductImage src={props.imagePath} width={63} height={63} />
       </td>
       <td>
         <span styleName="product-info">

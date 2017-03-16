@@ -75,6 +75,9 @@ export function *renderReact() {
         FB_PIXEL_ID: process.env.FB_PIXEL_ID,
         // use GA_LOCAL=1 gulp dev command for enable tracking events in google analytics from localhost
         GA_LOCAL: process.env.GA_LOCAL,
+        IMGIX_PRODUCTS_SOURCE: process.env.IMGIX_PRODUCTS_SOURCE,
+        S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
+        S3_BUCKET_PREFIX: process.env.S3_BUCKET_PREFIX,
       }),
     });
   }
