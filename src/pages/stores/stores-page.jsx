@@ -55,8 +55,9 @@ export default class StoresPage extends React.Component {
                     <div>(410) 325-4411</div>
                   </div>
                   <div styleName="working-hours">
-                    <div>Mon - Fri: 10am - 5pm </div>
-                    <div>Sat - Sun: 12pm - 4pm</div>
+                    <div>Mon - Fri: 10:30am - 5pm </div>
+                    <div>Sat: 10:30pm - 4pm</div>
+                    <div>Sun: Closed</div>
                   </div>
                 </div>
                 <a href="https://www.google.com/maps?saddr=My+Location&daddr=8012+Bellona+Ave+Towson+MD+21204" target="_blank">
