@@ -19,7 +19,8 @@ function generateShortName (name, filename, css) {
   return `_${name}_${hash}_${numLines}`;
 }
 
-const generateScopedName = process.env.NODE_ENV === 'production' ? generateShortName : generateLongName;
+const isProduction = process.env.NODE_ENV === 'production';
+const generateScopedName = isProduction ? generateShortName : generateLongName;
 
 const plugins = [
   require('postcss-import')({
@@ -39,6 +40,13 @@ const plugins = [
   require('postcss-cssnext')({
     features: {
       customProperties: false,
+    },
+  }),
+  require('postcss-url')({
+    url: url => {
+      // drop leading slash in URLs to load static from prefixed environment by relative path:
+      // stage.foxcommerce.com/app-name/...
+      return url.startsWith('/') ? url.substr(1) : url;
     },
   }),
 ];
