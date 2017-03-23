@@ -3,37 +3,55 @@
 import { createReducer } from 'redux-act';
 import { createAsyncActions } from '@foxcomm/wings';
 
+let nextCategoryId = 0;
+
 const categories = [
   {
-    id: 0,
+    id: nextCategoryId++,
     name: 'APPETIZERS',
     description: 'Starters in 10 Minutes',
     imageUrl: '/images/categories/Cat_Appetizers_2x.jpg',
     showNameCatPage: true,
   },
   {
-    id: 1,
+    id: nextCategoryId++,
     name: 'ENTRÉES',
     description: 'Dinner in 30 minutes',
     imageUrl: '/images/categories/Cat_Entrees_2x.jpg',
     showNameCatPage: true,
   },
   {
-    id: 2,
+    id: nextCategoryId++,
+    name: 'NEW',
+    description: '',
+    imageUrl: '/images/categories/Cat_New.jpg',
+    showNameCatPage: true,
+    hiddenInNavigation: true,
+  },
+  {
+    id: nextCategoryId++,
+    name: 'SPRING',
+    description: 'SPRING PICKS',
+    imageUrl: '/images/categories/Cat_Spring.jpg',
+    showNameCatPage: false,
+    hiddenInNavigation: true,
+  },
+  {
+    id: nextCategoryId++,
     name: 'SIDES',
     description: '',
     imageUrl: '/images/categories/Cat_Sides_2x.jpg',
     showNameCatPage: true,
   },
   {
-    id: 3,
+    id: nextCategoryId++,
     name: 'BEST SELLERS',
     description: 'Dinner in 30 minutes',
     imageUrl: '/images/categories/Cat_Best_Sellers_2x.jpg',
     showNameCatPage: true,
   },
   {
-    id: 4,
+    id: nextCategoryId++,
     name: 'FAVORITES',
     description: 'Tried and True Favorites',
     imageUrl: '/images/categories/Cat_TriedTrue_2x.jpg',
@@ -41,7 +59,7 @@ const categories = [
     showNameCatPage: false,
   },
   {
-    id: 5,
+    id: nextCategoryId++,
     name: 'GIFT CARDS',
     description: 'Gift cards will be here',
     imageUrl: '',
@@ -49,7 +67,7 @@ const categories = [
   },
   {
     // TODO: REMOVE THIS CODE AFTER Feb 15
-    id: 6,
+    id: nextCategoryId++,
     name: 'VALENTINE',
     description: 'Valentine\'s Day Picks',
     imageUrl: '/images/categories/Cat_Valentine_2x.jpg',
@@ -57,7 +75,7 @@ const categories = [
     showNameCatPage: false,
   },
   {
-    id: 7,
+    id: nextCategoryId++,
     name: 'WEEKNIGHT',
     description: 'Weeknight Favorites',
     imageUrl: '/images/categories/Cat_Weeknights_2x.jpg',
@@ -65,7 +83,7 @@ const categories = [
     showNameCatPage: false,
   },
   {
-    id: 8,
+    id: nextCategoryId++,
     name: 'SPIN',
     description: 'Classics Revisited',
     imageUrl: '/images/categories/Cat_Spin_2x.jpg',
