@@ -23,9 +23,9 @@ const categories = [
   {
     id: nextCategoryId++,
     name: 'NEW',
-    description: '',
+    description: 'NEW ON THE MENU',
     imageUrl: '/images/categories/Cat_New.jpg',
-    showNameCatPage: true,
+    showNameCatPage: false,
     hiddenInNavigation: true,
   },
   {
