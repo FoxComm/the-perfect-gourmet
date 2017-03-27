@@ -3,7 +3,7 @@
 
 .top-header-wrap {
   composes: header-wrap from '../catalog/products.css';
-  background: url('/images/about-page/About_Us_Hero.jpg') center no-repeat;
+  background: url('/images/about-page/About_Us_Hero_April.jpg') center no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
 @media (-webkit-min-device-pixel-ratio: 2),
   (min-resolution: 192dpi) {
   .top-header-wrap {
-    background: url('/images/about-page/About_Us_Hero_2x.jpg') center no-repeat;
+    background: url('/images/about-page/About_Us_Hero_April@2x.jpg') center no-repeat;
     background-size: cover;
   }
 }
