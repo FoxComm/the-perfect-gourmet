@@ -5,16 +5,28 @@ import React from 'react';
 import { Link } from 'react-router';
 import scrollTo from 'lib/scroll-to';
 import { autobind } from 'core-decorators';
+import { assetsUrl } from 'lib/env';
 
 // styles
 import styles from './about-page.css';
 
 // components
 import IntroSLider from './intro-slider';
-import MentionsSlider from './mentions-slider';
+import MentionBlock from './mention-block';
 import CookingBlock from './cooking-block';
 
+import mentions from './mentions';
+
 const headerOffset = 86;
+
+const mentionBlocks = mentions.map((mention, i) =>
+  <div styleName="mention-wrap" key={i}>
+    <MentionBlock
+      urlPrefix={assetsUrl(`/images/about-page`)}
+      mention={mention}
+    />
+  </div>
+);
 
 export default class AboutPage extends React.Component {
 
@@ -87,7 +99,9 @@ export default class AboutPage extends React.Component {
               <h1 styleName="mentions-title">WHAT PEOPLE ARE SAYING</h1>
             </div>
           </div>
-          <MentionsSlider />
+          <div styleName="mention-blocks">
+            {mentionBlocks}
+          </div>
         </div>
 
         <div styleName="gifts-block">
