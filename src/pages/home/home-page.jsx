@@ -28,7 +28,7 @@ function initPixlee() {
 const mainBlocks = [
   {
     imageUrl: '/images/home-page/Section_1_04.jpg',
-    description: 'DISCOVER OUR NEWEST ARRIVALS, ALONG WITH THEIR PERFECT ACCOMPANIMENT',
+    description: 'DISCOVER OUR NEWEST ARRIVALS, ALONG WITH THEIR PERFECT ACCOMPANIMENTS',
     title: 'NEW ON THE MENU',
     action: { title: 'Shop Now', link: '/NEW' },
   },
