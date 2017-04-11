@@ -346,6 +346,7 @@ const _checkout = createAsyncActions(
       });
       dispatch(orderPlaced(res));
       dispatch(resetCart());
+      dispatch(resetBillingData());
       return res;
     });
   }
