@@ -15,7 +15,7 @@ import type { Localized } from 'lib/i18n';
 
 // modules
 import { searchGiftCards } from 'modules/products';
-import { fetch, getNextId, getPreviousId, resetProduct } from 'modules/product-details';
+import { fetch, getNextId, getPreviousId, resetProduct, resetReadyFlag } from 'modules/product-details';
 import { addLineItem, toggleCart } from 'modules/cart';
 
 // types
@@ -55,7 +55,6 @@ type Props = Localized & {
   isCartLoading: boolean,
   notFound: boolean,
   fetchError: ?Object,
-  fetchReseted: ?boolean,
 };
 
 type State = {
@@ -82,7 +81,6 @@ const mapStateToProps = state => {
   return {
     product,
     fetchError: _.get(state.asyncActions, 'pdp.err', null),
-    fetchReseted: _.get(state.asyncActions, 'pdp.isReady', null),
     notFound: !product && _.get(state.asyncActions, 'pdp.err.response.status') == 404,
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
@@ -92,6 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetch,
+    resetReadyFlag,
     getNextId,
     getPreviousId,
     resetProduct,
@@ -119,6 +118,7 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
+    this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
     });
@@ -133,10 +133,6 @@ class Pdp extends Component {
 
     if (this.productId !== id) {
       this.props.actions.resetProduct();
-      this.fetchProduct(nextProps, id);
-    }
-
-    if (this.props.fetchReseted != nextProps.fetchReseted && !nextProps.fetchReseted) {
       this.fetchProduct(nextProps, id);
     }
   }
