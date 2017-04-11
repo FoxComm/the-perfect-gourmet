@@ -234,7 +234,7 @@ class EditBilling extends Component {
 
     return operation.then(card => {
       this.props.fetchCreditCards();
-      this.props.resetBillingData();
+      if (!this.props.isGuestMode) this.props.resetBillingData();
       this.setState({ addingNew: false, cardAdded: (id === undefined) });
       return card;
     });
