@@ -128,7 +128,7 @@ class Pdp extends Component {
     this.props.actions.resetProduct();
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const id = this.getId(nextProps);
 
     if (this.productId !== id) {
@@ -141,7 +141,7 @@ class Pdp extends Component {
     }
   }
 
-  safeFetch(id) {
+  safeFetch(id: ProductSlug) {
     return this.props.actions.fetch(id).catch(_.noop);
   }
 
