@@ -15,7 +15,7 @@ import type { Localized } from 'lib/i18n';
 
 // modules
 import { searchGiftCards } from 'modules/products';
-import { fetch, getNextId, getPreviousId, resetProduct } from 'modules/product-details';
+import { fetch, getNextId, getPreviousId, resetProduct, resetReadyFlag } from 'modules/product-details';
 import { addLineItem, toggleCart } from 'modules/cart';
 
 // types
@@ -54,6 +54,7 @@ type Props = Localized & {
   isLoading: boolean,
   isCartLoading: boolean,
   notFound: boolean,
+  fetchError: ?Object,
 };
 
 type State = {
@@ -89,6 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetch,
+    resetReadyFlag,
     getNextId,
     getPreviousId,
     resetProduct,
@@ -116,6 +118,7 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
+    this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
     });
@@ -125,7 +128,7 @@ class Pdp extends Component {
     this.props.actions.resetProduct();
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     const id = this.getId(nextProps);
 
     if (this.productId !== id) {
@@ -134,7 +137,7 @@ class Pdp extends Component {
     }
   }
 
-  safeFetch(id) {
+  safeFetch(id: ProductSlug) {
     return this.props.actions.fetch(id).catch(_.noop);
   }
 
