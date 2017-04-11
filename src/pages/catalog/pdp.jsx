@@ -54,6 +54,8 @@ type Props = Localized & {
   isLoading: boolean,
   isCartLoading: boolean,
   notFound: boolean,
+  fetchError: ?Object,
+  fetchReseted: ?boolean,
 };
 
 type State = {
@@ -80,6 +82,7 @@ const mapStateToProps = state => {
   return {
     product,
     fetchError: _.get(state.asyncActions, 'pdp.err', null),
+    fetchReseted: _.get(state.asyncActions, 'pdp.isReady', null),
     notFound: !product && _.get(state.asyncActions, 'pdp.err.response.status') == 404,
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
@@ -130,6 +133,10 @@ class Pdp extends Component {
 
     if (this.productId !== id) {
       this.props.actions.resetProduct();
+      this.fetchProduct(nextProps, id);
+    }
+
+    if (this.props.fetchReseted != nextProps.fetchReseted && !nextProps.fetchReseted) {
       this.fetchProduct(nextProps, id);
     }
   }
