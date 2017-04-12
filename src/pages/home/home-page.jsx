@@ -19,7 +19,7 @@ function initPixlee() {
       apiKey: 'ttWLWvqKl2dWPMDKAjgr',
     });
     Pixlee.addSimpleWidget({
-      widgetId: 511610,
+      widgetId: 522455,
     });
   }
   /* eslint-enable no-undef */
