@@ -27,22 +27,22 @@ function initPixlee() {
 
 const mainBlocks = [
   {
-    imageUrl: '/images/home-page/Section_1_04.jpg',
-    description: 'DISCOVER OUR NEWEST ARRIVALS, ALONG WITH THEIR PERFECT ACCOMPANIMENTS',
-    title: 'NEW ON THE MENU',
-    action: { title: 'Shop Now', link: '/NEW' },
-  },
-  {
-    imageUrl: '/images/home-page/Section_2_04.jpg',
-    description: 'SHOP A VARIETY OF LIGHTER DISHES THAT THE WHOLE FAMILY WILL LOVE',
-    title: 'SPRING PICKS',
+    imageUrl: '/images/home-page/April15_1.jpg',
+    description: 'FOR MEALS AT HOME, AS WELL AS EVERY CELEBRATION THIS SEASON HAS TO OFFER',
+    title: 'THE SPRING COLLECTION',
     action: { title: 'Shop Now', link: '/SPRING' },
   },
   {
-    imageUrl: '/images/home-page/About_Us_Hero_1_03.jpg',
+    imageUrl: '/images/home-page/April15_2.jpg',
+    description: 'SO YOU CAN SPEND MORE TIME AT THE TABLE AND LESS TIME IN THE KITCHEN',
+    title: 'BRUNCH FAVORITES',
+    action: { title: 'Shop Now', link: '/BRUNCH' },
+  },
+  {
+    imageUrl: '/images/home-page/April15_3.jpg',
     description: '',
-    title: 'WHAT MAKES US DIFFERENT?',
-    action: { title: 'Learn more', link: '/about' },
+    title: 'SEE WHAT’S NEW ON THE MENU',
+    action: { title: 'Shop Now', link: '/NEW' },
   },
 ];
 
