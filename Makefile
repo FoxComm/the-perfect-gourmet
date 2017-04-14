@@ -9,7 +9,7 @@ setup: clean
 	yarn --pure-lockfile
 
 check:
-  npm run lint
+	npm run lint
 	npm run flow
 
 build: setup check
