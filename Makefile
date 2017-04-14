@@ -8,7 +8,11 @@ dev d:
 setup: clean
 	yarn --pure-lockfile
 
-build:
+check:
+  npm run lint
+	npm run flow
+
+build: setup check
 	test -f .env && export eval `cat .env` || true && NODE_ENV=production ./node_modules/.bin/gulp build
 
 docker:
