@@ -51,30 +51,30 @@ export default class AboutPage extends React.Component {
             <div styleName="intro-title">THE PERFECT GOURMET IS PERFECT FOR</div>
             <IntroSLider />
             <div styleName="intro-text">
-              <p>Dinner should be an enjoyable end to your busy day, not another           
-                reason to stress. Meal kit delivery services are appealing, 
-                but as you may already know, there's a lot of work that stands 
+              <p>Dinner should be an enjoyable end to your busy day, not another
+                reason to stress. Meal kit delivery services are appealing,
+                but as you may already know, there's a lot of work that stands
                 between you and your meal.</p>
 
-              <p>What if you could enjoy delicious, quality dinners without having 
+              <p>What if you could enjoy delicious, quality dinners without having
                 to prep, cook, or clean?</p>
 
-              <p>That’s where The Perfect Gourmet comes in. For over ten years, we’ve 
-                been crafting fabulous food, and delivering to over 200,000 households 
-                a year. Each dish--whether it’s Osso Buco, Thai Chicken, Indian Flatbread, 
-                or anything else that you choose --begins with a great recipe and the 
-                right ingredients. Your food is prepared, flash-frozen, and delivered 
+              <p>That’s where The Perfect Gourmet comes in. For over ten years, we’ve
+                been crafting fabulous food, and delivering to over 200,000 households
+                a year. Each dish--whether it’s Osso Buco, Thai Chicken, Indian Flatbread,
+                or anything else that you choose --begins with a great recipe and the
+                right ingredients. Your food is prepared, flash-frozen, and delivered
                 to your door. </p>
   
-              <p>Yes, we know what you’re thinking: “<i>Frozen</i> food?” </p>
+              <p>Yes, we know what you’re thinking: “<i>Frozen</i> food?”</p>
 
-              <p>Don’t let other frozen foods give you any misconceptions about ours. We 
-                use this process to lock in food’s flavors and nutrients, making it taste 
-                as if you just spent hours prepping in the kitchen, as well as let you 
-                enjoy foods and ingredients that aren’t in season whenever you want. They’re 
-                specially designed to cook <i>from</i> frozen--no thawing required-- so that your 
-                food will be ready for you when you want it, and most can be kept in the 
-                freezer for up to a year. </p>
+              <p>Don’t let other frozen foods give you any misconceptions about ours. We
+                use this process to lock in food’s flavors and nutrients, making it taste
+                as if you just spent hours prepping in the kitchen, as well as let you
+                enjoy foods and ingredients that aren’t in season whenever you want. They’re
+                specially designed to cook <i>from</i> frozen--no thawing required-- so that your
+                food will be ready for you when you want it, and most can be kept in the
+                freezer for up to a year.</p>
               
               <p>Waste will be a thing of the past.</p>
               
