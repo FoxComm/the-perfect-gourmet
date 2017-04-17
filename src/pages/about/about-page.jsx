@@ -51,28 +51,35 @@ export default class AboutPage extends React.Component {
             <div styleName="intro-title">THE PERFECT GOURMET IS PERFECT FOR</div>
             <IntroSLider />
             <div styleName="intro-text">
-              <p>We believe that every dinner should be an enjoyable end to your
-                 busy day, not another reason to stress. Our goal is to bring
-                 you delicious but affordable food, which you can spend less
-                 time preparing and more time enjoying.</p>
+              <p>Dinner should be an enjoyable end to your busy day, not another           
+                reason to stress. Meal kit delivery services are appealing, 
+                but as you may already know, there's a lot of work that stands 
+                between you and your meal.</p>
 
-              <p>We offer a variety of seafood, poultry, beef, and vegetarian
-                options, most around $5 per serving. Perfect for young
-                professionals with limited time and kitchenware, big families in
-                 need of quick dinner solutions, couples looking for relaxing
-                 nights in, and everyone in between.</p>
+              <p>What if you could enjoy delicious, quality dinners without having 
+                to prep, cook, or clean?</p>
 
-              <p>Every dish starts with fresh, quality ingredients. It&apos;s
-                then flash frozen, so that when you’re ready to enjoy, it tastes
-                 as fresh and flavorful as if just prepared minutes ago.  Each
-                 individual serving is conveniently wrapped and ready to cook
-                 from frozen – no thawing required! Cook <i>what</i> you want,
-                 <i> when</i> you want it. The rest can be stored in your freezer
-                  for six months to a year, eliminating waste and facilitating
-                  meal planning.</p>
+              <p>That’s where The Perfect Gourmet comes in. For over ten years, we’ve 
+                been crafting fabulous food, and delivering to over 200,000 households 
+                a year. Each dish--whether it’s Osso Buco, Thai Chicken, Indian Flatbread, 
+                or anything else that you choose --begins with a great recipe and the 
+                right ingredients. Your food is prepared, flash-frozen, and delivered 
+                to your door. </p>
+  
+              <p>Yes, we know what you’re thinking: “<i>Frozen</i> food?” </p>
 
-              <p>What are you waiting for? Discover for yourself why
-                <i> frozen</i> is the <i>new fresh.</i></p>
+              <p>Don’t let other frozen foods give you any misconceptions about ours. We 
+                use this process to lock in food’s flavors and nutrients, making it taste 
+                as if you just spent hours prepping in the kitchen, as well as let you 
+                enjoy foods and ingredients that aren’t in season whenever you want. They’re 
+                specially designed to cook <i>from</i> frozen--no thawing required-- so that your 
+                food will be ready for you when you want it, and most can be kept in the 
+                freezer for up to a year. </p>
+              
+              <p>Waste will be a thing of the past.</p>
+              
+              <p>So what are you waiting for? Discover how stress-free dinner can be, and let 
+                us show you why <b>frozen</b> is the new <b>fresh</b>.</p>
             </div>
 
             <Link to="/best-sellers" styleName="action-link">
