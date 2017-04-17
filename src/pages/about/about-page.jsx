@@ -51,6 +51,9 @@ export default class AboutPage extends React.Component {
             <div styleName="intro-title">THE PERFECT GOURMET IS PERFECT FOR</div>
             <IntroSLider />
             <div styleName="intro-text">
+              
+              <p><b>What Makes Us Different?</b></p>
+              
               <p>Dinner should be an enjoyable end to your busy day, not another
                 reason to stress. Meal kit delivery services are appealing,
                 but as you may already know, there's a lot of work that stands
@@ -64,7 +67,7 @@ export default class AboutPage extends React.Component {
                 a year. Each dish--whether it’s Osso Buco, Thai Chicken, Indian Flatbread,
                 or anything else that you choose --begins with a great recipe and the
                 right ingredients. Your food is prepared, flash-frozen, and delivered
-                to your door. </p>
+                to your door.</p>
   
               <p>Yes, we know what you’re thinking: “<i>Frozen</i> food?”</p>
 
@@ -78,7 +81,7 @@ export default class AboutPage extends React.Component {
               
               <p>Waste will be a thing of the past.</p>
               
-              <p>So what are you waiting for? Discover how stress-free dinner can be, and let 
+              <p>So what are you waiting for? Discover how stress-free dinner can be, and let
                 us show you why <b>frozen</b> is the new <b>fresh</b>.</p>
             </div>
 
