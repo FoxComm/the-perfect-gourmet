@@ -11,6 +11,9 @@
     "precompile": "babel src -d lib",
     "watch-precompile": "babel src -d lib -w --skip-initial-build"
   },
+  "engines": {
+    "yarn": "0.23.2"
+  },
   "author": "FoxCommerce",
   "license": "ISC",
   "devDependencies": {
