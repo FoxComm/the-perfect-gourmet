@@ -40,6 +40,10 @@
   justify-content: center;
 }
 
+.gallery-wrap iframe {
+  height: 500px !important;
+}
+
 .feed {
   width: 100%;
   margin-bottom: 120px;
