@@ -30,14 +30,16 @@
   background-size: contain;
 }
 
-.instagram-gallery {
-  margin-bottom: 80px;
-}
-
 .gallery-wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 40px;
+  background: #fbfbfb;
+}
+
+.gallery-wrap iframe {
+  height: 500px !important;
 }
 
 .feed {

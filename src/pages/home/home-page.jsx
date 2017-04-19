@@ -85,14 +85,6 @@ class HomePage extends Component {
         </div>
         <div styleName="instagram-gallery">
           <div styleName="gallery-wrap">
-            <div styleName="instagram-info">
-              <h1 styleName="instagram-title">BAKE. SNAP. WIN!</h1>
-              <div styleName="hashtag-image" />
-              <div styleName="instagram-description">
-                Love The Perfect Gourmet? Let us know!
-                Share the love using #mygourmet for a chance to be featured here!
-              </div>
-            </div>
             <div styleName="feed" id="pixlee_container" />
           </div>
         </div>
