@@ -3,7 +3,7 @@ DOCKER_IMAGE ?= tpg-storefront
 DOCKER_TAG ?= master
 
 dev d:
-	source .env && yarn dev
+	test -f .env && export eval `cat .env` || true && yarn dev
 
 setup: clean
 	yarn --pure-lockfile
@@ -25,7 +25,7 @@ docker-push:
 clean:
 	rm -rf ./node_modules
 
-test: 
+test:
 	yarn test
 
 .PHONY: dev d setup build docker docker-push clean test
