@@ -36,9 +36,8 @@ class UserTools extends Component {
   renderUserInfo() {
     const { t } = this.props;
     const user = _.get(this.props, ['auth', 'user'], null);
-    const query = merge(this.props.query, {auth: authBlockTypes.LOGIN});
     return !isAuthorizedUser(user) ? (
-      <Link styleName="login-link" to={{pathname: this.props.path, query}}>
+      <Link styleName="login-link" to="/login">
         {t('LOG IN')}
       </Link>
     ) : (
