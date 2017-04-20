@@ -54,35 +54,34 @@ export default class AboutPage extends React.Component {
 
               <p><b>What Makes Us Different?</b></p>
 
-              <p>Dinner should be an enjoyable end to your busy day, not another
-                reason to stress. Meal kit delivery services are appealing,
-                but as you may already know, there's a lot of work that stands
-                between you and your meal.</p>
+              <p>Dinner should be an enjoyable end to your busy day, not another reason
+                to stress. While meal kit delivery services sound fun and appealing, they
+                don’t save you much time or money.</p>
 
-              <p>What if you could enjoy delicious, quality dinners without having
-                to prep, cook, or clean?</p>
+              <p>What if you could enjoy delicious, gourmet dinners without having to prep,
+                cook, or clean up--and for less than you pay to do all that work yourself?</p>
 
-              <p>That’s where The Perfect Gourmet comes in. For over ten years, we’ve
-                been crafting fabulous food, and delivering to over 200,000 households
-                a year. Each dish--whether it’s Osso Buco, Thai Chicken, Indian Flatbread,
-                or anything else that you choose --begins with a great recipe and the
-                right ingredients. Your food is prepared, flash-frozen, and delivered
-                to your door.</p>
+              <p>The Perfect Gourmet does all the work for you. Whether it’s our Osso Buco,
+                Thai Chicken, Indian Flatbread, (the list goes on and on), every single dish
+                begins with a great recipe and high-quality ingredients. We then flash freeze
+                and deliver the food right to your door, so that it’s ready to cook from frozen
+                whenever you want it.</p>
 
-              <p>Yes, we know what you’re thinking: “<i>Frozen</i> food?”</p>
+              <p>We know what you’re thinking. “Hmm...<i>Frozen</i> food?”</p>
 
-              <p>Don’t let other frozen foods give you any misconceptions about ours. We
-                use this process to lock in food’s flavors and nutrients, making it taste
-                as if you just spent hours prepping in the kitchen, as well as let you
-                enjoy foods and ingredients that aren’t in season whenever you want. They’re
-                specially designed to cook <i>from</i> frozen--no thawing required-- so that your
-                food will be ready for you when you want it, and most can be kept in the
-                freezer for up to a year.</p>
+              <p>Don’t let other frozen foods give you any misconceptions about yours. Unlike
+                other brands, we use high-quality ingredients at the peak of freshness, then
+                use this process to preserve all of their flavors and nutrients. This makes your
+                food taste as if you just spent hours in the kitchen, and allows you to enjoy
+                meals and ingredients that aren’t in season any time you want.</p>
 
-              <p>Waste will be a thing of the past.</p>
+              <p>Most of our food can be kept in the freezer for up to a year, and is specifically
+                designed to cook from frozen--no thawing required. Cook what you want, when you want
+               it. Waste will be a thing of the past.</p>
 
-              <p>So what are you waiting for? Discover how stress-free dinner can be, and let
-                us show you why <b>frozen</b> is the new <b>fresh</b>.</p>
+              <p>Since 2006, we have been crafting and delivering these delicious meals to over 200,000
+                happy households a year. Discover how stress-free your dinners can be, and let us show
+                you why <b>frozen</b> is the new fresh.</p>
             </div>
 
             <Link to="/best-sellers" styleName="action-link">
