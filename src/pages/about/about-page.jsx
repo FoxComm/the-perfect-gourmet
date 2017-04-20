@@ -69,7 +69,7 @@ export default class AboutPage extends React.Component {
 
               <p>We know what you’re thinking. “Hmm...<i>Frozen</i> food?”</p>
 
-              <p>Don’t let other frozen foods give you any misconceptions about yours. Unlike
+              <p>Don’t let other frozen foods give you any misconceptions about ours. Unlike
                 other brands, we use high-quality ingredients at the peak of freshness, then
                 use this process to preserve all of their flavors and nutrients. This makes your
                 food taste as if you just spent hours in the kitchen, and allows you to enjoy
