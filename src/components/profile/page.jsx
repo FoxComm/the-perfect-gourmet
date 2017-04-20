@@ -14,12 +14,13 @@ import Loader from 'ui/loader';
 import { savePreviousLocation } from 'modules/auth';
 
 import type { HTMLElement } from 'types';
+import type { Auth } from 'types/auth';
 
 import styles from './page.css';
 
 type Props = {
   children: HTMLElement,
-  auth: Object | {},
+  auth: Auth,
   savePreviousLocation: (path: string) => void,
 };
 
@@ -35,8 +36,6 @@ class Page extends Component {
   };
 
   componentDidMount() {
-    const { auth } = this.props;
-
     if (!this.state.isAuthorized) {
       this.props.savePreviousLocation('/profile');
       browserHistory.push('/login');

@@ -28,7 +28,7 @@ import AboutPage from './pages/about/about-page';
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
-export default function makeRoutes(store) {
+export default function makeRoutes() {
   return (
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
