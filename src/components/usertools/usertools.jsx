@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { toggleCart } from 'modules/cart';
 import { toggleUserMenu } from 'modules/usermenu';
+import { savePreviousLocation } from 'modules/auth';
 
 import { isAuthorizedUser } from 'paragons/auth';
 
@@ -31,14 +32,24 @@ class UserTools extends Component {
     this.props.toggleUserMenu();
   }
 
-  renderUserInfo() {
+  @autobind
+  saveLocation() {
+    const { path } = this.props;
+    this.props.savePreviousLocation(path);
+  }
+
+  get renderUserInfo() {
     const { t } = this.props;
     const user = _.get(this.props, ['auth', 'user'], null);
-    return !isAuthorizedUser(user) ? (
-      <Link styleName="login-link" to="/login">
-        {t('LOG IN')}
-      </Link>
-    ) : (
+    if (!isAuthorizedUser(user)) {
+      return (
+        <Link styleName="login-link" to="/login" onClick={this.saveLocation}>
+          {t('LOG IN')}
+        </Link>
+      );
+    }
+
+    return (
       <div styleName="user-info">
         <span styleName="username" onClick={this.handleUserClick}>{t('HI')}, {user.name.toUpperCase()}</span>
         {this.props.isMenuVisible && <UserMenu />}
@@ -50,7 +61,7 @@ class UserTools extends Component {
     return (
       <div styleName="tools">
         <div styleName="login">
-          {this.renderUserInfo()}
+          {this.renderUserInfo}
         </div>
         <button styleName="cart" onClick={this.props.toggleCart}>
           <Icon name="fc-cart" styleName="head-icon"/>
@@ -70,4 +81,5 @@ const mapState = state => ({
 export default connect(mapState, {
   toggleCart,
   toggleUserMenu,
+  savePreviousLocation,
 })(localized(UserTools));
