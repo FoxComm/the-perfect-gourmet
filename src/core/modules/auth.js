@@ -27,6 +27,7 @@ export const setUser = createAction('AUTH_SET_USER');
 export const logoutAction = createAction('AUTH_LOGOUT');
 export const setJwt = createAction('AUTH_SET_JWT');
 export const updateUser = createAction('AUTH_UPDATE_USER');
+export const savePreviousLocation = createAction('SAVE_PREVIOUS_LOCATION');
 
 export const signUp = createAsyncActions('auth-signup', function signUp(payload: SignUpPayload): Promise {
   const {email, name, password} = payload;
@@ -117,6 +118,12 @@ const reducer = createReducer({
   },
   [logoutAction]: (state) => {
     return dissoc(state, 'user', 'jwt');
+  },
+  [savePreviousLocation]: (state, location) => {
+    return {
+      ...state,
+      previousLocation: location,
+    };
   },
 }, initialState);
 
