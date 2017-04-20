@@ -17,6 +17,7 @@ import EditEmail from './components/profile/blocks/edit-email';
 import ChangePassword from './components/profile/blocks/change-password';
 import Order from './components/profile/blocks/order';
 import AddressForm from './components/profile/blocks/address-form';
+import Login from './components/auth/login';
 
 import StoresPage from './pages/stores/stores-page';
 import HomePage from './pages/home/home-page';
@@ -27,25 +28,14 @@ import AboutPage from './pages/about/about-page';
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
-import { isAuthorizedUser } from 'paragons/auth';
-
 export default function makeRoutes(store) {
-  function handleProfileEnter(nextState, replace, callback) {
-    const { auth } = store.getState();
-
-    if (!auth || !isAuthorizedUser(auth.user)) {
-      replace('/?auth=LOGIN');
-    }
-
-    callback();
-  }
-
   return (
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
+      <Route path="/login" component={Login} />
       <Route component={StoreFront}>
         <IndexRoute component={HomePage} />
-        <Route path="/profile" component={ProfilePage} onEnter={handleProfileEnter}>
+        <Route path="/profile" component={ProfilePage}>
           <IndexRoute component={Profile} />
           <Route component={ProfileUnit}>
             <Route path="name" component={EditName} />
