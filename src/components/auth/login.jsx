@@ -15,7 +15,6 @@ import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
 import * as actions from 'modules/auth';
-import { authBlockTypes } from 'paragons/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
@@ -30,7 +29,7 @@ type AuthState = {
 };
 
 type Props = Localized & {
-  getPath: Function,
+  previousLocation: string,
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
@@ -40,11 +39,6 @@ type Props = Localized & {
   onSignupClick: Function,
   mergeGuestCart: boolean,
 };
-
-const mapState = state => ({
-  cart: state.cart,
-  isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
-});
 
 class Login extends Component {
   props: Props;
@@ -81,7 +75,7 @@ class Login extends Component {
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
       this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
-      browserHistory.push(this.props.getPath());
+      browserHistory.push(this.props.previousLocation);
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
 
@@ -90,7 +84,7 @@ class Login extends Component {
       });
 
       if (migratedErrorPresent) {
-        browserHistory.push(this.props.getPath(authBlockTypes.FORCE_RESTORE_PASSWORD));
+        browserHistory.push(this.props.previousLocation);
         return;
       }
 
@@ -121,16 +115,16 @@ class Login extends Component {
   render(): HTMLElement {
     const { password, email } = this.state;
     const { props } = this;
-    const { t, getPath } = props;
+    const { t } = props;
 
     const restoreLink = (
-      <Link to={getPath(authBlockTypes.RESTORE_PASSWORD)} styleName="restore-link">
+      <Link to="/restore_password" styleName="restore-link">
         {t('forgot?')}
       </Link>
     );
 
     const signupLink = (
-      <Link to={getPath(authBlockTypes.SIGNUP)} onClick={props.onSignupClick} styleName="link">
+      <Link to="/signup" onClick={props.onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
@@ -166,6 +160,14 @@ class Login extends Component {
     );
   }
 }
+
+
+const mapState = state => ({
+  cart: state.cart,
+  isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
+  previousLocation: _.get(state.auth, 'previousLocation', ''),
+});
+
 
 export default connect(mapState, {
   ...actions,
