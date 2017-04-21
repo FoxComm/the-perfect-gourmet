@@ -1,12 +1,11 @@
 /* @flow */
 
 import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import styles from './auth.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { browserHistory } from 'lib/history';
-import { authBlockTypes } from 'paragons/auth';
 
 import localized from 'lib/i18n';
 
@@ -17,29 +16,22 @@ import Button from 'ui/buttons';
 import { resetPassword } from 'modules/auth';
 
 import type { HTMLElement } from 'types';
+import type { Localized } from 'lib/i18n';
 
 type ResetState = {
-  isReseted: boolean;
-  passwd1: string;
-  passwd2: string;
-  error: ?string;
+  isReseted: boolean,
+  passwd1: string,
+  passwd2: string,
+  error: ?string,
 };
 
-/* ::`*/
-@connect(null, { resetPassword })
-@localized
-/* ::`*/
-export default class ResetPassword extends Component {
+type Props = Localized & {
+  location: Object,
+  resetPassword: Function, // func signature: (code: string, password: string) => Promise<*>, old version of lint doesn't support this
+};
 
-  static propTypes = {
-    fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    getPath: PropTypes.func,
-    path: PropTypes.object.isRequired,
-  };
+class ResetPassword extends Component {
+  props: Props;
 
   state: ResetState = {
     isReseted: false,
@@ -51,7 +43,7 @@ export default class ResetPassword extends Component {
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
-    const code = _.get(this.props, 'path.query.code');
+    const code = _.get(this.props, 'location.query.code');
 
     if (passwd1 != passwd2) {
       this.setState({
@@ -152,7 +144,7 @@ export default class ResetPassword extends Component {
   }
 
   goToLogin: Object = () => {
-    browserHistory.push(this.props.getPath(authBlockTypes.LOGIN));
+    browserHistory.push('/login');
   };
 
   get primaryButton(): HTMLElement {
@@ -183,3 +175,7 @@ export default class ResetPassword extends Component {
     );
   }
 }
+
+export default connect(null, {
+  resetPassword,
+})(localized(ResetPassword));
