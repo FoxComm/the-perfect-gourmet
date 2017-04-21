@@ -17,7 +17,6 @@ import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
 // actions
-import { restorePassword } from 'modules/auth';
 import * as actions from 'modules/auth';
 
 // types

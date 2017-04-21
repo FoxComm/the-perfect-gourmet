@@ -30,12 +30,12 @@ type ResetState = {
   passwd1: string,
   passwd2: string,
   error: ?string,
-  user: User | {},
 };
 
 type Props = Localized & {
   location: Object,
   resetPassword: Function, // func signature: (code: string, password: string) => Promise<*>, old version of lint doesn't support this
+  user: User | {},
 };
 
 class ResetPassword extends Component {
@@ -53,7 +53,7 @@ class ResetPassword extends Component {
       browserHistory.push('/');
     }
   }
-  
+
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
