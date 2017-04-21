@@ -4,7 +4,7 @@ import React from 'react';
 
 import RestorePasswordForm from './restore-password-form';
 
-import type { RestorePasswordFormProps } from './restore-password-form';
+import type { RestorePasswordFormProps } from 'types/auth';
 
 const RestorePassword = (props: RestorePasswordFormProps) => {
   return (

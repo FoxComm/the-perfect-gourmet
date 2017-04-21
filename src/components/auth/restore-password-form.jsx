@@ -9,17 +9,17 @@ import { Link } from 'react-router';
 
 import { browserHistory } from 'lib/history';
 
-import { authBlockTypes } from 'paragons/auth';
-
 import localized from 'lib/i18n';
 
 import { TextInput } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
-import { restorePassword } from 'modules/auth';
+// import { restorePassword } from 'modules/auth';
+import * as actions from 'modules/auth';
 
 import type { HTMLElement } from 'types';
+import type { RestorePasswordFormProps } from 'types/auth';
 
 type RestoreState = {
   emailSent: boolean;
@@ -27,26 +27,7 @@ type RestoreState = {
   email: string;
 };
 
-export type RestorePasswordFormProps = {
-  fields: Object,
-  handleSubmit: Function,
-  resetForm: Function,
-  submitting: boolean,
-  error: string,
-  dispatch: ?Function,
-  changeAuthBlockType: ?Function,
-  getPath: Function,
-  topMessage: string,
-  title: string,
-  t: Function,
-  restorePassword: Function,
-};
-
-/* ::`*/
-@connect(null, { restorePassword })
-@localized
-/* ::`*/
-export default class RestorePasswordForm extends Component {
+class RestorePasswordForm extends Component {
   props: RestorePasswordFormProps;
 
   state: RestoreState = {
@@ -128,7 +109,7 @@ export default class RestorePasswordForm extends Component {
   }
 
   goToLogin: Object = () => {
-    browserHistory.push(this.props.getPath(authBlockTypes.LOGIN));
+    browserHistory.push('/login');
   };
 
   get primaryButton(): HTMLElement {
@@ -138,7 +119,7 @@ export default class RestorePasswordForm extends Component {
     if (emailSent) {
       return (
         <Button styleName="primary-button" onClick={this.goToLogin} type="button">
-          {t('BACK TO SIGN IN')}
+          {t('BACK TO LOG IN')}
         </Button>
       );
     }
@@ -148,13 +129,13 @@ export default class RestorePasswordForm extends Component {
 
   get switchStage(): ?HTMLElement {
     const { emailSent } = this.state;
-    const { t, getPath } = this.props;
+    const { t } = this.props;
 
     if (!emailSent) {
       return (
         <div styleName="switch-stage">
-          <Link to={getPath(authBlockTypes.LOGIN)} styleName="link">
-            {t('BACK TO SIGN IN')}
+          <Link to="/login" styleName="link">
+            {t('BACK TO LOG IN')}
           </Link>
         </div>
       );
@@ -175,3 +156,7 @@ export default class RestorePasswordForm extends Component {
     );
   }
 }
+
+export default connect(null, {
+  ...actions,
+})(localized(RestorePasswordForm));
