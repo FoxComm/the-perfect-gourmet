@@ -164,7 +164,7 @@ class ResetPassword extends Component {
     const { t } = this.props;
 
     return (
-      <div>
+      <div styleName="auth-block">
         <div styleName="title">{t('RESET PASSWORD')}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>

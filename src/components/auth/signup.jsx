@@ -150,7 +150,7 @@ class Signup extends Component {
     );
 
     return (
-      <div>
+      <div styleName="auth-block">
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>

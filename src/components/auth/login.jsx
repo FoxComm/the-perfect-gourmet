@@ -127,7 +127,7 @@ class Login extends Component {
     );
 
     return (
-      <div>
+      <div styleName="auth-block">
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>

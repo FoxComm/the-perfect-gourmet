@@ -144,7 +144,7 @@ class RestorePasswordForm extends Component {
 
   render(): HTMLElement {
     return (
-      <div>
+      <div styleName="auth-block">
         <div styleName="title">{this.props.title}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>
