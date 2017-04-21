@@ -1,28 +1,36 @@
 /* @flow */
 
-import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './auth.css';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { browserHistory } from 'lib/history';
-
 import localized from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
+// actions
 import { resetPassword } from 'modules/auth';
 
+// types
 import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type ResetState = {
   isReseted: boolean,
   passwd1: string,
   passwd2: string,
   error: ?string,
+  user: User | {},
 };
 
 type Props = Localized & {
@@ -40,6 +48,12 @@ class ResetPassword extends Component {
     error: null,
   };
 
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
+  
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
@@ -176,6 +190,12 @@ class ResetPassword extends Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return {
+    user: _.get(state.auth, 'user', {}),
+  };
+};
+
+export default connect(mapStateToProps, {
   resetPassword,
 })(localized(ResetPassword));

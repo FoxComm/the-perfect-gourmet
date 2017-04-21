@@ -1,30 +1,35 @@
 /* @flow */
 
-import _ from 'lodash';
-import { get, reduce } from 'lodash';
 import React, { Component } from 'react';
-import styles from './auth.css';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import * as analytics from 'lib/analytics';
-
 import { browserHistory } from 'lib/history';
-
 import localized from 'lib/i18n';
-import type { Localized } from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
+import { Link } from 'react-router';
 import { TextInput } from 'ui/inputs';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
+// actions
 import * as actions from 'modules/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
+// types
 import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'modules/auth';
+import type { Localized } from 'lib/i18n';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type AuthState = {
   email: string,
@@ -43,6 +48,7 @@ type Props = Localized & {
   title?: string|Element|null,
   onAuthenticated?: Function,
   previousLocation: string,
+  user: User | {},
 };
 
 class Signup extends Component {
@@ -58,9 +64,12 @@ class Signup extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchCart();
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    } else {
+      this.props.fetchCart();
+    }
   }
-
 
   @autobind
   onChangeEmail({target}: any) {
@@ -99,11 +108,11 @@ class Signup extends Component {
       }
       browserHistory.push(this.props.previousLocation);
     }).catch(err => {
-      const errors = get(err, ['responseJson', 'errors'], [err.toString()]);
+      const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
       let usernameError = false;
 
-      const restErrors = reduce(errors, (acc, error) => {
+      const restErrors = _.reduce(errors, (acc, error) => {
         if (error.indexOf('email') >= 0) {
           emailError = error;
         } else if (error.indexOf('name') >= 0) {
@@ -202,6 +211,7 @@ const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
   previousLocation: _.get(state.auth, 'previousLocation', ''),
+  user: _.get(state.auth, 'user', {}),
 });
 
 export default connect(mapState, {

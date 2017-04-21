@@ -1,26 +1,31 @@
 /* @flow */
 
-import _ from 'lodash';
 import React, { Component } from 'react';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
+import { isAuthorizedUser } from 'paragons/auth';
 import { browserHistory } from 'lib/history';
+import localized from 'lib/i18n';
 
-import styles from './auth.css';
-
+// components
+import { Link } from 'react-router';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
+// actions
 import * as actions from 'modules/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
+// types
 import type { HTMLElement } from 'types';
-
-import localized from 'lib/i18n';
+import type { User } from 'types/auth';
 import type { Localized } from 'lib/i18n';
+
+import styles from './auth.css';
 
 type AuthState = {
   email: string,
@@ -37,6 +42,7 @@ type Props = Localized & {
   onAuthenticated?: Function,
   title?: string|Element|null,
   onSignupClick: Function,
+  user: User | {},
 };
 
 class Login extends Component {
@@ -47,6 +53,12 @@ class Login extends Component {
     password: '',
     error: null,
   };
+
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -163,6 +175,7 @@ const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
   previousLocation: _.get(state.auth, 'previousLocation', ''),
+  user: _.get(state.auth, 'user', {}),
 });
 
 

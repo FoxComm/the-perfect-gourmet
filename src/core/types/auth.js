@@ -1,6 +1,6 @@
 import type { Localized } from 'lib/i18n';
 
-type User = {
+export type User = {
   aud: string,
   claims: Object,
   email: string,
@@ -21,6 +21,6 @@ export type Auth = {
 export type RestorePasswordFormProps = Localized & {
   topMessage: string,
   title: string,
-  t: (value: string) => string, // find where it comes from, signature
+  t: (value: string) => string,
   restorePassword: Function, // signature here
 };

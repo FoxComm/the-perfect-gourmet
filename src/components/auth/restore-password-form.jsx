@@ -1,25 +1,31 @@
 /* @flow */
 
-import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './auth.css';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-
 import { browserHistory } from 'lib/history';
-
 import localized from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
+import { Link } from 'react-router';
 import { TextInput } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
-// import { restorePassword } from 'modules/auth';
+// actions
+import { restorePassword } from 'modules/auth';
 import * as actions from 'modules/auth';
 
+// types
 import type { HTMLElement } from 'types';
 import type { RestorePasswordFormProps } from 'types/auth';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type RestoreState = {
   emailSent: boolean;
@@ -27,14 +33,24 @@ type RestoreState = {
   email: string;
 };
 
+type Props = RestorePasswordFormProps & {
+  user: User | {},
+};
+
 class RestorePasswordForm extends Component {
-  props: RestorePasswordFormProps;
+  props: Props;
 
   state: RestoreState = {
     emailSent: false,
     error: null,
     email: '',
   };
+
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
 
   @autobind
   handleSubmit(): ?Promise {
@@ -157,6 +173,12 @@ class RestorePasswordForm extends Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return {
+    user: _.get(state.auth, 'user', {}),
+  };
+};
+
+export default connect(mapStateToProps, {
   ...actions,
 })(localized(RestorePasswordForm));
