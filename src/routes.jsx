@@ -17,8 +17,6 @@ import EditEmail from './components/profile/blocks/edit-email';
 import ChangePassword from './components/profile/blocks/change-password';
 import Order from './components/profile/blocks/order';
 import AddressForm from './components/profile/blocks/address-form';
-import Login from './components/auth/login';
-import Signup from './components/auth/signup';
 
 import StoresPage from './pages/stores/stores-page';
 import HomePage from './pages/home/home-page';
@@ -29,12 +27,19 @@ import AboutPage from './pages/about/about-page';
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
+import Login from './components/auth/login';
+import Signup from './components/auth/signup';
+import RestorePassword from './components/auth/restore-password';
+import ResetPassword from './components/auth/reset-password';
+
 export default function makeRoutes() {
   return (
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
+      <Route path="/restore-password" component={RestorePassword} />
+      <Route path="/reset-password" component={ResetPassword} />
       <Route component={StoreFront}>
         <IndexRoute component={HomePage} />
         <Route path="/profile" component={ProfilePage}>

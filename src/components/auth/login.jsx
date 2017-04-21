@@ -115,7 +115,7 @@ class Login extends Component {
     const { t } = props;
 
     const restoreLink = (
-      <Link to="/restore_password" styleName="restore-link">
+      <Link to="/restore-password" styleName="restore-link">
         {t('forgot?')}
       </Link>
     );
