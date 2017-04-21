@@ -34,7 +34,7 @@ export default function makeRoutes() {
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
       <Route path="/login" component={Login} />
-      <Route path='/signup' component={Signup} />
+      <Route path="/signup" component={Signup} />
       <Route component={StoreFront}>
         <IndexRoute component={HomePage} />
         <Route path="/profile" component={ProfilePage}>
