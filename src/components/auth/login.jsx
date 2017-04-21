@@ -37,7 +37,6 @@ type Props = Localized & {
   onAuthenticated?: Function,
   title?: string|Element|null,
   onSignupClick: Function,
-  mergeGuestCart: boolean,
 };
 
 class Login extends Component {
@@ -47,10 +46,6 @@ class Login extends Component {
     email: '',
     password: '',
     error: null,
-  };
-
-  static defaultProps = {
-    mergeGuestCart: false,
   };
 
   @autobind
@@ -74,7 +69,7 @@ class Login extends Component {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
+      this.props.saveLineItemsAndCoupons(true);
       browserHistory.push(this.props.previousLocation);
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
@@ -107,9 +102,11 @@ class Login extends Component {
 
   get title() {
     const { t, title } = this.props;
-    return title !== null
-      ? <div styleName="title">{title || t('LOG IN')}</div>
-      : null;
+    if (title === null) return null;
+
+    return (
+      <div styleName="title">{title || t('LOG IN')}</div>
+    );
   }
 
   render(): HTMLElement {

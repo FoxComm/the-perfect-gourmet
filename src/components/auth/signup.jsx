@@ -37,20 +37,14 @@ type AuthState = {
 };
 
 type Props = Localized & {
-  getPath: Function,
   isLoading: boolean,
   fetchCart: Function,
   saveLineItemsAndCoupons: Function,
   onLoginClick: Function,
   title?: string|Element|null,
-  mergeGuestCart: boolean,
   onAuthenticated?: Function,
+  previousLocation: string,
 };
-
-const mapState = state => ({
-  cart: state.cart,
-  isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
-});
 
 class Signup extends Component {
   props: Props;
@@ -64,9 +58,10 @@ class Signup extends Component {
     generalErrors: [],
   };
 
-  static defaultProps = {
-    mergeGuestCart: false,
-  };
+  componentDidMount() {
+    this.props.fetchCart();
+  }
+
 
   @autobind
   onChangeEmail({target}: any) {
@@ -101,9 +96,9 @@ class Signup extends Component {
       if (_.isEmpty(lineItems) && _.isNil(couponCode)) {
         this.props.fetchCart();
       } else {
-        this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
+        this.props.saveLineItemsAndCoupons(true);
       }
-      browserHistory.push(this.props.getPath());
+      browserHistory.push(this.props.previousLocation);
     }).catch(err => {
       const errors = get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
@@ -138,17 +133,19 @@ class Signup extends Component {
 
   get title() {
     const { t, title } = this.props;
-    return title !== null
-      ? <div styleName="title">{title || t('SIGN UP')}</div>
-      : null;
+    if (title === null) return null;
+
+    return (
+      <div styleName="title">{title || t('SIGN UP')}</div>
+    );
   }
 
   render(): HTMLElement {
     const { email, password, username, emailError, usernameError } = this.state;
-    const { t, isLoading, getPath, onLoginClick } = this.props;
+    const { t, isLoading, onLoginClick } = this.props;
 
     const loginLink = (
-      <Link to={getPath(authBlockTypes.LOGIN)} onClick={onLoginClick} styleName="link">
+      <Link to="/login" onClick={onLoginClick} styleName="link">
         {t('Log in')}
       </Link>
     );
@@ -201,6 +198,12 @@ class Signup extends Component {
     );
   }
 }
+
+const mapState = state => ({
+  cart: state.cart,
+  isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
+  previousLocation: _.get(state.auth, 'previousLocation', ''),
+});
 
 export default connect(mapState, {
   ...actions,
