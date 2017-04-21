@@ -49,6 +49,7 @@ type Props = Localized & {
   onAuthenticated?: Function,
   previousLocation: string,
   user: User | {},
+  inCheckout: boolean
 };
 
 class Signup extends Component {
@@ -66,7 +67,7 @@ class Signup extends Component {
   componentDidMount() {
     if (isAuthorizedUser(this.props.user)) {
       browserHistory.push('/');
-    } else {
+    } else if (!this.props.inCheckout) {
       this.props.fetchCart();
     }
   }
@@ -101,12 +102,16 @@ class Signup extends Component {
     const signUp = this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
+
+      let operation;
       if (_.isEmpty(lineItems) && _.isNil(couponCode)) {
-        this.props.fetchCart();
+        operation = this.props.fetchCart();
       } else {
-        this.props.saveLineItemsAndCoupons(true);
+        operation = this.props.saveLineItemsAndCoupons(true);
       }
-      browserHistory.push(this.props.previousLocation);
+      operation.then(() => {
+        browserHistory.push(this.props.previousLocation);
+      });
     }).catch(err => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
@@ -150,7 +155,7 @@ class Signup extends Component {
 
   render(): HTMLElement {
     const { email, password, username, emailError, usernameError } = this.state;
-    const { t, isLoading, onLoginClick } = this.props;
+    const { t, isLoading, onLoginClick, inCheckout } = this.props;
 
     const loginLink = (
       <Link to="/login" onClick={onLoginClick} styleName="link">
@@ -158,8 +163,10 @@ class Signup extends Component {
       </Link>
     );
 
+    const className = inCheckout ? '' : styles['auth-block'];
+
     return (
-      <div styleName="auth-block">
+      <div className={className}>
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>

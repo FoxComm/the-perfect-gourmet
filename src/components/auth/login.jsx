@@ -43,6 +43,7 @@ type Props = Localized & {
   title?: string|Element|null,
   onSignupClick: Function,
   user: User | {},
+  inCheckout: boolean,
 };
 
 class Login extends Component {
@@ -123,8 +124,7 @@ class Login extends Component {
 
   render(): HTMLElement {
     const { password, email } = this.state;
-    const { props } = this;
-    const { t } = props;
+    const { t, inCheckout, onSignupClick, isLoading } = this.props;
 
     const restoreLink = (
       <Link to="/restore-password" styleName="restore-link">
@@ -133,13 +133,15 @@ class Login extends Component {
     );
 
     const signupLink = (
-      <Link to="/signup" onClick={props.onSignupClick} styleName="link">
+      <Link to="/signup" onClick={onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
 
+    const className = inCheckout ? '' : styles['auth-block'];
+
     return (
-      <div styleName="auth-block">
+      <div className={className}>
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>
@@ -157,7 +159,7 @@ class Login extends Component {
           <Button
             type="submit"
             styleName="primary-button"
-            isLoading={this.props.isLoading}
+            isLoading={isLoading}
           >
             {t('LOG IN')}
           </Button>
