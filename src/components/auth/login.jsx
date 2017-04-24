@@ -115,7 +115,7 @@ class Login extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title === null) return null;
+    if (title == null) return null;
 
     return (
       <div styleName="title">{title || t('LOG IN')}</div>
