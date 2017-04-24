@@ -22,5 +22,5 @@ export type RestorePasswordFormProps = Localized & {
   topMessage: string,
   title: string,
   t: (value: string) => string,
-  restorePassword: Function, // signature here
+  restorePassword: (email: string) => Promise,
 };

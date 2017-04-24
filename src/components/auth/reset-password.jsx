@@ -34,7 +34,7 @@ type ResetState = {
 
 type Props = Localized & {
   location: Object,
-  resetPassword: Function, // func signature: (code: string, password: string) => Promise<*>, old version of lint doesn't support this
+  resetPassword: (code: string, password: string) => Promise,
   user: User | {},
 };
 
