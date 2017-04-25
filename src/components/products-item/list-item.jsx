@@ -44,6 +44,7 @@ type Product = {
   tags?: Array<string>,
   addLineItem: Function,
   toggleCart: Function,
+  showAddToCart: boolean,
 };
 
 type State = {
