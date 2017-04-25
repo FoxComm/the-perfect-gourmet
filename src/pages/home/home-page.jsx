@@ -158,7 +158,7 @@ class HomePage extends Component {
         title="Trending"
         productsOrder={[6228, 74301, 15329, 105477]}
       />,
-      actionBlocks.slice(1)
+      actionBlocks.slice(1),
     ];
 
     return (
