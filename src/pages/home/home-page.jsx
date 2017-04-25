@@ -38,12 +38,6 @@ const mainBlocks = [
     title: 'BRUNCH FAVORITES',
     action: { title: 'Shop Now', link: '/BRUNCH' },
   },
-  {
-    imageUrl: '/images/home-page/April15_3.jpg',
-    description: '',
-    title: 'SEE WHAT’S NEW ON THE MENU',
-    action: { title: 'Shop Now', link: '/NEW' },
-  },
 ];
 
 const magazineLogos = [

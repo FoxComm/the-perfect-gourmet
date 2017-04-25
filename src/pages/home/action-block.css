@@ -102,7 +102,7 @@
 
 @media (--large) {
   .header {
-    height: 680px;
+    height: 600px;
 
     &:nth-child(odd) {
       text-align: left;
