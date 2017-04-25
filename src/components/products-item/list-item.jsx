@@ -56,6 +56,7 @@ class ListItem extends React.Component {
 
   static defaultProps = {
     skus: [],
+    showAddToCart: true,
   };
 
   @autobind
@@ -125,6 +126,18 @@ class ListItem extends React.Component {
       );
   }
 
+  addToCartButton(): ?HTMLElement {
+    const { showAddToCart } = this.props;
+
+    if ( ! showAddToCart) return null;
+
+    return (
+      <div styleName="add-to-cart-btn">
+        <AddToCartBtn onClick={this.addToCart} expanded />
+      </div>
+    );
+  }
+
   render(): HTMLElement {
     const {
       productId,
@@ -156,9 +169,7 @@ class ListItem extends React.Component {
           <h2 styleName="description">{/* serving size */}</h2>
           <div styleName="price-line">
             {this.isOnSale()}
-            <div styleName="add-to-cart-btn">
-              <AddToCartBtn onClick={this.addToCart} expanded />
-            </div>
+            {this.addToCartButton()}
           </div>
         </div>
       </div>
