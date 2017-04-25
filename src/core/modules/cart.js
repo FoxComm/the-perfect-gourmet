@@ -281,11 +281,11 @@ const reducer = createReducer({
   [actions.succeeded]: updateCartState,
   [updateCart]: updateCartState,
   [cleanShippingAddress]: (state) => {
-  return {
-    ...state,
-    shippingAddress: {},
-  };
-},
+    return {
+      ...state,
+      shippingAddress: {},
+    };
+  },
   [resetCart]: () => {
     return initialState;
   },
