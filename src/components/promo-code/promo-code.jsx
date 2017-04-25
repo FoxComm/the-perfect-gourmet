@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import _ from 'lodash';
+import sanitizePromoErrors from 'sanitizers/promocodes';
 
 // components
 import { TextInput } from 'ui/inputs';
@@ -69,7 +70,6 @@ class PromoCode extends Component {
   onKeyPress(e: Object) {
     if (e.key === 'Enter') {
       e.preventDefault();
-
       this.saveCode();
     }
   }
@@ -173,7 +173,10 @@ class PromoCode extends Component {
 
         {!!this.state.error &&
           <div styleName="error">
-            <ErrorAlerts error={this.state.error} />
+            <ErrorAlerts
+              error={this.state.error}
+              sanitizeError={sanitizePromoErrors}
+            />
           </div>
         }
 
