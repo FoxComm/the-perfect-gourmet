@@ -149,16 +149,21 @@ class HomePage extends Component {
       (blockProps, i) => <ActionBlock {...blockProps} key={i} />
     );
 
+    const actionBlocksAndTrendingProducts = [
+      actionBlocks.slice(0, 1),
+      <ProductsList
+        list={trending}
+        isLoading={false}
+        loadingBehavior={1}
+        title="Trending"
+        productsOrder={[6228, 74301, 15329, 105477]}
+      />,
+      actionBlocks.slice(1)
+    ];
+
     return (
       <div>
-        <ProductsList
-          list={trending}
-          isLoading={false}
-          loadingBehavior={1}
-          title="Trending"
-          productsOrder={[6228, 74301, 15329, 105477]}
-        />
-        {actionBlocks}
+        {actionBlocksAndTrendingProducts}
         <div styleName="as-seen-in">
           <div styleName="as-seen-in-title">As seen in</div>
           <div styleName="magazine-logos">
