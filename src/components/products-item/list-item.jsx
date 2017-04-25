@@ -129,7 +129,7 @@ class ListItem extends React.Component {
   addToCartButton(): ?HTMLElement {
     const { showAddToCart } = this.props;
 
-    if ( ! showAddToCart) return null;
+    if (!showAddToCart) return null;
 
     return (
       <div styleName="add-to-cart-btn">
