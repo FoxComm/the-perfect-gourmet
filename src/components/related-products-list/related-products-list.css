@@ -4,7 +4,7 @@
 @import "colors";
 
 .related-title {
-  composes: title-medium;
+  /*composes: title-medium;*/
   display: block;
   margin-top: 90px;
   text-align: center;
@@ -49,7 +49,7 @@
   }
 
   .related-title {
-    composes: paragraph-large;
+    /*composes: paragraph-large;*/
     font-weight: 900;
     margin-top: 76px;
     text-align: left;
