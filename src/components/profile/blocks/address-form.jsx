@@ -52,7 +52,10 @@ type State = {
 class AddressForm extends Component {
   props: Props;
 
-  static title = 'Add Address';
+  static title = (params) => {
+    if (params.addressId === 'new') return 'Add Address';
+    return 'Edit Address';
+  };
 
   state: State = {
     newAddress: null,
@@ -99,8 +102,10 @@ class AddressForm extends Component {
   }
 
   render() {
+    const addressId = this.addressId(this.props);
+    const title = AddressForm.title({ addressId });
     return (
-      <Block title={AddressForm.title}>
+      <Block title={title}>
         <Form onSubmit={this.handleSave}>
           <EditAddress
             address={this.props.address}
