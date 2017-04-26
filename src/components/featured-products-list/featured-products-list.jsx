@@ -66,7 +66,7 @@ class ProductsList extends Component {
           ref={`product-${item.id}`}
           size="small"
           showAddToCartButton={false}
-          showServings={true}
+          showServings
         />
       );
     });
