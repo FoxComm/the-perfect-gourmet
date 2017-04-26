@@ -28,6 +28,7 @@
 .title {
   display: block;
   padding-top: 90px;
+  padding-bottom: 30px;
   margin: 0;
   font-family: var(--font-playfair);
   text-align: center;
@@ -44,7 +45,7 @@
     height: 2px;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 20px;
+    margin-top: 15px;
     background-color: #3E3436;
   }
 }
