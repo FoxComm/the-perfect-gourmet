@@ -45,6 +45,7 @@ type Product = {
   addLineItem: Function,
   toggleCart: Function,
   showAddToCartButton: boolean,
+  showServings: boolean,
   size: ?string,
 };
 
@@ -59,6 +60,7 @@ class ListItem extends React.Component {
   static defaultProps = {
     skus: [],
     showAddToCartButton: true,
+    showServings: false,
     size: '',
   };
 
@@ -129,6 +131,23 @@ class ListItem extends React.Component {
       );
   }
 
+  servings(): ?HTMLElement {
+    const {
+      showServings,
+      amountOfServings,
+      servingSize,
+    } = this.props;
+
+    if (!showServings) return null;
+
+    return (
+      <div styleName="servings">
+        <div>{amountOfServings}</div>
+        <div>{servingSize}</div>
+      </div>
+    );
+  }
+
   addToCartButton(): ?HTMLElement {
     const { showAddToCartButton } = this.props;
 
@@ -173,6 +192,7 @@ class ListItem extends React.Component {
             <Link to={`/products/${productSlug}`}>{title}</Link>
           </h1>
           <h2 styleName="description">{/* serving size */}</h2>
+          {this.servings()}
           <div styleName="price-line">
             {this.isOnSale()}
             {this.addToCartButton()}

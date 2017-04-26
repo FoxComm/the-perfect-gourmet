@@ -61,6 +61,7 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 const trending = [
   {
+    "amountOfServings": "2 Portions",
     "taxonomies": {},
     "id": 41,
     "productId": 81,
@@ -96,6 +97,7 @@ const trending = [
     "description": "This Milanese specialty features veal shank that's cooked for eighteen hours to tender perfection, then braised in white wine and mirepoix stock, and accompanied by a vegetable medley. Preparation could not be easier; just heat and serve over rice or pasta for a dish that will satisfy the most discerning of palates."
   },
   {
+    "amountOfServings": "20 Count",
     "taxonomies": {},
     "id": 73,
     "productId": 336,
@@ -132,6 +134,7 @@ const trending = [
     "description": "<p>Arancini means \"little orange\" in Italian, because in Sicily, this treat was traditionally about the size of an orange! Our Mushroom Arancini combines the savory decadence of mushrooms, risotto, mascarpone and cheddar cheeses, elevated by white wine. They're lightly coated with panko crumbs for a delightful, crispy exterior that houses a rich, creamy center.</p>"
   },
   {
+    "amountOfServings": "25 Count",
     "taxonomies": {},
     "id": 14,
     "productId": 12,
@@ -166,6 +169,7 @@ const trending = [
     "description": "Elegant enough to serve at a cocktail party, these little appetizers are too tasty not to also keep on hand for yourself. The savory, smoky flavor of bacon is balanced with the sweetness of caramelized dates, creating the perfect combination of flavor and texture in each bite."
   },
   {
+    "amountOfServings": "1 Flatbread",
     "taxonomies": {},
     "id": 22,
     "productId": 43,
@@ -203,6 +207,7 @@ const trending = [
     "description": "<p>This flavorful flatbread is piled high with six different vegetables, feta cheese, and a rich, Jalfrezi sauce. Perfect as a light, satisfying appetizer or vegetarian entreé, though highly addictive!</p>"
   },
   {
+    "amountOfServings": "1 Roulade",
     "taxonomies": {},
     "id": 60,
     "productId": 108,

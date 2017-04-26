@@ -85,6 +85,13 @@
   margin-top: 10px;
 }
 
+.servings {
+  margin: 8px 0 23px 0;
+  font-size: 15px;
+  font-weight: 300;
+  opacity: .5;
+}
+
 .price-line {
   margin-top: 10px;
   display: flex;
