@@ -2,20 +2,10 @@
 @import "media-queries";
 @import "colors";
 
-.title {
-  display: block;
-  padding-top: 90px;
-  margin: 0;
-  font-family: var(--font-playfair);
-  text-align: center;
-  width: 100%;
-  font-size: 31px;
-  text-align: center;
-  color: var(--additional-color);
-}
-
 .list-wrapper {
   position: relative;
+  padding-bottom: 90px;
+  background: #fff;
 }
 
 .loading-wrapper {
@@ -30,6 +20,18 @@
   position: fixed;
   width: 100%;
   top: 120px;
+}
+
+.title {
+  display: block;
+  padding-top: 90px;
+  margin: 0;
+  font-family: var(--font-playfair);
+  text-align: center;
+  width: 100%;
+  font-size: 31px;
+  text-align: center;
+  color: var(--additional-color);
 }
 
 .list {
