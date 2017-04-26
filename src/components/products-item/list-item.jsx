@@ -36,6 +36,8 @@ type Product = {
   context: string,
   title: string,
   description: ?string,
+  amountOfServings: ?string,
+  servingSize: ?string,
   salePrice: string,
   retailPrice: string,
   currency: string,
