@@ -61,19 +61,19 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 const featured = [
   {
-    amountOfServings: '2 Portions',
+    amountOfServings: '40 Count',
     taxonomies: {},
     id: 41,
     productId: 81,
-    retailPrice: '3600',
-    salePrice: '3600',
+    retailPrice: '5400',
+    salePrice: '5400',
     context: 'default',
     scope: '1',
     skus: [
       'PG141',
     ],
-    title: 'Osso Buco',
-    slug: 'osso-buco',
+    title: 'Kung Pao Potstickers',
+    slug: 'kung-pao-chicken-potstickers',
     tags: [
       'ENTRÉES',
       'VEAL',
@@ -83,23 +83,23 @@ const featured = [
     currency: 'USD',
     albums: [
       {
-        name: 'Bree Test Album',
+        name: 'Kung Pao Potstickers',
         images: [
           {
-            alt: '2016-11-28-1.jpg',
+            alt: 'Kung Pao Potstickers',
             baseurl: null,
-            title: '2016-11-28-1.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/1239/2016-11-28-1.jpg',
+            title: 'Kung Pao Potstickers',
+            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/436/potsticker%202.jpg',
           },
         ],
       },
     ],
-    description: `This Milanese specialty features veal shank that's cooked for eighteen hours to tender perfection,
-      then braised in white wine and mirepoix stock, and accompanied by a vegetable medley. Preparation could not be
-      easier; just heat and serve over rice or pasta for a dish that will satisfy the most discerning of palates.`,
+    description: `We took one of America's favorite Chinese dishes and made it
+      into a potsticker. A chicken, cabbage, and water chestnut filling is nestled
+      inside delicate wonton wrappers for a savory potsticker with a kick of heat.`,
   },
   {
-    amountOfServings: '20 Count',
+    amountOfServings: '4 Count',
     taxonomies: {},
     id: 73,
     productId: 336,
@@ -110,8 +110,8 @@ const featured = [
     skus: [
       'PG035_t2',
     ],
-    title: 'Mushroom Arancini 3',
-    slug: 'mushroom-arancini-3-1',
+    title: 'Chicken & Cranberry Vegetable Stuffing',
+    slug: 'cranberry-vegetable-chicken',
     tags: [
       'APPETIZERS',
       'MUSHROOM',
@@ -122,36 +122,37 @@ const featured = [
     currency: 'USD',
     albums: [
       {
-        name: 'Mushroom Arancini',
+        name: 'Chicken & Cranberry Vegetable Stuffing',
         images: [
           {
-            alt: null,
-            baseurl: 'Mushroom_Arancini_2x.jpg',
-            title: 'Mushroom_Arancini_2x.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/235/Mushroom_Arancini_2x.jpg',
+            alt: 'Chicken & Cranberry Vegetable Stuffing',
+            baseurl: null,
+            title: 'Chicken & Cranberry Vegetable Stuffing',
+            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/426/Cranberry%20Stuffed%20Chicken.jpg',
           },
         ],
       },
     ],
-    description: `<p>Arancini means 'little orange' in Italian, because in Sicily, this treat was traditionally about
-      the size of an orange! Our Mushroom Arancini combines the savory decadence of mushrooms, risotto, mascarpone and
-      cheddar cheeses, elevated by white wine. They're lightly coated with panko crumbs for a delightful, crispy
-      exterior that houses a rich, creamy center.</p>`,
+    description: `Enjoy all the flavors of Thanksgiving dinner any time of the year
+      with our Chicken with Cranberry Vegetable Stuffing. These chicken breasts are
+      trimmed then filled with a signature stuffing made from cranberries, sweet
+      potato, onions, celery, carrots, corn, garlic, 14 herbs and spices, toasted
+      croutons, and an all-natural chicken stock. `,
   },
   {
-    amountOfServings: '25 Count',
+    amountOfServings: '4 Count',
     taxonomies: {},
     id: 14,
     productId: 12,
-    retailPrice: '3300',
-    salePrice: '3300',
+    retailPrice: '2500',
+    salePrice: '2500',
     context: 'default',
     scope: '1',
     skus: [
       'PG010',
     ],
-    title: 'Almond Stuffed Dates Wrapped in Bacon',
-    slug: 'almond-stuffed-dates-wrapped-in-bacon',
+    title: 'Chicken Parmesan Supreme',
+    slug: 'chicken-parmesan-supreme',
     tags: [
       'APPETIZERS',
       'BACON',
@@ -160,35 +161,36 @@ const featured = [
     currency: 'USD',
     albums: [
       {
-        name: 'Almond Stuffed Dates Wrapped in Bacon',
+        name: 'Chicken Parmesan Supreme',
         images: [
           {
-            alt: 'Almond_Stuffed_Dates_2_2x.jpg',
+            alt: 'Chicken Parmesan Supreme',
             baseurl: null,
-            title: 'Almond_Stuffed_Dates_2_2x.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/135/Almond_Stuffed_Dates_2_2x.jpg',
+            title: 'Chicken Parmesan Supreme',
+            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/434/chicken%20parm%20supreme.jpg',
           },
         ],
       },
     ],
-    description: `Elegant enough to serve at a cocktail party, these little appetizers are too tasty not to also keep
-      on hand for yourself. The savory, smoky flavor of bacon is balanced with the sweetness of caramelized dates,
-      creating the perfect combination of flavor and texture in each bite.`,
+    description: `We took two Italian-American favorites: Chicken Parmesan and pepperoni,
+      and combined them to create our Chicken Parmesan Supreme. This dish has everything
+      you already know and love, plus a delicious pepperoni topping, for a classic dinner
+      favorite taken to the next level.`,
   },
   {
     amountOfServings: '1 Flatbread',
     taxonomies: {},
     id: 22,
     productId: 43,
-    retailPrice: '2200',
-    salePrice: '1600',
+    retailPrice: '1900',
+    salePrice: '1900',
     context: 'default',
     scope: '1',
     skus: [
       'PG107',
     ],
-    title: 'Indian Flatbread',
-    slug: 'indian-flatbread1',
+    title: 'Shrimp and Scallop Flatbread',
+    slug: 'shrimp-scallop-flatbread',
     tags: [
       'ENTRÉES',
       'APPETIZERS',
@@ -200,34 +202,36 @@ const featured = [
     currency: 'USD',
     albums: [
       {
-        name: 'Indian Flatbread',
+        name: 'Shrimp and Scallop Flatbread',
         images: [
           {
-            alt: 'Indian_Flat_Bread_2x.jpg',
+            alt: 'Shrimp and Scallop Flatbread',
             baseurl: null,
-            title: 'Indian_Flat_Bread_2x.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/138/Indian_Flat_Bread_2x.jpg',
+            title: 'Shrimp and Scallop Flatbread',
+            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/447/shrimp%20scallop%20flatbread.jpg',
           },
         ],
       },
     ],
-    description: `<p>This flavorful flatbread is piled high with six different vegetables, feta cheese, and a rich,
-      Jalfrezi sauce. Perfect as a light, satisfying appetizer or vegetarian entreé, though highly addictive!</p>`,
+    description: `Our newest flatbread is comprised of a thin crust loaded with shrimp,
+      scallops, and spinach, then topped with Parmesan cheese and scallions.  Light,
+      but still super satisfying, it's ready in 15 minutes, and makes a great light
+      lunch or dinner accompaniment.`,
   },
   {
-    amountOfServings: '1 Roulade',
+    amountOfServings: '4 Count',
     taxonomies: {},
     id: 60,
     productId: 108,
-    retailPrice: '3400',
-    salePrice: '3400',
+    retailPrice: '3500',
+    salePrice: '2500',
     context: 'default',
     scope: '1',
     skus: [
       'PG139',
     ],
-    title: 'Chicken Roulade Stuffed with Asparagus and Prosciutto',
-    slug: 'chicken-roulade-stuffed-with-asparagus-and-prosciutto',
+    title: 'Salmon Tart',
+    slug: 'salmon-tart-2',
     tags: [
       'ENTRÉES',
       'ROAST',
@@ -238,27 +242,21 @@ const featured = [
     currency: 'USD',
     albums: [
       {
-        name: 'Chicken Roulade Stuffed with Asparagus and Prosciutto',
+        name: 'Salmon Tart',
         images: [
           {
-            alt: null,
-            baseurl: 'Chicken_Roulade_asparagus_2x.jpg',
-            title: 'Chicken_Roulade_asparagus_2x.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/141/Chicken_Roulade_asparagus_2x.jpg',
-          },
-          {
-            alt: 'trump.jpg',
+            alt: 'Salmon Tart',
             baseurl: null,
-            title: 'trump.jpg',
-            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/141/trump.jpg',
+            title: 'Salmon Tart',
+            src: 'https://s3-us-west-1.amazonaws.com/tpg-production-images/albums/1/464/salmon%20tart%20sale.jpg',
           },
         ],
       },
     ],
-    description: `This Chicken Roulade is perfect for an easy, effortless dinner for four in under an hour, and is a
-      wonderful solution for last minute holiday meals. Juicy chicken breast meat surrounds a blend of prosciutto,
-      asparagus, fontina cheese, cream cheese, red and yellow peppers and pine nuts. It's great for gift giving, but
-      don't forget to get an extra one for yourself.`,
+    description: `Each invidivual pastry shell is encrusted in Parmesan, and brimming
+      with a savory combination of smoked salmon, cream cheese, Gouda, asparagus
+      and onion. Each bite of crispy pastry and silky, cheesey filling make for the
+      perfect balance of flavor and texture.`,
   },
 ];
 

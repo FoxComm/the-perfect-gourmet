@@ -37,7 +37,7 @@
   text-align: center;
   color: var(--additional-color);
 
-  &:after {
+  &::after {
     content: '';
     display: block;
     position: absolute;
@@ -46,7 +46,7 @@
     left: 50%;
     transform: translateX(-50%);
     margin-top: 15px;
-    background-color: #3E3436;
+    background-color: var(--additional-color);
   }
 }
 
