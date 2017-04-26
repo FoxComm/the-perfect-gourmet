@@ -259,6 +259,7 @@ class HomePage extends Component {
     const actionBlocksAndTrendingProducts = [
       actionBlocks.slice(0, 1),
       <ProductsList
+        key="featured-product-list"
         list={trending}
         isLoading={false}
         loadingBehavior={1}
