@@ -14,6 +14,8 @@ import usermenu from './usermenu';
 import profile from './profile';
 import orders from './orders';
 import banner from './banner';
+import crossSell from './cross-sell';
+
 
 import { reducer as asyncReducer } from '@foxcomm/wings/lib/redux/async-utils';
 
@@ -33,6 +35,7 @@ const reducer = combineReducers({
   profile,
   orders,
   banner,
+  crossSell,
 });
 
 export default reducer;
