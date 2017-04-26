@@ -291,7 +291,7 @@ class Pdp extends Component {
 
     return (
       <RelatedProductsList
-        title="Pairs Well With"
+        title="You May Also Enjoy"
         list={relatedProducts.products}
         isLoading={isRelatedProductsLoading}
         loadingBehavior={LoadingBehaviors.ShowWrapper}
