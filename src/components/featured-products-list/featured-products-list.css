@@ -9,7 +9,7 @@
   font-family: var(--font-playfair);
   text-align: center;
   width: 100%;
-  font-size: 42px;
+  font-size: 31px;
   text-align: center;
   color: var(--additional-color);
 }
@@ -49,6 +49,10 @@
 }
 
 @media (--large) {
+  .title {
+    font-size: 42px;
+  }
+
   .list {
     lost-column: 10/12;
     lost-offset: -1/12;

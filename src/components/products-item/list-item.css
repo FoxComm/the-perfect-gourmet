@@ -13,10 +13,6 @@
   transition: all 400ms;
 }
 
-.list-item-small {
-  width: calc(20% - (var(--grid-margin)/1.5));
-}
-
 .preview {
   width: 100%;
   max-width: 100%;
@@ -178,6 +174,10 @@
 }
 
 @media (--large), (--x-large) {
+  .list-item-small {
+    width: calc(20% - (var(--grid-margin)/1.5));
+  }
+
   .title {
     font-size: 26px;
     letter-spacing: 0.7px;
