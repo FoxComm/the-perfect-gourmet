@@ -155,7 +155,7 @@ class HomePage extends Component {
         list={trending}
         isLoading={false}
         loadingBehavior={1}
-        title="Trending"
+        title="This Month’s New & Featured Dishes"
         productsOrder={[6228, 74301, 15329, 105477]}
       />,
       actionBlocks.slice(1),
