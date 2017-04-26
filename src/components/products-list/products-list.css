@@ -7,7 +7,7 @@
 }
 
 .list-wrapper-small {
-  padding-bottom: 90px;
+  padding-bottom: 45px;
   background: #fff;
 }
 
@@ -27,8 +27,7 @@
 
 .title {
   display: block;
-  padding-top: 90px;
-  padding-bottom: 30px;
+  padding-top: 68px;
   margin: 0;
   font-family: var(--font-playfair);
   text-align: center;
@@ -40,18 +39,15 @@
   &::after {
     content: '';
     display: block;
-    position: absolute;
     width: 66px;
     height: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 15px;
+    margin: 10px auto 0;
     background-color: var(--additional-color);
   }
 }
 
 .list {
-  margin-top: 90px;
+  margin-top: 97px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

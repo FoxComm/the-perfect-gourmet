@@ -19,6 +19,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   &:hover .hover-info {
     opacity: 0.9;

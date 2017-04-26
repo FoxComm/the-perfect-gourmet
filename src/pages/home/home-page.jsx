@@ -270,7 +270,7 @@ class HomePage extends Component {
       (blockProps, i) => <ActionBlock {...blockProps} key={i} />
     );
 
-    const actionBlocksAndTrendingProducts = [
+    const actionAndFeaturedBlocks = [
       actionBlocks.slice(0, 1),
       <ProductsList
         key="featured-product-list"
@@ -281,14 +281,13 @@ class HomePage extends Component {
         size="small"
         showAddToCartButton={false}
         showServings
-        productsOrder={[6228, 74301, 15329, 105477]}
       />,
       actionBlocks.slice(1),
     ];
 
     return (
       <div>
-        {actionBlocksAndTrendingProducts}
+        {actionAndFeaturedBlocks}
         <div styleName="as-seen-in">
           <div styleName="as-seen-in-title">As seen in</div>
           <div styleName="magazine-logos">
