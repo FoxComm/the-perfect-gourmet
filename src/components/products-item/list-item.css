@@ -2,7 +2,7 @@
 @import "variables.css";
 @import "media-queries";
 
-.list-item {
+.list-item, .list-item-small {
   width: calc(50% - (var(--grid-margin)/2));
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -11,6 +11,10 @@
   font-size: 16px;
   color: var(--blackish);
   transition: all 400ms;
+}
+
+.list-item-small {
+  width: calc(20% - (var(--grid-margin)/1.5));
 }
 
 .preview {
@@ -42,7 +46,7 @@
   position: relative;
 }
 
-.title {
+.title, .title-small {
   composes: title-devider from 'ui/css/layout.css';
 
   margin-top: 20px;
@@ -66,6 +70,13 @@
   & a {
     text-decoration: none;
   }
+}
+
+.title-small {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 1.3em;
+  min-height: 70px;
 }
 
 .description {
