@@ -45,6 +45,7 @@ type Product = {
   addLineItem: Function,
   toggleCart: Function,
   showAddToCartButton: boolean,
+  size: ?string,
 };
 
 type State = {
@@ -58,6 +59,7 @@ class ListItem extends React.Component {
   static defaultProps = {
     skus: [],
     showAddToCartButton: true,
+    size: '',
   };
 
   @autobind
@@ -145,12 +147,15 @@ class ListItem extends React.Component {
       slug,
       title,
       description,
+      size,
     } = this.props;
 
     const productSlug = slug != null && !_.isEmpty(slug) ? slug : productId;
+    const listItemStyleName = size ? `list-item-${size}` : 'list-item';
+    const titleStyleName = size ? `title-${size}` : 'title';
 
     return (
-      <div styleName="list-item">
+      <div styleName={listItemStyleName}>
         <Link onClick={this.handleClick} to={`/products/${productSlug}`}>
           <div styleName="preview">
             {this.image}
@@ -164,7 +169,7 @@ class ListItem extends React.Component {
         </Link>
 
         <div styleName="text-block">
-          <h1 styleName="title" alt={title}>
+          <h1 styleName={titleStyleName} alt={title}>
             <Link to={`/products/${productSlug}`}>{title}</Link>
           </h1>
           <h2 styleName="description">{/* serving size */}</h2>

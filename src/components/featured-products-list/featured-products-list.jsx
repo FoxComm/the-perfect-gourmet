@@ -64,6 +64,7 @@ class ProductsList extends Component {
           index={index}
           key={`product-${item.id}`}
           ref={`product-${item.id}`}
+          size="small"
           showAddToCartButton={false}
         />
       );
