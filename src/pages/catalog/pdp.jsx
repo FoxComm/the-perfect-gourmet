@@ -159,7 +159,7 @@ class Pdp extends Component {
 
   safeFetch(id: string|number) {
     return this.props.actions.fetch(id)
-    .then((product) => {
+      .then((product) => {
         this.props.actions.fetchRelatedProducts(product.id, 1).catch(_.noop);
       })
       .catch(() => {
@@ -344,7 +344,6 @@ class Pdp extends Component {
         </div>
         {!this.isGiftCard() && <ProductAttributes product={this.props.product} />}
         {this.relatedProductsList}
-        
       </div>
     );
   }

@@ -1,6 +1,5 @@
 /* @flow */
 
-import React, { Element } from 'react';
 import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import styles from './related-list-item.css';

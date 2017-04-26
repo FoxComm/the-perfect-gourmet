@@ -3,7 +3,6 @@
 // libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { isElementInViewport } from 'lib/dom-utils';
 
 // styles
 import styles from './related-products-list.css';
