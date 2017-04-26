@@ -6,7 +6,7 @@ import { assetsUrl } from 'lib/env';
 
 // components
 import ActionBlock from './action-block';
-import ProductsList from '../../components/related-products-list/related-products-list';
+import ProductsList from '../../components/featured-products-list/featured-products-list';
 
 // styles
 import styles from './home-page.css';
