@@ -6,7 +6,7 @@ import { assetsUrl } from 'lib/env';
 
 // components
 import ActionBlock from './action-block';
-import ProductsList from '../../components/featured-products-list/featured-products-list';
+import ProductsList from '../../components/products-list/products-list';
 
 // styles
 import styles from './home-page.css';
@@ -59,7 +59,7 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
   );
 });
 
-const trending = [
+const featured = [
   {
     amountOfServings: '2 Portions',
     taxonomies: {},
@@ -276,10 +276,13 @@ class HomePage extends Component {
       actionBlocks.slice(0, 1),
       <ProductsList
         key="featured-product-list"
-        list={trending}
+        list={featured}
         isLoading={false}
         loadingBehavior={1}
         title="This Month’s New & Featured Dishes"
+        size="small"
+        showAddToCartButton={false}
+        showServings
         productsOrder={[6228, 74301, 15329, 105477]}
       />,
       actionBlocks.slice(1),
