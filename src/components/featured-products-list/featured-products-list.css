@@ -2,6 +2,18 @@
 @import "media-queries";
 @import "colors";
 
+.title {
+  display: block;
+  padding-top: 90px;
+  margin: 0;
+  font-family: var(--font-playfair);
+  text-align: center;
+  width: 100%;
+  font-size: 41px;
+  text-align: center;
+  color: var(--additional-color);
+}
+
 .list-wrapper {
   position: relative;
 }

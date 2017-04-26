@@ -26,6 +26,7 @@ type Props = {
   loadingBehavior?: 0|1,
   list: ?Array<Object>,
   isLoading: ?boolean,
+  title: string,
 };
 
 type State = {
@@ -132,17 +133,24 @@ class ProductsList extends Component {
   }
 
   render() : HTMLElement {
-    const { props } = this;
-    const { loadingBehavior = LoadingBehaviors.ShowLoader } = props;
-    if (loadingBehavior == LoadingBehaviors.ShowLoader && props.isLoading) {
+    const {
+      loadingBehavior = LoadingBehaviors.ShowLoader,
+      isLoading,
+      list,
+      title,
+    } = this.props;
+    if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
       return <Loader/>;
     }
-    const items = props.list && props.list.length > 0
+    const items = list && list.length > 0
       ? this.renderProducts()
       : <div styleName="not-found">No products found.</div>;
 
     return (
       <div styleName="list-wrapper">
+        <div styleName="title">
+          {title}
+        </div>
         {this.loadingWrapper}
         <div styleName="list" ref={this.handleListRendered}>
           {items}
