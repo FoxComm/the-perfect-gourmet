@@ -48,6 +48,13 @@
   width: 100%;
 }
 
+@media (--large) {
+  .list {
+    lost-column: 10/12;
+    lost-offset: -1/12;
+  }
+}
+
 @media (--small-only) {
   .list {
     margin-top: 50px;
