@@ -38,16 +38,17 @@ type AuthState = {
   usernameError: bool|string,
   emailError: bool|string,
   generalErrors: Array<string>,
+  redirectPath: string,
 };
 
 type Props = Localized & {
+  location: Object | {},
   isLoading: boolean,
   fetchCart: Function,
   saveLineItemsAndCoupons: Function,
   onLoginClick: Function,
   title?: string|Element|null,
   onAuthenticated?: Function,
-  previousLocation: string,
   user: User | {},
   inCheckout: boolean
 };
@@ -62,6 +63,7 @@ class Signup extends Component {
     usernameError: false,
     emailError: false,
     generalErrors: [],
+    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -102,6 +104,8 @@ class Signup extends Component {
     const signUp = this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
+      const { redirectPath } = this.state;
+      const { inCheckout } = this.props;
 
       let operation;
       if (_.isEmpty(lineItems) && _.isNil(couponCode)) {
@@ -110,7 +114,7 @@ class Signup extends Component {
         operation = this.props.saveLineItemsAndCoupons(true);
       }
       operation.then(() => {
-        browserHistory.push(this.props.previousLocation);
+        browserHistory.push(inCheckout ? '/checkout' : redirectPath);
       });
     }).catch(err => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
@@ -154,11 +158,13 @@ class Signup extends Component {
   }
 
   render(): HTMLElement {
-    const { email, password, username, emailError, usernameError } = this.state;
+    const { email, password, username, emailError, usernameError, redirectPath } = this.state;
     const { t, isLoading, onLoginClick, inCheckout } = this.props;
 
+    const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+
     const loginLink = (
-      <Link to="/login" onClick={onLoginClick} styleName="link">
+      <Link to={linkTo} onClick={onLoginClick} styleName="link">
         {t('Log in')}
       </Link>
     );
@@ -217,7 +223,7 @@ class Signup extends Component {
 const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
-  previousLocation: _.get(state.auth, 'previousLocation', ''),
+  location: _.get(state.routing, 'location', {}),
   user: _.get(state.auth, 'user', {}),
 });
 

@@ -27,10 +27,6 @@ class GuestAuth extends Component {
     authMode: 'login',
   };
 
-  componentDidMount() {
-    this.props.savePreviousLocation('/checkout');
-  }
-
   @autobind
   onGuestCheckout(email: string) {
     this.props.saveEmail(email).then(() => {

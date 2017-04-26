@@ -15,7 +15,6 @@ export type User = {
 export type Auth = {
   user: User,
   jwt: string,
-  previousLocation?: string,
 };
 
 export type RestorePasswordFormProps = Localized & {

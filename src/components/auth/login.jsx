@@ -31,10 +31,10 @@ type AuthState = {
   email: string,
   password: string,
   error: ?string,
+  redirectPath: string,
 };
 
 type Props = Localized & {
-  previousLocation: string,
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
@@ -44,6 +44,7 @@ type Props = Localized & {
   onSignupClick: Function,
   user: User | {},
   inCheckout: boolean,
+  location: Object | {},
 };
 
 class Login extends Component {
@@ -53,6 +54,7 @@ class Login extends Component {
     email: '',
     password: '',
     error: null,
+    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -79,11 +81,13 @@ class Login extends Component {
 
   @autobind
   authenticate() {
-    const { email, password } = this.state;
+    const { email, password, redirectPath } = this.state;
+    const { inCheckout } = this.props;
     const kind = 'merchant';
+
     const auth = this.props.authenticate({email, password, kind}).then(() => {
       this.props.saveLineItemsAndCoupons(true);
-      browserHistory.push(this.props.previousLocation);
+      browserHistory.push(inCheckout ? '/checkout' : redirectPath);
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
 
@@ -92,7 +96,7 @@ class Login extends Component {
       });
 
       if (migratedErrorPresent) {
-        browserHistory.push(this.props.previousLocation);
+        browserHistory.push(inCheckout ? '/checkout' : redirectPath);
         return;
       }
 
@@ -126,14 +130,17 @@ class Login extends Component {
     const { password, email } = this.state;
     const { t, inCheckout, onSignupClick, isLoading } = this.props;
 
+    const { redirectPath } = this.state;
+    const linkToSignup = redirectPath ? `/signup?redirectTo=${redirectPath}` : '/signup';
+    const linkToRestore = redirectPath ? `/restore-password?redirectTo=${redirectPath}` : '/restore-password';
     const restoreLink = (
-      <Link to="/restore-password" styleName="restore-link">
+      <Link to={linkToRestore} styleName="restore-link">
         {t('forgot?')}
       </Link>
     );
 
     const signupLink = (
-      <Link to="/signup" onClick={onSignupClick} styleName="link">
+      <Link to={linkToSignup} onClick={onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
@@ -176,8 +183,8 @@ class Login extends Component {
 const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
-  previousLocation: _.get(state.auth, 'previousLocation', ''),
   user: _.get(state.auth, 'user', {}),
+  location: _.get(state.routing, 'location', {}),
 });
 
 

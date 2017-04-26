@@ -27,13 +27,15 @@ import type { User } from 'types/auth';
 import styles from './auth.css';
 
 type RestoreState = {
-  emailSent: boolean;
-  error: ?string;
-  email: string;
+  emailSent: boolean,
+  error: ?string,
+  email: string,
+  redirectPath: string,
 };
 
 type Props = RestorePasswordFormProps & {
   user: User | {},
+  location: Object | {},
 };
 
 class RestorePasswordForm extends Component {
@@ -43,6 +45,7 @@ class RestorePasswordForm extends Component {
     emailSent: false,
     error: null,
     email: '',
+    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -124,7 +127,9 @@ class RestorePasswordForm extends Component {
   }
 
   goToLogin: Object = () => {
-    browserHistory.push('/login');
+    const { redirectPath } = this.state;
+    const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+    browserHistory.push(linkTo);
   };
 
   get primaryButton(): HTMLElement {
@@ -147,9 +152,12 @@ class RestorePasswordForm extends Component {
     const { t } = this.props;
 
     if (!emailSent) {
+      const { redirectPath } = this.state;
+      const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+
       return (
         <div styleName="switch-stage">
-          <Link to="/login" styleName="link">
+          <Link to={linkTo} styleName="link">
             {t('BACK TO LOG IN')}
           </Link>
         </div>
@@ -175,6 +183,7 @@ class RestorePasswordForm extends Component {
 const mapStateToProps = (state) => {
   return {
     user: _.get(state.auth, 'user', {}),
+    location: _.get(state.routing, 'location', {}),
   };
 };
 

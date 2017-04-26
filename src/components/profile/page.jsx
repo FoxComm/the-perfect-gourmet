@@ -1,71 +1,23 @@
 // @flow
-import React, { Component } from 'react';
-
-// libs
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import { isAuthorizedUser } from 'paragons/auth';
-import { browserHistory } from 'lib/history';
-
-// components
-import Loader from 'ui/loader';
-
-// actions
-import { savePreviousLocation } from 'modules/auth';
+import React from 'react';
 
 import type { HTMLElement } from 'types';
-import type { Auth } from 'types/auth';
 
 import styles from './page.css';
 
 type Props = {
   children: HTMLElement,
-  auth: Auth,
-  savePreviousLocation: (path: string) => void,
 };
 
-type State = {
-  isAuthorized: boolean,
-};
-
-class Page extends Component {
-  props: Props;
-
-  state: State = {
-    isAuthorized: !_.isEmpty(this.props.auth) && isAuthorizedUser(this.props.auth.user),
-  };
-
-  componentDidMount() {
-    if (!this.state.isAuthorized) {
-      this.props.savePreviousLocation('/profile');
-      browserHistory.push('/login');
-    }
-  }
-
-  get content() {
-    if (!this.state.isAuthorized) return <Loader />;
-
-    return (
-      <div styleName="profile">
-        <h1 styleName="title">My Account</h1>
-        <div styleName="content">
-          {this.props.children}
-        </div>
+const Page = (props: Props) => {
+  return (
+    <div styleName="profile">
+      <h1 styleName="title">My Account</h1>
+      <div styleName="content">
+        {props.children}
       </div>
-    );
-  }
-
-  render() {
-    return this.content;
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    auth: _.get(state, 'auth', {}),
-  };
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, {
-  savePreviousLocation,
-})(Page);
+export default Page;

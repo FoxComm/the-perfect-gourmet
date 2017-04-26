@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Route, IndexRoute } from 'react-router';
 import Site from './components/layout/site';
 import StoreFront from './components/layout/storefront';
@@ -32,7 +33,22 @@ import Signup from './components/auth/signup';
 import RestorePassword from './components/auth/restore-password';
 import ResetPassword from './components/auth/reset-password';
 
-export default function makeRoutes() {
+import { isAuthorizedUser } from 'paragons/auth';
+
+export default function makeRoutes(store) {
+  const authMiddleware = (nextState, replace, callback) => {
+    const { auth } = store.getState();
+    if (_.isEmpty(auth) || !isAuthorizedUser(auth.user)) {
+      replace({
+        pathname: '/login',
+        query: {
+          redirectTo: nextState.location.pathname,
+        },
+      });
+    }
+
+    callback();
+  };
   return (
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
@@ -42,7 +58,7 @@ export default function makeRoutes() {
       <Route path="/reset-password" component={ResetPassword} />
       <Route component={StoreFront}>
         <IndexRoute component={HomePage} />
-        <Route path="/profile" component={ProfilePage}>
+        <Route path="/profile" component={ProfilePage} onEnter={authMiddleware}>
           <IndexRoute component={Profile} />
           <Route component={ProfileUnit}>
             <Route path="name" component={EditName} />

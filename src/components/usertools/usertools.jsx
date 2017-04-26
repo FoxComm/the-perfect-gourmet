@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { toggleCart } from 'modules/cart';
 import { toggleUserMenu } from 'modules/usermenu';
-import { savePreviousLocation } from 'modules/auth';
 
 import { isAuthorizedUser } from 'paragons/auth';
 
@@ -32,18 +31,12 @@ class UserTools extends Component {
     this.props.toggleUserMenu();
   }
 
-  @autobind
-  saveLocation() {
-    const { path } = this.props;
-    this.props.savePreviousLocation(path);
-  }
-
   get renderUserInfo() {
-    const { t } = this.props;
+    const { t, path } = this.props;
     const user = _.get(this.props, ['auth', 'user'], null);
     if (!isAuthorizedUser(user)) {
       return (
-        <Link styleName="login-link" to="/login" onClick={this.saveLocation}>
+        <Link styleName="login-link" to={`/login?redirectTo=${path}`}>
           {t('LOG IN')}
         </Link>
       );
@@ -81,5 +74,4 @@ const mapState = state => ({
 export default connect(mapState, {
   toggleCart,
   toggleUserMenu,
-  savePreviousLocation,
 })(localized(UserTools));
