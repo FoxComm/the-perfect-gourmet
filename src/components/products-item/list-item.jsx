@@ -44,7 +44,7 @@ type Product = {
   tags?: Array<string>,
   addLineItem: Function,
   toggleCart: Function,
-  showAddToCart: boolean,
+  showAddToCartButton: boolean,
 };
 
 type State = {
@@ -57,7 +57,7 @@ class ListItem extends React.Component {
 
   static defaultProps = {
     skus: [],
-    showAddToCart: true,
+    showAddToCartButton: true,
   };
 
   @autobind
@@ -128,9 +128,9 @@ class ListItem extends React.Component {
   }
 
   addToCartButton(): ?HTMLElement {
-    const { showAddToCart } = this.props;
+    const { showAddToCartButton } = this.props;
 
-    if (!showAddToCart) return null;
+    if (!showAddToCartButton) return null;
 
     return (
       <div styleName="add-to-cart-btn">
