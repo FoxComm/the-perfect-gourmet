@@ -35,6 +35,18 @@
   font-size: 31px;
   text-align: center;
   color: var(--additional-color);
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 66px;
+    height: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    background-color: #3E3436;
+  }
 }
 
 .list {
