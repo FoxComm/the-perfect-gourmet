@@ -24,7 +24,7 @@ const SmallAddToCartBtn = (props: Props) => {
   return (
     <button className={classNames} onClick={onClick} {...restProps}>
       <span className={iconWrapper}>
-        <Icon name="fc-add" styleName="add-icon" />
+        <Icon name="fc-dadd" styleName="add-icon" />
       </span>
     </button>
   );
