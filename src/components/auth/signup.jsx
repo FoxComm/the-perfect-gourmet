@@ -183,6 +183,8 @@ class Signup extends Component {
               name="password"
               value={password}
               onChange={this.onChangePassword}
+              minLength={8}
+              required
             />
           </FormField>
           <ErrorAlerts errors={this.state.generalErrors} />
