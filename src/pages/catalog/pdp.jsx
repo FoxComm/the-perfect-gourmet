@@ -285,14 +285,18 @@ class Pdp extends Component {
   }
 
   get relatedProductsList() {
-    const { relatedProducts, isRelatedProductsLoading } = this.props;
+    const { relatedProducts, isRelatedProductsLoading, product, } = this.props;
 
-    if (_.isEmpty(relatedProducts.products)) return null;
+    const excludeId = product.id;
+    const filteredProducts = _.filter(relatedProducts.products,
+      (p) => { return p.product.productId != excludeId });
+
+    if (_.size(filteredProducts) < 2) return null;
 
     return (
       <RelatedProductsList
         title="You May Also Enjoy"
-        list={relatedProducts.products}
+        list={filteredProducts}
         isLoading={isRelatedProductsLoading}
         loadingBehavior={LoadingBehaviors.ShowWrapper}
       />
