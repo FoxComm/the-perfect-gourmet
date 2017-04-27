@@ -140,7 +140,8 @@ class OrderSummary extends Component {
 
     const header = (
       <header styleName="header" onClick={this.toggleCollapsed}>
-        <div styleName="title">{t('ORDER TOTAL')}</div>
+        <div styleName="title">{t('ORDER SUMMARY')}</div>
+        <div styleName="reference">{props.referenceNumber}</div>
         <Currency styleName="price" value={grandTotalResult} />
       </header>
     );
