@@ -203,6 +203,7 @@
   .info-block {
     /* padding: 0 180px; */
     margin-top: 70px;
+    min-height: 560px;
     height: auto;
   }
 
@@ -252,6 +253,9 @@
 
 @media (--small-only) {
 
+  .info-block {
+    height: 560px;
+  }
   .items-title-wrap {
     justify-content: space-around;
   }
