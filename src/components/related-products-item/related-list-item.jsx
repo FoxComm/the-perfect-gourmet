@@ -84,8 +84,7 @@ class RelatedListItem extends React.Component {
       : <ImagePlaceholder ref="image" />;
   }
 
-  @autobind
-  handleClick() {
+  handleClick = () => {
     const { props } = this;
     tracking.clickPdp(props, props.index);
   }
