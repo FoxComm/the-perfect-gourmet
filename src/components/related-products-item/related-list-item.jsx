@@ -1,7 +1,6 @@
 /* @flow */
 
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import styles from './related-list-item.css';
 import { Link } from 'react-router';
@@ -85,14 +84,9 @@ class RelatedListItem extends React.Component {
       : <ImagePlaceholder ref="image" />;
   }
 
-  getImageNode() {
-    return findDOMNode(this.refs.image);
-  }
-
   @autobind
   handleClick() {
     const { props } = this;
-
     tracking.clickPdp(props, props.index);
   }
 
@@ -134,7 +128,7 @@ class RelatedListItem extends React.Component {
       title,
     } = this.props;
 
-    const productSlug = slug != null && !_.isEmpty(slug) ? slug : productId;
+    const productSlug = _.isEmpty(slug) ? productId : slug;
 
     return (
       <div styleName="list-item">
@@ -145,7 +139,7 @@ class RelatedListItem extends React.Component {
         </Link>
 
         <div styleName="text-block">
-          <h1 styleName="title" alt={title}>
+          <h1 styleName="title">
             <Link to={`/products/${productSlug}`}>{title}</Link>
           </h1>
           <div styleName="line"/>
@@ -164,4 +158,4 @@ class RelatedListItem extends React.Component {
 export default connect(null, {
   addLineItem,
   toggleCart,
-}, void 0, { withRef: true })(RelatedListItem);
+})(RelatedListItem);

@@ -38,7 +38,7 @@
   font-family: var(--font-playfair);
   font-weight: 400;
   font-size: 20px;
-  color: #212121;
+  color: var(--dark-blackish);
   letter-spacing: 0.7px;
   white-space: pre-line;
   overflow: hidden;
@@ -101,7 +101,7 @@
   .title {
     font-weight: 400;
     font-size: 15px;
-    color: #212121;
+    color: var(--dark-blackish);
     letter-spacing: 0.5px;
     white-space: nowrap;
     text-overflow: ellipsis;

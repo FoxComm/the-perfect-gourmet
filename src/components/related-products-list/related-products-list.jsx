@@ -26,15 +26,8 @@ type Props = {
   title: string,
 };
 
-type State = {
-  shownProducts: {[productId: string]: number},
-}
-
 class RelatedProductsList extends Component {
   props: Props;
-  state: State = {
-    shownProducts: {},
-  };
   _willUnmount: boolean = false;
 
   get renderProducts() {
@@ -45,13 +38,13 @@ class RelatedProductsList extends Component {
     const avoidKeyCollision = 9999;
 
     return _.map(list, (item, index) => {
-      const prod = _.get(item, 'product');
+      const prod = item.product;
       return (
         <RelatedListItem
           {...prod}
           index={index}
-          key={`product-${_.get(prod, 'id', _.random(avoidKeyCollision))}`}
-          ref={`product-${_.get(prod, 'id', _.random(avoidKeyCollision))}`}
+          key={`product-${prod.id}`}
+          ref={`product-${prod.id}`}
         />
       );
     });

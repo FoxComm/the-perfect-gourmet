@@ -9,7 +9,7 @@
   overflow: hidden;
   cursor: pointer;
   display: flex;
-  border: solid 1px #3e3436;
+  border: solid 1px var(--line);
   background-color: inherit;
   justify-content: center;
   &:hover {
