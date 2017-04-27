@@ -285,11 +285,11 @@ class Pdp extends Component {
   }
 
   get relatedProductsList() {
-    const { relatedProducts, isRelatedProductsLoading, product, } = this.props;
+    const { relatedProducts, isRelatedProductsLoading, product } = this.props;
 
     const excludeId = product.id;
     const filteredProducts = _.filter(relatedProducts.products,
-      (p) => { return p.product.productId != excludeId });
+      (p) => { return p.product.productId != excludeId; });
 
     if (_.size(filteredProducts) < 2) return null;
 
