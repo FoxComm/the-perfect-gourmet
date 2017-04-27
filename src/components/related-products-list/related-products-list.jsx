@@ -35,8 +35,6 @@ class RelatedProductsList extends Component {
 
     if (_.isEmpty(list)) return null;
 
-    const avoidKeyCollision = 9999;
-
     return _.map(list, (item, index) => {
       const prod = item.product;
       return (
