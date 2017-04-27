@@ -43,8 +43,8 @@ type Product = {
   albums: ?Array<Album> | Object,
   skus: Array<string>,
   tags?: Array<string>,
-  addLineItem?: ?Function,
-  toggleCart?: ?Function,
+  addLineItem: Function,
+  toggleCart: Function,
 };
 
 type State = {
