@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@foxcomm/api-js@^1.1.7":
-  version "1.1.7"
-  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fapi-js/-/api-js-1.1.7.tgz#d73e6a3a4648a8fd3336d11677a7a2a922943e1f"
+"@foxcomm/api-js@^1.1.8":
+  version "1.1.8"
+  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fapi-js/-/api-js-1.1.8.tgz#9d8189731f22a354dad1f6ad3538880a1feb3ead"
   dependencies:
     debug "^2.2.0"
     jwt-decode "^2.0.1"
@@ -3278,13 +3278,16 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
+flow-bin@^0.23.0:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.23.1.tgz#eb6522bb7c6719184593adef46ab22381cc188a6"
+  dependencies:
+    bin-wrapper "^3.0.2"
+    logalot "^2.0.0"
+
 flow-bin@^0.36.0:
   version "0.36.0"
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.36.0.tgz#557907bd9c2ab0670cfad9e7e906a74b0631e39a"
-
-flow-bin@^0.42.0:
-  version "0.42.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.42.0.tgz#05dd754b6b052de7b150f9210e2160746961e3cf"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -6815,11 +6818,11 @@ qs@0.4.x:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-0.4.2.tgz#3cac4c861e371a8c9c4770ac23cda8de639b8e5f"
 
-qs@6.2.1, qs@^6.1.0:
+qs@6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-"qs@>= 0.4.0", qs@^6.4.0, qs@~6.4.0:
+"qs@>= 0.4.0", qs@^6.1.0, qs@^6.4.0, qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
