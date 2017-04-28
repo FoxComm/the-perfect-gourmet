@@ -1,8 +1,8 @@
 /* @flow weak */
 
 import Api from '@foxcomm/api-js';
-import { browserHistory } from 'lib/history';
-import { authBlockTypes } from 'paragons/auth';
+// import { browserHistory } from 'lib/history';
+// import { authBlockTypes } from 'paragons/auth';
 import { env } from 'lib/env';
 
 const isServer: boolean = typeof self === 'undefined';
@@ -11,7 +11,8 @@ const _unauthorizedHandler = () => {
   if (typeof window != 'undefined') {
     localStorage.removeItem('jwt');
     document.cookie = 'JWT=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    browserHistory.push(`?auth=${authBlockTypes.LOGIN}`);
+    // uncomment after Sergey will fix JWT reseting in case of existing JWT is incorrect
+    // browserHistory.push(`?auth=${authBlockTypes.LOGIN}`);
   }
 };
 
