@@ -48,7 +48,7 @@ class Delivery extends Component {
 
   get footnote() {
     return (
-      <Link to='/shipping-and-returns'>SHIPPING & RETURNS POLICY</Link>
+      <Link to="/shipping-and-returns">SHIPPING & RETURNS POLICY</Link>
     );
   }
 
