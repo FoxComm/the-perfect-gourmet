@@ -48,6 +48,7 @@ type Product = {
   toggleCart: Function,
   showAddToCartButton: boolean,
   showServings: boolean,
+  showDescriptionOnHover: boolean,
   size: ?string,
 };
 
@@ -63,6 +64,7 @@ class ListItem extends React.Component {
     skus: [],
     showAddToCartButton: true,
     showServings: false,
+    showDescriptionOnHover: true,
     size: '',
   };
 
@@ -150,6 +152,21 @@ class ListItem extends React.Component {
     );
   }
 
+  hoverInfo(description): ?HTMLElement {
+    const { showDescriptionOnHover } = this.props;
+
+    if (!showDescriptionOnHover) return null;
+
+    return (
+      <div styleName="hover-info">
+        <h2
+          styleName="additional-description"
+          dangerouslySetInnerHTML={{__html: description}}
+        />
+      </div>
+    );
+  }
+
   addToCartButton(): ?HTMLElement {
     const { showAddToCartButton } = this.props;
 
@@ -180,12 +197,7 @@ class ListItem extends React.Component {
         <Link onClick={this.handleClick} to={`/products/${productSlug}`}>
           <div styleName="preview">
             {this.image}
-            <div styleName="hover-info">
-              <h2
-                styleName="additional-description"
-                dangerouslySetInnerHTML={{__html: description}}
-              />
-            </div>
+            {this.hoverInfo(description)}
           </div>
         </Link>
 

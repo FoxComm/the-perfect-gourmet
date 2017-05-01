@@ -281,6 +281,7 @@ class HomePage extends Component {
         size="small"
         showAddToCartButton={false}
         showServings
+        showDescriptionOnHover={false}
       />,
       actionBlocks.slice(1),
     ];

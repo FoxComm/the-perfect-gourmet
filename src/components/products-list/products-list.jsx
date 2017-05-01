@@ -30,6 +30,7 @@ type Props = {
   size: ?string,
   showAddToCartButton: ?boolean,
   showServings: ?boolean,
+  showDescriptionOnHover: ?boolean,
 };
 
 type State = {
@@ -47,6 +48,7 @@ class ProductsList extends Component {
     size: '',
     showAddToCartButton: true,
     showServings: false,
+    showDescriptionOnHover: true,
   };
 
  componentDidMount() {
@@ -70,6 +72,7 @@ class ProductsList extends Component {
       size,
       showAddToCartButton,
       showServings,
+      showDescriptionOnHover,
     } = this.props;
 
     return _.map(this.props.list, (item, index) => {
@@ -82,6 +85,7 @@ class ProductsList extends Component {
           size={size}
           showAddToCartButton={showAddToCartButton}
           showServings={showServings}
+          showDescriptionOnHover={showDescriptionOnHover}
         />
       );
     });
