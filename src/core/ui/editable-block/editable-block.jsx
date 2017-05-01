@@ -1,4 +1,3 @@
-
 /* @flow */
 
 import React from 'react';
@@ -20,6 +19,7 @@ type EditableProps = Localized & {
   actionsContent?: HTMLElement|Array<HTMLElement>,
   title: string|HTMLElement,
   t: any,
+  footnote?: HTMLElement
 };
 
 const EditableBlock = (props: EditableProps) => {
@@ -30,13 +30,24 @@ const EditableBlock = (props: EditableProps) => {
   const actions = props.actionsContent || editLink;
   const content = !props.collapsed ? (props.content || props.children) : null;
 
+  const { footnote, title, className } = props;
+
+  const titleBlock = (
+    <h3 styleName="title">
+      {title}
+    </h3>
+  );
+
+  const footnoteBlock = footnote ? (<div styleName="footnote">* {footnote}</div>) : null;
+
   return (
-    <article styleName="editable-block" className={props.className}>
+    <article styleName="editable-block" className={className}>
       <header styleName="header">
-        <h3 styleName="title">{props.title}</h3>
+        {titleBlock}
         {actions}
       </header>
       {content}
+      {footnoteBlock}
     </article>
   );
 };
