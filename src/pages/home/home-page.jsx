@@ -28,16 +28,16 @@ function initPixlee() {
 
 const mainBlocks = [
   {
-    imageUrl: '/images/home-page/April15_1.jpg',
-    description: 'FOR MEALS AT HOME, AS WELL AS EVERY CELEBRATION THIS SEASON HAS TO OFFER',
-    title: 'THE SPRING COLLECTION',
-    action: { title: 'Shop Now', link: '/SPRING' },
+    imageUrl: '/images/home-page/May_Section1.jpg',
+    description: 'NO PLANNING, SHOPPING, PREPPING, OR CLEANING REQUIRED',
+    title: 'DINNER IS SERVED',
+    action: { title: 'Shop Now', link: '/ENTRÉES' },
   },
   {
-    imageUrl: '/images/home-page/April15_2.jpg',
-    description: 'SO YOU CAN SPEND MORE TIME AT THE TABLE AND LESS TIME IN THE KITCHEN',
-    title: 'BRUNCH FAVORITES',
-    action: { title: 'Shop Now', link: '/BRUNCH' },
+    imageUrl: '/images/home-page/May_Section3.jpg',
+    description: '',
+    title: 'SEE WHAT’S NEW ON THE MENU',
+    action: { title: 'Shop Now', link: '/NEW' },
   },
 ];
 
