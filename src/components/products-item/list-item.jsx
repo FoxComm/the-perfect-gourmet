@@ -36,6 +36,8 @@ type Product = {
   context: string,
   title: string,
   description: ?string,
+  amountOfServings: ?string,
+  servingSize: ?string,
   salePrice: string,
   retailPrice: string,
   currency: string,
@@ -44,6 +46,10 @@ type Product = {
   tags?: Array<string>,
   addLineItem: Function,
   toggleCart: Function,
+  showAddToCartButton: boolean,
+  showServings: boolean,
+  showDescriptionOnHover: boolean,
+  size: ?string,
 };
 
 type State = {
@@ -56,6 +62,10 @@ class ListItem extends React.Component {
 
   static defaultProps = {
     skus: [],
+    showAddToCartButton: true,
+    showServings: false,
+    showDescriptionOnHover: true,
+    size: '',
   };
 
   @autobind
@@ -125,40 +135,81 @@ class ListItem extends React.Component {
       );
   }
 
+  servings(): ?HTMLElement {
+    const {
+      showServings,
+      amountOfServings,
+      servingSize,
+    } = this.props;
+
+    if (!showServings) return null;
+
+    return (
+      <div styleName="servings">
+        <div>{amountOfServings}</div>
+        <div>{servingSize}</div>
+      </div>
+    );
+  }
+
+  hoverInfo(description): ?HTMLElement {
+    const { showDescriptionOnHover } = this.props;
+
+    if (!showDescriptionOnHover) return null;
+
+    return (
+      <div styleName="hover-info">
+        <h2
+          styleName="additional-description"
+          dangerouslySetInnerHTML={{__html: description}}
+        />
+      </div>
+    );
+  }
+
+  addToCartButton(): ?HTMLElement {
+    const { showAddToCartButton } = this.props;
+
+    if (!showAddToCartButton) return null;
+
+    return (
+      <div styleName="add-to-cart-btn">
+        <AddToCartBtn onClick={this.addToCart} expanded />
+      </div>
+    );
+  }
+
   render(): HTMLElement {
     const {
       productId,
       slug,
       title,
       description,
+      size,
     } = this.props;
 
     const productSlug = slug != null && !_.isEmpty(slug) ? slug : productId;
+    const listItemStyleName = size ? `list-item-${size}` : 'list-item';
+    const titleStyleName = size ? `title-${size}` : 'title';
 
     return (
-      <div styleName="list-item">
+      <div styleName={listItemStyleName}>
         <Link onClick={this.handleClick} to={`/products/${productSlug}`}>
           <div styleName="preview">
             {this.image}
-            <div styleName="hover-info">
-              <h2
-                styleName="additional-description"
-                dangerouslySetInnerHTML={{__html: description}}
-              />
-            </div>
+            {this.hoverInfo(description)}
           </div>
         </Link>
 
         <div styleName="text-block">
-          <h1 styleName="title" alt={title}>
+          <h1 styleName={titleStyleName} alt={title}>
             <Link to={`/products/${productSlug}`}>{title}</Link>
           </h1>
           <h2 styleName="description">{/* serving size */}</h2>
+          {this.servings()}
           <div styleName="price-line">
             {this.isOnSale()}
-            <div styleName="add-to-cart-btn">
-              <AddToCartBtn onClick={this.addToCart} expanded />
-            </div>
+            {this.addToCartButton()}
           </div>
         </div>
       </div>

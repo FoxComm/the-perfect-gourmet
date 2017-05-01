@@ -2,7 +2,7 @@
 @import "variables.css";
 @import "media-queries";
 
-.list-item {
+.list-item, .list-item-small {
   width: calc(50% - (var(--grid-margin)/2));
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -19,6 +19,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   &:hover .hover-info {
     opacity: 0.9;
@@ -42,7 +43,7 @@
   position: relative;
 }
 
-.title {
+.title, .title-small {
   composes: title-devider from 'ui/css/layout.css';
 
   margin-top: 20px;
@@ -68,6 +69,13 @@
   }
 }
 
+.title-small {
+  margin-top: 10px;
+  font-size: 20px;
+  line-height: 1.3em;
+  min-height: 70px;
+}
+
 .description {
   font-family: var(--font-main);
   font-weight: 300;
@@ -76,6 +84,13 @@
   opacity: 0.44;
   letter-spacing: 2.15px;
   margin-top: 10px;
+}
+
+.servings {
+  margin: 8px 0 23px 0;
+  font-size: 15px;
+  font-weight: 300;
+  opacity: .5;
 }
 
 .price-line {
@@ -109,7 +124,7 @@
 }
 
 @media (--small-only) {
-  .title {
+  .title, .title-small {
     font-weight: 400;
     font-size: 15px;
     color: #212121;
@@ -167,6 +182,10 @@
 }
 
 @media (--large), (--x-large) {
+  .list-item-small {
+    width: calc(20% - (var(--grid-margin)/1.5));
+  }
+
   .title {
     font-size: 26px;
     letter-spacing: 0.7px;

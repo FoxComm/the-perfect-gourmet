@@ -26,6 +26,11 @@ type Props = {
   loadingBehavior?: 0|1,
   list: ?Array<Object>,
   isLoading: ?boolean,
+  title: ?string,
+  size: ?string,
+  showAddToCartButton: ?boolean,
+  showServings: ?boolean,
+  showDescriptionOnHover: ?boolean,
 };
 
 type State = {
@@ -38,6 +43,13 @@ class ProductsList extends Component {
     shownProducts: {},
   };
   _willUnmount: boolean = false;
+
+  static defaultProps = {
+    size: '',
+    showAddToCartButton: true,
+    showServings: false,
+    showDescriptionOnHover: true,
+  };
 
  componentDidMount() {
    window.addEventListener('scroll', this.handleScroll);
@@ -56,6 +68,13 @@ class ProductsList extends Component {
   }
 
   renderProducts() {
+    const {
+      size,
+      showAddToCartButton,
+      showServings,
+      showDescriptionOnHover,
+    } = this.props;
+
     return _.map(this.props.list, (item, index) => {
       return (
         <ListItem
@@ -63,6 +82,10 @@ class ProductsList extends Component {
           index={index}
           key={`product-${item.id}`}
           ref={`product-${item.id}`}
+          size={size}
+          showAddToCartButton={showAddToCartButton}
+          showServings={showServings}
+          showDescriptionOnHover={showDescriptionOnHover}
         />
       );
     });
@@ -130,19 +153,40 @@ class ProductsList extends Component {
     }
   }
 
+  get title(): ?HTMLElement {
+    const { title } = this.props;
+
+    if (!title) return null;
+
+    return (
+      <div styleName="title">
+        {title}
+      </div>
+    );
+  }
+
   render() : HTMLElement {
-    const { props } = this;
-    const { loadingBehavior = LoadingBehaviors.ShowLoader } = props;
-    if (loadingBehavior == LoadingBehaviors.ShowLoader && props.isLoading) {
+    const {
+      loadingBehavior = LoadingBehaviors.ShowLoader,
+      isLoading,
+      list,
+      size,
+    } = this.props;
+
+    if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
       return <Loader/>;
     }
-    const items = props.list && props.list.length > 0
+
+    const items = list && list.length > 0
       ? this.renderProducts()
       : <div styleName="not-found">No products found.</div>;
 
+    const listWrapperStyleName = size ? `list-wrapper-${size}` : 'list-wrapper';
+
     return (
-      <div styleName="list-wrapper">
+      <div styleName={listWrapperStyleName}>
         {this.loadingWrapper}
+        {this.title}
         <div styleName="list" ref={this.handleListRendered}>
           {items}
         </div>
