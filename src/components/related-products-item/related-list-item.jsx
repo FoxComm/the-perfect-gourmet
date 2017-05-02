@@ -146,7 +146,7 @@ class RelatedListItem extends React.Component {
           <div styleName="price-line">
             {this.isOnSale()}
             <div styleName="add-to-cart-btn">
-              <SmallAddToCartBtn onClick={this.addToCart} small expanded/>
+              <SmallAddToCartBtn onClick={this.addToCart} />
             </div>
           </div>
         </div>
