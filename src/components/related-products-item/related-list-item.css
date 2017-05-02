@@ -95,7 +95,7 @@
 
 @media (--small-only) {
   .list-item {
-    width: calc(40% - (var(--grid-margin)/2));
+    width: calc(45% - (var(--grid-margin)/2));
   }
 
   .title {
@@ -110,6 +110,10 @@
   .description {
     font-size: 13px;
     letter-spacing: 0px;
+  }
+
+  .retail-price {
+    margin-right: 7px;
   }
 }
 
