@@ -98,8 +98,8 @@ class GuestShipping extends Component {
         error={props.submitError}
       >
         <div styleName="subtitle">YOUR INFORMATION</div>
-        <FormField>
-          <TextInput value={this.state.email} styleName="guest-email" onChange={this.handleChangeEmail}/>
+        <FormField validator="email">
+          <TextInput value={this.state.email} styleName="guest-email" onChange={this.handleChangeEmail} required />
         </FormField>
         <div styleName="subtitle">SHIPPING ADDRESS</div>
         <EditAddress
