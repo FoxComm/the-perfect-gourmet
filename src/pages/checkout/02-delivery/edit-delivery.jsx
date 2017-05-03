@@ -100,7 +100,7 @@ class EditDelivery extends Component {
     return (
       <CheckoutForm
         submit={this.handleSubmit}
-        title="DELIVERY METHOD"
+        title="DELIVERY METHOD *"
         error={props.saveDeliveryState.err}
         inProgress={props.saveDeliveryState.inProgress}
       >

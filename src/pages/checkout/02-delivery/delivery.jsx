@@ -10,6 +10,7 @@ import EditableBlock from 'ui/editable-block';
 import Currency from 'ui/currency';
 import EditDelivery from './edit-delivery';
 import ViewDelivery from './view-delivery';
+import { Link } from 'react-router';
 
 // styles
 import styles from './delivery.css';
@@ -45,6 +46,12 @@ class Delivery extends Component {
     );
   }
 
+  get footnote() {
+    return (
+      <Link to="/shipping-and-returns">SHIPPING & RETURNS POLICY</Link>
+    );
+  }
+
   render() {
     const { t } = this.props;
 
@@ -56,6 +63,7 @@ class Delivery extends Component {
         styleName="delivery"
         title={t('DELIVERY')}
         content={this.renderContent()}
+        footnote={this.footnote}
       />
     );
   }
