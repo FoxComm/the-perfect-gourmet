@@ -65,6 +65,11 @@
   justify-content: space-between;
 }
 
+.list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
 .section {
   margin-bottom: 20px;
 }
