@@ -38,7 +38,6 @@ type AuthState = {
   usernameError: bool|string,
   emailError: bool|string,
   generalErrors: Array<string>,
-  redirectPath: string,
 };
 
 type Props = Localized & {
@@ -63,7 +62,6 @@ class Signup extends Component {
     usernameError: false,
     emailError: false,
     generalErrors: [],
-    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -97,6 +95,14 @@ class Signup extends Component {
     });
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   @autobind
   submitUser() {
     const {email, password, username: name} = this.state;
@@ -104,7 +110,6 @@ class Signup extends Component {
     const signUp = this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
-      const { redirectPath } = this.state;
       const { inCheckout } = this.props;
 
       let operation;
@@ -114,7 +119,7 @@ class Signup extends Component {
         operation = this.props.saveLineItemsAndCoupons(true);
       }
       operation.then(() => {
-        browserHistory.push(inCheckout ? '/checkout' : redirectPath);
+        browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
       });
     }).catch(err => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
@@ -158,10 +163,11 @@ class Signup extends Component {
   }
 
   render(): HTMLElement {
-    const { email, password, username, emailError, usernameError, redirectPath } = this.state;
+    const { email, password, username, emailError, usernameError } = this.state;
     const { t, isLoading, onLoginClick, inCheckout } = this.props;
+    const path = this.redirectPath;
 
-    const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
 
     const loginLink = (
       <Link to={linkTo} onClick={onLoginClick} styleName="link">

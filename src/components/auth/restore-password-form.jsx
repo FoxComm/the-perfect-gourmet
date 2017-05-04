@@ -30,7 +30,6 @@ type RestoreState = {
   emailSent: boolean,
   error: ?string,
   email: string,
-  redirectPath: string,
 };
 
 type Props = RestorePasswordFormProps & {
@@ -45,7 +44,6 @@ class RestorePasswordForm extends Component {
     emailSent: false,
     error: null,
     email: '',
-    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -126,9 +124,17 @@ class RestorePasswordForm extends Component {
     );
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   goToLogin: Object = () => {
-    const { redirectPath } = this.state;
-    const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+    const path = this.redirectPath;
+    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
     browserHistory.push(linkTo);
   };
 
@@ -152,8 +158,8 @@ class RestorePasswordForm extends Component {
     const { t } = this.props;
 
     if (!emailSent) {
-      const { redirectPath } = this.state;
-      const linkTo = redirectPath ? `/login?redirectTo=${redirectPath}` : '/login';
+      const path = this.redirectPath;
+      const linkTo = path ? `/login?redirectTo=${path}` : '/login';
 
       return (
         <div styleName="switch-stage">

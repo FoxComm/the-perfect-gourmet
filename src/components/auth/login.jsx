@@ -31,7 +31,6 @@ type AuthState = {
   email: string,
   password: string,
   error: ?string,
-  redirectPath: string,
 };
 
 type Props = Localized & {
@@ -54,7 +53,6 @@ class Login extends Component {
     email: '',
     password: '',
     error: null,
-    redirectPath: this.props.location.query.redirectTo || '',
   };
 
   componentDidMount() {
@@ -81,13 +79,13 @@ class Login extends Component {
 
   @autobind
   authenticate() {
-    const { email, password, redirectPath } = this.state;
+    const { email, password } = this.state;
     const { inCheckout } = this.props;
     const kind = 'merchant';
 
     const auth = this.props.authenticate({email, password, kind}).then(() => {
       this.props.saveLineItemsAndCoupons(true);
-      browserHistory.push(inCheckout ? '/checkout' : redirectPath);
+      browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
 
@@ -96,7 +94,7 @@ class Login extends Component {
       });
 
       if (migratedErrorPresent) {
-        browserHistory.push(inCheckout ? '/checkout' : redirectPath);
+        browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
         return;
       }
 
@@ -117,6 +115,14 @@ class Login extends Component {
     });
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   get title() {
     const { t, title } = this.props;
     if (title == null) return null;
@@ -130,9 +136,9 @@ class Login extends Component {
     const { password, email } = this.state;
     const { t, inCheckout, onSignupClick, isLoading } = this.props;
 
-    const { redirectPath } = this.state;
-    const linkToSignup = redirectPath ? `/signup?redirectTo=${redirectPath}` : '/signup';
-    const linkToRestore = redirectPath ? `/restore-password?redirectTo=${redirectPath}` : '/restore-password';
+    const path = this.redirectPath;
+    const linkToSignup = path ? `/signup?redirectTo=${path}` : '/signup';
+    const linkToRestore = path ? `/restore-password?redirectTo=${path}` : '/restore-password';
     const restoreLink = (
       <Link to={linkToRestore} styleName="restore-link">
         {t('forgot?')}
