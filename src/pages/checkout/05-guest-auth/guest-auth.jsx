@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
-import { assoc, dissoc } from 'sprout-data';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -23,8 +22,6 @@ type State = {
   authMode: string,
 }
 
-@localized
-@connect(null, {...checkoutActions, ...authActions})
 class GuestAuth extends Component {
   state: State = {
     authMode: 'login',
@@ -35,12 +32,6 @@ class GuestAuth extends Component {
     this.props.saveEmail(email).then(() => {
       this.props.continueAction();
     });
-  }
-
-  @autobind
-  getPath(newType: ?string): Object {
-    const { location } = this.props;
-    return newType ? assoc(location, ['query', 'auth'], newType) : dissoc(location, ['query', 'auth']);
   }
 
   @autobind
@@ -57,8 +48,7 @@ class GuestAuth extends Component {
     if (this.state.authMode == 'login') {
       return (
         <Login
-          mergeGuestCart
-          getPath={this.getPath}
+          inCheckout
           title="LOG IN & CHECKOUT"
           onSignupClick={this.toggleAuthForm}
         />
@@ -66,8 +56,7 @@ class GuestAuth extends Component {
     }
     return (
       <Signup
-        mergeGuestCart
-        getPath={this.getPath}
+        inCheckout
         title="SIGN UP & CHECKOUT"
         onLoginClick={this.toggleAuthForm}
       />
@@ -111,4 +100,7 @@ class GuestAuth extends Component {
   }
 }
 
-export default localized(GuestAuth);
+export default connect(null, {
+  ...checkoutActions,
+  ...authActions,
+})(localized(GuestAuth));

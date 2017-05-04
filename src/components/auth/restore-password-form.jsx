@@ -1,59 +1,56 @@
 /* @flow */
 
-import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './auth.css';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-
 import { browserHistory } from 'lib/history';
-
-import { authBlockTypes } from 'paragons/auth';
-
 import localized from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
+import { Link } from 'react-router';
 import { TextInput } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
-import { restorePassword } from 'modules/auth';
+// actions
+import * as actions from 'modules/auth';
 
+// types
 import type { HTMLElement } from 'types';
+import type { RestorePasswordFormProps } from 'types/auth';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type RestoreState = {
-  emailSent: boolean;
-  error: ?string;
-  email: string;
+  emailSent: boolean,
+  error: ?string,
+  email: string,
 };
 
-export type RestorePasswordFormProps = {
-  fields: Object,
-  handleSubmit: Function,
-  resetForm: Function,
-  submitting: boolean,
-  error: string,
-  dispatch: ?Function,
-  changeAuthBlockType: ?Function,
-  getPath: Function,
-  topMessage: string,
-  title: string,
-  t: Function,
-  restorePassword: Function,
+type Props = RestorePasswordFormProps & {
+  user: User | {},
+  location: Object | {},
 };
 
-/* ::`*/
-@connect(null, { restorePassword })
-@localized
-/* ::`*/
-export default class RestorePasswordForm extends Component {
-  props: RestorePasswordFormProps;
+class RestorePasswordForm extends Component {
+  props: Props;
 
   state: RestoreState = {
     emailSent: false,
     error: null,
     email: '',
   };
+
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
 
   @autobind
   handleSubmit(): ?Promise {
@@ -133,8 +130,18 @@ export default class RestorePasswordForm extends Component {
     );
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   goToLogin: Object = () => {
-    browserHistory.push(this.props.getPath(authBlockTypes.LOGIN));
+    const path = this.redirectPath;
+    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
+    browserHistory.push(linkTo);
   };
 
   get primaryButton(): HTMLElement {
@@ -144,7 +151,7 @@ export default class RestorePasswordForm extends Component {
     if (emailSent) {
       return (
         <Button styleName="primary-button" onClick={this.goToLogin} type="button">
-          {t('BACK TO SIGN IN')}
+          {t('BACK TO LOG IN')}
         </Button>
       );
     }
@@ -154,13 +161,16 @@ export default class RestorePasswordForm extends Component {
 
   get switchStage(): ?HTMLElement {
     const { emailSent } = this.state;
-    const { t, getPath } = this.props;
+    const { t } = this.props;
 
     if (!emailSent) {
+      const path = this.redirectPath;
+      const linkTo = path ? `/login?redirectTo=${path}` : '/login';
+
       return (
         <div styleName="switch-stage">
-          <Link to={getPath(authBlockTypes.LOGIN)} styleName="link">
-            {t('BACK TO SIGN IN')}
+          <Link to={linkTo} styleName="link">
+            {t('BACK TO LOG IN')}
           </Link>
         </div>
       );
@@ -169,7 +179,7 @@ export default class RestorePasswordForm extends Component {
 
   render(): HTMLElement {
     return (
-      <div>
+      <div styleName="auth-block">
         <div styleName="title">{this.props.title}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>
@@ -181,3 +191,14 @@ export default class RestorePasswordForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: _.get(state.auth, 'user', {}),
+    location: _.get(state.routing, 'location', {}),
+  };
+};
+
+export default connect(mapStateToProps, {
+  ...actions,
+})(localized(RestorePasswordForm));

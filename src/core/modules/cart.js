@@ -135,7 +135,7 @@ export function saveLineItemsAndCoupons(merge: boolean = false) {
       let newCartItems = [];
       userCart = data;
 
-      // We are merging a guest cart what is already persisted for this user (because they are logging in).
+      // Here we merge whatever was in the guest cart with whatever the logged in user has in the cart
       if (merge) {
         const persistedLineItems = _.get(data, 'lineItems.skus', []);
         const persistedPayload = collectItemsToSubmit(persistedLineItems);

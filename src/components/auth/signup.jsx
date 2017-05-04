@@ -1,31 +1,35 @@
 /* @flow */
 
-import _ from 'lodash';
-import { get, reduce } from 'lodash';
 import React, { Component } from 'react';
-import styles from './auth.css';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import * as analytics from 'lib/analytics';
-
 import { browserHistory } from 'lib/history';
-
 import localized from 'lib/i18n';
-import type { Localized } from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
+import { Link } from 'react-router';
 import { TextInput } from 'ui/inputs';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
+// actions
 import * as actions from 'modules/auth';
-import { authBlockTypes } from 'paragons/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
+// types
 import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'modules/auth';
+import type { Localized } from 'lib/i18n';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type AuthState = {
   email: string,
@@ -37,20 +41,16 @@ type AuthState = {
 };
 
 type Props = Localized & {
-  getPath: Function,
+  location: Object | {},
   isLoading: boolean,
   fetchCart: Function,
   saveLineItemsAndCoupons: Function,
   onLoginClick: Function,
   title?: string|Element|null,
-  mergeGuestCart: boolean,
   onAuthenticated?: Function,
+  user: User | {},
+  inCheckout: boolean
 };
-
-const mapState = state => ({
-  cart: state.cart,
-  isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
-});
 
 class Signup extends Component {
   props: Props;
@@ -64,9 +64,13 @@ class Signup extends Component {
     generalErrors: [],
   };
 
-  static defaultProps = {
-    mergeGuestCart: false,
-  };
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    } else if (!this.props.inCheckout) {
+      this.props.fetchCart();
+    }
+  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -91,6 +95,14 @@ class Signup extends Component {
     });
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   @autobind
   submitUser() {
     const {email, password, username: name} = this.state;
@@ -98,18 +110,23 @@ class Signup extends Component {
     const signUp = this.props.signUp(payload).then(() => {
       const lineItems = _.get(this.props, 'cart.lineItems', []);
       const couponCode = _.get(this.props, 'cart.coupon.code', null);
+      const { inCheckout } = this.props;
+
+      let operation;
       if (_.isEmpty(lineItems) && _.isNil(couponCode)) {
-        this.props.fetchCart();
+        operation = this.props.fetchCart();
       } else {
-        this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
+        operation = this.props.saveLineItemsAndCoupons(true);
       }
-      browserHistory.push(this.props.getPath());
+      operation.then(() => {
+        browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
+      });
     }).catch(err => {
-      const errors = get(err, ['responseJson', 'errors'], [err.toString()]);
+      const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
       let usernameError = false;
 
-      const restErrors = reduce(errors, (acc, error) => {
+      const restErrors = _.reduce(errors, (acc, error) => {
         if (error.indexOf('email') >= 0) {
           emailError = error;
         } else if (error.indexOf('name') >= 0) {
@@ -138,23 +155,30 @@ class Signup extends Component {
 
   get title() {
     const { t, title } = this.props;
-    return title !== null
-      ? <div styleName="title">{title || t('SIGN UP')}</div>
-      : null;
+    if (title === null) return null;
+
+    return (
+      <div styleName="title">{title || t('SIGN UP')}</div>
+    );
   }
 
   render(): HTMLElement {
     const { email, password, username, emailError, usernameError } = this.state;
-    const { t, isLoading, getPath, onLoginClick } = this.props;
+    const { t, isLoading, onLoginClick, inCheckout } = this.props;
+    const path = this.redirectPath;
+
+    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
 
     const loginLink = (
-      <Link to={getPath(authBlockTypes.LOGIN)} onClick={onLoginClick} styleName="link">
+      <Link to={linkTo} onClick={onLoginClick} styleName="link">
         {t('Log in')}
       </Link>
     );
 
+    const className = inCheckout ? '' : styles['auth-block'];
+
     return (
-      <div>
+      <div className={className}>
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>
@@ -203,6 +227,13 @@ class Signup extends Component {
     );
   }
 }
+
+const mapState = state => ({
+  cart: state.cart,
+  isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
+  location: _.get(state.routing, 'location', {}),
+  user: _.get(state.auth, 'user', {}),
+});
 
 export default connect(mapState, {
   ...actions,

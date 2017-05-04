@@ -4,7 +4,7 @@ import React from 'react';
 
 import RestorePasswordForm from './restore-password-form';
 
-import type { RestorePasswordFormProps } from './restore-password-form';
+import type { RestorePasswordFormProps } from 'types/auth';
 
 const ForcedRestorePassword = (props: RestorePasswordFormProps) => {
   const message = 'Looks like it’s time to update your password! '

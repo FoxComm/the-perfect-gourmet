@@ -1,45 +1,45 @@
 /* @flow */
 
+import React, { Component } from 'react';
+
+// libs
 import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
-import styles from './auth.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { browserHistory } from 'lib/history';
-import { authBlockTypes } from 'paragons/auth';
-
 import localized from 'lib/i18n';
+import { isAuthorizedUser } from 'paragons/auth';
 
+// components
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
+// actions
 import { resetPassword } from 'modules/auth';
 
+// types
 import type { HTMLElement } from 'types';
+import type { Localized } from 'lib/i18n';
+import type { User } from 'types/auth';
+
+import styles from './auth.css';
 
 type ResetState = {
-  isReseted: boolean;
-  passwd1: string;
-  passwd2: string;
-  error: ?string;
+  isReseted: boolean,
+  passwd1: string,
+  passwd2: string,
+  error: ?string,
 };
 
-/* ::`*/
-@connect(null, { resetPassword })
-@localized
-/* ::`*/
-export default class ResetPassword extends Component {
+type Props = Localized & {
+  location: Object,
+  resetPassword: (code: string, password: string) => Promise,
+  user: User | {},
+};
 
-  static propTypes = {
-    fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    getPath: PropTypes.func,
-    path: PropTypes.object.isRequired,
-  };
+class ResetPassword extends Component {
+  props: Props;
 
   state: ResetState = {
     isReseted: false,
@@ -48,10 +48,16 @@ export default class ResetPassword extends Component {
     error: null,
   };
 
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
+
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
-    const code = _.get(this.props, 'path.query.code');
+    const code = _.get(this.props, 'location.query.code');
 
     if (passwd1 != passwd2) {
       this.setState({
@@ -154,7 +160,7 @@ export default class ResetPassword extends Component {
   }
 
   goToLogin: Object = () => {
-    browserHistory.push(this.props.getPath(authBlockTypes.LOGIN));
+    browserHistory.push('/login');
   };
 
   get primaryButton(): HTMLElement {
@@ -174,7 +180,7 @@ export default class ResetPassword extends Component {
     const { t } = this.props;
 
     return (
-      <div>
+      <div styleName="auth-block">
         <div styleName="title">{t('RESET PASSWORD')}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>
@@ -185,3 +191,13 @@ export default class ResetPassword extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: _.get(state.auth, 'user', {}),
+  };
+};
+
+export default connect(mapStateToProps, {
+  resetPassword,
+})(localized(ResetPassword));

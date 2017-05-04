@@ -1,12 +1,13 @@
 // @flow
 import React from 'react';
+
 import type { HTMLElement } from 'types';
 
 import styles from './page.css';
 
 type Props = {
   children: HTMLElement,
-}
+};
 
 const Page = (props: Props) => {
   return (

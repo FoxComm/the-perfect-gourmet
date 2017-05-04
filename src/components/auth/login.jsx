@@ -1,27 +1,31 @@
 /* @flow */
 
-import _ from 'lodash';
 import React, { Component } from 'react';
+
+// libs
+import _ from 'lodash';
 import { autobind } from 'core-decorators';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
+import { isAuthorizedUser } from 'paragons/auth';
 import { browserHistory } from 'lib/history';
+import localized from 'lib/i18n';
 
-import styles from './auth.css';
-
+// components
+import { Link } from 'react-router';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
+// actions
 import * as actions from 'modules/auth';
-import { authBlockTypes } from 'paragons/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
+// types
 import type { HTMLElement } from 'types';
-
-import localized from 'lib/i18n';
+import type { User } from 'types/auth';
 import type { Localized } from 'lib/i18n';
+
+import styles from './auth.css';
 
 type AuthState = {
   email: string,
@@ -30,7 +34,6 @@ type AuthState = {
 };
 
 type Props = Localized & {
-  getPath: Function,
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
@@ -38,13 +41,10 @@ type Props = Localized & {
   onAuthenticated?: Function,
   title?: string|Element|null,
   onSignupClick: Function,
-  mergeGuestCart: boolean,
+  user: User | {},
+  inCheckout: boolean,
+  location: Object | {},
 };
-
-const mapState = state => ({
-  cart: state.cart,
-  isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
-});
 
 class Login extends Component {
   props: Props;
@@ -55,9 +55,11 @@ class Login extends Component {
     error: null,
   };
 
-  static defaultProps = {
-    mergeGuestCart: false,
-  };
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    }
+  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -78,10 +80,12 @@ class Login extends Component {
   @autobind
   authenticate() {
     const { email, password } = this.state;
+    const { inCheckout } = this.props;
     const kind = 'merchant';
+
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
-      browserHistory.push(this.props.getPath());
+      this.props.saveLineItemsAndCoupons(true);
+      browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
     }, (err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
 
@@ -90,7 +94,7 @@ class Login extends Component {
       });
 
       if (migratedErrorPresent) {
-        browserHistory.push(this.props.getPath(authBlockTypes.FORCE_RESTORE_PASSWORD));
+        browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
         return;
       }
 
@@ -111,32 +115,46 @@ class Login extends Component {
     });
   }
 
+  get redirectPath() {
+    const { location } = this.props;
+    const path = location.query.redirectTo;
+
+    if (path) return path;
+    return '';
+  }
+
   get title() {
     const { t, title } = this.props;
-    return title !== null
-      ? <div styleName="title">{title || t('LOG IN')}</div>
-      : null;
+    if (title == null) return null;
+
+    return (
+      <div styleName="title">{title || t('LOG IN')}</div>
+    );
   }
 
   render(): HTMLElement {
     const { password, email } = this.state;
-    const { props } = this;
-    const { t, getPath } = props;
+    const { t, inCheckout, onSignupClick, isLoading } = this.props;
 
+    const path = this.redirectPath;
+    const linkToSignup = path ? `/signup?redirectTo=${path}` : '/signup';
+    const linkToRestore = path ? `/restore-password?redirectTo=${path}` : '/restore-password';
     const restoreLink = (
-      <Link to={getPath(authBlockTypes.RESTORE_PASSWORD)} styleName="restore-link">
+      <Link to={linkToRestore} styleName="restore-link">
         {t('forgot?')}
       </Link>
     );
 
     const signupLink = (
-      <Link to={getPath(authBlockTypes.SIGNUP)} onClick={props.onSignupClick} styleName="link">
+      <Link to={linkToSignup} onClick={onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
 
+    const className = inCheckout ? '' : styles['auth-block'];
+
     return (
-      <div>
+      <div className={className}>
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>
@@ -162,7 +180,7 @@ class Login extends Component {
           <Button
             type="submit"
             styleName="primary-button"
-            isLoading={this.props.isLoading}
+            isLoading={isLoading}
           >
             {t('LOG IN')}
           </Button>
@@ -174,6 +192,15 @@ class Login extends Component {
     );
   }
 }
+
+
+const mapState = state => ({
+  cart: state.cart,
+  isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
+  user: _.get(state.auth, 'user', {}),
+  location: _.get(state.routing, 'location', {}),
+});
+
 
 export default connect(mapState, {
   ...actions,

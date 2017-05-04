@@ -30,7 +30,16 @@ const paramsConfig = {
 
 const excludedRoutes = {
   isValid: false,
-  rules: [/\/?auth/, /\/profile/, /\/products/, /\/search/, /\/checkout/],
+  rules: [
+    /\/login/,
+    /\/signup/,
+    /\/restore-password/,
+    /\/reset-password/,
+    /\/profile/,
+    /\/products/,
+    /\/search/,
+    /\/checkout/,
+  ],
 };
 
 new Sitemap(routes)
