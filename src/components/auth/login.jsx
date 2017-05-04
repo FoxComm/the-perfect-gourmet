@@ -15,6 +15,7 @@ import { Link } from 'react-router';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
+import Icon from 'ui/icon';
 
 // actions
 import * as actions from 'modules/auth';
@@ -125,10 +126,21 @@ class Login extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title == null) return null;
-
     return (
       <div styleName="title">{title || t('LOG IN')}</div>
+    );
+  }
+
+  get logo() {
+    const { inCheckout } = this.props;
+    if (inCheckout) return null;
+
+    return (
+      <div styleName="logo">
+        <Link to="/">
+          <Icon styleName="logo-icon" name="fc-logo"/>
+        </Link>
+      </div>
     );
   }
 
@@ -155,6 +167,7 @@ class Login extends Component {
 
     return (
       <div className={className}>
+        {this.logo}
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>
