@@ -15,6 +15,7 @@ import { Link } from 'react-router';
 import { TextInput } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
+import Icon from 'ui/icon';
 
 // actions
 import * as actions from 'modules/auth';
@@ -177,9 +178,23 @@ class RestorePasswordForm extends Component {
     }
   }
 
+  get logo() {
+    const { inCheckout } = this.props;
+    if (inCheckout) return null;
+
+    return (
+      <div styleName="logo">
+        <Link to="/">
+          <Icon styleName="logo-icon" name="fc-logo"/>
+        </Link>
+      </div>
+    );
+  }
+
   render(): HTMLElement {
     return (
       <div styleName="auth-block">
+        {this.logo}
         <div styleName="title">{this.props.title}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>

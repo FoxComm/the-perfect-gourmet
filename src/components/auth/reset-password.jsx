@@ -11,9 +11,11 @@ import localized from 'lib/i18n';
 import { isAuthorizedUser } from 'paragons/auth';
 
 // components
+import { Link } from 'react-router';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
+import Icon from 'ui/icon';
 
 // actions
 import { resetPassword } from 'modules/auth';
@@ -176,11 +178,25 @@ class ResetPassword extends Component {
     return <Button styleName="primary-button" type="submit">{t('RESET PASSWORD')}</Button>;
   }
 
+  get logo() {
+    const { inCheckout } = this.props;
+    if (inCheckout) return null;
+
+    return (
+      <div styleName="logo">
+        <Link to="/">
+          <Icon styleName="logo-icon" name="fc-logo"/>
+        </Link>
+      </div>
+    );
+  }
+
   render(): HTMLElement {
     const { t } = this.props;
 
     return (
       <div styleName="auth-block">
+        {this.logo}
         <div styleName="title">{t('RESET PASSWORD')}</div>
         {this.topMessage}
         <Form onSubmit={this.handleSubmit}>

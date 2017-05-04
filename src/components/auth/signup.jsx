@@ -18,6 +18,7 @@ import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
+import Icon from 'ui/icon';
 
 // actions
 import * as actions from 'modules/auth';
@@ -155,10 +156,21 @@ class Signup extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title === null) return null;
-
     return (
       <div styleName="title">{title || t('SIGN UP')}</div>
+    );
+  }
+
+  get logo() {
+    const { inCheckout } = this.props;
+    if (inCheckout) return null;
+
+    return (
+      <div styleName="logo">
+        <Link to="/">
+          <Icon styleName="logo-icon" name="fc-logo"/>
+        </Link>
+      </div>
     );
   }
 
@@ -179,6 +191,7 @@ class Signup extends Component {
 
     return (
       <div className={className}>
+        {this.logo}
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>
