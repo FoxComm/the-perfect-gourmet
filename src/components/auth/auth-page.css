@@ -15,6 +15,8 @@
   align-items: stretch;
   justify-content: center;
   counter-reset: item;
+  margin-top: 15px;
+  margin-bottom: 100px;
 }
 
 .auth-block {
@@ -33,7 +35,7 @@
 
 .divider {
   width: 1px;
-  height: 255px;
+  height: 272px;
   background: #3E3436;
   position: absolute;
 }
