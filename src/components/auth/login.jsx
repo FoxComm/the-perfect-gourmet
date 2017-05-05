@@ -127,11 +127,8 @@ class Login extends Component {
 
     if (!inCheckout) return null;
 
-    const path = this.redirectPath;
-    const linkToSignup = path ? `/signup?redirectTo=${path}` : '/signup';
-
     const signupLink = (
-      <Link to={linkToSignup} onClick={onSignupClick} styleName="link">
+      <Link onClick={onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );

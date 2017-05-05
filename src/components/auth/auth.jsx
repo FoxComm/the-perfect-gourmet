@@ -36,7 +36,7 @@ class Auth extends Component {
   componentDidMount() {
     if (isAuthorizedUser(this.props.user)) {
       browserHistory.push('/');
-    } else if (!this.props.inCheckout) {
+    } else {
       this.props.fetchCart();
     }
   }
