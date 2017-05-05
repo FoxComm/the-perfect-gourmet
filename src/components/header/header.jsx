@@ -13,6 +13,7 @@ import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';
 import TopBanner from '../top-banner/top-banner';
 import Cart from '../cart/cart';
+import Sidebar from '../sidebar/sidebar';
 import { Link } from 'react-router';
 
 // actions
@@ -88,6 +89,9 @@ class Header extends React.Component {
         </div>
         <div>
           <Cart />
+        </div>
+        <div styleName="mobile-sidebar">
+          <Sidebar path={this.props.path} />
         </div>
       </div>
     );
