@@ -5,8 +5,8 @@
   position: relative;
   text-align: center;
 
-  lost-column: 3/11;
-  lost-offset: -4/11;
+  lost-column: 4/12;
+  lost-offset: -4/12;
 
   & :global(.fc-errors) {
     margin-bottom: 10px;

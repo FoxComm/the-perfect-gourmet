@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import * as analytics from 'lib/analytics';
 import { browserHistory } from 'lib/history';
 import localized from 'lib/i18n';
-import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
@@ -27,7 +26,6 @@ import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'modules/auth';
 import type { Localized } from 'lib/i18n';
-import type { User } from 'types/auth';
 
 import styles from './auth.css';
 
@@ -43,12 +41,11 @@ type AuthState = {
 type Props = Localized & {
   location: Object | {},
   isLoading: boolean,
-  fetchCart: Function,
-  saveLineItemsAndCoupons: Function,
-  onLoginClick: Function,
+  fetchCart: Function, // find signature
+  saveLineItemsAndCoupons: Function, // find signature
+  onLoginClick: Function, // find signature
   title?: string|Element|null,
-  onAuthenticated?: Function,
-  user: User | {},
+  onAuthenticated?: Function, // find signature
   inCheckout: boolean
 };
 
@@ -63,14 +60,6 @@ class Signup extends Component {
     emailError: false,
     generalErrors: [],
   };
-
-  componentDidMount() {
-    if (isAuthorizedUser(this.props.user)) {
-      browserHistory.push('/');
-    } else if (!this.props.inCheckout) {
-      this.props.fetchCart();
-    }
-  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -239,7 +228,6 @@ const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
   location: _.get(state.routing, 'location', {}),
-  user: _.get(state.auth, 'user', {}),
 });
 
 export default connect(mapState, {

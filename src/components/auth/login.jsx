@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { isAuthorizedUser } from 'paragons/auth';
 import { browserHistory } from 'lib/history';
 import localized from 'lib/i18n';
 
@@ -22,7 +21,6 @@ import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
 import type { HTMLElement } from 'types';
-import type { User } from 'types/auth';
 import type { Localized } from 'lib/i18n';
 
 import styles from './auth.css';
@@ -35,13 +33,12 @@ type AuthState = {
 
 type Props = Localized & {
   isLoading: boolean,
-  authenticate: Function,
-  fetchCart: Function,
-  saveLineItemsAndCoupons: Function,
-  onAuthenticated?: Function,
+  authenticate: Function, // find signature
+  fetchCart: Function, // find signature
+  saveLineItemsAndCoupons: Function, // find signature
+  onAuthenticated?: Function, // find signature
   title?: string|Element|null,
-  onSignupClick: Function,
-  user: User | {},
+  onSignupClick: Function, // find signature
   inCheckout: boolean,
   location: Object | {},
 };
@@ -54,12 +51,6 @@ class Login extends Component {
     password: '',
     error: null,
   };
-
-  componentDidMount() {
-    if (isAuthorizedUser(this.props.user)) {
-      browserHistory.push('/');
-    }
-  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -206,7 +197,6 @@ class Login extends Component {
 const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
-  user: _.get(state.auth, 'user', {}),
   location: _.get(state.routing, 'location', {}),
 });
 

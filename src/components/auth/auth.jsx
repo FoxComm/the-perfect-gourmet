@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { isAuthorizedUser } from 'paragons/auth';
+import { browserHistory } from 'lib/history';
 
 // components
 import Login from './login';
@@ -14,6 +16,9 @@ import Header from '../header/header';
 
 // actions
 import { closeBanner } from 'modules/banner';
+import { fetch as fetchCart } from 'modules/cart';
+
+import type { User } from 'types/auth';
 
 import styles from './auth-page.css';
 
@@ -21,10 +26,20 @@ type Props = {
   location: Object,
   isBannerVisible: boolean,
   closeBanner: Function, // find signature
+  user: User | {},
+  fetchCart: Function, // find signature
 };
 
 class Auth extends Component {
   props: Props;
+
+  componentDidMount() {
+    if (isAuthorizedUser(this.props.user)) {
+      browserHistory.push('/');
+    } else if (!this.props.inCheckout) {
+      this.props.fetchCart();
+    }
+  }
 
   render() {
     const { location, isBannerVisible } = this.props;
@@ -64,9 +79,11 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
   return {
     isBannerVisible: _.get(state.banner, 'isVisible', false),
+    user: _.get(state.auth, 'user', {}),
   };
 };
 
 export default connect(mapStateToProps, {
   closeBanner,
+  fetchCart,
 })(Auth);
