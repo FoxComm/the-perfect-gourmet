@@ -1,19 +1,24 @@
 /* @flow */
 
 import React from 'react';
+
+// libs
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import classNames from 'classnames';
 
-import { toggleSidebar } from 'modules/sidebar';
-
-import styles from './header.css';
-
+// components
 import Icon from 'ui/icon';
 import Search from '../search/search';
 import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';
 import TopBanner from '../top-banner/top-banner';
+import Cart from '../cart/cart';
+import { Link } from 'react-router';
+
+// actions
+import { toggleSidebar } from 'modules/sidebar';
+
+import styles from './header.css';
 
 type Props = {
   toggleSidebar: Function,
@@ -80,6 +85,9 @@ class Header extends React.Component {
               <UserTools path={this.props.path} query={this.props.query}/>
             </div>
           </div>
+        </div>
+        <div>
+          <Cart />
         </div>
       </div>
     );
