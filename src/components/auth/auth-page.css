@@ -13,7 +13,7 @@
   width: 100%;
   display: flex;
   align-items: stretch;
-  justify-content: center;
+  justify-content: space-between;
   counter-reset: item;
   margin-top: 393px;
   margin-bottom: 100px;
@@ -23,39 +23,77 @@
   }
 }
 
-.auth-block {
-  margin: 0;
+@media (--large) {
+  .auth-block {
+    lost-column: 3/12;
+    margin: 0;
+  }
+
+  .auth-block:first-child {
+    lost-offset: -2/12;
+    margin-right: 0 !important;
+  }
+
+  .auth-block:last-child {
+    lost-offset: 2/12;
+  }
+
+  .divider {
+    width: 1px;
+    height: 272px;
+    background: #3E3436;
+  }
+
+  .mobile-divider-block {
+    display: none;
+  }
 }
 
-.auth-block:first-child {
-  lost-column: 3/12;
-  lost-offset: 2/12;
-}
+@media (--small-only), (--medium-only) {
+  .divider {
+    display: none;
+    margin: 0;
+  }
 
-.auth-block:last-child {
-  lost-column: 3/12;
-  margin-left: 0 !important;
-}
+  .mobile-divider-block {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-.divider {
-  width: 1px;
-  height: 272px;
-  background: #3E3436;
-  position: absolute;
-}
+    & p {
+      margin: 0 15px;
+    }
+  }
 
-.mobile-divider-block {
-  visibility: hidden;
+  .mobile-divider {
+    height: 1px;
+    position: relative;
+    background: #3E3436;
+    flex-grow: 1;
+  }
 }
 
 @media (--medium-only) {
   .forms {
+    flex-direction: column;
     margin-top: 195px;
     margin-bottom: 90px;
 
     &._without-banner {
       margin-top: 125px;
     }
+  }
+
+  .auth-block:first-child,
+  .auth-block:last-child,
+  .mobile-divider-block {
+    lost-column: 6/12;
+    lost-offset: -3/12;
+  }
+
+  .mobile-divider-block {
+    margin: 50px 0;
   }
 }
 
@@ -74,29 +112,5 @@
   .auth-block:first-child,
   .auth-block:last-child {
     width: 100%;
-  }
-
-  .divider {
-    visibility: hidden;
-    margin: 0;
-  }
-
-  .mobile-divider-block {
-    visibility: visible;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    & p {
-      margin: 0 15px;
-    }
-  }
-
-  .mobile-divider {
-    height: 1px;
-    position: relative;
-    background: #3E3436;
-    flex-grow: 1;
   }
 }
