@@ -15,12 +15,10 @@ import classNames from 'classnames';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
-import Footer from '../footer/footer';
-import Header from '../header/header';
+import AuthContainer from './auth-container';
 
 // actions
 import { resetPassword } from 'modules/auth';
-import { closeBanner } from 'modules/banner';
 
 // types
 import type { HTMLElement } from 'types';
@@ -43,7 +41,6 @@ type Props = Localized & {
   resetPassword: (code: string, password: string) => Promise,
   user: User | {},
   isBannerVisible: boolean,
-  closeBanner: () => void,
 };
 
 class ResetPassword extends Component {
@@ -193,24 +190,22 @@ class ResetPassword extends Component {
 
     return (
       <div className={s.container}>
-        <Header
+        <AuthContainer
           path={location.pathname}
           query={location.query}
           isBannerVisible={isBannerVisible}
-          closeBanner={this.props.closeBanner}
-          inAuth
-        />
-        <div className={className}>
-          <div styleName="auth-block">
-            <div styleName="title">{t('RESET PASSWORD')}</div>
-            {this.topMessage}
-            <Form onSubmit={this.handleSubmit}>
-              {this.passwordFields}
-              {this.primaryButton}
-            </Form>
+        >
+          <div className={className}>
+            <div styleName="auth-block">
+              <div styleName="title">{t('RESET PASSWORD')}</div>
+              {this.topMessage}
+              <Form onSubmit={this.handleSubmit}>
+                {this.passwordFields}
+                {this.primaryButton}
+              </Form>
+            </div>
           </div>
-        </div>
-        <Footer />
+        </AuthContainer>
       </div>
     );
   }
@@ -225,5 +220,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   resetPassword,
-  closeBanner,
 })(localized(ResetPassword));

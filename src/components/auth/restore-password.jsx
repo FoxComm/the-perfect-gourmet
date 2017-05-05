@@ -9,11 +9,7 @@ import { connect } from 'react-redux';
 
 // components
 import RestorePasswordForm from './restore-password-form';
-import Footer from '../footer/footer';
-import Header from '../header/header';
-
-// actions
-import { closeBanner } from 'modules/banner';
+import AuthContainer from './auth-container';
 
 import type { RestorePasswordFormProps } from 'types/auth';
 
@@ -32,21 +28,19 @@ const RestorePassword = (props: Props) => {
 
   return (
     <div styleName="container">
-      <Header
+      <AuthContainer
         path={location.pathname}
         query={location.query}
         isBannerVisible={isBannerVisible}
-        closeBanner={props.closeBanner}
-        inAuth
-      />
-      <div className={className}>
-        <RestorePasswordForm
-          title="FORGOT PASSWORD"
-          topMessage="No worries! We’ll email you instructions on how to reset your password."
-          {...props}
-        />
-      </div>
-      <Footer />
+      >
+        <div className={className}>
+          <RestorePasswordForm
+            title="FORGOT PASSWORD"
+            topMessage="No worries! We’ll email you instructions on how to reset your password."
+            {...props}
+          />
+        </div>
+      </AuthContainer>
     </div>
   );
 };
@@ -57,6 +51,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  closeBanner,
-})(RestorePassword);
+export default connect(mapStateToProps)(RestorePassword);
