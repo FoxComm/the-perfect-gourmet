@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import { isAuthorizedUser } from 'paragons/auth';
 import { browserHistory } from 'lib/history';
 import localized from 'lib/i18n';
 
@@ -22,8 +21,8 @@ import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
 import type { HTMLElement } from 'types';
-import type { User } from 'types/auth';
 import type { Localized } from 'lib/i18n';
+import type { LoginPayload } from 'types/auth';
 
 import styles from './auth.css';
 
@@ -35,13 +34,12 @@ type AuthState = {
 
 type Props = Localized & {
   isLoading: boolean,
-  authenticate: Function,
-  fetchCart: Function,
-  saveLineItemsAndCoupons: Function,
+  authenticate: (payload: LoginPayload) => Promise,
+  fetchCart: () => Promise,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise,
   onAuthenticated?: Function,
   title?: string|Element|null,
-  onSignupClick: Function,
-  user: User | {},
+  onSignupClick: (event: SyntheticEvent) => void,
   inCheckout: boolean,
   location: Object | {},
 };
@@ -54,12 +52,6 @@ class Login extends Component {
     password: '',
     error: null,
   };
-
-  componentDidMount() {
-    if (isAuthorizedUser(this.props.user)) {
-      browserHistory.push('/');
-    }
-  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -125,19 +117,35 @@ class Login extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title == null) return null;
 
     return (
       <div styleName="title">{title || t('LOG IN')}</div>
     );
   }
 
+  get stageSwitch() {
+    const { inCheckout, onSignupClick, t } = this.props;
+
+    if (!inCheckout) return null;
+
+    const signupLink = (
+      <Link onClick={onSignupClick} styleName="link">
+        {t('Sign Up')}
+      </Link>
+    );
+
+    return (
+      <div styleName="switch-stage">
+        {t('Don’t have an account?')} {signupLink}
+      </div>
+    );
+  }
+
   render(): HTMLElement {
     const { password, email } = this.state;
-    const { t, inCheckout, onSignupClick, isLoading } = this.props;
+    const { t, isLoading } = this.props;
 
     const path = this.redirectPath;
-    const linkToSignup = path ? `/signup?redirectTo=${path}` : '/signup';
     const linkToRestore = path ? `/restore-password?redirectTo=${path}` : '/restore-password';
     const restoreLink = (
       <Link to={linkToRestore} styleName="restore-link">
@@ -145,16 +153,8 @@ class Login extends Component {
       </Link>
     );
 
-    const signupLink = (
-      <Link to={linkToSignup} onClick={onSignupClick} styleName="link">
-        {t('Sign Up')}
-      </Link>
-    );
-
-    const className = inCheckout ? '' : styles['auth-block'];
-
     return (
-      <div className={className}>
+      <div>
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>
@@ -185,9 +185,7 @@ class Login extends Component {
             {t('LOG IN')}
           </Button>
         </Form>
-        <div styleName="switch-stage">
-          {t('Don’t have an account?')} {signupLink}
-        </div>
+        {this.stageSwitch}
       </div>
     );
   }
@@ -197,7 +195,6 @@ class Login extends Component {
 const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
-  user: _.get(state.auth, 'user', {}),
   location: _.get(state.routing, 'location', {}),
 });
 

@@ -32,7 +32,6 @@ const excludedRoutes = {
   isValid: false,
   rules: [
     /\/login/,
-    /\/signup/,
     /\/restore-password/,
     /\/reset-password/,
     /\/profile/,

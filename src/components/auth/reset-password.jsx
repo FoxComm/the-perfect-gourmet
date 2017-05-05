@@ -9,11 +9,13 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'lib/history';
 import localized from 'lib/i18n';
 import { isAuthorizedUser } from 'paragons/auth';
+import classNames from 'classnames';
 
 // components
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
+import AuthContainer from './auth-container';
 
 // actions
 import { resetPassword } from 'modules/auth';
@@ -23,7 +25,9 @@ import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
 import type { User } from 'types/auth';
 
+// styles
 import styles from './auth.css';
+import s from './auth-page.css';
 
 type ResetState = {
   isReseted: boolean,
@@ -36,6 +40,7 @@ type Props = Localized & {
   location: Object,
   resetPassword: (code: string, password: string) => Promise,
   user: User | {},
+  isBannerVisible: boolean,
 };
 
 class ResetPassword extends Component {
@@ -177,16 +182,30 @@ class ResetPassword extends Component {
   }
 
   render(): HTMLElement {
-    const { t } = this.props;
+    const { t, isBannerVisible, location } = this.props;
+
+    const className = classNames(s.forms, {
+      [s['_without-banner']]: !isBannerVisible,
+    });
 
     return (
-      <div styleName="auth-block">
-        <div styleName="title">{t('RESET PASSWORD')}</div>
-        {this.topMessage}
-        <Form onSubmit={this.handleSubmit}>
-          {this.passwordFields}
-          {this.primaryButton}
-        </Form>
+      <div className={s.container}>
+        <AuthContainer
+          path={location.pathname}
+          query={location.query}
+          isBannerVisible={isBannerVisible}
+        >
+          <div className={className}>
+            <div styleName="auth-block">
+              <div styleName="title">{t('RESET PASSWORD')}</div>
+              {this.topMessage}
+              <Form onSubmit={this.handleSubmit}>
+                {this.passwordFields}
+                {this.primaryButton}
+              </Form>
+            </div>
+          </div>
+        </AuthContainer>
       </div>
     );
   }
@@ -195,6 +214,7 @@ class ResetPassword extends Component {
 const mapStateToProps = (state) => {
   return {
     user: _.get(state.auth, 'user', {}),
+    isBannerVisible: _.get(state.banner, 'isVisible', false),
   };
 };
 

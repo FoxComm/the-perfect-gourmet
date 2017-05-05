@@ -6,9 +6,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import Header from '../header/header';
-import Sidebar from '../sidebar/sidebar';
 import Footer from '../footer/footer';
-import Cart from '../cart/cart';
 
 import * as actions from 'modules/banner';
 
@@ -44,12 +42,6 @@ const StoreFront = (props: Props) => {
         {props.children}
       </div>
       <Footer />
-      <div styleName="mobile-sidebar">
-        <Sidebar path={props.location.pathname} />
-      </div>
-      <div>
-        <Cart />
-      </div>
     </div>
   );
 };

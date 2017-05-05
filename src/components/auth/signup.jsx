@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import * as analytics from 'lib/analytics';
 import { browserHistory } from 'lib/history';
 import localized from 'lib/i18n';
-import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
@@ -25,9 +24,8 @@ import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
 import type { HTMLElement } from 'types';
-import type { SignUpPayload } from 'modules/auth';
+import type { SignUpPayload } from 'types/auth';
 import type { Localized } from 'lib/i18n';
-import type { User } from 'types/auth';
 
 import styles from './auth.css';
 
@@ -43,12 +41,11 @@ type AuthState = {
 type Props = Localized & {
   location: Object | {},
   isLoading: boolean,
-  fetchCart: Function,
-  saveLineItemsAndCoupons: Function,
-  onLoginClick: Function,
+  fetchCart: () => Promise,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise,
+  onLoginClick: (event: SyntheticEvent) => void,
   title?: string|Element|null,
   onAuthenticated?: Function,
-  user: User | {},
   inCheckout: boolean
 };
 
@@ -63,14 +60,6 @@ class Signup extends Component {
     emailError: false,
     generalErrors: [],
   };
-
-  componentDidMount() {
-    if (isAuthorizedUser(this.props.user)) {
-      browserHistory.push('/');
-    } else if (!this.props.inCheckout) {
-      this.props.fetchCart();
-    }
-  }
 
   @autobind
   onChangeEmail({target}: any) {
@@ -155,30 +144,36 @@ class Signup extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title === null) return null;
 
     return (
       <div styleName="title">{title || t('SIGN UP')}</div>
     );
   }
 
-  render(): HTMLElement {
-    const { email, password, username, emailError, usernameError } = this.state;
-    const { t, isLoading, onLoginClick, inCheckout } = this.props;
-    const path = this.redirectPath;
+  get stageSwitch() {
+    const { inCheckout, onLoginClick, t } = this.props;
 
-    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
+    if (!inCheckout) return null;
 
     const loginLink = (
-      <Link to={linkTo} onClick={onLoginClick} styleName="link">
+      <Link onClick={onLoginClick} styleName="link">
         {t('Log in')}
       </Link>
     );
 
-    const className = inCheckout ? '' : styles['auth-block'];
+    return (
+      <div styleName="switch-stage">
+        {t('Already have an account?')} {loginLink}
+      </div>
+    );
+  }
+
+  render(): HTMLElement {
+    const { email, password, username, emailError, usernameError } = this.state;
+    const { t, isLoading } = this.props;
 
     return (
-      <div className={className}>
+      <div>
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>
@@ -220,9 +215,7 @@ class Signup extends Component {
             {t('SIGN UP')}
           </Button>
         </Form>
-        <div styleName="switch-stage">
-          {t('Already have an account?')} {loginLink}
-        </div>
+        {this.stageSwitch}
       </div>
     );
   }
@@ -232,7 +225,6 @@ const mapState = state => ({
   cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-signup', 'inProgress'], false),
   location: _.get(state.routing, 'location', {}),
-  user: _.get(state.auth, 'user', {}),
 });
 
 export default connect(mapState, {

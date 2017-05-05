@@ -19,6 +19,10 @@
   composes: header-base;
 }
 
+.mobile-sidebar {
+  display: none;
+}
+
 .wrap {
   composes: wrap from "ui/css/layout.css";
   display: flex;
@@ -49,6 +53,12 @@
       width: 32px;
       height: 32px;
     }
+  }
+
+  .mobile-sidebar {
+    display: block;
+    position: relative;
+    z-index: 10;
   }
 }
 

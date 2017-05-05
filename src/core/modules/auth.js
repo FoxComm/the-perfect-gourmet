@@ -7,21 +7,9 @@ import { api } from 'lib/api';
 import { setUserId } from 'lib/analytics';
 import { replace } from 'react-router-redux';
 
-import type { asyncAction } from 'types';
-
 // types
-
-export type SignUpPayload = {
-  name: string,
-  email: string,
-  password: string,
-};
-
-type LoginPayload = {
-  email: string,
-  password: string,
-  kind: string,
-};
+import type { asyncAction } from 'types';
+import type { SignUpPayload, LoginPayload } from 'types/auth';
 
 export const setUser = createAction('AUTH_SET_USER');
 export const logoutAction = createAction('AUTH_LOGOUT');
