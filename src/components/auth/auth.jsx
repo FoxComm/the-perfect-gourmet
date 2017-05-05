@@ -25,9 +25,9 @@ import styles from './auth-page.css';
 type Props = {
   location: Object,
   isBannerVisible: boolean,
-  closeBanner: Function, // find signature
+  closeBanner: () => void,
   user: User | {},
-  fetchCart: Function, // find signature
+  fetchCart: () => Promise,
 };
 
 class Auth extends Component {

@@ -28,7 +28,7 @@ import styles from './sidebar.css';
 
 type SidebarProps = Localized & {
   isVisible: boolean,
-  toggleSidebar: Function, // find signature
+  toggleSidebar: () => void,
   path: string,
 };
 

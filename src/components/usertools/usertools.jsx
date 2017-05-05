@@ -26,8 +26,8 @@ import type { Auth } from 'types/auth';
 import styles from './usertools.css';
 
 type Props = {
-  toggleCart: Function, // find signature
-  toggleUserMenu: Function, // find signature
+  toggleCart: () => void,
+  toggleUserMenu: () => void,
   path: string,
   inAuth: boolean,
   t: any,

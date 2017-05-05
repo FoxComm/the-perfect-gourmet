@@ -24,7 +24,7 @@ import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
 import type { HTMLElement } from 'types';
-import type { SignUpPayload } from 'modules/auth';
+import type { SignUpPayload } from 'types/auth';
 import type { Localized } from 'lib/i18n';
 
 import styles from './auth.css';
@@ -41,11 +41,11 @@ type AuthState = {
 type Props = Localized & {
   location: Object | {},
   isLoading: boolean,
-  fetchCart: Function, // find signature
-  saveLineItemsAndCoupons: Function, // find signature
-  onLoginClick: Function, // find signature
+  fetchCart: () => Promise,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise,
+  onLoginClick: (event: SyntheticEvent) => void,
   title?: string|Element|null,
-  onAuthenticated?: Function, // find signature
+  onAuthenticated?: Function,
   inCheckout: boolean
 };
 

@@ -43,7 +43,7 @@ type Props = Localized & {
   resetPassword: (code: string, password: string) => Promise,
   user: User | {},
   isBannerVisible: boolean,
-  closeBanner: Function, // find signature
+  closeBanner: () => void,
 };
 
 class ResetPassword extends Component {
