@@ -159,7 +159,7 @@ class RestorePasswordForm extends Component {
     return <Button styleName="primary-button" type="submit">{t('SUBMIT')}</Button>;
   }
 
-  get switchStage(): ?HTMLElement {
+  get stageSwitch(): ?HTMLElement {
     const { emailSent } = this.state;
     const { t } = this.props;
 
@@ -186,7 +186,7 @@ class RestorePasswordForm extends Component {
           {this.emailField}
           {this.primaryButton}
         </Form>
-        {this.switchStage}
+        {this.stageSwitch}
       </div>
     );
   }

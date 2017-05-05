@@ -123,7 +123,7 @@ class Login extends Component {
     );
   }
 
-  get switchStage() {
+  get stageSwitch() {
     const { inCheckout, onSignupClick, t } = this.props;
 
     if (!inCheckout) return null;
@@ -185,7 +185,7 @@ class Login extends Component {
             {t('LOG IN')}
           </Button>
         </Form>
-        {this.switchStage}
+        {this.stageSwitch}
       </div>
     );
   }
