@@ -20,7 +20,7 @@ import styles from './auth-page.css';
 type Props = {
   location: Object,
   isBannerVisible: boolean,
-  closeBanner: Function,
+  closeBanner: Function, // find signature
 };
 
 class Auth extends Component {
