@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // libs
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 // components
 import Login from './login';
@@ -27,6 +28,10 @@ class Auth extends Component {
 
   render() {
     const { location, isBannerVisible } = this.props;
+    const className = classNames(styles.forms, {
+      [styles['_without-banner']]: !isBannerVisible,
+    });
+
     return (
       <div styleName="container">
         <Header
@@ -35,7 +40,7 @@ class Auth extends Component {
           isBannerVisible={isBannerVisible}
           closeBanner={this.props.closeBanner}
         />
-        <div styleName="forms">
+        <div className={className}>
           <div styleName="auth-block">
             <Login />
           </div>
