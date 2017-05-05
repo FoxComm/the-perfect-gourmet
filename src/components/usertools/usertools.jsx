@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -51,8 +51,9 @@ class UserTools extends Component {
 
   @autobind
   handleLoginClick() {
-    if (!this.props.inAuth)
+    if (!this.props.inAuth) {
       browserHistory.push(`/login?redirectTo=${this.props.path}`);
+    }
   }
 
   get renderUserInfo() {

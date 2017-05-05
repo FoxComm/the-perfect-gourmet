@@ -54,16 +54,19 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
   };
 
   const handleLoginClick = () => {
-    if (!props.inAuth)
+    if (!props.inAuth) {
       browserHistory.push(`/login/?redirectTo=${props.path}`);
+    }
   };
 
   const renderSessionLink = () => {
-    if (userAuthorized) return (
-      <a styleName="session-link" onClick={handleLogout}>
-        {t('LOG OUT')}
-      </a>
-    );
+    if (userAuthorized) {
+      return (
+        <a styleName="session-link" onClick={handleLogout}>
+          {t('LOG OUT')}
+        </a>
+      );
+    }
 
     return (
       <Link
