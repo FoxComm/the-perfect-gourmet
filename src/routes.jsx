@@ -28,8 +28,7 @@ import AboutPage from './pages/about/about-page';
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
-import Login from './components/auth/login';
-import Signup from './components/auth/signup';
+import Auth from './components/auth/auth';
 import RestorePassword from './components/auth/restore-password';
 import ResetPassword from './components/auth/reset-password';
 
@@ -52,8 +51,7 @@ export default function makeRoutes(store) {
   return (
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
+      <Route path="/login" component={Auth} />
       <Route path="/restore-password" component={RestorePassword} />
       <Route path="/reset-password" component={ResetPassword} />
       <Route component={StoreFront}>
