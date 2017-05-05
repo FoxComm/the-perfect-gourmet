@@ -1,0 +1,74 @@
+@import "media-queries.css";
+@import "colors.css";
+@import "variables.css";
+
+.forms {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  counter-reset: item;
+}
+
+.auth-block {
+  margin: 0;
+}
+
+.auth-block:first-child {
+  lost-column: 1/3;
+  lost-offset: 1/12;
+}
+
+.auth-block:last-child {
+  lost-column: 1/3;
+  margin-left: 0 !important;
+}
+
+.divider {
+  width: 1px;
+  height: 255px;
+  background: #3E3436;
+  position: absolute;
+}
+
+.mobile-divider-block {
+  visibility: hidden;
+}
+
+@media (--small-only) {
+  .forms {
+    flex-direction: column;
+    padding: 0 20px;
+    margin-bottom: 80px;
+    margin-top: 20px;
+  }
+
+  .auth-block:first-child,
+  .auth-block:last-child {
+    width: 100%;
+  }
+
+  .divider {
+    visibility: hidden;
+    margin: 0;
+  }
+
+  .mobile-divider-block {
+    visibility: visible;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & p {
+      margin: 0 15px;
+    }
+  }
+
+  .mobile-divider {
+    height: 1px;
+    position: relative;
+    background: #3E3436;
+    flex-grow: 1;
+  }
+}
