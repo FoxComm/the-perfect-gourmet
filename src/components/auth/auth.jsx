@@ -39,6 +39,7 @@ class Auth extends Component {
           query={location.query}
           isBannerVisible={isBannerVisible}
           closeBanner={this.props.closeBanner}
+          inAuth
         />
         <div className={className}>
           <div styleName="auth-block">

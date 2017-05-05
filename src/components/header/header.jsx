@@ -27,6 +27,7 @@ type Props = {
   query: ?Object,
   closeBanner: Function,
   isBannerVisible: boolean,
+  inAuth: boolean,
 };
 
 type State = {
@@ -38,6 +39,10 @@ class Header extends React.Component {
 
   state: State = {
     isScrolled: false,
+  };
+
+  static defaultProps = {
+    inAuth: false,
   };
 
   componentDidMount() {
@@ -83,7 +88,11 @@ class Header extends React.Component {
               <Navigation path={this.props.path} />
             </div>
             <div styleName="tools">
-              <UserTools path={this.props.path} query={this.props.query}/>
+              <UserTools
+                path={this.props.path}
+                query={this.props.query}
+                inAuth={this.props.inAuth}
+              />
             </div>
           </div>
         </div>
@@ -91,7 +100,10 @@ class Header extends React.Component {
           <Cart />
         </div>
         <div styleName="mobile-sidebar">
-          <Sidebar path={this.props.path} />
+          <Sidebar
+            path={this.props.path}
+            inAuth={this.props.inAuth}
+          />
         </div>
       </div>
     );

@@ -1,76 +1,93 @@
 /* @flow */
 
 import React from 'react';
-import type { HTMLElement } from 'types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import classNames from 'classnames';
-import { logout } from 'modules/auth';
-import { fetch as fetchCart } from 'modules/cart';
-import localized from 'lib/i18n';
-import type { Localized } from 'lib/i18n';
 
+// libs
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import localized from 'lib/i18n';
+import { browserHistory } from 'lib/history';
 import { isAuthorizedUser } from 'paragons/auth';
 
-import styles from './sidebar.css';
-
+// components
+import { Link } from 'react-router';
 import Icon from 'ui/icon';
 import Categories from '../navigation/navigation';
 import Search from '../search/search';
 
+// actions
+import { logout } from 'modules/auth';
+import { fetch as fetchCart } from 'modules/cart';
 import * as actions from 'modules/sidebar';
+
+// types
+import type { HTMLElement } from 'types';
+import type { Localized } from 'lib/i18n';
+
+import styles from './sidebar.css';
 
 type SidebarProps = Localized & {
   isVisible: boolean,
-  toggleSidebar: Function,
+  toggleSidebar: Function, // find signature
   path: string,
 };
 
 const Sidebar = (props: SidebarProps): HTMLElement => {
+  const { t } = props;
   const sidebarClass = classNames({
     'sidebar-hidden': !props.isVisible,
     'sidebar-shown': props.isVisible,
   });
+  const userAuthorized = isAuthorizedUser(props.user);
 
-  const { t } = props;
-
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     e.preventDefault();
     props.logout().then(() => {
       props.fetchCart();
     });
   };
 
-  const onLinkClick = e => {
+  const onLinkClick = (e) => {
     if (e.target.tagName === 'A') {
       props.toggleSidebar();
     }
   };
 
-  const userAuthorized = isAuthorizedUser(props.user);
+  const handleLoginClick = () => {
+    if (!props.inAuth)
+      browserHistory.push(`/login/?redirectTo=${props.path}`);
+  };
 
-  const renderSessionLink = userAuthorized ? (
-    <a styleName="session-link" onClick={handleLogout}>
-      {t('LOG OUT')}
-    </a>
-  ) : (
-    <Link
-      styleName="session-link"
-      to={{pathname: props.path, query: {auth: 'LOGIN'}}}
-    >
-      {t('LOG IN')}
-    </Link>
-  );
+  const renderSessionLink = () => {
+    if (userAuthorized) return (
+      <a styleName="session-link" onClick={handleLogout}>
+        {t('LOG OUT')}
+      </a>
+    );
 
-  const myProfileLink = userAuthorized ? (
-    <Link
-      to="/profile"
-      styleName="session-link"
-      activeClassName={styles['active-link']}
-    >
-      PROFILE
-    </Link>
-  ) : null;
+    return (
+      <Link
+        styleName="session-link"
+        onClick={handleLoginClick}
+      >
+        {t('LOG IN')}
+      </Link>
+    );
+  };
+
+  const myProfileLink = () => {
+    if (!userAuthorized) return null;
+
+    return (
+      <Link
+        to="/profile"
+        styleName="session-link"
+        activeClassName={styles['active-link']}
+      >
+        PROFILE
+      </Link>
+    );
+  };
 
   return (
     <div styleName={sidebarClass}>
@@ -92,10 +109,10 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
               />
             </div>
             <div styleName="controls-session">
-              {myProfileLink}
+              {myProfileLink()}
             </div>
             <div styleName="controls-session">
-              {renderSessionLink}
+              {renderSessionLink()}
             </div>
           </div>
         </div>
