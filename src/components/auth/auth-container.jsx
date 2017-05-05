@@ -15,7 +15,7 @@ type Props = {
   query: Object,
   isBannerVisible: boolean,
   closeBanner: () => void,
-  children: React$Element,
+  children: any,
 };
 
 const AuthContainer = (props: Props) => {
