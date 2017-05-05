@@ -125,25 +125,19 @@ class Login extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title == null) return null;
 
     return (
       <div styleName="title">{title || t('LOG IN')}</div>
     );
   }
 
-  render(): HTMLElement {
-    const { password, email } = this.state;
-    const { t, inCheckout, onSignupClick, isLoading } = this.props;
+  get switchStage() {
+    const { inCheckout, onSignupClick, t } = this.props;
+
+    if (!inCheckout) return null;
 
     const path = this.redirectPath;
     const linkToSignup = path ? `/signup?redirectTo=${path}` : '/signup';
-    const linkToRestore = path ? `/restore-password?redirectTo=${path}` : '/restore-password';
-    const restoreLink = (
-      <Link to={linkToRestore} styleName="restore-link">
-        {t('forgot?')}
-      </Link>
-    );
 
     const signupLink = (
       <Link to={linkToSignup} onClick={onSignupClick} styleName="link">
@@ -151,10 +145,27 @@ class Login extends Component {
       </Link>
     );
 
-    const className = inCheckout ? '' : styles['auth-block'];
+    return (
+      <div styleName="switch-stage">
+        {t('Don’t have an account?')} {signupLink}
+      </div>
+    );
+  }
+
+  render(): HTMLElement {
+    const { password, email } = this.state;
+    const { t, isLoading } = this.props;
+
+    const path = this.redirectPath;
+    const linkToRestore = path ? `/restore-password?redirectTo=${path}` : '/restore-password';
+    const restoreLink = (
+      <Link to={linkToRestore} styleName="restore-link">
+        {t('forgot?')}
+      </Link>
+    );
 
     return (
-      <div className={className}>
+      <div>
         {this.title}
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={this.state.error}>
@@ -185,9 +196,7 @@ class Login extends Component {
             {t('LOG IN')}
           </Button>
         </Form>
-        <div styleName="switch-stage">
-          {t('Don’t have an account?')} {signupLink}
-        </div>
+        {this.switchStage}
       </div>
     );
   }

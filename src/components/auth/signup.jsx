@@ -155,30 +155,39 @@ class Signup extends Component {
 
   get title() {
     const { t, title } = this.props;
-    if (title === null) return null;
 
     return (
       <div styleName="title">{title || t('SIGN UP')}</div>
     );
   }
 
-  render(): HTMLElement {
-    const { email, password, username, emailError, usernameError } = this.state;
-    const { t, isLoading, onLoginClick, inCheckout } = this.props;
-    const path = this.redirectPath;
+  get switchStage() {
+    const { inCheckout, onLoginClick, t } = this.props;
 
-    const linkTo = path ? `/login?redirectTo=${path}` : '/login';
+    if (!inCheckout) return null;
+
+    const path = this.redirectPath;
+    const linkToLogin = path ? `/login?redirectTo=${path}` : '/login';
 
     const loginLink = (
-      <Link to={linkTo} onClick={onLoginClick} styleName="link">
+      <Link to={linkToLogin} onClick={onLoginClick} styleName="link">
         {t('Log in')}
       </Link>
     );
 
-    const className = inCheckout ? '' : styles['auth-block'];
+    return (
+      <div styleName="switch-stage">
+        {t('Already have an account?')} {loginLink}
+      </div>
+    );
+  }
+
+  render(): HTMLElement {
+    const { email, password, username, emailError, usernameError } = this.state;
+    const { t, isLoading } = this.props;
 
     return (
-      <div className={className}>
+      <div>
         {this.title}
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>
@@ -220,9 +229,7 @@ class Signup extends Component {
             {t('SIGN UP')}
           </Button>
         </Form>
-        <div styleName="switch-stage">
-          {t('Already have an account?')} {loginLink}
-        </div>
+        {this.switchStage}
       </div>
     );
   }
