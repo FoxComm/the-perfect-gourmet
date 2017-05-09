@@ -126,7 +126,7 @@
   }
 
   .copyright {
-    margin-bottom: 40px;
+    padding-bottom: 40px;
   }
 }
 
@@ -205,6 +205,6 @@
   }
 
   .copyright {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
   }
 }
