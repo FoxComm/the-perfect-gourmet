@@ -3,7 +3,7 @@
 import { get } from 'lodash';
 import { createReducer, createAction } from 'redux-act';
 import { createAsyncActions } from '@foxcomm/wings';
-import { addMatchQuery, defaultSearch } from 'lib/elastic';
+import { addQueryString, defaultSearch } from 'lib/elastic';
 import type { Product } from './products';
 
 export type Search = {
@@ -22,7 +22,7 @@ const context = process.env.FIREBIRD_CONTEXT || 'default';
 
 const _search = createAsyncActions('search',
   function searchApiCall(term: string) {
-    const payload = addMatchQuery(defaultSearch(context), term);
+    const payload = addQueryString(defaultSearch(context), term);
     return this.api.post(`/search/public/products_catalog_view/_search?size=${MAX_RESULTS}`, payload);
   },
   (payload, term) => [payload, term]

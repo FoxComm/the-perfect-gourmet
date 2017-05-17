@@ -65,14 +65,12 @@ export function addMustNotFilter(initialQuery: BoolQuery, filter: MatchFilter | 
   );
 }
 
-export function addMatchQuery(query: BoolQuery, searchString: string): BoolQuery {
+export function addQueryString(query: BoolQuery, searchString: string): BoolQuery {
   const matchFilter = {
-    match: {
-      _all: {
-        query: searchString,
-        type: 'phrase_prefix',
-        max_expansions: 3,
-      },
+    query_string: {
+      fields: ['title', 'tags'],
+      query: searchString,
+      default_operator: 'AND',
     },
   };
 
