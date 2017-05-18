@@ -18,6 +18,10 @@ export type MatchFilter = {
   },
 };
 
+export type QueryStringFilter = {
+  query_string: Object,
+};
+
 export type BoolQuery = {
   query: {
     bool: {
@@ -53,26 +57,26 @@ export function addTermFilter(initialQuery: BoolQuery, term: TermFilter): BoolQu
   );
 }
 
-export function addMustFilter(initialQuery: BoolQuery, filter: MatchFilter | TermFilter): BoolQuery {
+export function addMustFilter(
+  initialQuery: BoolQuery, filter: MatchFilter | TermFilter | QueryStringFilter): BoolQuery {
   return assoc(initialQuery,
     ['query', 'bool', 'must'], [...initialQuery.query.bool.must || [], filter]
   );
 }
 
-export function addMustNotFilter(initialQuery: BoolQuery, filter: MatchFilter | TermFilter): BoolQuery {
+export function addMustNotFilter(
+  initialQuery: BoolQuery, filter: MatchFilter | TermFilter | QueryStringFilter): BoolQuery {
   return assoc(initialQuery,
     ['query', 'bool', 'must_not'], [...initialQuery.query.bool.must_not || [], filter]
   );
 }
 
-export function addMatchQuery(query: BoolQuery, searchString: string): BoolQuery {
+export function addQueryString(query: BoolQuery, searchString: string): BoolQuery {
   const matchFilter = {
-    match: {
-      _all: {
-        query: searchString,
-        type: 'phrase_prefix',
-        max_expansions: 3,
-      },
+    query_string: {
+      fields: ['title', 'tags'],
+      query: searchString,
+      default_operator: 'AND',
     },
   };
 
