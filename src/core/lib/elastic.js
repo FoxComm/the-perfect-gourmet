@@ -74,7 +74,7 @@ export function addMustNotFilter(
 export function addQueryString(query: BoolQuery, searchString: string): BoolQuery {
   const matchFilter = {
     query_string: {
-      fields: ['title', 'tags'],
+      fields: ['title', 'tags', 'description'],
       query: searchString,
       default_operator: 'AND',
     },
