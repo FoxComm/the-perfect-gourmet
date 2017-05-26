@@ -135,13 +135,13 @@ class Pdp extends Component {
   @autobind
   setInfoBlockSize() {
     this.setState({
-      detailsWidth: document.getElementById("details-holder").offsetWidth,
-    })
+      detailsWidth: document.getElementById('details-holder').offsetWidth,
+    });
   }
 
   componentDidMount() {
     this.setInfoBlockSize();
-    window.addEventListener("resize", this.setInfoBlockSize);
+    window.addEventListener('resize', this.setInfoBlockSize);
     this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       const { product, isRelatedProductsLoading, actions } = this.props;
@@ -356,7 +356,8 @@ class Pdp extends Component {
                 <ProductAttributes
                   detailsWidth={this.state.detailsWidth}
                   productDetails={product}
-                  product={this.props.product} />
+                  product={this.props.product}
+                />
               </ProductDetails>
               }
 

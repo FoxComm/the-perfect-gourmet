@@ -38,14 +38,14 @@ const displayAttribute = (product, attributeName, isDetails) => {
 };
 
 const renderAttributes = (product, productDetails, attributeNames = []) => {
-  const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;;
+  const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
   const ProductDescription = _.get(productDetails, 'description');
   const ProductImage = _.get(productDetails, 'images.0');
   const ProductShareTitle = _.get(productDetails, 'title');
   const TwitterHandle = 'perfectgourmet1';
-  const isDetails = (_.isEqual(attributeNames,['description', 'Amount of Servings', 'Serving Size'])) ? true : false;
+  const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
   return (
-    <div styleName={isDetails ? "description" : ""}>
+    <div styleName={isDetails ? 'description' : ''}>
       {attributeNames.map((attributeName) => displayAttribute(product, attributeName, isDetails))}
       {isDetails ? <div styleName="social-sharing">
         <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
@@ -111,19 +111,19 @@ export default class ProductAttributes extends React.Component {
 
   @autobind
   calcHeight() {
-    return this.props.detailsWidth/1.035483871 - this.state.detailsHeight - 96;
+    return this.props.detailsWidth / 1.035483871 - this.state.detailsHeight - 96;
   }
 
   @autobind
   setInfoBlockSize() {
     this.setState({
-      detailsHeight: document.getElementById("pdp").offsetHeight,
-    })
+      detailsHeight: document.getElementById('pdp').offsetHeight,
+    });
   }
 
   componentDidMount() {
     this.setInfoBlockSize();
-    window.addEventListener("resize", this.setInfoBlockSize);
+    window.addEventListener('resize', this.setInfoBlockSize);
   }
 
   @autobind
@@ -151,7 +151,7 @@ export default class ProductAttributes extends React.Component {
             {this.renderAttributesTitles()}
           </div>
 
-          <div style={{height: height}} id="pdp-info-block" styleName="info-block">
+          <div style={{height}} id="pdp-info-block" styleName="info-block">
             {this.renderAttributes()}
           </div>
         </div>

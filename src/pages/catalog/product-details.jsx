@@ -3,13 +3,11 @@
 // libs
 import _ from 'lodash';
 import React from 'react';
-import { Link } from 'react-router';
 
 // components
 import Currency from 'ui/currency';
 import AddToCartBtn from 'ui/add-to-cart-btn';
 import Select from 'ui/select/select';
-import Icon from 'ui/icon';
 
 // styles
 import styles from './pdp.css';
@@ -27,7 +25,6 @@ type Props = {
 const ProductDetails = (props: Props) => {
   const {
     title,
-    description,
     currency,
     price,
     skus,
