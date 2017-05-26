@@ -17,6 +17,7 @@
 }
 
 .multiple-gallery {
+  display: flex;
   composes: gallery;
 
   & .image {

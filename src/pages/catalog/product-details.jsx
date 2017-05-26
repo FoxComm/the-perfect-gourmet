@@ -18,6 +18,7 @@ const QUANTITY_ITEMS = _.range(1, 1 + 10, 1);
 
 type Props = {
   product: any,
+  children: any,
   quantity: number,
   onQuantityChange: Function,
   addToCart: Function,
@@ -30,12 +31,7 @@ const ProductDetails = (props: Props) => {
     currency,
     price,
     skus,
-    amountOfServings,
-    servingSize,
   } = props.product;
-
-  const ProductURL = `http://theperfectgourmet.com${props.product.pathName}`;
-  const TwitterHandle = 'perfectgourmet1';
 
   const salePrice = _.get(skus[0], 'attributes.salePrice.v.value', 0);
   const retailPrice = _.get(skus[0], 'attributes.retailPrice.v.value', 0);
@@ -59,58 +55,40 @@ const ProductDetails = (props: Props) => {
       </div>
     );
 
+
   return (
     <div>
-      <h1 styleName="title">{title}</h1>
+      <div id="pdp" styleName="main">
+        <h1 styleName="title">{title}</h1>
 
-      {isOnSale}
+        {isOnSale}
 
-      <div styleName="servings">
-        <div>{amountOfServings}</div>
-        <div>{servingSize}</div>
-      </div>
+        <div styleName="cart-actions">
+          <div styleName="quantity">
+            <Select
+              inputProps={{
+                type: 'number',
+              }}
+              getItemValue={_.identity}
+              items={QUANTITY_ITEMS}
+              onSelect={props.onQuantityChange}
+              selectedItem={props.quantity}
+              sortItems={false}
+            />
+          </div>
 
-      <div styleName="cart-actions">
-        <div styleName="quantity">
-          <Select
-            inputProps={{
-              type: 'number',
-            }}
-            getItemValue={_.identity}
-            items={QUANTITY_ITEMS}
-            onSelect={props.onQuantityChange}
-            selectedItem={props.quantity}
-            sortItems={false}
-          />
-        </div>
-
-        <div styleName="add-to-cart-btn">
-          <AddToCartBtn
-            pdp
-            expanded
-            onClick={props.addToCart}
-          />
+          <div styleName="add-to-cart-btn">
+            <AddToCartBtn
+              pdp
+              expanded
+              onClick={props.addToCart}
+            />
+          </div>
         </div>
       </div>
 
-      <div
-        styleName="description"
-        dangerouslySetInnerHTML={{__html: description}}
-      />
+      {props.children}
 
-      <div styleName="social-sharing">
-        <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${title}&description=${description}&picture=${props.product.images[0]}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-facebook" styleName="social-icon"/>
-        </Link>
-
-        <Link to={`https://twitter.com/intent/tweet?text=${title}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-twitter" styleName="social-icon" />
-        </Link>
-
-        <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${props.product.images[0]}&description=${description}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-pinterest" styleName="social-icon"/>
-        </Link>
-      </div>
     </div>
   );
 };

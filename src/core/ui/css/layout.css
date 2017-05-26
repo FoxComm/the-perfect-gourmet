@@ -38,17 +38,9 @@
     content: "";
     display: block;
     width: 48px;
-    height: 2px;
+    height: 1px;
     background-color: #8D757A;
     margin-top: 20px;
   }
 }
 
-@media (--medium) {
-  .title-devider {
-    &:after {
-      width: 66px;
-      margin-top: 30px;
-    }
-  }
-}

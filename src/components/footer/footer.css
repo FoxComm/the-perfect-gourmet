@@ -30,7 +30,7 @@
     top: 20px;
     display: block;
     width: var(--devider);
-    height: 2px;
+    height: 1px;
     background: rgba(255, 255, 255, .27);
   }
 }

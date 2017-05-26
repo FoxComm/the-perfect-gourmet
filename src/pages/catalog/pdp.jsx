@@ -69,6 +69,7 @@ type State = {
   error?: any,
   currentSku?: any,
   attributes?: Object,
+  detailsWidth: number,
 };
 
 type Product = {
@@ -120,6 +121,7 @@ class Pdp extends Component {
     quantity: 1,
     currentSku: null,
     attributes: {},
+    detailsWidth: 0,
   };
 
   componentWillMount() {
@@ -130,7 +132,16 @@ class Pdp extends Component {
     }
   }
 
+  @autobind
+  setInfoBlockSize() {
+    this.setState({
+      detailsWidth: document.getElementById("details-holder").offsetWidth,
+    })
+  }
+
   componentDidMount() {
+    this.setInfoBlockSize();
+    window.addEventListener("resize", this.setInfoBlockSize);
     this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       const { product, isRelatedProductsLoading, actions } = this.props;
@@ -325,7 +336,7 @@ class Pdp extends Component {
         <div styleName="gallery">
           {this.renderGallery()}
         </div>
-        <div styleName="details">
+        <div id="details-holder" styleName="details">
           <div styleName="details-wrap">
             {this.isGiftCard() ?
               <GiftCardForm
@@ -341,12 +352,17 @@ class Pdp extends Component {
                 quantity={this.state.quantity}
                 onQuantityChange={this.changeQuantity}
                 addToCart={this.addToCart}
-              />}
+              >
+                <ProductAttributes
+                  detailsWidth={this.state.detailsWidth}
+                  productDetails={product}
+                  product={this.props.product} />
+              </ProductDetails>
+              }
 
             <ErrorAlerts error={this.state.error} />
           </div>
         </div>
-        {!this.isGiftCard() && <ProductAttributes product={this.props.product} />}
         {this.relatedProductsList}
       </div>
     );

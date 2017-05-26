@@ -89,7 +89,7 @@
   .search-expanded {
     position: absolute;
     z-index: 2;
-    top: 136px;
+    top: 120px;
     left: 0;
     height: 86px;
     width: 100%;
@@ -126,7 +126,7 @@
     & .close-icon {
       left: 0;
       lost-offset: -1/12;
-      top: -80px;
+      top: -70px;
       stroke-width: 2;
       cursor: pointer;
       color: var(--icon);

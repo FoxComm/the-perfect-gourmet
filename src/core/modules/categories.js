@@ -9,14 +9,12 @@ const categories = [
   {
     id: nextCategoryId++,
     name: 'APPETIZERS',
-    description: 'Starters in 10 Minutes',
     imageUrl: '/images/categories/Cat_Appetizers_2x.jpg',
     showNameCatPage: true,
   },
   {
     id: nextCategoryId++,
     name: 'ENTRÉES',
-    description: 'Dinner in 30 minutes',
     imageUrl: '/images/categories/May_Section1.jpg',
     showNameCatPage: true,
   },
@@ -46,7 +44,6 @@ const categories = [
   {
     id: nextCategoryId++,
     name: 'BEST SELLERS',
-    description: 'Dinner in 30 minutes',
     imageUrl: '/images/categories/Cat_Best_Sellers_2x.jpg',
     showNameCatPage: true,
   },

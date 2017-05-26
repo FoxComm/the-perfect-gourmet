@@ -61,17 +61,43 @@
   .add-btn-title {
     display: none;
 
-  &.pdp {
+    &.pdp {
      line-height: 32px;
      display: inline-block;
-   }
-}
+    }
+  }
 
   .add-icon-wrapper {
 
     &.pdp {
-       height: 32px;
+      height: 32px;
     }
   }
+}
 
+@media (--medium-only) {
+  .add-btn-title {
+    display: none;
+    &.pdp {
+     display: inline-block;
+    }
+  }
+}
+
+@media (--large) {
+  .add-btn-title {
+    display: none;
+    &.pdp {
+     display: inline-block;
+    }
+  }
+}
+
+@media (--x-large), (--large-only) {
+  .add-btn-title {
+    display: none;
+    &.pdp {
+     display: inline-block;
+    }
+  }
 }
