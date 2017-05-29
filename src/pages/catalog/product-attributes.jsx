@@ -13,6 +13,7 @@ import styles from './pdp.css';
 
 type State = {
   currentAdditionalTitle: string,
+  detailsHeight: number,
 };
 
 const displayAttribute = (product, attributeName, isDetails) => {
