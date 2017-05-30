@@ -97,13 +97,14 @@ class Checkout extends Component {
     }
   }
 
-  checkScroll = () => {
+  @autobind
+  checkScroll() {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const checkoutHeaderHeight = 136;
     const isScrolled = scrollTop > checkoutHeaderHeight;
 
     this.setState({isScrolled});
-  };
+  }
 
   @autobind
   sanitizeError(error) {

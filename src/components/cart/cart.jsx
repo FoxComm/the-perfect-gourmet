@@ -49,14 +49,14 @@ type Props = {
 };
 
 type State = {
-  errors?: Array<any>,
+  errors: ?Array<any>,
 };
 
 class Cart extends Component {
   props: Props;
 
   state: State = {
-
+    errors: null,
   };
 
   componentDidMount() {

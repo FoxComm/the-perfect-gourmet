@@ -116,7 +116,7 @@ class ListItem extends React.Component {
     retailPrice = Number(retailPrice);
 
     return (retailPrice > salePrice) ? (
-      <div styleName="price">
+        <div styleName="price">
           <Currency
             styleName="retail-price"
             value={retailPrice}
