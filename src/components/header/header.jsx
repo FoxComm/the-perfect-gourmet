@@ -5,6 +5,7 @@ import React from 'react';
 // libs
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { autobind } from 'core-decorators';
 
 // components
 import Icon from 'ui/icon';
@@ -54,12 +55,13 @@ class Header extends React.Component {
     window.removeEventListener('scroll', this.checkScroll);
   }
 
-  checkScroll = () => {
+  @autobind
+  checkScroll() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const isScrolled = scrollTop > 136;
 
     this.setState({isScrolled});
-  };
+  }
 
   render() {
     const headerStyle = this.state.isScrolled ? 'header-scrolled' : 'header';
