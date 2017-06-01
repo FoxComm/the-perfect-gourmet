@@ -3,7 +3,7 @@
 @import "media-queries.css";
 
 .list-item {
-  width: calc(20% - (var(--grid-margin)/2));
+  width: 25%;
   margin-bottom: 20px;
   padding-bottom: 20px;
   padding-left: 18px;
@@ -34,22 +34,24 @@
 }
 
 .title {
-  margin-top: 20px;
-  font-family: var(--font-playfair);
+  composes: title-devider from 'ui/css/layout.css';
+  margin-top: 6px;
+  margin-bottom: 20px;
   font-weight: 400;
   font-size: 20px;
   color: var(--dark-blackish);
+  font-family: var(--font-playfair);
   letter-spacing: 0.7px;
   white-space: pre-line;
   overflow: hidden;
-  line-height: 30px;
-  min-height: 62px;
+  line-height: 27px;
+  min-height: 74px;
   position: relative;
+  padding-bottom: 20px;
 
   &:after {
+    bottom: 0;
     position: absolute;
-    top: calc(100% - 2px);
-    margin-top: 0;
   }
 
   & a {
@@ -58,9 +60,9 @@
 }
 
 .line {
-  width: 47.8px;
-  height: 2px;
-  border: solid 1px #3e3436;
+  width: 48px;
+  height: 1px;
+  border-top: solid 1px #3e3436;
 }
 
 .price-line {
@@ -73,6 +75,8 @@
 
 .price {
   font-family: var(--font-main);
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
   font-size: 15px;
   color: var(--text-color-main);
@@ -95,7 +99,10 @@
 
 @media (--small-only) {
   .list-item {
-    width: calc(45% - (var(--grid-margin)/2));
+    width: 50%;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .title {
@@ -113,13 +120,16 @@
   }
 
   .retail-price {
-    margin-right: 7px;
+    margin-right: 0;
   }
 }
 
 @media (--medium-only) {
   .list-item {
-    width: calc(40% - (var(--grid-margin)/2));
+    width: 50%;
+    padding-bottom: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
   .title {
     font-size: 20px;
@@ -128,25 +138,26 @@
 }
 
 @media (--medium) {
-  .title {
-    font-size: 20px;
-    letter-spacing: 0.7px;
-  }
-
   .on-sale-price,
   .retail-price {
     display: inline-block;
   }
 
   .retail-price {
-    margin-right: 7px;
+    margin-right: 0;
   }
 }
 
 @media (--large), (--x-large) {
   .title {
-    font-size: 20px;
-    letter-spacing: 0.7px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    min-height: 52px;
+    padding-bottom: 12px;
+    letter-spacing: 0.52px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .description {

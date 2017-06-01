@@ -6,6 +6,16 @@
   position: relative;
 }
 
+.list-wrapper-small{
+  lost-column: 10/12;
+  lost-offset: -1/12;
+}
+
+.list-wrapper{
+  lost-column: 10/12;
+  lost-offset: -1/12;
+}
+
 .list-wrapper-small {
   padding-bottom: 45px;
   background: #fff;
@@ -23,6 +33,7 @@
   position: fixed;
   width: 100%;
   top: 120px;
+  left: 0;
 }
 
 .title {
@@ -51,8 +62,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  composes: inner-wrap from 'ui/css/layout.css';
+  justify-content: flex-start;
+  margin: 0 -18px !important;
 }
 
 .not-found {
@@ -66,17 +77,25 @@
   .title {
     font-size: 42px;
   }
-
-  .list {
-    lost-column: 10/12;
-    lost-offset: -1/12;
-  }
 }
 
 @media (--small-only) {
   .list {
     margin-top: 50px;
-    lost-column: 11/12;
-    lost-offset: -0.5/12;
+    margin-right: 0 !important;;
+    margin-left: 0 !important;;
+    padding: 0 5px;
+  }
+  .list-wrapper-small,
+  .list-wrapper{
+    lost-column: 12/12;
+    lost-offset: 0;
+  }
+}
+
+@media (--medium-only) {
+  .list {
+    margin-left: -12px !important;;
+    margin-right: -12px !important;;
   }
 }

@@ -14,8 +14,9 @@
   lost-offset: -1/12;
 }
 
-.pdp-desc {
-
+.related-container {
+  lost-column: 10/12;
+  lost-offset: -1/12;
 }
 
 .gallery {
@@ -242,9 +243,15 @@
   .details {
     width: 100%;
   }
+
+  .related-container {
+    width: 100%;
+    margin: 0 !important;
+  }
 }
 
 @media (--medium-only) {
+  .related-container,
   .details {
     lost-column: 10/12;
     lost-offset: -1/12;

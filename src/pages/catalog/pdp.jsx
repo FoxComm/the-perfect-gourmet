@@ -134,8 +134,10 @@ class Pdp extends Component {
 
   @autobind
   setInfoBlockSize() {
+    const node = document.getElementById('details-holder');
+    const width = _.get(node, 'offsetWidth', 0);
     this.setState({
-      detailsWidth: document.getElementById('details-holder').offsetWidth,
+      detailsWidth: width,
     });
   }
 
@@ -154,6 +156,7 @@ class Pdp extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.setInfoBlockSize);
     this.props.actions.resetProduct();
   }
 
@@ -360,11 +363,12 @@ class Pdp extends Component {
                 />
               </ProductDetails>
               }
-
             <ErrorAlerts error={this.state.error} />
           </div>
         </div>
-        {this.relatedProductsList}
+        <div styleName="related-container">
+          {this.relatedProductsList}
+        </div>
       </div>
     );
   }

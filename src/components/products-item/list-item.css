@@ -3,9 +3,9 @@
 @import "media-queries";
 
 .list-item, .list-item-small {
-  width: calc(25% - (var(--grid-margin)/2));
+  width: 25%;
   margin-bottom: 20px;
-  padding-bottom: 20px;
+  padding: 20px 18px 0 18px;
   text-align: center;
   line-height: 19px;
   font-size: 16px;
@@ -175,15 +175,12 @@
   .retail-price {
     display: inline-block;
   }
-
-  .title {
-
-  }
 }
 
 @media (--large), (--x-large) {
   .list-item-small {
-    width: calc(20% - (var(--grid-margin)/1.5));
+    width: 20%;
+    padding: 20px 18px 0 18px;
   }
 
   .description {
@@ -192,8 +189,16 @@
   }
 }
 
-@media (--medium-only), (--small-only) {
+@media (--medium-only){
   .list-item, .list-item-small {
-    width: calc(50% - (var(--grid-margin)/2));
+    width: 50%;
+    padding: 20px 12px 0 12px;
+  }
+}
+
+@media (--small-only) {
+  .list-item, .list-item-small {
+    width: 50%;
+    padding: 20px 5px 0 5px;
   }
 }
