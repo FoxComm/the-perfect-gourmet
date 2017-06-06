@@ -61,12 +61,12 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 const featured = [
   {
-    amountOfServings: '40 Count',
+    amountOfServings: '80 Count',
     taxonomies: {},
     id: 41,
     productId: 81,
-    retailPrice: '5400',
-    salePrice: '5400',
+    retailPrice: '6000',
+    salePrice: '6000',
     context: 'default',
     scope: '1',
     skus: [
@@ -224,7 +224,7 @@ const featured = [
     id: 60,
     productId: 108,
     retailPrice: '3500',
-    salePrice: '2500',
+    salePrice: '3500',
     context: 'default',
     scope: '1',
     skus: [
