@@ -142,8 +142,8 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
-    this.setInfoBlockSize();
-    window.addEventListener('resize', this.setInfoBlockSize);
+    // this.setInfoBlockSize();
+    // window.addEventListener('resize', this.setInfoBlockSize);
     this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       const { product, isRelatedProductsLoading, actions } = this.props;
@@ -317,6 +317,39 @@ class Pdp extends Component {
     );
   }
 
+  get details() {
+    if (this.isGiftCard()) {
+      return (
+        <GiftCardForm
+          product={product}
+          addToCart={this.addToCart}
+          onSkuChange={this.setCurrentSku}
+          selectedSku={this.currentSku}
+          attributes={this.state.attributes}
+          onAttributeChange={this.setAttributeFromField}
+        />
+      );
+    }
+
+    const product = this.product;
+
+    return (
+      <ProductDetails
+        product={product}
+        quantity={this.state.quantity}
+        onQuantityChange={this.changeQuantity}
+        addToCart={this.addToCart}
+        styleName="details"
+      >
+        <ProductAttributes
+          detailsWidth={this.state.detailsWidth}
+          productDetails={product}
+          product={this.props.product}
+        />
+      </ProductDetails>
+    );
+  }
+
   render(): HTMLElement {
     const { t, isLoading, notFound, fetchError } = this.props;
 
@@ -332,40 +365,13 @@ class Pdp extends Component {
       return <ErrorAlerts error={fetchError} />;
     }
 
-    const product = this.product;
-
     return (
       <div styleName="container">
         <div styleName="gallery">
           {this.renderGallery()}
         </div>
-        <div id="details-holder" styleName="details">
-          <div styleName="details-wrap">
-            {this.isGiftCard() ?
-              <GiftCardForm
-                product={product}
-                addToCart={this.addToCart}
-                onSkuChange={this.setCurrentSku}
-                selectedSku={this.currentSku}
-                attributes={this.state.attributes}
-                onAttributeChange={this.setAttributeFromField}
-              /> :
-              <ProductDetails
-                product={product}
-                quantity={this.state.quantity}
-                onQuantityChange={this.changeQuantity}
-                addToCart={this.addToCart}
-              >
-                <ProductAttributes
-                  detailsWidth={this.state.detailsWidth}
-                  productDetails={product}
-                  product={this.props.product}
-                />
-              </ProductDetails>
-              }
-            <ErrorAlerts error={this.state.error} />
-          </div>
-        </div>
+        {this.details}
+        <ErrorAlerts error={this.state.error} />
         <div styleName="related-container">
           {this.relatedProductsList}
         </div>

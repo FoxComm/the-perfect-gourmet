@@ -20,6 +20,7 @@ type Props = {
   quantity: number,
   onQuantityChange: Function,
   addToCart: Function,
+  className?: string,
 };
 
 const ProductDetails = (props: Props) => {
@@ -54,7 +55,7 @@ const ProductDetails = (props: Props) => {
 
 
   return (
-    <div>
+    <div className={props.className}>
       <div id="pdp" styleName="main">
         <h1 styleName="title">{title}</h1>
 
