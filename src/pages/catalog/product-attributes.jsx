@@ -40,7 +40,7 @@ const attributeDescription = (attributeName, attributeValue) => {
         attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
         attributeValue;
   return <div styleName="attribute-description">{description}</div>;
-}
+};
 
 const displayAttribute = (product, attributeName, isDetails) => {
   const attributeValue = _.get(product, `attributes.${attributeName}.v`);
