@@ -16,41 +16,7 @@ type State = {
   detailsHeight: number,
 };
 
-const displayAttribute = (product, attributeName, isDetails) => {
-  const attributeValue = _.get(product, `attributes.${attributeName}.v`);
-  if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
-  const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
-  return (
-    <div className="attribute-line" key={attributeName}>
-      {title}
-      {attributeDescription(attributeName,attributeValue)}
-    </div>
-  );
-};
-
-const attributeDescription = (attributeName,attributeValue) => {
-  const description = (attributeName == 'Amount of Servings' ||
-        attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
-        attributeValue;
-  return <div styleName="attribute-description">{description}</div>;
-}
-
-const renderAttributes = (product, productDetails, attributeNames = []) => {
-  const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
-  const ProductDescription = _.get(productDetails, 'description');
-  const ProductImage = _.get(productDetails, 'images.0');
-  const ProductShareTitle = _.get(productDetails, 'title');
-  const TwitterHandle = 'perfectgourmet1';
-  const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
-  return (
-    <div styleName={isDetails ? 'description' : ''}>
-      {_.map(attributeNames, (attributeName) => displayAttribute(product, attributeName, isDetails))}
-      {shareLinks(isDetails,ProductURL,ProductShareTitle,TwitterHandle,ProductDescription,ProductImage)}
-    </div>
-  );
-};
-
-const shareLinks = (isDetails,ProductURL,ProductShareTitle,TwitterHandle,ProductDescription,ProductImage) => {
+const shareLinks = (isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage) => {
   if (!isDetails) return null;
   return (
       <div styleName="social-sharing">
@@ -66,8 +32,42 @@ const shareLinks = (isDetails,ProductURL,ProductShareTitle,TwitterHandle,Product
           <Icon name="fc-pinterest" styleName="social-icon"/>
         </Link>
       </div>
-    )
+    );
+};
+
+const attributeDescription = (attributeName, attributeValue) => {
+  const description = (attributeName == 'Amount of Servings' ||
+        attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
+        attributeValue;
+  return <div styleName="attribute-description">{description}</div>;
 }
+
+const displayAttribute = (product, attributeName, isDetails) => {
+  const attributeValue = _.get(product, `attributes.${attributeName}.v`);
+  if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
+  const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
+  return (
+    <div className="attribute-line" key={attributeName}>
+      {title}
+      {attributeDescription(attributeName, attributeValue)}
+    </div>
+  );
+};
+
+const renderAttributes = (product, productDetails, attributeNames = []) => {
+  const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
+  const ProductDescription = _.get(productDetails, 'description');
+  const ProductImage = _.get(productDetails, 'images.0');
+  const ProductShareTitle = _.get(productDetails, 'title');
+  const TwitterHandle = 'perfectgourmet1';
+  const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
+  return (
+    <div styleName={isDetails ? 'description' : ''}>
+      {_.map(attributeNames, (attributeName) => displayAttribute(product, attributeName, isDetails))}
+      {shareLinks(isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage)}
+    </div>
+  );
+};
 
 const additionalInfoAttributesMap = [
   {
