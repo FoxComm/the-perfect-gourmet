@@ -18,25 +18,22 @@ type State = {
 
 const displayAttribute = (product, attributeName, isDetails) => {
   const attributeValue = _.get(product, `attributes.${attributeName}.v`);
-
-  if (attributeValue === undefined || _.isEmpty(attributeValue)) {
-    return null;
-  }
+  if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
   const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
-
   return (
     <div className="attribute-line" key={attributeName}>
       {title}
-      <div styleName="attribute-description">
-        {
-          (attributeName == 'Amount of Servings' ||
-          attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
-          attributeValue
-        }
-      </div>
+      {attributeDescription(attributeName,attributeValue)}
     </div>
   );
 };
+
+const attributeDescription = (attributeName,attributeValue) => {
+  const description = (attributeName == 'Amount of Servings' ||
+        attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
+        attributeValue;
+  return <div styleName="attribute-description">{description}</div>;
+}
 
 const renderAttributes = (product, productDetails, attributeNames = []) => {
   const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
@@ -47,8 +44,16 @@ const renderAttributes = (product, productDetails, attributeNames = []) => {
   const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
   return (
     <div styleName={isDetails ? 'description' : ''}>
-      {attributeNames.map((attributeName) => displayAttribute(product, attributeName, isDetails))}
-      {isDetails ? <div styleName="social-sharing">
+      {_.map(attributeNames, (attributeName) => displayAttribute(product, attributeName, isDetails))}
+      {shareLinks(isDetails,ProductURL,ProductShareTitle,TwitterHandle,ProductDescription,ProductImage)}
+    </div>
+  );
+};
+
+const shareLinks = (isDetails,ProductURL,ProductShareTitle,TwitterHandle,ProductDescription,ProductImage) => {
+  if (!isDetails) return null;
+  return (
+      <div styleName="social-sharing">
         <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
           <Icon name="fc-facebook" styleName="social-icon"/>
         </Link>
@@ -60,10 +65,9 @@ const renderAttributes = (product, productDetails, attributeNames = []) => {
         <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
           <Icon name="fc-pinterest" styleName="social-icon"/>
         </Link>
-      </div> : null}
-    </div>
-  );
-};
+      </div>
+    )
+}
 
 const additionalInfoAttributesMap = [
   {
