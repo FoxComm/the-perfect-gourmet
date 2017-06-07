@@ -60,7 +60,7 @@ class Gallery extends Component {
   get currentImage(): HTMLElement {
     return (
       <div styleName="image">
-        <ProductImage height={700} src={this.props.images[this.state.selected]} />
+        <ProductImage src={this.props.images[this.state.selected]} />
       </div>
     );
   }

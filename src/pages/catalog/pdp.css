@@ -20,7 +20,7 @@
 }
 
 .gallery {
-  height: auto;
+  max-height: 596px;
   width: calc(50% - (var(--grid-margin)/2));
 }
 
@@ -34,7 +34,7 @@
 }
 
 .gallery-details-block {
-  
+
 }
 
 .title {
