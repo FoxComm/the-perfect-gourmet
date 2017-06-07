@@ -28,16 +28,16 @@ function initPixlee() {
 
 const mainBlocks = [
   {
-    imageUrl: '/images/home-page/May_Section1.jpg',
-    description: 'NO PLANNING, SHOPPING, PREPPING, OR CLEANING REQUIRED',
-    title: 'DINNER IS SERVED',
-    action: { title: 'Shop Now', link: '/ENTRÉES' },
+    imageUrl: '/images/home-page/Home_Hero_Summer.jpg',
+    description: 'Bring everyone together this summer with crowd-pleasing starters and entrées',
+    title: 'Entertaining Made Easy',
+    action: { title: 'Shop Now', link: '/SUMMER' },
   },
   {
-    imageUrl: '/images/home-page/May_Section3.jpg',
-    description: '',
-    title: 'SEE WHAT’S NEW ON THE MENU',
-    action: { title: 'Shop Now', link: '/NEW' },
+    imageUrl: '/images/home-page/Home_Hero_Dad.jpg',
+    description: 'Make this Father’s Day memorable with the perfect gourmet gifts',
+    title: 'Dinners for Dad',
+    action: { title: 'Shop Now', link: '/DAD' },
   },
 ];
 
