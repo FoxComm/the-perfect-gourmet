@@ -92,7 +92,6 @@ export default class ProductAttributes extends React.Component {
   props: {
     product: any,
     productDetails: any,
-    detailsWidth: any,
   };
 
   state: State = {
@@ -114,21 +113,21 @@ export default class ProductAttributes extends React.Component {
     this.setState({ currentAdditionalTitle });
   }
 
-  @autobind
-  calcHeight() {
-    return this.props.detailsWidth / 1.035483871 - this.state.detailsHeight - 96;
-  }
-
-  @autobind
-  setInfoBlockSize() {
-    this.setState({
-      detailsHeight: document.getElementById('pdp').offsetHeight,
-    });
-  }
+  // @autobind
+  // calcHeight() {
+  //   return this.props.detailsWidth / 1.035483871 - this.state.detailsHeight - 96;
+  // }
+  //
+  // @autobind
+  // setInfoBlockSize() {
+  //   this.setState({
+  //     detailsHeight: document.getElementById('pdp').offsetHeight,
+  //   });
+  // }
 
   componentDidMount() {
-    this.setInfoBlockSize();
-    window.addEventListener('resize', this.setInfoBlockSize);
+    // this.setInfoBlockSize();
+    // window.addEventListener('resize', this.setInfoBlockSize);
   }
 
   @autobind
@@ -148,7 +147,7 @@ export default class ProductAttributes extends React.Component {
   }
 
   render() {
-    const height = this.calcHeight();
+    // const height = this.calcHeight();
     return (
       <div styleName="additional-info">
         <div>
@@ -156,7 +155,7 @@ export default class ProductAttributes extends React.Component {
             {this.renderAttributesTitles()}
           </div>
 
-          <div style={{height}} id="pdp-info-block" styleName="info-block">
+          <div id="pdp-info-block" styleName="info-block">
             {this.renderAttributes()}
           </div>
         </div>
