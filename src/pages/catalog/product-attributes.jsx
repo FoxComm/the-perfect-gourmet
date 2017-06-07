@@ -13,7 +13,6 @@ import styles from './pdp.css';
 
 type State = {
   currentAdditionalTitle: string,
-  detailsHeight: number,
 };
 
 const shareLinks = (isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage) => {
@@ -96,7 +95,6 @@ export default class ProductAttributes extends React.Component {
 
   state: State = {
     currentAdditionalTitle: 'Details',
-    detailsHeight: 0,
   };
 
   @autobind
@@ -111,23 +109,6 @@ export default class ProductAttributes extends React.Component {
   @autobind
   setCurrentAdditionalAttr(currentAdditionalTitle: string) {
     this.setState({ currentAdditionalTitle });
-  }
-
-  // @autobind
-  // calcHeight() {
-  //   return this.props.detailsWidth / 1.035483871 - this.state.detailsHeight - 96;
-  // }
-  //
-  // @autobind
-  // setInfoBlockSize() {
-  //   this.setState({
-  //     detailsHeight: document.getElementById('pdp').offsetHeight,
-  //   });
-  // }
-
-  componentDidMount() {
-    // this.setInfoBlockSize();
-    // window.addEventListener('resize', this.setInfoBlockSize);
   }
 
   @autobind
@@ -147,7 +128,6 @@ export default class ProductAttributes extends React.Component {
   }
 
   render() {
-    // const height = this.calcHeight();
     return (
       <div styleName="additional-info">
         <div>

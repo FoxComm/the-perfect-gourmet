@@ -131,6 +131,8 @@
   font-family: var(--font-main);
   margin-top: 40px;
   flex: 1;
+  min-height: 150px;
+  position: relative;
 }
 
 .items-title-wrap {
@@ -170,9 +172,12 @@
 
 .info-block {
   padding: 0 20px 20px 20px;
-  max-height: 400px;
-  min-height: 100px;
   overflow-y: auto;
+  position: absolute;
+  top: 57px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .attribute-line {
@@ -247,10 +252,6 @@
     lost-column: 12/12;
   }
 
-  .info-block {
-    /* padding: 0 60px; */
-  }
-
   .items-title-wrap {
     justify-content: space-around;
   }
@@ -290,6 +291,7 @@
   }
   .info-block {
     height: 300px !important;
+    position: static;
   }
 }
 

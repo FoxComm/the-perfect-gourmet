@@ -121,7 +121,6 @@ class Pdp extends Component {
     quantity: 1,
     currentSku: null,
     attributes: {},
-    detailsWidth: 0,
   };
 
   componentWillMount() {
@@ -132,18 +131,7 @@ class Pdp extends Component {
     }
   }
 
-  @autobind
-  setInfoBlockSize() {
-    const node = document.getElementById('details-holder');
-    const width = _.get(node, 'offsetWidth', 0);
-    this.setState({
-      detailsWidth: width,
-    });
-  }
-
   componentDidMount() {
-    // this.setInfoBlockSize();
-    // window.addEventListener('resize', this.setInfoBlockSize);
     this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       const { product, isRelatedProductsLoading, actions } = this.props;
@@ -156,7 +144,6 @@ class Pdp extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.setInfoBlockSize);
     this.props.actions.resetProduct();
   }
 
