@@ -69,7 +69,6 @@ type State = {
   error?: any,
   currentSku?: any,
   attributes?: Object,
-  detailsWidth: number,
 };
 
 type Product = {
@@ -335,7 +334,6 @@ class Pdp extends Component {
         styleName="details"
       >
         <ProductAttributes
-          detailsWidth={this.state.detailsWidth}
           productDetails={product}
           product={this.props.product}
         />
