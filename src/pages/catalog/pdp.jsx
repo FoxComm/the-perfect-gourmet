@@ -311,6 +311,8 @@ class Pdp extends Component {
   }
 
   get details() {
+    const product = this.product;
+
     if (this.isGiftCard()) {
       return (
         <GiftCardForm
@@ -323,8 +325,6 @@ class Pdp extends Component {
         />
       );
     }
-
-    const product = this.product;
 
     return (
       <ProductDetails
