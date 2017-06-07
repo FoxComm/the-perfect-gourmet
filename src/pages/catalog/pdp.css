@@ -7,11 +7,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding-top: 40px;
   padding-bottom: 40px;
-  lost-column: 10/12;
-  lost-offset: -1/12;
+  lost-column: 12/12;
+  lost-offset: 0;
 }
 
 .related-container {
@@ -21,12 +20,14 @@
 
 .gallery {
   height: auto;
-  width: calc(50% - (var(--grid-margin)/2));
+  lost-column: 5/12;
+  lost-offset: -1/12;
 }
 
 .details {
-  width: calc(50% - (var(--grid-margin)/2));
   height: auto;
+  lost-column: 5/12;
+  lost-offset: 0;
 }
 
 .title {
@@ -265,13 +266,12 @@
 
 @media (--small-only), (--medium-only) {
   .gallery {
-    width: 100%;
+    lost-column: 12/12;
+    lost-offset: 0;
   }
 
   .container {
     padding-top: 0;
-    lost-column: 12/12;
-    lost-offset: 0;
   }
 
   .title {
