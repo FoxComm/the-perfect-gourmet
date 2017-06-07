@@ -293,9 +293,15 @@ class Pdp extends Component {
   renderGallery() {
     const { images } = this.product;
 
-    return !_.isEmpty(images)
-      ? <Gallery images={images} />
-      : <ImagePlaceholder largeScreenOnly />;
+    if (_.isEmpty(images)) {
+      return (
+        <ImagePlaceholder largeScreenOnly />
+      );
+    }
+
+    return (
+      <Gallery images={images} />
+    );
   }
 
   get relatedProductsList() {
