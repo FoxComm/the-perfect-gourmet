@@ -44,7 +44,12 @@ export default class ProductAttributes extends React.Component {
     currentAdditionalTitle: 'Details',
   };
 
-  shareLinks (isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage) {
+  shareLinks (isDetails: boolean,
+              ProductURL: string,
+              ProductShareTitle: string,
+              TwitterHandle: string,
+              ProductDescription: string,
+              ProductImage: string) {
     if (!isDetails) return null;
     return (
         <div styleName="social-sharing">
@@ -63,7 +68,7 @@ export default class ProductAttributes extends React.Component {
       );
   }
 
-  attributeDescription (attributeName, attributeValue) {
+  attributeDescription (attributeName: string, attributeValue: string) {
     const description = (attributeName == 'Amount of Servings' ||
           attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
           attributeValue;
@@ -77,7 +82,7 @@ export default class ProductAttributes extends React.Component {
     return <div styleName="attribute-description" >{description}</div>;
   }
 
-  displayAttribute (product, attributeName, isDetails) {
+  displayAttribute (product: Object, attributeName: string, isDetails: boolean) {
     const attributeValue = _.get(product, `attributes.${attributeName}.v`);
     if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
     const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
@@ -89,7 +94,7 @@ export default class ProductAttributes extends React.Component {
     );
   }
 
-  generateAttributesBodys (product, productDetails, attributeNames = []) {
+  generateAttributesBodys (product: Object, productDetails: Object, attributeNames: Array<string> = []) {
     const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
     const ProductDescription = _.get(productDetails, 'description');
     const ProductImage = _.get(productDetails, 'images.0');
