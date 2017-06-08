@@ -40,7 +40,7 @@
 
 @media (--large) {
   :global(.icon--fc-logo) {
-    width: 220px;
-    height: 102px;
+    width: 150px;
+    height: 74px;
   }
 }
