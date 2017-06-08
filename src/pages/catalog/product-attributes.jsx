@@ -67,13 +67,13 @@ export default class ProductAttributes extends React.Component {
     const description = (attributeName == 'Amount of Servings' ||
           attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
           attributeValue;
-    if (description==attributeValue) {
+    if (description == attributeValue) {
       return (
         <div styleName="attribute-description"
           dangerouslySetInnerHTML={{__html: description}}
         />
       );
-    };
+    }
     return <div styleName="attribute-description" >{description}</div>;
   }
 
