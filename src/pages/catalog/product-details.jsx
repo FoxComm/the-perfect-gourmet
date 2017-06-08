@@ -11,7 +11,6 @@ import Select from 'ui/select/select';
 
 // types
 import type { HTMLElement } from 'types';
-import type { ProductResponse} from 'modules/product-details';
 
 // styles
 import styles from './pdp.css';

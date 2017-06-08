@@ -67,9 +67,13 @@ export default class ProductAttributes extends React.Component {
     const description = (attributeName == 'Amount of Servings' ||
           attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
           attributeValue;
-    if (description==attributeValue)
-      return <div styleName="attribute-description"
-                dangerouslySetInnerHTML={{__html: description}}/>;
+    if (description==attributeValue) {
+      return (
+        <div styleName="attribute-description"
+          dangerouslySetInnerHTML={{__html: description}}
+        />
+      );
+    };
     return <div styleName="attribute-description" >{description}</div>;
   }
 
@@ -83,7 +87,7 @@ export default class ProductAttributes extends React.Component {
         {this.attributeDescription(attributeName, attributeValue)}
       </div>
     );
-  };
+  }
 
   generateAttributesBodys (product, productDetails, attributeNames = []) {
     const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
@@ -98,7 +102,7 @@ export default class ProductAttributes extends React.Component {
         {this.shareLinks(isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage)}
       </div>
     );
-  };
+  }
 
   @autobind
   renderAttributes() {
