@@ -1,10 +1,18 @@
-/* @flow */
 
 import { createReducer } from 'redux-act';
 import { createAsyncActions } from '@foxcomm/wings';
-import { addTermFilter, addMustNotFilter, defaultSearch, termFilter } from 'lib/elastic';
+import {
+  addPriceFilter,
+  addTaxonomyFilter,
+  addTaxonomiesAggregation,
+  addMatchQuery,
+  addMustNotFilter, defaultSearch, termFilter, termsFilter, addCategoryFilter, addTermFilter, addTermsFilter,
+} from 'lib/elastic';
 import _ from 'lodash';
 import { api } from 'lib/api';
+import { assoc } from 'sprout-data';
+
+import type { Facet, FacetValue } from 'types/facets';
 
 export type Product = {
   id: number;
@@ -21,46 +29,205 @@ export type Product = {
   albums: ?Array<Object> | Object,
 }
 
-const MAX_RESULTS = 1000;
+type QueryOpts = {
+  sorting?: { direction: number|string, field: string },
+  toLoad: number|string,
+  from: number|string,
+  ignoreGiftCards?: boolean,
+}
+
+export const MAX_RESULTS = 1000;
+export const PAGE_SIZE = 1000;
 const context = process.env.FIREBIRD_CONTEXT || 'default';
 const GIFT_CARD_TAG = 'GIFT-CARD';
 
-function apiCall(
-  categoryName: ?string, productType: ?string, { ignoreGiftCards = true } = {}): global.Promise {
+
+function apiCall(categoryNames: ?Array<string>,
+                 selectedFacets: Object,
+                 searchTerm: ?string,
+                 {
+                   sorting,
+                   toLoad = PAGE_SIZE,
+                   from = 0,
+                   ignoreGiftCards = true,
+                 } = {}): Promise<*> {
   let payload = defaultSearch(context);
 
-  [categoryName, productType].forEach(tag => {
-    // products do not have 'ALL' tag
-    if (tag && tag.toUpperCase() !== 'ALL') {
-      const tagTerm = termFilter('tags', tag.toUpperCase());
+  _.forEach(_.compact(categoryNames), (cat) => {
+    if (cat !== 'ALL' && cat !== GIFT_CARD_TAG) {
+      payload = addCategoryFilter(payload, cat.toUpperCase());
+    } else if (cat === GIFT_CARD_TAG) {
+      const tagTerm = termFilter('tags', cat.toUpperCase());
       payload = addTermFilter(payload, tagTerm);
     }
   });
+  if (searchTerm) {
+    payload = addMatchQuery(payload, searchTerm);
+  }
 
   if (ignoreGiftCards) {
     const giftCardTerm = termFilter('tags', GIFT_CARD_TAG);
     payload = addMustNotFilter(payload, giftCardTerm);
   }
 
-  return this.api.post(`/search/public/products_catalog_view/_search?size=${MAX_RESULTS}`, payload);
+  if (sorting) {
+    const order = sorting.direction === -1 ? 'desc' : 'asc';
+    payload.sort = [{ [sorting.field]: { order } }];
+  }
+
+  payload = addTaxonomiesAggregation(payload);
+
+  _.forEach(selectedFacets, (values: Array<string>, facet: string) => {
+    if (!_.isEmpty(values)) {
+      payload = facet == 'PRICE'
+        ? addPriceFilter(payload, values)
+        : addTaxonomyFilter(payload, facet, values);
+    }
+  });
+
+  const url = `/search/public/products_catalog_view/_search?size=${toLoad}&from=${from}`;
+  return this.api.post(url, payload);
 }
 
 function searchGiftCards() {
-  return apiCall.call({ api }, GIFT_CARD_TAG, null, { ignoreGiftCards: false });
+  const [sorting, selectedFacets, toLoad] = [null, {}, MAX_RESULTS];
+  return apiCall.call(
+    { api },
+    [GIFT_CARD_TAG],
+    sorting,
+    selectedFacets,
+    toLoad,
+    0,
+    { ignoreGiftCards: false }
+  );
 }
 
 const {fetch, ...actions} = createAsyncActions('products', apiCall);
 
 const initialState = {
   list: [],
+  facets: [],
 };
 
+
+function determineFacetKind(f: string): string {
+  if (f.includes('COLOR')) return 'color';
+  else if (f.includes('SIZE')) return 'circle';
+  return 'checkbox';
+}
+
+function titleCase(t) {
+  return _.startCase(_.toLower(t));
+}
+
+export function mapFacetValue(v: string, kind: string): string | Object {
+  let value = v;
+  if (kind == 'color') {
+    const color = (v in fancyColors) ? fancyColors[v] : _.toLower(v).replace(/\s/g, '');
+    value = { color, value: v };
+  }
+
+  return value;
+}
+
+export const fancyColors = {
+  BEIGE: '#BD815D',
+  BLACK: '#000000',
+  BLUE: '#0B5AB9',
+  BROWN: '#6D3D23',
+  GREEN: '#3D8458',
+  GREY: '#999999',
+  METALLIC: '#BCC6CC',
+  ORANGE: '#FF5F01',
+  PURPLE: '#9D4170',
+  YELLOW: '#FFD249',
+  PINK: '#EF3C66',
+  WHITE: '#FFFFFF',
+  'NO COLOR': '#FFFFFF',
+};
+
+
+function mapAggregationsToFacets(aggregations): Array<Facet> {
+  return _.map(aggregations, (a) => {
+    const kind = determineFacetKind(a.key);
+    const buckets = _.get(a, 'taxon.buckets', []);
+    const values = _.uniqBy(_.map(buckets, (t) => {
+      return {
+        label: titleCase(t.key),
+        value: mapFacetValue(t.key, kind),
+        count: t.doc_count,
+      };
+    }), (v) => {
+      return kind == 'color' ? v.value.color : v.label;
+    });
+
+    return {
+      key: a.key,
+      name: titleCase(a.key),
+      kind,
+      values,
+    };
+  });
+}
+
+function priceLabel(from: ?number, to: ?number): string {
+  if (from && to) {
+    return `$${from / 100} - $${to / 100}`;
+  } else if (from) {
+    return `$${from / 100}+`;
+  } else if (to) {
+     return `$0 - $${to / 100}`;
+  }
+
+  return '';
+}
+
+function mapPriceAggregationsToFacets(response = []): Array<Facet> {
+  const aggregations = _.get(response, 'aggregations.priceRanges.buckets', []);
+
+  const prices = aggregations.reduce((acc, priceAgg) => {
+    const { doc_count, key, from, to } = priceAgg;
+
+    if (doc_count < 1) {
+      return acc;
+    }
+
+    return [...acc, {
+      count: doc_count,
+      label: priceLabel(from, to),
+      value: key,
+      selected: false,
+    }];
+  }, []);
+
+  if (prices.length == 0) {
+    return [];
+  }
+
+  return [{
+    key: 'PRICE',
+    name: 'Price',
+    kind: 'price',
+    values: prices,
+  }];
+}
+
 const reducer = createReducer({
-  [actions.succeeded]: (state, payload) => {
-    const result = _.isEmpty(payload.result) ? [] : payload.result;
+  [actions.succeeded]: (state, response) => {
+
+    const payloadResult = response.result;
+    const aggregations = _.isNil(response.aggregations)
+      ? []
+      : _.get(response, 'aggregations.taxonomies.taxonomy.buckets', []);
+    const list = _.isEmpty(payloadResult) ? [] : payloadResult;
+
+    const facetsFromAggregations = mapAggregationsToFacets(aggregations);
+    const priceFacet = mapPriceAggregationsToFacets(response);
+
     return {
       ...state,
-      list: result,
+      list,
+      facets: [...facetsFromAggregations, ...priceFacet],
     };
   },
 }, initialState);

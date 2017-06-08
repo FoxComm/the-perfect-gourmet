@@ -9,21 +9,63 @@ import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import * as actions from 'modules/products';
 import { assetsUrl } from 'lib/env';
+import { categoryNameToUrl, categoryNameFromUrl } from 'paragons/categories';
+import { PAGE_SIZE, MAX_RESULTS } from 'modules/products';
+import classNames from 'classnames';
+import { update, deepMerge, assoc } from 'sprout-data';
+
 
 // components
 import ProductsList, { LoadingBehaviors } from '../../components/products-list/products-list';
-import ProductTypeSelector from 'ui/product-type-selector';
+
+import Facets from '@foxcomm/storefront-react/lib/components/core/facets/facets';
+import Filters from '@foxcomm/storefront-react/lib/components/core/filters/filters';
+import FilterGroup from '@foxcomm/storefront-react/lib/components/core/filters/filter-group';
+import FilterCheckboxes from '@foxcomm/storefront-react/lib/components/core/filters/filter-checkboxes';
+import FilterColors from '@foxcomm/storefront-react/lib/components/core/filters/filter-colors';
 
 // styles
 import styles from './products.css';
 
-// constants
-import { productTypes } from 'modules/categories';
-
 // types
+import type { Route } from 'types';
+import type { Facet, FacetValue } from 'types/facets';
+import type { AbortablePromise } from 'types/promise';
+
+type SelectedFacetsType = {
+  [key: string]: Array<string>,
+};
+
+type FiltersType = {
+  sorting: {
+    direction: number,
+    field: string,
+  },
+  toLoad: number,
+  from: number,
+}
+
+const initialFilterValues: FiltersType = {
+  sorting: {
+    direction: 1,
+    field: 'salePrice',
+  },
+  from: 0,
+  toLoad: PAGE_SIZE,
+};
+
+type State = {
+  withFilters: boolean,
+  facets: Array<Facet>,
+};
+
+type ColorValue = {
+  color: string,
+  value: string,
+};
+
 type Params = {
   categoryName: ?string,
-  productType: ?string,
 };
 
 type Category = {
@@ -39,7 +81,58 @@ type Props = {
   isLoading: boolean,
   fetch: Function,
   location: any,
+  routes: Array<Route>,
+  routerParams: Object,
+  facets: Array<Facet>,
 };
+
+type ColorValue = {
+  color: string,
+  value: string,
+};
+
+function isFacetValueSelected(facets: ?Array<string>, value: string | ColorValue) {
+  if (typeof value !== 'string') return _.includes(facets, value.value);
+  return _.includes(facets, value);
+}
+
+function markFacetValuesAsSelected(facets: Array<Facet>, selectedFacets: Object): Array<Facet> {
+  return _.map(facets, facetItem => ({
+    ...facetItem,
+    values: _.map(facetItem.values, (facetValueItem: FacetValue) => ({
+      ...facetValueItem,
+      selected: isFacetValueSelected(selectedFacets[facetItem.key], facetValueItem.value),
+    })),
+  }));
+}
+
+function mergeFacets(prevFacets, nextFacets, selectedFacets) {
+  let facets = [];
+
+  const groupPrev = _.groupBy(prevFacets, 'key');
+  console.log(groupPrev);
+  // The only time this should be empty is on first call.
+  if (_.isEmpty(prevFacets)) {
+    facets = nextFacets;
+  } else {
+    facets = _.reduce(nextFacets, (acc, v, k) => {
+      if (!_.isEmpty(selectedFacets[v.key]) && !_.isEmpty(groupPrev[v.key])) {
+        return [...acc, groupPrev[v.key][0]];
+      }
+
+      return [...acc, v];
+    }, []);
+  }
+
+  return markFacetValuesAsSelected(facets, selectedFacets);
+}
+
+const facetWhitelist = [
+  'CATEGORY',
+];
+
+const ASC = 1;
+const DESC = -1;
 
 // redux
 const mapStateToProps = state => {
@@ -52,37 +145,166 @@ const mapStateToProps = state => {
   };
 };
 
-const defaultProductType = productTypes[0];
-
 class Products extends Component {
   props: Props;
+  lastFetch: ?AbortablePromise<*>;
+  filters: Filters = initialFilterValues;
+  _facetsToBeApplied: ?SelectedFacetsType;
+
+  state: State = {
+    withFilters: true,
+    facets: mergeFacets([], this.props.facets, this.getSelectedFacets()),
+  };
+
+  fetch(props: Props = this.props): void {
+    if (this.lastFetch && this.lastFetch.abort) {
+      this.lastFetch.abort();
+      this.lastFetch = null;
+    }
+    const categoryNames = this.getCategoryNames(props);
+    const filters = this.filters;
+
+    const selectedFacets = this.getSelectedFacets(props);
+
+    this.lastFetch = this.props.fetch(
+      categoryNames,
+      selectedFacets,
+      props.location.query.text,
+      filters
+    );
+    this.lastFetch.catch(_.noop);
+  }
+
+  getSelectedFacets(props: Props = this.props): {[key: string]: Array<string>} {
+    const { query } = props.location;
+
+    return _.reduce(query, (acc, cur, key) => {
+      if (key === 'text') return acc;
+
+      const terms = _.map(_.isString(cur) ? [cur] : cur, value => decodeURIComponent(value).replace(/\+/g, ' '));
+      return {
+        ...acc,
+        [key]: terms,
+      };
+    }, {});
+  }
 
   componentWillMount() {
-    const { categoryName, productType } = this.props.params;
-    this.props.fetch(categoryName, productType);
+    this.fetch();
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    const { categoryName, productType } = this.props.params;
-    const {
-      categoryName: nextCategoryName,
-      productType: nextProductType,
-    } = nextProps.params;
+    this.updateFetchFilters(this.filters, nextProps);
+    if (this.props.facets != nextProps.facets) {
+      this.setState({
+        facets: mergeFacets(this.state.facets, nextProps.facets, this.getSelectedFacets(nextProps)),
+      });
+    }
+  }
 
-    if ((categoryName !== nextCategoryName) || (productType !== nextProductType)) {
-      this.props.fetch(nextCategoryName, nextProductType);
+  getCategoryNames(props: Props = this.props): Array<string> {
+    const { categoryName, subCategory, leafCategory } = props.params;
+    return [categoryName, subCategory, leafCategory];
+  }
+
+  updateFetchFilters(nextFilters: Object, nextProps: ?Props) {
+    // navigate in case of facets
+    // set value
+    let filters = this.filters;
+    let newFilters = nextFilters;
+
+    let changedCategoryNames = false;
+    if (nextProps) {
+      const categoryNames = this.getCategoryNames();
+      const nextCategoryNames = this.getCategoryNames(nextProps);
+
+      changedCategoryNames = !_.isEqual(categoryNames, nextCategoryNames);
+    }
+
+    let facetsChanged = false;
+    if (nextProps) {
+      const selectedFacets = this.getSelectedFacets();
+      const nextSelectedFacets = this.getSelectedFacets(nextProps);
+
+      facetsChanged = !_.isEqual(selectedFacets, nextSelectedFacets);
+    }
+
+    if (facetsChanged) {
+      newFilters = assoc(newFilters, 'from', 0);
+    }
+
+    let queryTextChanged = false;
+    if (nextProps) {
+      queryTextChanged = this.props.location.query.text != nextProps.location.query.text;
+    }
+
+    if (changedCategoryNames) {
+      filters = initialFilterValues;
+    } else {
+      Object.keys(newFilters).forEach(key => {
+        filters = update(filters, key, deepMerge, newFilters[key]);
+      });
+    }
+    const changedFilters = this.filters !== filters;
+    this.filters = filters;
+
+    if (changedFilters || changedCategoryNames || facetsChanged || queryTextChanged) {
+      this.fetch(nextProps);
     }
   }
 
   @autobind
-  onDropDownItemClick (productType = '') {
-    const { categoryName = defaultProductType.toUpperCase() } = this.props.params;
-
-    if (productType.toLowerCase() !== defaultProductType.toLowerCase()) {
-      browserHistory.push(`/${categoryName}/${productType.toUpperCase()}`);
-    } else {
-      browserHistory.push(`/${categoryName}`);
+  newFacetSelectState(facet: string, value: string, selected: boolean) {
+    const newSelection = this.getSelectedFacets();
+    if (selected) {
+      if (facet in newSelection) {
+        newSelection[facet].push(value);
+      } else {
+        newSelection[facet] = [value];
+      }
+    } else if (facet in newSelection) {
+      const values = newSelection[facet];
+      newSelection[facet] = _.filter(values, (v) => {
+        return v != value;
+      });
     }
+    return newSelection;
+  }
+
+  buildQuery(selectedFacets) {
+    if (this.props.location.query.text) {
+      return {
+        ...selectedFacets,
+        text: this.props.location.query.text,
+      };
+    }
+    return selectedFacets;
+  }
+
+  @autobind
+  onSelectFacet(facet: string, value: string, selected: boolean) {
+    const selectedFacets = this.newFacetSelectState(facet, value, selected);
+
+    this.updateFacets(selectedFacets);
+  }
+
+  updateFacets(newSelectedFacets) {
+    // do optimistic update first
+    const optimisticUpdatedFacets = markFacetValuesAsSelected(this.state.facets, newSelectedFacets);
+    this.setState({
+      facets: optimisticUpdatedFacets,
+    });
+    browserHistory.push({
+      pathname: this.props.location.pathname,
+      query: this.buildQuery(newSelectedFacets),
+    });
+  }
+
+  @autobind
+  clearFacet(facet: string) {
+    const selectedFacets = _.omit(this.getSelectedFacets(), facet);
+
+    this.updateFacets(selectedFacets);
   }
 
   renderHeader() {
@@ -97,8 +319,7 @@ class Products extends Component {
       name: realCategoryName,
     });
 
-    if (!category || !categoryName ||
-      (categoryName.toLowerCase() === defaultProductType.toLowerCase())) {
+    if (!category || !categoryName) {
       return;
     }
 
@@ -127,23 +348,42 @@ class Products extends Component {
     );
   }
 
-  get navBar() {
-    const { categoryName, productType } = this.props.params;
-
-    const type = (productType && !_.isEmpty(productType))
-      ? _.capitalize(productType)
-      : productTypes[0];
-
-    if (categoryName == 'ENTRÉES') {
-      return (
-        <ProductTypeSelector
-          items={productTypes}
-          activeItem={type}
-          onItemClick={this.onDropDownItemClick}
-        />
-      );
-    }
-    return null;
+  renderFilters(onSelectFacet = this.onSelectFacet) {
+    return (
+      <Filters
+        filters={this.state.facets}
+        onSelectFacet={onSelectFacet}
+        onClearFacet={this.clearFacet}
+      >
+        <FilterGroup label="Product Type" term="producttype">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Color Group" term="colorGroup">
+          <FilterColors />
+        </FilterGroup>
+        <FilterGroup label="Gender" term="gender">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Price" term="price">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Collection" term="collection">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Material" term="material">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Laptop Size" term="laptopSize">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Wheels" term="wheels">
+          <FilterCheckboxes />
+        </FilterGroup>
+        <FilterGroup label="Exclusive Features" term="features">
+          <FilterCheckboxes />
+        </FilterGroup>
+      </Filters>
+    );
   }
 
   render(): HTMLElement {
@@ -151,7 +391,7 @@ class Products extends Component {
       <section styleName="catalog">
         {this.renderHeader()}
         <div styleName="dropDown">
-          {this.navBar}
+          {this.renderFilters()}
         </div>
         <ProductsList
           list={this.props.list}
