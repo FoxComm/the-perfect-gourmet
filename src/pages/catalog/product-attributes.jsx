@@ -38,7 +38,10 @@ const attributeDescription = (attributeName, attributeValue) => {
   const description = (attributeName == 'Amount of Servings' ||
         attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
         attributeValue;
-  return <div styleName="attribute-description">{description}</div>;
+  if (description==attributeValue)
+    return <div styleName="attribute-description"
+              dangerouslySetInnerHTML={{__html: description}}/>;
+  return <div styleName="attribute-description" >{description}</div>;
 };
 
 const displayAttribute = (product, attributeName, isDetails) => {
