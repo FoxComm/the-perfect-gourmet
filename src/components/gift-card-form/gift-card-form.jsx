@@ -103,6 +103,7 @@ const GiftCardForm = (props: Props) => {
         <AddToCartBtn
           styleName="add-to-cart-btn"
           type="submit"
+          pdp
           expanded
         />
       </Form>

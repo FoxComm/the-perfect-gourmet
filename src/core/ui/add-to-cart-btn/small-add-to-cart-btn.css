@@ -9,11 +9,11 @@
   overflow: hidden;
   cursor: pointer;
   display: flex;
-  border: solid 1px var(--line);
   background-color: inherit;
   justify-content: center;
+  background-color: #594B4D;
   &:hover {
-    background-color: white;
+    background-color: #3E3436;
   }
 }
 

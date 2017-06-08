@@ -60,18 +60,15 @@
 @media (--small-only) {
   .add-btn-title {
     display: none;
-
-  &.pdp {
-     line-height: 32px;
-     display: inline-block;
-   }
-}
-
-  .add-icon-wrapper {
-
     &.pdp {
-       height: 32px;
+     display: inline-block;
     }
   }
+}
 
+.add-btn-title {
+  display: none;
+  &.pdp {
+   display: inline-block;
+  }
 }

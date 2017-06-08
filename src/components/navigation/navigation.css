@@ -46,7 +46,7 @@
     display: inline-block;
     white-space: nowrap;
     text-transform: uppercase;
-    color: var(--blackish);
+    color: var(--dark-blackish);
 
     &:hover {
       opacity: .7;

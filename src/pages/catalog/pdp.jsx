@@ -279,9 +279,15 @@ class Pdp extends Component {
   renderGallery() {
     const { images } = this.product;
 
-    return !_.isEmpty(images)
-      ? <Gallery images={images} />
-      : <ImagePlaceholder largeScreenOnly />;
+    if (_.isEmpty(images)) {
+      return (
+        <ImagePlaceholder largeScreenOnly />
+      );
+    }
+
+    return (
+      <Gallery images={images} />
+    );
   }
 
   get relatedProductsList() {
@@ -303,6 +309,38 @@ class Pdp extends Component {
     );
   }
 
+  get details() {
+    const product = this.product;
+
+    if (this.isGiftCard()) {
+      return (
+        <GiftCardForm
+          product={product}
+          addToCart={this.addToCart}
+          onSkuChange={this.setCurrentSku}
+          selectedSku={this.currentSku}
+          attributes={this.state.attributes}
+          onAttributeChange={this.setAttributeFromField}
+        />
+      );
+    }
+
+    return (
+      <ProductDetails
+        product={product}
+        quantity={this.state.quantity}
+        onQuantityChange={this.changeQuantity}
+        addToCart={this.addToCart}
+        styleName="details"
+      >
+        <ProductAttributes
+          productDetails={product}
+          product={this.props.product}
+        />
+      </ProductDetails>
+    );
+  }
+
   render(): HTMLElement {
     const { t, isLoading, notFound, fetchError } = this.props;
 
@@ -318,36 +356,16 @@ class Pdp extends Component {
       return <ErrorAlerts error={fetchError} />;
     }
 
-    const product = this.product;
-
     return (
       <div styleName="container">
         <div styleName="gallery">
           {this.renderGallery()}
         </div>
-        <div styleName="details">
-          <div styleName="details-wrap">
-            {this.isGiftCard() ?
-              <GiftCardForm
-                product={product}
-                addToCart={this.addToCart}
-                onSkuChange={this.setCurrentSku}
-                selectedSku={this.currentSku}
-                attributes={this.state.attributes}
-                onAttributeChange={this.setAttributeFromField}
-              /> :
-              <ProductDetails
-                product={product}
-                quantity={this.state.quantity}
-                onQuantityChange={this.changeQuantity}
-                addToCart={this.addToCart}
-              />}
-
-            <ErrorAlerts error={this.state.error} />
-          </div>
+        {this.details}
+        <ErrorAlerts error={this.state.error} />
+        <div styleName="related-container">
+          {this.relatedProductsList}
         </div>
-        {!this.isGiftCard() && <ProductAttributes product={this.props.product} />}
-        {this.relatedProductsList}
       </div>
     );
   }

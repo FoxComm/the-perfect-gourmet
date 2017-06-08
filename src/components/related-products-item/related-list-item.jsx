@@ -142,7 +142,6 @@ class RelatedListItem extends React.Component {
           <h1 styleName="title">
             <Link to={`/products/${productSlug}`}>{title}</Link>
           </h1>
-          <div styleName="line"/>
           <div styleName="price-line">
             {this.isOnSale()}
             <div styleName="add-to-cart-btn">
