@@ -13,6 +13,7 @@ import { categoryNameToUrl, categoryNameFromUrl } from 'paragons/categories';
 import { PAGE_SIZE, MAX_RESULTS } from 'modules/products';
 import classNames from 'classnames';
 import { update, deepMerge, assoc } from 'sprout-data';
+import Select from 'ui/select/select';
 
 
 // components
@@ -48,7 +49,7 @@ type FiltersType = {
 const initialFilterValues: FiltersType = {
   sorting: {
     direction: 1,
-    field: 'salePrice',
+    field: 'title',
   },
   from: 0,
   toLoad: PAGE_SIZE,
@@ -56,6 +57,7 @@ const initialFilterValues: FiltersType = {
 
 type State = {
   openMobileFilter: boolean,
+  sortOption: string,
   facets: Array<Facet>,
 };
 
@@ -134,6 +136,13 @@ const facetWhitelist = [
 const ASC = 1;
 const DESC = -1;
 
+const SORTING_ITEMS = [
+  "Name: A to Z",
+  "Name: Z to A",
+  "Price: Lowest to Highest",
+  "Price: Highest to Lowest",
+];
+
 // redux
 const mapStateToProps = state => {
   const async = state.asyncActions.products;
@@ -152,6 +161,7 @@ class Products extends Component {
   _facetsToBeApplied: ?SelectedFacetsType;
 
   state: State = {
+    sortOption: "Name: A to Z",
     openMobileFilter: false,
     facets: mergeFacets([], this.props.facets, this.getSelectedFacets()),
   };
@@ -451,14 +461,82 @@ class Products extends Component {
           FILTERS
           {this.state.openMobileFilter ? <i styleName="icon-up"></i> : <i styleName="icon-down"></i>}
         </button>
-        <button styleName="sorting-trigger">
-          SORT
-          {this.state.openMobileFilter ? <i styleName="icon-up"></i> : <i styleName="icon-down"></i>}
-        </button>
+        <div styleName="sorting-trigger">
+          <Select
+            inputProps={{
+              type: 'string',
+            }}
+            getItemValue={_.identity}
+            items={SORTING_ITEMS}
+            onSelect={this.onSort}
+            selectedItem={this.state.sortOption}
+            sortItems={false}
+          />
+          <i styleName="icon-down"></i>
+        </div>
       </div>
     );
   }
 
+
+  @autobind
+  changeSorting(field?: string, direction?: number) {
+    const newState = {
+      field,
+      direction,
+    };
+
+    this.updateFetchFilters({
+      sorting: newState,
+    });
+  }
+
+  @autobind
+  onSort(val) {
+    switch (val) {
+      case 'Name: A to Z':
+        this.changeSorting('title', ASC);
+        break;
+      case 'Name: Z to A':
+        this.changeSorting('title', DESC);
+        break;
+      case 'Price: Lowest to Highest':
+        this.changeSorting('salePrice', ASC);
+        break;
+      case 'Price: Highest to Lowest':
+        this.changeSorting('salePrice', DESC);
+        break;
+      case 'None':
+        this.changeSorting();
+        break;
+    };
+    this.setState({
+      sortOption: val,
+    });
+  }
+
+  renderSorting() {
+    if (this.props.facets.length == 0) {
+      return null;
+    };
+    return (
+      <div styleName="sorting">
+        <div>Sort:</div>
+        <div>
+          <Select
+            inputProps={{
+              type: 'string',
+            }}
+            getItemValue={_.identity}
+            items={SORTING_ITEMS}
+            onSelect={this.onSort}
+            selectedItem={this.state.sortOption}
+            sortItems={false}
+          />
+        </div>
+      </div>
+    );
+  }
   render(): HTMLElement {
     return (
       <section styleName="catalog">
@@ -467,6 +545,7 @@ class Products extends Component {
         <div styleName="mobile-area">
           {this.renderMobileFilters()}
         </div>
+        {this.renderSorting()}
         {this.renderFiltersWithMarkup()}
         {this.renderProductList()}
       </section>
