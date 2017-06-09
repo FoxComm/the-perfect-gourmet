@@ -55,7 +55,7 @@ const initialFilterValues: FiltersType = {
 };
 
 type State = {
-  withFilters: boolean,
+  openMobileFilter: boolean,
   facets: Array<Facet>,
 };
 
@@ -152,7 +152,7 @@ class Products extends Component {
   _facetsToBeApplied: ?SelectedFacetsType;
 
   state: State = {
-    withFilters: true,
+    openMobileFilter: false,
     facets: mergeFacets([], this.props.facets, this.getSelectedFacets()),
   };
 
@@ -386,18 +386,89 @@ class Products extends Component {
     );
   }
 
-  render(): HTMLElement {
+  renderMobileFilters() {
+    if (!this.state.openMobileFilter) return null;
     return (
-      <section styleName="catalog">
-        {this.renderHeader()}
-        <div styleName="dropDown">
+      <div styleName="filters">
+        <div>
           {this.renderFilters()}
+          <button onClick={this.toggleMobileFilter} styleName="close-filters">CLOSE FILTERS</button>
         </div>
+      </div>
+    );
+  }
+
+  @autobind
+  toggleMobileFilter() {
+    this.setState({
+      openMobileFilter: !this.state.openMobileFilter,
+    });
+  }
+
+  renderFiltersWithMarkup() {
+    if (this.props.facets.length == 0) {
+      return null;
+    };
+    return (
+      <div styleName="filters-holder">
+        <div styleName="filters">
+          <div>{this.renderFilters()}</div>
+        </div>
+      </div>
+    );
+  }
+
+  renderProductList() {
+    if (this.props.facets.length == 0) {
+      return (
+        <div styleName="product-list-nofilter">
+          <ProductsList
+            list={this.props.list}
+            isLoading={this.props.isLoading}
+            loadingBehavior={LoadingBehaviors.ShowWrapper}
+          />
+        </div>
+      );
+    };
+    return (
+      <div styleName="product-list">
         <ProductsList
           list={this.props.list}
           isLoading={this.props.isLoading}
           loadingBehavior={LoadingBehaviors.ShowWrapper}
         />
+      </div>
+    );
+  }
+
+  renderMobileArea() {
+    if (this.props.facets.length == 0) {
+      return null;
+    };
+    return (
+      <div styleName="mobile-trigger-area">
+        <button onClick={this.toggleMobileFilter} styleName="filters-trigger">
+          FILTERS
+          {this.state.openMobileFilter ? <i styleName="icon-up"></i> : <i styleName="icon-down"></i>}
+        </button>
+        <button styleName="sorting-trigger">
+          SORT
+          {this.state.openMobileFilter ? <i styleName="icon-up"></i> : <i styleName="icon-down"></i>}
+        </button>
+      </div>
+    );
+  }
+
+  render(): HTMLElement {
+    return (
+      <section styleName="catalog">
+        {this.renderHeader()}
+        {this.renderMobileArea()}
+        <div styleName="mobile-area">
+          {this.renderMobileFilters()}
+        </div>
+        {this.renderFiltersWithMarkup()}
+        {this.renderProductList()}
       </section>
     );
   }

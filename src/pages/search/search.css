@@ -18,3 +18,22 @@
   text-transform: uppercase;
   font-weight: 300;
 }
+
+.product-list {
+  lost-column: 10/12;
+  lost-offset: -1/12;
+}
+
+@media (--small-only) {
+  .product-list {
+    lost-column: 12/12;
+    lost-offset: 0;
+  }
+}
+
+@media (--medium-only) {
+  .product-list {
+    lost-column: 10/12;
+    lost-offset: -1/12;
+  }
+}
