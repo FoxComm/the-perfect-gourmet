@@ -14,12 +14,11 @@ export type FacetValue = {
   +value: Object|string,
   count?: number,
   selected?: boolean,
-}
+};
 
 export type Facet = {
   key?: string,
   name: string,
   kind: 'color' | 'circle' | 'checkbox',
   values: Array<FacetValue>,
-}
-
+};

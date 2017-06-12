@@ -42,6 +42,7 @@ export type BoolQuery = {
       must_not?: Array<MatchFilter | TermFilter>,
     },
   },
+  sort?: Array<SortValue>,
 };
 
 export type QueryStringFilter = {
@@ -113,24 +114,24 @@ export function addQueryString(query: BoolQuery, searchString: string): BoolQuer
 }
 
 
-export function addTaxonomyFilter(initialQuery: BoolQuery, taxonomy: string, taxons: Array<string>): BoolQuery {
-
+export function addTaxonomyFilter(initialQuery: BoolQuery,
+  taxonomy: string, taxons: Array<string>): BoolQuery {
   const taxonTerms = _.map(taxons, (t) => {
-    return {term: {'taxonomies.taxons': t}};
+    return { term: { 'taxonomies.taxons': t } };
   });
 
   const filter = {
-    nested:{
-      path:'taxonomies',
-          query:{
-            bool:{
-              must:[
-                {term:{'taxonomies.taxonomy':taxonomy} },
-                {query: { bool: {should: taxonTerms}}},
-              ]
-            }
-          }
-    }
+    nested: {
+      path: 'taxonomies',
+      query: {
+        bool: {
+          must: [
+            { term: {'taxonomies.taxonomy': taxonomy} },
+            { query: { bool: { should: taxonTerms } } },
+          ],
+        },
+      },
+    },
   };
   return assoc(initialQuery,
       ['query', 'bool', 'must'], [...initialQuery.query.bool.must || [], filter]
@@ -139,11 +140,11 @@ export function addTaxonomyFilter(initialQuery: BoolQuery, taxonomy: string, tax
 
 export function addPriceFilter(initialQuery: BoolQuery, values: Array<any>): BoolQuery {
   const ranges = values.map((v) => {
-    const tuple = v.split('-')
-    let range = { gte: parseInt(tuple[0]) };
+    const tuple = v.split('-');
+    const range = { gte: parseInt(tuple[0], 10) };
 
     if (tuple[1] != '*') {
-      range['lte'] = parseInt(tuple[1]);
+      range.lte = parseInt(tuple[1], 10);
     }
 
     return {
@@ -171,25 +172,25 @@ function defaultAggregation() {
     aggs: {
       taxonomies: {
         nested: {
-          path: "taxonomies"
+          path: 'taxonomies',
         },
         aggs: {
           taxonomy: {
             terms: {
-              field: "taxonomies.taxonomy"
+              field: 'taxonomies.taxonomy',
             },
             aggs: {
               taxon: {
                 terms: {
-                  field: "taxonomies.taxons"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+                  field: 'taxonomies.taxons',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
 }
 
 function priceAggregation() {
@@ -219,7 +220,7 @@ function priceAggregation() {
 export function addTaxonomiesAggregation(initialQuery: BoolQuery): BoolQuery {
   return assoc(
     initialQuery,
-    ["aggs"],
+    ['aggs'],
     { ...defaultAggregation().aggs, ...priceAggregation().aggs });
 }
 
@@ -241,16 +242,16 @@ export function addCategoryFilter(query: BoolQuery, term: TermFilter): BoolQuery
   const taxonTerms = { term: { 'taxonomies.taxons': term } };
 
   const filter = {
-    nested:{
+    nested: {
       path: 'taxonomies',
       query: {
         bool: {
           must: [
             { query: { bool: { should: taxonTerms }}},
-          ]
-        }
-      }
-    }
+          ],
+        },
+      },
+    },
   };
   return assoc(query,
       ['query', 'bool', 'must'], [...query.query.bool.must || [], filter]

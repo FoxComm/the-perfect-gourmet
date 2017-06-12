@@ -275,6 +275,9 @@
     margin: 0;
     color: var(--dark-blackish);
     cursor: pointer;
+    & label {
+      cursor: pointer;
+    }
   }
 
   & :global(.fc_core⁄filters⁄filter-checkboxes__count){

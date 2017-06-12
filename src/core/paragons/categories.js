@@ -8,18 +8,18 @@ function fromParts(parts: Array<string>): string {
   }, '');
 }
 
-const categoryNameToUrl = (categoryName: string): string => {
+function categoryNameToUrl(categoryName: string): string {
   return encodeURIComponent(_.toLower(categoryName).replace(/\s/g, '+'));
-};
+}
 
-const categoryNameFromUrl = (url: string): string => {
+function categoryNameFromUrl(url: string): string {
   const decoded = decodeURIComponent(url).split('+');
   return fromParts(decoded);
-};
+}
 
-const humanize = (name: string, sep: string = ' '): string => {
+function humanize(name: string, sep: string = ' '): string {
   return fromParts(name.split(sep));
-};
+}
 
 export {
   categoryNameToUrl,

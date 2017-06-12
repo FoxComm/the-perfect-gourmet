@@ -364,19 +364,19 @@ class Products extends Component {
         onSelectFacet={onSelectFacet}
         onClearFacet={this.clearFacet}
       >
-        <FilterGroup label="Product Type" term="producttype">
+        <FilterGroup label="I'M HUNGRY FOR" term="producttype">
           <FilterCheckboxes />
         </FilterGroup>
-        <FilterGroup label="Price" term="price">
+        <FilterGroup label="PRICE" term="price">
           <FilterCheckboxes />
         </FilterGroup>
-        <FilterGroup label="Collection" term="collection">
+        <FilterGroup label="COURSE" term="collection">
           <FilterCheckboxes />
         </FilterGroup>
-        <FilterGroup label="Material" term="material">
+        <FilterGroup label="SPECIAL DIETS" term="material">
           <FilterCheckboxes />
         </FilterGroup>
-        <FilterGroup label="Exclusive Features" term="features">
+        <FilterGroup label="PREP" term="features">
           <FilterCheckboxes />
         </FilterGroup>
       </Filters>
