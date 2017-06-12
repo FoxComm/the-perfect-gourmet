@@ -149,10 +149,10 @@ class Products extends Component {
   state: State = {
     sortOption: 'Name: A to Z',
     openMobileFilter: false,
-    facets: mergeFacets([], this.props.facets, this.getSelectedFacets()),
+    facets: mergeFacets([], this.props.facets, this.getSelectedFacets(this.props)),
   };
 
-  fetch(props: Props = this.props): void {
+  fetch(props: Props): void {
     if (this.lastFetch && this.lastFetch.abort) {
       this.lastFetch.abort();
       this.lastFetch = null;
@@ -171,7 +171,7 @@ class Products extends Component {
     this.lastFetch.catch(_.noop);
   }
 
-  getSelectedFacets(props: Props = this.props): {[key: string]: Array<string>} {
+  getSelectedFacets(props: Props): {[key: string]: Array<string>} {
     const { query } = props.location;
 
     return _.reduce(query, (acc, cur, key) => {
@@ -186,7 +186,7 @@ class Products extends Component {
   }
 
   componentWillMount() {
-    this.fetch();
+    this.fetch(this.props);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -198,9 +198,9 @@ class Products extends Component {
     }
   }
 
-  getCategoryNames(props: Props = this.props): Array<string> {
-    const { categoryName, subCategory, leafCategory } = props.params;
-    return [categoryName, subCategory, leafCategory];
+  getCategoryNames(props: Props): Array<?string> {
+    const { categoryName } = props.params;
+    return [categoryName];
   }
 
   updateFetchFilters(nextFilters: Object, nextProps: ?Props) {
@@ -211,7 +211,7 @@ class Products extends Component {
 
     let changedCategoryNames = false;
     if (nextProps) {
-      const categoryNames = this.getCategoryNames();
+      const categoryNames = this.getCategoryNames(this.props);
       const nextCategoryNames = this.getCategoryNames(nextProps);
 
       changedCategoryNames = !_.isEqual(categoryNames, nextCategoryNames);
@@ -219,7 +219,7 @@ class Products extends Component {
 
     let facetsChanged = false;
     if (nextProps) {
-      const selectedFacets = this.getSelectedFacets();
+      const selectedFacets = this.getSelectedFacets(this.props);
       const nextSelectedFacets = this.getSelectedFacets(nextProps);
 
       facetsChanged = !_.isEqual(selectedFacets, nextSelectedFacets);
@@ -245,13 +245,17 @@ class Products extends Component {
     this.filters = filters;
 
     if (changedFilters || changedCategoryNames || facetsChanged || queryTextChanged) {
-      this.fetch(nextProps);
+      if (nextProps) {
+        this.fetch(nextProps);
+      } else {
+        this.fetch(this.props);
+      }
     }
   }
 
   @autobind
   newFacetSelectState(facet: string, value: string, selected: boolean) {
-    const newSelection = this.getSelectedFacets();
+    const newSelection = this.getSelectedFacets(this.props);
     if (selected) {
       if (facet in newSelection) {
         newSelection[facet].push(value);
@@ -298,7 +302,7 @@ class Products extends Component {
 
   @autobind
   clearFacet(facet: string) {
-    const selectedFacets = _.omit(this.getSelectedFacets(), facet);
+    const selectedFacets = _.omit(this.getSelectedFacets(this.props), facet);
 
     this.updateFacets(selectedFacets);
   }
@@ -344,11 +348,11 @@ class Products extends Component {
     );
   }
 
-  renderFilters(onSelectFacet = this.onSelectFacet) {
+  renderFilters() {
     return (
       <Filters
         filters={this.state.facets}
-        onSelectFacet={onSelectFacet}
+        onSelectFacet={this.onSelectFacet}
         onClearFacet={this.clearFacet}
       >
         <FilterGroup label="I'M HUNGRY FOR" term="producttype">

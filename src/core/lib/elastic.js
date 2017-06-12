@@ -57,7 +57,7 @@ export function termFilter(term: string, value: any): TermFilter {
   };
 }
 
-export function termsFilter(term: string, values: Array<any>): TermFilter {
+export function termsFilter(term: string, values: Array<any>): TermsFilter {
   return {
     terms: {
       [term]: values,
@@ -141,11 +141,10 @@ export function addTaxonomyFilter(initialQuery: BoolQuery,
 export function addPriceFilter(initialQuery: BoolQuery, values: Array<any>): BoolQuery {
   const ranges = values.map((v) => {
     const tuple = v.split('-');
-    const range = { gte: parseInt(tuple[0], 10) };
-
-    if (tuple[1] != '*') {
-      range.lte = parseInt(tuple[1], 10);
-    }
+    const range = {
+      gte: parseInt(tuple[0], 10),
+      lte: (tuple[1] != '*') ? parseInt(tuple[1], 10) : undefined,
+    };
 
     return {
       range: {
