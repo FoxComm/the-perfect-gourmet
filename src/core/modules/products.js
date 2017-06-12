@@ -6,13 +6,12 @@ import {
   addTaxonomyFilter,
   addTaxonomiesAggregation,
   addMatchQuery,
-  addMustNotFilter, defaultSearch, termFilter, termsFilter, addCategoryFilter, addTermFilter, addTermsFilter,
+  addMustNotFilter, defaultSearch, termFilter, addCategoryFilter, addTermFilter,
 } from 'lib/elastic';
 import _ from 'lodash';
 import { api } from 'lib/api';
-import { assoc } from 'sprout-data';
 
-import type { Facet, FacetValue } from 'types/facets';
+import type { Facet } from 'types/facets';
 
 export type Product = {
   id: number;
@@ -50,7 +49,7 @@ function apiCall(categoryNames: ?Array<string>,
                    toLoad = PAGE_SIZE,
                    from = 0,
                    ignoreGiftCards = true,
-                 } = {}): Promise<*> {
+                 }:QueryOpts): Promise<any> {
   let payload = defaultSearch(context);
 
   _.forEach(_.compact(categoryNames), (cat) => {
@@ -120,33 +119,6 @@ function titleCase(t) {
   return _.startCase(_.toLower(t));
 }
 
-export function mapFacetValue(v: string, kind: string): string | Object {
-  let value = v;
-  if (kind == 'color') {
-    const color = (v in fancyColors) ? fancyColors[v] : _.toLower(v).replace(/\s/g, '');
-    value = { color, value: v };
-  }
-
-  return value;
-}
-
-export const fancyColors = {
-  BEIGE: '#BD815D',
-  BLACK: '#000000',
-  BLUE: '#0B5AB9',
-  BROWN: '#6D3D23',
-  GREEN: '#3D8458',
-  GREY: '#999999',
-  METALLIC: '#BCC6CC',
-  ORANGE: '#FF5F01',
-  PURPLE: '#9D4170',
-  YELLOW: '#FFD249',
-  PINK: '#EF3C66',
-  WHITE: '#FFFFFF',
-  'NO COLOR': '#FFFFFF',
-};
-
-
 function mapAggregationsToFacets(aggregations): Array<Facet> {
   return _.map(aggregations, (a) => {
     const kind = determineFacetKind(a.key);
@@ -154,7 +126,7 @@ function mapAggregationsToFacets(aggregations): Array<Facet> {
     const values = _.uniqBy(_.map(buckets, (t) => {
       return {
         label: titleCase(t.key),
-        value: mapFacetValue(t.key, kind),
+        value: t.key,
         count: t.doc_count,
       };
     }), (v) => {
@@ -176,7 +148,7 @@ function priceLabel(from: ?number, to: ?number): string {
   } else if (from) {
     return `$${from / 100}+`;
   } else if (to) {
-     return `$0 - $${to / 100}`;
+    return `$0 - $${to / 100}`;
   }
 
   return '';
@@ -186,14 +158,14 @@ function mapPriceAggregationsToFacets(response = []): Array<Facet> {
   const aggregations = _.get(response, 'aggregations.priceRanges.buckets', []);
 
   const prices = aggregations.reduce((acc, priceAgg) => {
-    const { doc_count, key, from, to } = priceAgg;
+    const { key, from, to } = priceAgg;
 
-    if (doc_count < 1) {
+    if (priceAgg.doc_count < 1) {
       return acc;
     }
 
     return [...acc, {
-      count: doc_count,
+      count: priceAgg.doc_count,
       label: priceLabel(from, to),
       value: key,
       selected: false,
@@ -214,7 +186,6 @@ function mapPriceAggregationsToFacets(response = []): Array<Facet> {
 
 const reducer = createReducer({
   [actions.succeeded]: (state, response) => {
-
     const payloadResult = response.result;
     const aggregations = _.isNil(response.aggregations)
       ? []

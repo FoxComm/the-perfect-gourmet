@@ -9,9 +9,7 @@ import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import * as actions from 'modules/products';
 import { assetsUrl } from 'lib/env';
-import { categoryNameToUrl, categoryNameFromUrl } from 'paragons/categories';
-import { PAGE_SIZE, MAX_RESULTS } from 'modules/products';
-import classNames from 'classnames';
+import { PAGE_SIZE } from 'modules/products';
 import { update, deepMerge, assoc } from 'sprout-data';
 import Select from 'ui/select/select';
 
@@ -19,11 +17,9 @@ import Select from 'ui/select/select';
 // components
 import ProductsList, { LoadingBehaviors } from '../../components/products-list/products-list';
 
-import Facets from '@foxcomm/storefront-react/lib/components/core/facets/facets';
 import Filters from '@foxcomm/storefront-react/lib/components/core/filters/filters';
 import FilterGroup from '@foxcomm/storefront-react/lib/components/core/filters/filter-group';
 import FilterCheckboxes from '@foxcomm/storefront-react/lib/components/core/filters/filter-checkboxes';
-import FilterColors from '@foxcomm/storefront-react/lib/components/core/filters/filter-colors';
 
 // styles
 import styles from './products.css';
@@ -44,26 +40,12 @@ type FiltersType = {
   },
   toLoad: number,
   from: number,
-}
-
-const initialFilterValues: FiltersType = {
-  sorting: {
-    direction: 1,
-    field: 'title',
-  },
-  from: 0,
-  toLoad: PAGE_SIZE,
 };
 
 type State = {
   openMobileFilter: boolean,
   sortOption: string,
   facets: Array<Facet>,
-};
-
-type ColorValue = {
-  color: string,
-  value: string,
 };
 
 type Params = {
@@ -93,6 +75,15 @@ type ColorValue = {
   value: string,
 };
 
+const initialFilterValues: FiltersType = {
+  sorting: {
+    direction: 1,
+    field: 'title',
+  },
+  from: 0,
+  toLoad: PAGE_SIZE,
+};
+
 function isFacetValueSelected(facets: ?Array<string>, value: string | ColorValue) {
   if (typeof value !== 'string') return _.includes(facets, value.value);
   return _.includes(facets, value);
@@ -116,7 +107,7 @@ function mergeFacets(prevFacets, nextFacets, selectedFacets) {
   if (_.isEmpty(prevFacets)) {
     facets = nextFacets;
   } else {
-    facets = _.reduce(nextFacets, (acc, v, k) => {
+    facets = _.reduce(nextFacets, (acc, v) => {
       if (!_.isEmpty(selectedFacets[v.key]) && !_.isEmpty(groupPrev[v.key])) {
         return [...acc, groupPrev[v.key][0]];
       }
@@ -128,18 +119,14 @@ function mergeFacets(prevFacets, nextFacets, selectedFacets) {
   return markFacetValuesAsSelected(facets, selectedFacets);
 }
 
-const facetWhitelist = [
-  'CATEGORY',
-];
-
 const ASC = 1;
 const DESC = -1;
 
 const SORTING_ITEMS = [
-  "Name: A to Z",
-  "Name: Z to A",
-  "Price: Lowest to Highest",
-  "Price: Highest to Lowest",
+  'Name: A to Z',
+  'Name: Z to A',
+  'Price: Lowest to Highest',
+  'Price: Highest to Lowest',
 ];
 
 // redux
@@ -155,12 +142,12 @@ const mapStateToProps = state => {
 
 class Products extends Component {
   props: Props;
-  lastFetch: ?AbortablePromise<*>;
+  lastFetch: ?AbortablePromise<any>;
   filters: Filters = initialFilterValues;
   _facetsToBeApplied: ?SelectedFacetsType;
 
   state: State = {
-    sortOption: "Name: A to Z",
+    sortOption: 'Name: A to Z',
     openMobileFilter: false,
     facets: mergeFacets([], this.props.facets, this.getSelectedFacets()),
   };
@@ -405,7 +392,7 @@ class Products extends Component {
   renderFiltersWithMarkup() {
     if (this.props.facets.length == 0) {
       return null;
-    };
+    }
     return (
       <div styleName="filters-holder">
         <div styleName="filters">
@@ -426,7 +413,7 @@ class Products extends Component {
           />
         </div>
       );
-    };
+    }
     return (
       <div styleName="product-list">
         <ProductsList
@@ -441,7 +428,7 @@ class Products extends Component {
   renderMobileArea() {
     if (this.props.facets.length == 0) {
       return null;
-    };
+    }
     return (
       <div styleName="mobile-trigger-area">
         <button onClick={this.toggleMobileFilter} styleName="filters-trigger">
@@ -493,10 +480,10 @@ class Products extends Component {
       case 'Price: Highest to Lowest':
         this.changeSorting('salePrice', DESC);
         break;
-      case 'None':
+      default:
         this.changeSorting();
         break;
-    };
+    }
     this.setState({
       sortOption: val,
     });
@@ -505,7 +492,7 @@ class Products extends Component {
   renderSorting() {
     if (this.props.facets.length == 0) {
       return null;
-    };
+    }
     return (
       <div styleName="sorting">
         <div>Sort:</div>

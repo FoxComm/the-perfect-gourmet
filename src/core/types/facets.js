@@ -11,7 +11,7 @@ export type FacetElementProps = {
 
 export type FacetValue = {
   label: string,
-  +value: Object|string,
+  value: Object|string,
   count?: number,
   selected?: boolean,
 };
