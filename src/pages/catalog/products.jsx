@@ -367,12 +367,6 @@ class Products extends Component {
         <FilterGroup label="Product Type" term="producttype">
           <FilterCheckboxes />
         </FilterGroup>
-        <FilterGroup label="Color Group" term="colorGroup">
-          <FilterColors />
-        </FilterGroup>
-        <FilterGroup label="Gender" term="gender">
-          <FilterCheckboxes />
-        </FilterGroup>
         <FilterGroup label="Price" term="price">
           <FilterCheckboxes />
         </FilterGroup>
@@ -380,12 +374,6 @@ class Products extends Component {
           <FilterCheckboxes />
         </FilterGroup>
         <FilterGroup label="Material" term="material">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="Laptop Size" term="laptopSize">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="Wheels" term="wheels">
           <FilterCheckboxes />
         </FilterGroup>
         <FilterGroup label="Exclusive Features" term="features">
