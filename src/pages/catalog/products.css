@@ -121,6 +121,7 @@
       background: #fff;
       text-transform: uppercase;
       font-size: 14px;
+      -webkit-appearance:none;
     }
   }
 }
@@ -139,6 +140,7 @@
     & > div {
       border: solid 1px #d9d9d9;
       & select {
+        -webkit-appearance:none;
         font-size: 14px;
         text-transform: uppercase;
       }

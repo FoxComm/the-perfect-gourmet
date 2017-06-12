@@ -112,7 +112,6 @@ function mergeFacets(prevFacets, nextFacets, selectedFacets) {
   let facets = [];
 
   const groupPrev = _.groupBy(prevFacets, 'key');
-  console.log(groupPrev);
   // The only time this should be empty is on first call.
   if (_.isEmpty(prevFacets)) {
     facets = nextFacets;
