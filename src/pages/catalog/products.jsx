@@ -77,8 +77,8 @@ type ColorValue = {
 
 const initialFilterValues: FiltersType = {
   sorting: {
-    direction: 1,
-    field: 'title',
+    direction: -1,
+    field: 'id',
   },
   from: 0,
   toLoad: PAGE_SIZE,
@@ -123,6 +123,8 @@ const ASC = 1;
 const DESC = -1;
 
 const SORTING_ITEMS = [
+  'Newest to Oldest',
+  'Oldest to Newest',
   'Name: A to Z',
   'Name: Z to A',
   'Price: Lowest to Highest',
@@ -147,7 +149,7 @@ class Products extends Component {
   _facetsToBeApplied: ?SelectedFacetsType;
 
   state: State = {
-    sortOption: 'Name: A to Z',
+    sortOption: SORTING_ITEMS[0],
     openMobileFilter: false,
     facets: mergeFacets([], this.props.facets, this.getSelectedFacets(this.props)),
   };
@@ -477,6 +479,12 @@ class Products extends Component {
         break;
       case 'Price: Highest to Lowest':
         this.changeSorting('salePrice', DESC);
+        break;
+      case 'Newest to Oldest':
+        this.changeSorting('productId', DESC);
+        break;
+      case 'Oldest to Newest':
+        this.changeSorting('productId', ASC);
         break;
       default:
         this.changeSorting();
