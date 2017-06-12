@@ -8,7 +8,7 @@ let nextCategoryId = 0;
 const categories = [
   {
     id: nextCategoryId++,
-    name: 'luggage',
+    name: 'APPETIZERS',
     imageUrl: '/images/categories/Cat_Appetizers_2x.jpg',
     showNameCatPage: true,
   },

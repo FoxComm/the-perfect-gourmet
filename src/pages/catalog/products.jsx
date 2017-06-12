@@ -349,27 +349,20 @@ class Products extends Component {
   }
 
   renderFilters() {
+    const filterGroups = _.map(this.state.facets, (facet) => {
+      return (
+        <FilterGroup label={facet.key} term={facet.key.toLowerCase()}>
+          <FilterCheckboxes />
+        </FilterGroup>
+      );
+    })
     return (
       <Filters
         filters={this.state.facets}
         onSelectFacet={this.onSelectFacet}
         onClearFacet={this.clearFacet}
       >
-        <FilterGroup label="I'M HUNGRY FOR" term="producttype">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="PRICE" term="price">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="COURSE" term="collection">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="SPECIAL DIETS" term="material">
-          <FilterCheckboxes />
-        </FilterGroup>
-        <FilterGroup label="PREP" term="features">
-          <FilterCheckboxes />
-        </FilterGroup>
+        {filterGroups}
       </Filters>
     );
   }
