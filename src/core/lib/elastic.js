@@ -220,7 +220,8 @@ export function addTaxonomiesAggregation(initialQuery: BoolQuery): BoolQuery {
   return assoc(
     initialQuery,
     ['aggs'],
-    { ...defaultAggregation().aggs, ...priceAggregation().aggs });
+    { ...defaultAggregation().aggs });
+    /* PRICE AGREGATION IF WE'LL NEED THIS IN FUTURE{ ...defaultAggregation().aggs, ...priceAggregation().aggs }*/
 }
 
 export function addMatchQuery(query: BoolQuery, searchString: string): BoolQuery {
