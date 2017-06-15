@@ -469,10 +469,10 @@ class Products extends Component {
   onSort(val) {
     switch (val) {
       case 'Name: A to Z':
-        this.changeSorting('title', ASC);
+        this.changeSorting('title.raw', ASC);
         break;
       case 'Name: Z to A':
-        this.changeSorting('title', DESC);
+        this.changeSorting('title.raw', DESC);
         break;
       case 'Price: Lowest to Highest':
         this.changeSorting('salePrice', ASC);
