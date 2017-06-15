@@ -247,7 +247,7 @@
   }
 
   & :global(.fc_core⁄filters⁄filter-checkboxes__filter-value input + div){
-    padding: 6px 0 6px 28px;
+    padding: 6px 40px 6px 28px;
     position: relative;
   }
 
@@ -285,6 +285,9 @@
     font-size: 14px;
     font-weight: 300;
     color: var(--dark-blackish);
+    position: absolute;
+    right:0;
+    top: 6px;
   }
 
   & :global(.fc_core⁄filters⁄filter-header__clear) {
