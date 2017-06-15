@@ -192,6 +192,7 @@ function defaultAggregation() {
   };
 }
 
+/* UNCOMMENT THIS IF PRICE AGGREGATIONS NEEDED
 function priceAggregation() {
   const priceBands = [
     { to: 10000 },
@@ -215,7 +216,7 @@ function priceAggregation() {
     },
   };
 }
-
+*/
 export function addTaxonomiesAggregation(initialQuery: BoolQuery): BoolQuery {
   return assoc(
     initialQuery,
