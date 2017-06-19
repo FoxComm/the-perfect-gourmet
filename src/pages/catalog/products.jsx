@@ -350,13 +350,17 @@ class Products extends Component {
     );
   }
 
+  renderFiltersCount(count) {
+    return String(count);
+  }
+
   renderFilters() {
     const filterGroups = _.map(this.state.facets, (facet) => {
       if (facet.key.toLowerCase() == 'category') return null;
       return (
         <FilterGroup
           initiallyExpanded
-          omitParenthesesOnCounts
+          renderCount={this.renderFiltersCount}
           label={facet.key}
           term={facet.key.toLowerCase()}
         >
