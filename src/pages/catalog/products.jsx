@@ -358,8 +358,8 @@ class Products extends Component {
           initiallyExpanded
           omitParenthesesOnCounts
           label={facet.key}
-          term={facet.key.toLowerCase()
-        }>
+          term={facet.key.toLowerCase()}
+        >
           <FilterCheckboxes/>
         </FilterGroup>
       );
