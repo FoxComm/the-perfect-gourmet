@@ -354,8 +354,12 @@ class Products extends Component {
     const filterGroups = _.map(this.state.facets, (facet) => {
       if (facet.key.toLowerCase() == 'category') return null;
       return (
-        <FilterGroup label={facet.key} term={facet.key.toLowerCase()}>
-          <FilterCheckboxes />
+        <FilterGroup
+          initiallyExpanded
+          omitParenthesesOnCounts
+          label={facet.key}
+          term={facet.key.toLowerCase()}>
+          <FilterCheckboxes/>
         </FilterGroup>
       );
     });
