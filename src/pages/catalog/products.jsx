@@ -25,9 +25,44 @@ import FilterCheckboxes from '@foxcomm/storefront-react/lib/components/core/filt
 import styles from './products.css';
 
 // types
-import type { Route } from 'types';
-import type { Facet, FacetValue } from 'types/facets';
-import type { AbortablePromise } from 'types/promise';
+
+type Route = {
+  path?: string,
+  name?: string,
+  component?: Function,
+  indexRoute?: Object,
+  titleParam?: Object,
+};
+
+type RoutesParams = {
+  routes: Array<Route>,
+  params: Object,
+};
+
+type FacetElementProps = {
+  reactKey: string,
+  key: string,
+  facet: string,
+  value: string,
+  label: string,
+  checked?: boolean,
+  click: (facet: string, value: string|Object, checked: boolean) => void,
+};
+
+type FacetValue = {
+  label: string,
+  value: Object|string,
+  count?: number,
+  selected?: boolean,
+};
+
+type Facet = {
+  key?: string,
+  name: string,
+  kind: 'color' | 'circle' | 'checkbox',
+  values: Array<FacetValue>,
+};
+
 
 type SelectedFacetsType = {
   [key: string]: Array<string>,
@@ -55,24 +90,34 @@ type Params = {
 type Category = {
   name: string,
   id: number,
-  description: string,
+  description: ?string,
+  imageUrl: string,
+  hiddenInNavigation: ?boolean,
+  showNameCatPage: boolean,
 };
 
 type Props = {
   params: Params,
+  route: Route,
   list: Array<Object>,
   categories: ?Array<Category>,
   isLoading: boolean,
   fetch: Function,
-  location: any,
+  location: Object,
+  history: Object,
   routes: Array<Route>,
-  routerParams: Object,
+  routeParams: Params,
   facets: Array<Facet>,
+  searchGiftCards: Function,
 };
 
 type ColorValue = {
   color: string,
   value: string,
+};
+
+type AbortablePromise<T> = Promise<T> & {
+  abort: () => void,
 };
 
 const initialFilterValues: FiltersType = {
@@ -144,8 +189,8 @@ const mapStateToProps = state => {
 
 class Products extends Component {
   props: Props;
-  lastFetch: ?AbortablePromise<any>;
-  filters: Filters = initialFilterValues;
+  lastFetch: ?Promise;
+  filters: FiltersType = initialFilterValues;
   _facetsToBeApplied: ?SelectedFacetsType;
 
   state: State = {

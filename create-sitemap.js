@@ -16,14 +16,12 @@ const routes = makeRoutes();
 const categoryNames = categories.map(c => convertCategoryNameToUrlPart(c.name));
 
 const paramsConfig = {
-  '/:categoryName(/:productType)': [
+  '/:categoryName': [
     {
       categoryName: encodeURIComponent('ENTRÉES'),
-      productType: productTypes,
     },
     {
       categoryName: categoryNames,
-      productType: '',
     },
   ],
 };
