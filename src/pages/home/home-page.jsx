@@ -34,10 +34,10 @@ const mainBlocks = [
     action: { title: 'Shop Now', link: '/SUMMER' },
   },
   {
-    imageUrl: '/images/home-page/Home_Hero_Dad.jpg',
-    description: 'Make this Father’s Day memorable with the perfect gourmet gifts',
-    title: 'Dinners for Dad',
-    action: { title: 'Shop Now', link: '/DAD' },
+    imageUrl: '/images/home-page/Best_Sellers_June_Home_Hero_2.jpg',
+    description: 'Shop our most popular dishes and discover your new favorite',
+    title: 'Best-Sellers',
+    action: { title: 'Shop Now', link: '/BEST-SELLERS' },
   },
 ];
 
