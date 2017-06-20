@@ -400,16 +400,17 @@ class Products extends Component {
   }
 
   renderFilters() {
-    const filterGroups = _.map(this.state.facets, (facet) => {
+    const filterGroups = _.map(this.state.facets, (facet, index) => {
       if (facet.key.toLowerCase() == 'category') return null;
       return (
         <FilterGroup
+          key={`filter-group-${index}`}
           initiallyExpanded
           renderCount={this.renderFiltersCount}
           label={facet.key}
           term={facet.key.toLowerCase()}
         >
-          <FilterCheckboxes/>
+          <FilterCheckboxes key={`filter-checkboxes-${index}`}/>
         </FilterGroup>
       );
     });
