@@ -34,21 +34,6 @@ type Route = {
   titleParam?: Object,
 };
 
-type RoutesParams = {
-  routes: Array<Route>,
-  params: Object,
-};
-
-type FacetElementProps = {
-  reactKey: string,
-  key: string,
-  facet: string,
-  value: string,
-  label: string,
-  checked?: boolean,
-  click: (facet: string, value: string|Object, checked: boolean) => void,
-};
-
 type FacetValue = {
   label: string,
   value: Object|string,
@@ -114,10 +99,6 @@ type Props = {
 type ColorValue = {
   color: string,
   value: string,
-};
-
-type AbortablePromise<T> = Promise<T> & {
-  abort: () => void,
 };
 
 const initialFilterValues: FiltersType = {

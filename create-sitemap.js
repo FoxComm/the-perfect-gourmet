@@ -8,7 +8,6 @@ const makeRoutes = require('./lib/routes').default;
 const Sitemap = require('react-router-sitemap').default;
 const {
   categories,
-  productTypes,
   convertCategoryNameToUrlPart,
 } = require('modules/categories');
 
