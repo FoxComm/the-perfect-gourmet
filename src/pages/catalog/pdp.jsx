@@ -168,7 +168,7 @@ class Pdp extends Component {
         .then((product) => {
           this.props.actions.fetchRelatedProducts(product.id, 1).catch(_.noop);
         })
-        .catch(() => {});
+        .catch(_.noop);
       });
   }
 
