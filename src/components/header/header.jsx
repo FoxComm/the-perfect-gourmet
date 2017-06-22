@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { autobind } from 'core-decorators';
 
 // components
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 import Search from '../search/search';
 import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';
@@ -78,13 +78,13 @@ class Header extends React.Component {
         <div className={headerClass}>
           <div styleName="wrap">
             <div styleName="hamburger" onClick={this.props.toggleSidebar}>
-              <Icon name="fc-hamburger" styleName="head-icon"/>
+              <Icon name="hamburger" styleName="head-icon"/>
             </div>
             <div styleName="search">
               <Search isScrolled={this.state.isScrolled}/>
             </div>
             <Link to="/" styleName="logo-link">
-              <Icon styleName="logo" name="fc-logo"/>
+              <Icon styleName="logo" name="logo"/>
             </Link>
             <div styleName="navigation">
               <Navigation path={this.props.path} />

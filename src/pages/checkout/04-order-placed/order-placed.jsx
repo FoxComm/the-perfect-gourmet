@@ -10,8 +10,7 @@ import localized from 'lib/i18n';
 
 // components
 import Button from 'ui/buttons';
-import Loader from 'ui/loader';
-import OrderSummary from '../../../components/order-summary/order-summary';
+import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './order-placed.css';
@@ -57,7 +56,7 @@ class OrderPlaced extends Component {
     }
 
     if (!order) {
-      return <Loader/>;
+      return <WaitAnimation />;
     }
 
     const header = (
@@ -66,12 +65,14 @@ class OrderPlaced extends Component {
 
     return (
       <OrderSummary
-        isCollapsed={false}
         header={header}
         styleName="summary"
-        { ...order }
-        skus={order.lineItems.skus}
-        orderPlaced
+        cord={order}
+        confirmationPage
+        conversionParams={{
+          id: 868108231,
+          label: 'AkdhCPzhm20Qx4_5nQM',
+        }}
       />
     );
   }

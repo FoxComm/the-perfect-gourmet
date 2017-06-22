@@ -20,11 +20,6 @@ function svgoOpts(file) {
       mergePaths: false,
     },
     {
-      convertPathData: {
-        leadingZero: false,
-      },
-    },
-    {
       convertToSymbols: {
         type: 'perItem',
         fn(item) {
@@ -37,7 +32,7 @@ function svgoOpts(file) {
               name: 'id',
               local: 'id',
               prefix: '',
-              value: `fc-${path.basename(file.path, '.svg').toLowerCase()}-icon`,
+              value: `tpg-icon-${path.basename(file.path, '.svg').toLowerCase()}`,
             });
           }
         },
@@ -63,6 +58,6 @@ module.exports = function(gulp, $) {
   });
 
   gulp.task('sprites.watch', function() {
-    gulp.watch([src], ['sprites']);
+    gulp.watch([src], ['templates']);
   });
 };

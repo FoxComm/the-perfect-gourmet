@@ -12,9 +12,9 @@ import { connect } from 'react-redux';
 import * as tracking from 'lib/analytics';
 
 import SmallAddToCartBtn from 'ui/add-to-cart-btn/small-add-to-cart-btn';
-import Currency from 'ui/currency';
 import ImagePlaceholder from '../products-item/image-placeholder';
 import ProductImage from '../imgix/product-image';
+import { Currency } from '@foxcomm/storefront-react';
 
 
 type Image = {

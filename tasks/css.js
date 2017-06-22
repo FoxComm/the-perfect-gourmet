@@ -5,10 +5,10 @@ const _if = require('gulp-if');
 module.exports = function(gulp, $) {
   const src = [
     'src/css/fonts.css',
-    'node_modules/evil-icons/assets/evil-icons.css',
     'src/css/reset.css',
     'src/css/inputs.css',
     'node_modules/@foxcomm/wings/lib/bundle.css',
+    'node_modules/@foxcomm/storefront-react/lib/bundle.css',
     'build/bundle.css',
     'node_modules/slick-carousel/slick/slick.css',
     'node_modules/slick-carousel/slick/slick-theme.css',

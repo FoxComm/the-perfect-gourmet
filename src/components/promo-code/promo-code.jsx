@@ -11,8 +11,7 @@ import { TextInput } from 'ui/inputs';
 import Button from 'ui/buttons';
 import { FormField } from 'ui/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
-import Currency from 'ui/currency';
-import Icon from 'ui/icon';
+import { Currency, Icon } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './promo-code.css';
@@ -106,7 +105,7 @@ class PromoCode extends Component {
         {this.props.allowDelete &&
           <Icon
             onClick={() => this.removeCode(code)}
-            name="fc-close"
+            name="close"
             styleName="delete-promo-icon"
             styleName="delete-promo-btn"
           />
@@ -127,7 +126,7 @@ class PromoCode extends Component {
 
           {this.props.allowDelete &&
             <Icon
-              name="fc-close"
+              name="close"
               styleName="delete-promo-icon"
               styleName="delete-promo-btn"
               onClick={() => this.removeCode()}

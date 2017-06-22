@@ -11,7 +11,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 import localized from 'lib/i18n';
 
 // components
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 import { Link } from 'react-router';
 import UserMenu from './usermenu';
 
@@ -85,7 +85,7 @@ class UserTools extends Component {
           {this.renderUserInfo}
         </div>
         <button styleName="cart" onClick={this.props.toggleCart}>
-          <Icon name="fc-cart" styleName="head-icon"/>
+          <Icon name="cart" styleName="head-icon"/>
           <sup styleName="cart-quantity">{this.props.quantity}</sup>
         </button>
       </div>

@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 // styles
 import styles from './cvc-help.css';
 
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 type State = {
   popupVisible: boolean,
@@ -50,8 +50,8 @@ export default class CvcHelp extends Component {
           For American Express (right), the 4 digits on the front of the card.
         </p>
         <div styleName="cvc-images">
-          <Icon name="fc-cvv-visa" styleName="card-icon" />
-          <Icon name="fc-cvv-american-express" styleName="card-icon" />
+          <Icon name="cvv-visa" styleName="card-icon" />
+          <Icon name="cvv-american-express" styleName="card-icon" />
         </div>
       </div>
     );

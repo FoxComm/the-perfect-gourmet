@@ -78,6 +78,11 @@
     position: fixed;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
   }
+
+  .summary-content.-scrolled {
+    top: 60px;
+    max-height: calc(100% - 60px);
+  }
 }
 
 @media (--medium-only) {

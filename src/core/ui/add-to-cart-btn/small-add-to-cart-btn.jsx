@@ -8,7 +8,7 @@ import cx from 'classnames';
 import styles from './small-add-to-cart-btn.css';
 
 // components
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 type Props = {
   pdp?: bool,
@@ -24,7 +24,7 @@ const SmallAddToCartBtn = (props: Props) => {
   return (
     <button className={classNames} onClick={onClick} {...restProps}>
       <span className={iconWrapper}>
-        <Icon name="fc-add" styleName="add-icon" />
+        <Icon name="add" prefix="tpg-icon-" styleName="add-icon" />
       </span>
     </button>
   );

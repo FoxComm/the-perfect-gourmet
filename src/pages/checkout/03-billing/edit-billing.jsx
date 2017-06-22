@@ -19,12 +19,12 @@ import Autocomplete from 'ui/autocomplete';
 import MaskedInput from 'react-text-mask';
 import EditAddress from 'ui/address/edit-address';
 import CreditCards from './credit-cards';
-import Icon from 'ui/icon';
 import CvcHelp from './cvc-help';
 import PromoCode from '../../../components/promo-code/promo-code';
 import CheckoutForm from '../checkout-form';
 import Accordion from '../../../components/accordion/accordion';
-import Loader from 'ui/loader';
+
+import { Icon, WaitAnimation } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './billing.css';
@@ -178,7 +178,7 @@ class EditBilling extends Component {
       return (
         <Icon
           styleName="payment-icon"
-          name={`fc-payment-${_.kebabCase(this.cardType)}`}
+          name={`payment-${_.kebabCase(this.cardType)}`}
         />
       );
     }
@@ -435,7 +435,7 @@ class EditBilling extends Component {
     }
 
     if (creditCardsLoading) {
-      return <Loader size="m" />;
+      return <WaitAnimation size="m" />;
     }
 
     // Explicitly show card form if user doesn't have any cards

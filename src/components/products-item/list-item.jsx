@@ -12,9 +12,10 @@ import { connect } from 'react-redux';
 import * as tracking from 'lib/analytics';
 
 import AddToCartBtn from 'ui/add-to-cart-btn';
-import Currency from 'ui/currency';
 import ImagePlaceholder from './image-placeholder';
 import ProductImage from '../imgix/product-image';
+
+import { Currency } from '@foxcomm/storefront-react';
 
 type Image = {
   alt?: string,

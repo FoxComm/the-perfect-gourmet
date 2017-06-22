@@ -12,7 +12,7 @@ import styles from './search.css';
 import localized from 'lib/i18n';
 import type { Localized } from 'lib/i18n';
 
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 import { toggleActive, forceSearch } from 'modules/search';
 
@@ -107,8 +107,8 @@ class Search extends Component {
             type="search"
           />
         </form>
-        <Icon styleName="head-icon" name="fc-magnifying-glass" onClick={this.handleClickSearch}/>
-        <Icon styleName="close-icon" name="fc-close" onClick={this.props.toggleActive}/>
+        <Icon styleName="head-icon" name="magnifying-glass" onClick={this.handleClickSearch}/>
+        <Icon styleName="close-icon" name="close" onClick={this.props.toggleActive}/>
       </div>
     );
   }

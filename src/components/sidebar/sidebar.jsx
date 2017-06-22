@@ -11,7 +11,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 import Categories from '../navigation/navigation';
 import Search from '../search/search';
 
@@ -99,7 +99,7 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
         <div styleName="controls">
           <div styleName="controls-close">
             <a styleName="close-button" onClick={props.toggleSidebar}>
-              <Icon name="fc-close" className="close-icon"/>
+              <Icon name="close" className="close-icon"/>
             </a>
           </div>
           <div styleName="controls-search">

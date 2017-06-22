@@ -5,7 +5,7 @@ import _ from 'lodash';
 import React from 'react';
 
 // components
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 import { AddressDetails } from 'ui/address';
 
 // styles
@@ -33,7 +33,7 @@ const ViewBilling = (props: Props) => {
   const addressInfo = !_.isEmpty(billingAddress) ?
     <li><AddressDetails styleName="billing-address" address={billingAddress} /></li> : null;
   const paymentIcon = paymentType ?
-    <li><Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} /></li> : null;
+    <li><Icon styleName="payment-icon" name={`payment-${paymentType}`} /></li> : null;
 
   return (
     <ul styleName="view-billing">

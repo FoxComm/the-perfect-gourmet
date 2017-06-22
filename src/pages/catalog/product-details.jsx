@@ -5,9 +5,8 @@ import _ from 'lodash';
 import React from 'react';
 
 // components
-import Currency from 'ui/currency';
+import { Currency, Select } from '@foxcomm/storefront-react';
 import AddToCartBtn from 'ui/add-to-cart-btn';
-import Select from 'ui/select/select';
 
 // types
 import type { HTMLElement } from 'types';

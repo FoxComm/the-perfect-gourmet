@@ -6,7 +6,7 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import cx from 'classnames';
 import { Link } from 'react-router';
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './pdp.css';
@@ -54,15 +54,15 @@ export default class ProductAttributes extends React.Component {
     return (
         <div styleName="social-sharing">
           <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
-            <Icon name="fc-facebook" styleName="social-icon"/>
+            <Icon name="facebook" styleName="social-icon"/>
           </Link>
 
           <Link to={`https://twitter.com/intent/tweet?text=${ProductShareTitle}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
-            <Icon name="fc-twitter" styleName="social-icon" />
+            <Icon name="twitter" styleName="social-icon" />
           </Link>
 
           <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
-            <Icon name="fc-pinterest" styleName="social-icon"/>
+            <Icon name="pinterest" styleName="social-icon"/>
           </Link>
         </div>
       );

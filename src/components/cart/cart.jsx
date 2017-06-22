@@ -13,14 +13,13 @@ import * as tracking from 'lib/analytics';
 import localized from 'lib/i18n';
 
 // components
-import Currency from 'ui/currency';
 import LineItem from './line-item';
 import Button from 'ui/buttons';
-import Icon from 'ui/icon';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { skuIdentity } from '@foxcomm/wings/lib/paragons/sku';
 import { parseError } from '@foxcomm/api-js';
 import CouponCode from '../promo-code/promo-code';
+import { Currency, Icon } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './cart.css';
@@ -162,7 +161,7 @@ class Cart extends Component {
         <div styleName="overlay" onClick={toggleCart}></div>
         <div styleName="cart-box">
           <div styleName="cart-header" onClick={toggleCart}>
-            <Icon name="fc-chevron-left" styleName="back-icon"/>
+            <Icon name="chevron-left" styleName="back-icon"/>
             <div styleName="header-text">{t('KEEP SHOPPING')}</div>
           </div>
 

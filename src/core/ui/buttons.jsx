@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './css/buttons.css';
 import type { HTMLElement } from 'types';
 
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 type ButtonProps = {
   children: HTMLElement|string,

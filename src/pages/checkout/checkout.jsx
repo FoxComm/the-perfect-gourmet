@@ -8,16 +8,16 @@ import { autobind } from 'core-decorators';
 import { browserHistory } from 'lib/history';
 import * as tracking from 'lib/analytics';
 import { emailIsSet, isGuest } from 'paragons/auth';
+import classnames from 'classnames';
 
 // components
 import Shipping from './01-shipping/shipping';
 import Delivery from './02-delivery/delivery';
 import Billing from './03-billing/billing';
 import GuestAuth from './05-guest-auth/guest-auth';
-import OrderSummary from '../../components/order-summary/order-summary';
+import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react';
 import Header from './header';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
-import Loader from 'ui/loader';
 
 // styles
 import styles from './checkout.css';
@@ -183,16 +183,19 @@ class Checkout extends Component {
   get content() {
     const { props } = this;
     const isGuestMode = isGuest(_.get(props.auth, 'user'));
+    const orderSummaryClass = classnames(styles['summary-content'], {
+      '-scrolled': this.state.isScrolled,
+    });
+
     return (
       <div styleName="body">
         <div styleName="summary">
           <OrderSummary
-            isScrolled={this.state.isScrolled}
-            styleName="summary-content"
-            { ...props.cart }
+            className={orderSummaryClass}
+            cord={props.cart}
+            initiallyCollapsed
           />
         </div>
-
         <div styleName="forms">
           <Shipping
             isEditing={props.editStage == EditStages.SHIPPING}
@@ -245,7 +248,7 @@ class Checkout extends Component {
       setBillingStage: this.setBillingStage,
     };
 
-    const body = props.fetchCartState.finished ? this.content : <Loader />;
+    const body = props.fetchCartState.finished ? this.content : <WaitAnimation />;
 
     return (
       <section styleName="checkout">

@@ -9,7 +9,7 @@ import Copyright from '../../../components/footer/copyright';
 import Guest from '../../../components/auth/guest';
 import Login from '../../../components/auth/login';
 import Signup from '../../../components/auth/signup';
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
 import * as checkoutActions from 'modules/checkout';
 import * as authActions from 'modules/auth';
@@ -72,7 +72,7 @@ class GuestAuth extends Component {
       <article styleName="guest-auth">
         <div styleName="home">
           <Link to="/">
-             <Icon styleName="logo" name="fc-logo" />
+             <Icon styleName="logo" name="logo" prefix="tpg-icon-" />
           </Link>
           <div styleName="divider" />
           <p styleName="title">Checkout</p>
