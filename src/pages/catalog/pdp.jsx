@@ -94,6 +94,7 @@ const mapStateToProps = state => {
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
     isRelatedProductsLoading: _.get(state.asyncActions, ['relatedProducts', 'inProgress'], false),
+    isReady: _.get(state.asyncActions, ['pdp', 'isReady'], false),
 
   };
 };
@@ -124,6 +125,9 @@ class Pdp extends Component {
 
   componentWillMount() {
     if (_.isEmpty(this.props.product)) {
+      if (this.props.isReady !== null) {
+        this.props.actions.resetReadyFlag();
+      }
       this.productPromise = this.fetchProduct();
     } else {
       this.productPromise = Promise.resolve();
@@ -131,7 +135,6 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.resetReadyFlag();
     this.productPromise.then(() => {
       const { product, isRelatedProductsLoading, actions } = this.props;
 
@@ -343,9 +346,9 @@ class Pdp extends Component {
   }
 
   render(): HTMLElement {
-    const { t, isLoading, notFound, fetchError } = this.props;
+    const { t, isLoading, notFound, fetchError, isReady } = this.props;
 
-    if (isLoading) {
+    if (isLoading || isReady == null) {
       return <Loader />;
     }
 
