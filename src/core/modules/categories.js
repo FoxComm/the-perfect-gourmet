@@ -80,14 +80,6 @@ const categories = [
   },
 ];
 
-const productTypes = [
-  'All',
-  'Poultry',
-  'Seafood',
-  'Meat',
-  'Vegetarian',
-];
-
 function convertCategoryNameToUrlPart(categoryName: string) {
   return encodeURIComponent(categoryName.replace(/\s/g, '-'));
 }
@@ -113,6 +105,5 @@ export {
   reducer as default,
   fetch,
   categories,
-  productTypes,
   convertCategoryNameToUrlPart,
 };

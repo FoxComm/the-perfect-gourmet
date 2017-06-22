@@ -77,10 +77,12 @@ class Search extends Component {
           <span styleName="label">{t('Search results for')}</span>
           <strong styleName="term">"{term}"</strong>
         </h1>
-        <ProductsList
-          list={result}
-          isLoading={this.props.searchState.inProgress !== false}
-        />
+        <div styleName="product-list">
+          <ProductsList
+            list={result}
+            isLoading={this.props.searchState.inProgress !== false}
+          />
+        </div>
       </div>
     );
   }

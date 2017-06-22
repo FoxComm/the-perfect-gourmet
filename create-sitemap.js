@@ -8,7 +8,6 @@ const makeRoutes = require('./lib/routes').default;
 const Sitemap = require('react-router-sitemap').default;
 const {
   categories,
-  productTypes,
   convertCategoryNameToUrlPart,
 } = require('modules/categories');
 
@@ -16,14 +15,12 @@ const routes = makeRoutes();
 const categoryNames = categories.map(c => convertCategoryNameToUrlPart(c.name));
 
 const paramsConfig = {
-  '/:categoryName(/:productType)': [
+  '/:categoryName': [
     {
       categoryName: encodeURIComponent('ENTRÉES'),
-      productType: productTypes,
     },
     {
       categoryName: categoryNames,
-      productType: '',
     },
   ],
 };

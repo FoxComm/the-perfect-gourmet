@@ -363,7 +363,6 @@ class Pdp extends Component {
           {this.renderGallery()}
         </div>
         {this.details}
-        <ErrorAlerts error={this.state.error} />
         <div styleName="related-container">
           {this.relatedProductsList}
         </div>
