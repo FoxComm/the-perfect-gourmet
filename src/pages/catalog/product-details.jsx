@@ -9,14 +9,17 @@ import Currency from 'ui/currency';
 import AddToCartBtn from 'ui/add-to-cart-btn';
 import Select from 'ui/select/select';
 
+// types
+import type { HTMLElement } from 'types';
+
 // styles
 import styles from './pdp.css';
 
 const QUANTITY_ITEMS = _.range(1, 1 + 10, 1);
 
 type Props = {
-  product: any,
-  children: any,
+  product: Object,
+  children: HTMLElement,
   quantity: number,
   onQuantityChange: Function,
   addToCart: Function,
@@ -56,7 +59,7 @@ const ProductDetails = (props: Props) => {
 
   return (
     <div className={props.className}>
-      <div id="pdp" styleName="main">
+      <div styleName="main">
         <h1 styleName="title">{title}</h1>
 
         {isOnSale}

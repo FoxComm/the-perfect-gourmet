@@ -9,8 +9,6 @@
   flex-wrap: wrap;
   padding-top: 40px;
   padding-bottom: 40px;
-  lost-column: 12/12;
-  lost-offset: 0;
 }
 
 .related-container {
@@ -27,7 +25,6 @@
 .details {
   height: auto;
   lost-column: 5/12;
-  lost-offset: 0;
 }
 
 .title {
@@ -214,8 +211,9 @@
     font-size: 10px;
   }
 
-  .add-to-cart-btn {
-    height: 32px;
+  .quantity select{
+    height: 44px;
+    font-size: 14px;
   }
 
   .price {

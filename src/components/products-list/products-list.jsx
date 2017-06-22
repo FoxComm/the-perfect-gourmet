@@ -67,7 +67,8 @@ class ProductsList extends Component {
     this.trackProductView();
   }
 
-  renderProducts() {
+  @autobind
+  renderProduct(item, index) {
     const {
       size,
       showAddToCartButton,
@@ -75,20 +76,22 @@ class ProductsList extends Component {
       showDescriptionOnHover,
     } = this.props;
 
-    return _.map(this.props.list, (item, index) => {
-      return (
-        <ListItem
-          {...item}
-          index={index}
-          key={`product-${item.id}`}
-          ref={`product-${item.id}`}
-          size={size}
-          showAddToCartButton={showAddToCartButton}
-          showServings={showServings}
-          showDescriptionOnHover={showDescriptionOnHover}
-        />
-      );
-    });
+    return (
+      <ListItem
+        {...item}
+        index={index}
+        key={`product-${item.id}`}
+        ref={`product-${item.id}`}
+        size={size}
+        showAddToCartButton={showAddToCartButton}
+        showServings={showServings}
+        showDescriptionOnHover={showDescriptionOnHover}
+      />
+    );
+  }
+
+  renderProducts() {
+    return _.map(this.props.list, this.renderProduct);
   }
 
   trackProductView() {

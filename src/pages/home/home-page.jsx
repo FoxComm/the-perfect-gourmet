@@ -28,16 +28,16 @@ function initPixlee() {
 
 const mainBlocks = [
   {
-    imageUrl: '/images/home-page/May_Section1.jpg',
-    description: 'NO PLANNING, SHOPPING, PREPPING, OR CLEANING REQUIRED',
-    title: 'DINNER IS SERVED',
-    action: { title: 'Shop Now', link: '/ENTRÉES' },
+    imageUrl: '/images/home-page/Home_Hero_Summer.jpg',
+    description: 'Bring everyone together this summer with crowd-pleasing starters and entrées',
+    title: 'Entertaining Made Easy',
+    action: { title: 'Shop Now', link: '/SUMMER' },
   },
   {
-    imageUrl: '/images/home-page/May_Section3.jpg',
-    description: '',
-    title: 'SEE WHAT’S NEW ON THE MENU',
-    action: { title: 'Shop Now', link: '/NEW' },
+    imageUrl: '/images/home-page/Best_Sellers_June_Home_Hero_2.jpg',
+    description: 'Shop our most popular dishes and discover your new favorite',
+    title: 'Best-Sellers',
+    action: { title: 'Shop Now', link: '/BEST-SELLERS' },
   },
 ];
 
@@ -61,12 +61,12 @@ const magazineBlocks = magazineLogos.map(({ name, height }) => {
 
 const featured = [
   {
-    amountOfServings: '40 Count',
+    amountOfServings: '80 Count',
     taxonomies: {},
     id: 41,
     productId: 81,
-    retailPrice: '5400',
-    salePrice: '5400',
+    retailPrice: '6000',
+    salePrice: '6000',
     context: 'default',
     scope: '1',
     skus: [
@@ -224,7 +224,7 @@ const featured = [
     id: 60,
     productId: 108,
     retailPrice: '3500',
-    salePrice: '2500',
+    salePrice: '3500',
     context: 'default',
     scope: '1',
     skus: [

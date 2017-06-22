@@ -15,59 +15,6 @@ type State = {
   currentAdditionalTitle: string,
 };
 
-const shareLinks = (isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage) => {
-  if (!isDetails) return null;
-  return (
-      <div styleName="social-sharing">
-        <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-facebook" styleName="social-icon"/>
-        </Link>
-
-        <Link to={`https://twitter.com/intent/tweet?text=${ProductShareTitle}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-twitter" styleName="social-icon" />
-        </Link>
-
-        <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
-          <Icon name="fc-pinterest" styleName="social-icon"/>
-        </Link>
-      </div>
-    );
-};
-
-const attributeDescription = (attributeName, attributeValue) => {
-  const description = (attributeName == 'Amount of Servings' ||
-        attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
-        attributeValue;
-  return <div styleName="attribute-description">{description}</div>;
-};
-
-const displayAttribute = (product, attributeName, isDetails) => {
-  const attributeValue = _.get(product, `attributes.${attributeName}.v`);
-  if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
-  const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
-  return (
-    <div className="attribute-line" key={attributeName}>
-      {title}
-      {attributeDescription(attributeName, attributeValue)}
-    </div>
-  );
-};
-
-const renderAttributes = (product, productDetails, attributeNames = []) => {
-  const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
-  const ProductDescription = _.get(productDetails, 'description');
-  const ProductImage = _.get(productDetails, 'images.0');
-  const ProductShareTitle = _.get(productDetails, 'title');
-  const TwitterHandle = 'perfectgourmet1';
-  const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
-  return (
-    <div styleName={isDetails ? 'description' : ''}>
-      {_.map(attributeNames, (attributeName) => displayAttribute(product, attributeName, isDetails))}
-      {shareLinks(isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage)}
-    </div>
-  );
-};
-
 const additionalInfoAttributesMap = [
   {
     title: 'Details',
@@ -97,13 +44,78 @@ export default class ProductAttributes extends React.Component {
     currentAdditionalTitle: 'Details',
   };
 
+  shareLinks (isDetails: boolean,
+              ProductURL: string,
+              ProductShareTitle: string,
+              TwitterHandle: string,
+              ProductDescription: string,
+              ProductImage: string) {
+    if (!isDetails) return null;
+    return (
+        <div styleName="social-sharing">
+          <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
+            <Icon name="fc-facebook" styleName="social-icon"/>
+          </Link>
+
+          <Link to={`https://twitter.com/intent/tweet?text=${ProductShareTitle}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
+            <Icon name="fc-twitter" styleName="social-icon" />
+          </Link>
+
+          <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
+            <Icon name="fc-pinterest" styleName="social-icon"/>
+          </Link>
+        </div>
+      );
+  }
+
+  attributeDescription (attributeName: string, attributeValue: string) {
+    const description = (attributeName == 'Amount of Servings' ||
+          attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
+          attributeValue;
+    if (description == attributeValue) {
+      return (
+        <div styleName="attribute-description"
+          dangerouslySetInnerHTML={{__html: description}}
+        />
+      );
+    }
+    return <div styleName="attribute-description" >{description}</div>;
+  }
+
+  displayAttribute (product: Object, attributeName: string, isDetails: boolean) {
+    const attributeValue = _.get(product, `attributes.${attributeName}.v`);
+    if (attributeValue === undefined || _.isEmpty(attributeValue)) return null;
+    const title = !isDetails ? <div styleName="attribute-title">{attributeName}</div> : null;
+    return (
+      <div className="attribute-line" key={attributeName}>
+        {title}
+        {this.attributeDescription(attributeName, attributeValue)}
+      </div>
+    );
+  }
+
+  generateAttributesBodys (product: Object, productDetails: Object, attributeNames: Array<string> = []) {
+    const ProductURL = `http://theperfectgourmet.com${productDetails.pathName}`;
+    const ProductDescription = _.get(productDetails, 'description');
+    const ProductImage = _.get(productDetails, 'images.0');
+    const ProductShareTitle = _.get(productDetails, 'title');
+    const TwitterHandle = 'perfectgourmet1';
+    const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
+    return (
+      <div styleName={isDetails ? 'description' : ''}>
+        {_.map(attributeNames, (attributeName) => this.displayAttribute(product, attributeName, isDetails))}
+        {this.shareLinks(isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage)}
+      </div>
+    );
+  }
+
   @autobind
   renderAttributes() {
     const { attributes } =
       _.find(additionalInfoAttributesMap,
         attr => attr.title == this.state.currentAdditionalTitle) || {};
 
-    return renderAttributes(this.props.product, this.props.productDetails, attributes);
+    return this.generateAttributesBodys(this.props.product, this.props.productDetails, attributes);
   }
 
   @autobind
@@ -135,7 +147,7 @@ export default class ProductAttributes extends React.Component {
             {this.renderAttributesTitles()}
           </div>
 
-          <div id="pdp-info-block" styleName="info-block">
+          <div styleName="info-block">
             {this.renderAttributes()}
           </div>
         </div>
