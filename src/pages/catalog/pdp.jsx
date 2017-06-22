@@ -15,7 +15,7 @@ import type { Localized } from 'lib/i18n';
 
 // modules
 import { searchGiftCards } from 'modules/products';
-import { fetch, getNextId, getPreviousId, resetProduct, resetReadyFlag } from 'modules/product-details';
+import { fetch, getNextId, getPreviousId, resetProduct, clearErrors } from 'modules/product-details';
 import { addLineItem, toggleCart } from 'modules/cart';
 import { fetchRelatedProducts, clearRelatedProducts } from 'modules/cross-sell';
 
@@ -94,7 +94,6 @@ const mapStateToProps = state => {
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
     isRelatedProductsLoading: _.get(state.asyncActions, ['relatedProducts', 'inProgress'], false),
-    isReady: _.get(state.asyncActions, ['pdp', 'isReady'], false),
 
   };
 };
@@ -102,7 +101,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetch,
-    resetReadyFlag,
+    clearErrors,
     getNextId,
     getPreviousId,
     resetProduct,
@@ -124,10 +123,7 @@ class Pdp extends Component {
   };
 
   componentWillMount() {
-    if (_.isEmpty(this.props.product)) {
-      if (this.props.isReady !== null) {
-        this.props.actions.resetReadyFlag();
-      }
+    if (_.isEmpty(this.props.product) && !this.props.notFound && !this.props.fetchError) {
       this.productPromise = this.fetchProduct();
     } else {
       this.productPromise = Promise.resolve();
@@ -147,6 +143,7 @@ class Pdp extends Component {
 
   componentWillUnmount() {
     this.props.actions.resetProduct();
+    this.props.actions.clearErrors();
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -346,9 +343,9 @@ class Pdp extends Component {
   }
 
   render(): HTMLElement {
-    const { t, isLoading, notFound, fetchError, isReady } = this.props;
+    const { t, isLoading, notFound, fetchError } = this.props;
 
-    if (isLoading || isReady == null) {
+    if (isLoading) {
       return <Loader />;
     }
 
