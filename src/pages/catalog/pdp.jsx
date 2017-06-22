@@ -15,7 +15,7 @@ import type { Localized } from 'lib/i18n';
 
 // modules
 import { searchGiftCards } from 'modules/products';
-import { fetch, getNextId, getPreviousId, resetProduct, resetReadyFlag, clearErrors } from 'modules/product-details';
+import { fetch, getNextId, getPreviousId, resetProduct, clearErrors } from 'modules/product-details';
 import { addLineItem, toggleCart } from 'modules/cart';
 import { fetchRelatedProducts, clearRelatedProducts } from 'modules/cross-sell';
 
@@ -101,7 +101,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     fetch,
-    resetReadyFlag,
     clearErrors,
     getNextId,
     getPreviousId,
