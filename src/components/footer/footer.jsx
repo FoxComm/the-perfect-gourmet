@@ -31,16 +31,16 @@ const Footer = () : Element<*> => {
 
         <div styleName="social-links">
           <Link to="https://www.instagram.com/theperfectgourmet/" target="_blank">
-            <Icon name="instagram" styleName="social-icon"/>
+            <Icon name="instagram" styleName="social-icon" />
           </Link>
           <Link to="https://www.facebook.com/PerfectGourmet/" target="_blank">
-            <Icon name="facebook" styleName="social-icon"/>
+            <Icon name="facebook" styleName="social-icon" />
           </Link>
           <Link to="https://twitter.com/perfectgourmet1" target="_blank">
-            <Icon name="twitter" styleName="social-icon"/>
+            <Icon name="twitter" styleName="social-icon" />
           </Link>
           <Link to="https://www.pinterest.com/perfectgourmet/" target="_blank">
-            <Icon name="pinterest" styleName="social-icon"/>
+            <Icon name="pinterest" styleName="social-icon" />
           </Link>
         </div>
       </div>

@@ -109,12 +109,9 @@
 
 .delete-promo-btn {
   composes: delete-button from '../../components/cart/line-item.css';
+  composes: delete-icon from '../../components/cart/line-item.css';
   line-height: 15px;
   margin-left: 10px;
-}
-
-.delete-promo-icon {
-  composes: delete-icon from '../../components/cart/line-item.css';
 }
 
 @media (--small-only) {

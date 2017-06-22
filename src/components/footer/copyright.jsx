@@ -14,7 +14,7 @@ const Copyright = () : Element<*> => {
         <li><Link to="terms-of-use">Terms</Link></li>
         <li><Link to="privacy-policy">Privacy</Link></li>
       </ul>
-      <p><a href="http://foxcommerce.com/" target="_blank">POWERED BY FOXCOMMERCE</a>.</p>
+      <p><a href="http://foxcommerce.com/" target="_blank" rel="noopener noreferrer">POWERED BY FOXCOMMERCE</a>.</p>
     </div>
   );
 };

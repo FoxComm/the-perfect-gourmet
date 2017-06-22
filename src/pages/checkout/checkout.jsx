@@ -98,7 +98,7 @@ class Checkout extends Component {
 
   @autobind
   checkScroll() {
-    //$FlowFixMe: there will be number
+    // $FlowFixMe: there will be number
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const checkoutHeaderHeight = 136;
     const isScrolled = scrollTop > checkoutHeaderHeight;
@@ -142,7 +142,7 @@ class Checkout extends Component {
         .then(() => this.checkout());
     }
 
-    const giftCardPresent = _.some(paymentMethods, paymentMethod => {
+    const giftCardPresent = _.some(paymentMethods, (paymentMethod) => {
       return paymentMethod.type == 'giftCard';
     });
 

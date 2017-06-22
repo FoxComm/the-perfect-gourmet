@@ -109,7 +109,7 @@ class Signup extends Component {
       operation.then(() => {
         browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
       });
-    }).catch(err => {
+    }).catch((err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
       let usernameError = false;
@@ -131,7 +131,7 @@ class Signup extends Component {
         usernameError,
         generalErrors: restErrors,
       });
-    }).then(response => {
+    }).then((response) => {
       analytics.completeRegistration();
       return response;
     });

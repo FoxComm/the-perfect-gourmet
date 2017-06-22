@@ -72,7 +72,7 @@ class GuestAuth extends Component {
       <article styleName="guest-auth">
         <div styleName="home">
           <Link to="/">
-             <Icon styleName="logo" name="logo" prefix="tpg-icon-" />
+            <Icon styleName="logo" name="logo" prefix="tpg-icon-" />
           </Link>
           <div styleName="divider" />
           <p styleName="title">Checkout</p>
@@ -89,7 +89,7 @@ class GuestAuth extends Component {
             <div styleName="mobile-divider" />
           </div>
           <div styleName="auth-block">
-            <Guest onGuestCheckout={this.onGuestCheckout}/>
+            <Guest onGuestCheckout={this.onGuestCheckout} />
           </div>
         </div>
         <div styleName="footer">

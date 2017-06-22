@@ -37,7 +37,7 @@ export function renderApp() {
   const userId = _.get(store.getState(), 'state.auth.user.id');
   initTracker(userId);
 
-  history.listenBefore(location => {
+  history.listenBefore((location) => {
     trackPageView(location.pathname);
   });
 

@@ -93,16 +93,16 @@ const Sidebar = (props: SidebarProps): Element<*> => {
 
   return (
     <div styleName={sidebarClass}>
-      <div styleName="overlay" onClick={props.toggleSidebar}></div>
+      <div styleName="overlay" onClick={props.toggleSidebar} />
       <div styleName="container">
         <div styleName="controls">
           <div styleName="controls-close">
             <a styleName="close-button" onClick={props.toggleSidebar}>
-              <Icon name="close" className="close-icon"/>
+              <Icon name="close" className="close-icon" />
             </a>
           </div>
           <div styleName="controls-search">
-            <Search onSearch={props.toggleSidebar} isActive/>
+            <Search onSearch={props.toggleSidebar} isActive />
           </div>
           <div styleName="links-group" onClick={onLinkClick}>
             <div styleName="controls-categories">

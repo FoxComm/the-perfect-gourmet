@@ -79,14 +79,14 @@ class PromoCode extends Component {
 
     this.props.saveCode(code)
       .then(() => this.setState({ code: '', error: false }))
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
 
   removeCode(code?: string) {
     this.props.removeCode(code)
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -106,7 +106,6 @@ class PromoCode extends Component {
           <Icon
             onClick={() => this.removeCode(code)}
             name="close"
-            styleName="delete-promo-icon"
             styleName="delete-promo-btn"
           />
         }
@@ -127,7 +126,6 @@ class PromoCode extends Component {
           {this.props.allowDelete &&
             <Icon
               name="close"
-              styleName="delete-promo-icon"
               styleName="delete-promo-btn"
               onClick={() => this.removeCode()}
             />

@@ -42,9 +42,9 @@ const GIFT_CARD_TAG = 'GIFT-CARD';
 
 
 function apiCall(categoryNames: ?Array<string>,
-                 selectedFacets: Object,
-                 searchTerm: ?string,
-                 {
+  selectedFacets: Object,
+  searchTerm: ?string,
+  {
                    sorting,
                    toLoad = PAGE_SIZE,
                    from = 0,

@@ -69,7 +69,7 @@ class Cart extends Component {
   @autobind
   deleteLineItem(sku) {
     tracking.removeFromCart(sku, sku.quantity);
-    this.props.deleteLineItem(sku).catch(ex => {
+    this.props.deleteLineItem(sku).catch((ex) => {
       this.setState({
         errors: parseError(ex),
       });
@@ -84,7 +84,7 @@ class Cart extends Component {
     } else if (diff < 0) {
       tracking.removeFromCart(sku, -diff);
     }
-    this.props.updateLineItemQuantity(sku, quantity).catch(ex => {
+    this.props.updateLineItemQuantity(sku, quantity).catch((ex) => {
       this.setState({
         errors: parseError(ex),
       });
@@ -100,7 +100,7 @@ class Cart extends Component {
       );
     }
 
-    return _.map(this.props.skus, sku => {
+    return _.map(this.props.skus, (sku) => {
       return (
         <LineItem
           {...sku}
@@ -158,10 +158,10 @@ class Cart extends Component {
 
     return (
       <div styleName={cartClass}>
-        <div styleName="overlay" onClick={toggleCart}></div>
+        <div styleName="overlay" onClick={toggleCart} />
         <div styleName="cart-box">
           <div styleName="cart-header" onClick={toggleCart}>
-            <Icon name="chevron-left" styleName="back-icon"/>
+            <Icon name="chevron-left" styleName="back-icon" />
             <div styleName="header-text">{t('KEEP SHOPPING')}</div>
           </div>
 
@@ -184,7 +184,7 @@ class Cart extends Component {
             <div styleName="cart-subtotal">
               <div styleName="subtotal-title">{t('SUBTOTAL')}</div>
               <div styleName="subtotal-price">
-                <Currency value={ totals.subTotal } />
+                <Currency value={totals.subTotal} />
               </div>
             </div>
 

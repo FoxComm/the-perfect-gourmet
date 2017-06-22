@@ -91,7 +91,7 @@ class ChangePassword extends Component {
       newPassword1
     ).then(() => {
       browserHistory.push('/profile');
-    }).catch(err => {
+    }).catch((err) => {
       this.setState({error: err});
     });
   }

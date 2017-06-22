@@ -7,7 +7,7 @@ exports.enableNotifier = true;
 // exports.autoInstallHooks = true;
 
 if (fs.existsSync('./.gulprc')) {
-  Object.assign(exports, require('../.gulprc'));
+  Object.assign(exports, require('../.gulprc')); // eslint-disable-line import/no-unresolved
 }
 
 if (process.argv.indexOf('--browser-sync') >= 0) {

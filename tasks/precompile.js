@@ -10,14 +10,14 @@ function runScript(name, cb = () => {}) {
       detached: true,
       stdio: 'inherit',
     }
-  ).on('close', code => {
+  ).on('close', (code) => {
     child = null;
     if (code != 0) {
       cb(new Error(`"yarn run ${name}" process exited with code ${code}`));
     } else {
       cb();
     }
-  }).on('error', err => {
+  }).on('error', (err) => {
     child = null;
     cb(err);
   });
@@ -41,7 +41,7 @@ module.exports = function (gulp) {
       .pipe(gulp.dest('lib'));
   });
 
-  const logBabelified = file => {
+  const logBabelified = (file) => {
     console.info(`src/${file.relative} -> lib/${file.relative}`);
   };
 
@@ -59,13 +59,13 @@ module.exports = function (gulp) {
   gulp.task('precompile', ['precompile.static', 'precompile.source']);
 
   gulp.task('precompile.watch', function () {
-    gulp.watch(statics).on('change', file => {
+    gulp.watch(statics).on('change', (file) => {
       logBabelified(file);
       gulp
         .src(file.path, { base: 'src' })
         .pipe(gulp.dest('./lib'));
     });
 
-    runScript(`watch-precompile`);
+    runScript('watch-precompile');
   });
 };

@@ -157,12 +157,12 @@ const SORTING_ITEMS = [
 ];
 
 // redux
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const async = state.asyncActions.products;
 
   return {
     ...state.products,
-    isLoading: !!async ? async.inProgress : true,
+    isLoading: async ? async.inProgress : true,
     categories: state.categories.list,
   };
 };
@@ -264,7 +264,7 @@ class Products extends Component {
     if (changedCategoryNames) {
       filters = initialFilterValues;
     } else {
-      Object.keys(newFilters).forEach(key => {
+      Object.keys(newFilters).forEach((key) => {
         filters = update(filters, key, deepMerge, newFilters[key]);
       });
     }
@@ -390,7 +390,7 @@ class Products extends Component {
           label={facet.key}
           term={facet.key.toLowerCase()}
         >
-          <FilterCheckboxes key={`filter-checkboxes-${index}`}/>
+          <FilterCheckboxes key={`filter-checkboxes-${index}`} />
         </FilterGroup>
       );
     });
@@ -468,7 +468,7 @@ class Products extends Component {
       <div styleName="mobile-trigger-area">
         <button onClick={this.toggleMobileFilter} styleName="filters-trigger">
           FILTERS
-          {this.state.openMobileFilter ? <i styleName="icon-up"></i> : <i styleName="icon-down"></i>}
+          {this.state.openMobileFilter ? <i styleName="icon-up" /> : <i styleName="icon-down" />}
         </button>
         <div styleName="sorting-trigger">
           <Select
@@ -481,7 +481,7 @@ class Products extends Component {
             selectedItem={this.state.sortOption}
             sortItems={false}
           />
-          <i styleName="icon-down"></i>
+          <i styleName="icon-down" />
         </div>
       </div>
     );

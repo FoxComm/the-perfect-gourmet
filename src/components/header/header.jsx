@@ -79,13 +79,13 @@ class Header extends React.Component {
         <div className={headerClass}>
           <div styleName="wrap">
             <div styleName="hamburger" onClick={this.props.toggleSidebar}>
-              <Icon name="hamburger" styleName="head-icon"/>
+              <Icon name="hamburger" styleName="head-icon" />
             </div>
             <div styleName="search">
-              <Search isScrolled={this.state.isScrolled}/>
+              <Search isScrolled={this.state.isScrolled} />
             </div>
             <Link to="/" styleName="logo-link">
-              <Icon styleName="logo" name="logo"/>
+              <Icon styleName="logo" name="logo" />
             </Link>
             <div styleName="navigation">
               <Navigation path={this.props.path} />

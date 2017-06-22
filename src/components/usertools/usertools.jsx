@@ -84,7 +84,7 @@ class UserTools extends Component {
           {this.renderUserInfo}
         </div>
         <button styleName="cart" onClick={this.props.toggleCart}>
-          <Icon name="cart" styleName="head-icon"/>
+          <Icon name="cart" styleName="head-icon" />
           <sup styleName="cart-quantity">{this.props.quantity}</sup>
         </button>
       </div>
@@ -92,7 +92,7 @@ class UserTools extends Component {
   }
 }
 
-const mapState = (state) => ({
+const mapState = state => ({
   auth: _.get(state, 'auth', {}),
   isMenuVisible: _.get(state.usermenu, 'isVisible', false),
   quantity: _.get(state.cart, 'quantity', 0),

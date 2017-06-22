@@ -105,13 +105,13 @@ class Order extends Component {
       <Block title={`Order ${order.referenceNumber}`}>
         <table styleName="simple-table">
           <thead>
-          <tr>
-            <th>Date</th>
-            <th>Order #</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Tracking</th>
-          </tr>
+            <tr>
+              <th>Date</th>
+              <th>Order #</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Tracking</th>
+            </tr>
           </thead>
           <tbody>
             <OrderRow order={order} />

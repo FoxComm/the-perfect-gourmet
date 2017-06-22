@@ -79,7 +79,7 @@ class Shipping extends Component {
     }
 
     return (
-      <AddressList { ...props } activeAddress={savedAddress}/>
+      <AddressList {...props} activeAddress={savedAddress} />
     );
   }
 

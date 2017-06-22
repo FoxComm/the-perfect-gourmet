@@ -45,27 +45,27 @@ export default class ProductAttributes extends React.Component {
   };
 
   shareLinks (isDetails: boolean,
-              ProductURL: string,
-              ProductShareTitle: string,
-              TwitterHandle: string,
-              ProductDescription: string,
-              ProductImage: string) {
+    ProductURL: string,
+    ProductShareTitle: string,
+    TwitterHandle: string,
+    ProductDescription: string,
+    ProductImage: string) {
     if (!isDetails) return null;
     return (
-        <div styleName="social-sharing">
-          <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
-            <Icon name="facebook" styleName="social-icon"/>
-          </Link>
+      <div styleName="social-sharing">
+        <Link to={`https://www.facebook.com/sharer/sharer.php?u=${ProductURL}&title=${ProductShareTitle}&description=${ProductDescription}&picture=${ProductImage}`} target="_blank" styleName="social-icon">
+          <Icon name="facebook" styleName="social-icon" />
+        </Link>
 
-          <Link to={`https://twitter.com/intent/tweet?text=${ProductShareTitle}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
-            <Icon name="twitter" styleName="social-icon" />
-          </Link>
+        <Link to={`https://twitter.com/intent/tweet?text=${ProductShareTitle}&url=${ProductURL}&via=${TwitterHandle}`} target="_blank" styleName="social-icon">
+          <Icon name="twitter" styleName="social-icon" />
+        </Link>
 
-          <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
-            <Icon name="pinterest" styleName="social-icon"/>
-          </Link>
-        </div>
-      );
+        <Link to={`https://pinterest.com/pin/create/button/?url=${ProductURL}&media=${ProductImage}&description=${ProductDescription}`} target="_blank" styleName="social-icon">
+          <Icon name="pinterest" styleName="social-icon" />
+        </Link>
+      </div>
+    );
   }
 
   attributeDescription (attributeName: string, attributeValue: string) {
@@ -105,7 +105,7 @@ export default class ProductAttributes extends React.Component {
     const isDetails = _.isEqual(attributeNames, ['description', 'Amount of Servings', 'Serving Size']);
     return (
       <div styleName={isDetails ? 'description' : ''}>
-        {_.map(attributeNames, (attributeName) => this.displayAttribute(product, attributeName, isDetails))}
+        {_.map(attributeNames, attributeName => this.displayAttribute(product, attributeName, isDetails))}
         {this.shareLinks(isDetails, ProductURL, ProductShareTitle, TwitterHandle, ProductDescription, ProductImage)}
       </div>
     );

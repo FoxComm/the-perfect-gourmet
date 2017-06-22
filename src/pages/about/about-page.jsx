@@ -20,12 +20,12 @@ import mentions from './mentions';
 const headerOffset = 86;
 
 const mentionBlocks = mentions.map((mention, i) =>
-  <div styleName="mention-wrap" key={i}>
+  (<div styleName="mention-wrap" key={i}>
     <MentionBlock
-      urlPrefix={assetsUrl(`/images/about-page`)}
+      urlPrefix={assetsUrl('/images/about-page')}
       mention={mention}
     />
-  </div>
+  </div>)
 );
 
 export default class AboutPage extends React.Component {

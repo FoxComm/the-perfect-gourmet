@@ -74,7 +74,7 @@ class RelatedProductsList extends Component {
         <div styleName="related-title">
           {title}
         </div>
-        <div styleName="line"/>
+        <div styleName="line" />
         <div styleName="list">
           {this.renderProducts}
         </div>

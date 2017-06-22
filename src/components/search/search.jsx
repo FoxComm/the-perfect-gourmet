@@ -96,7 +96,8 @@ class Search extends Component {
     return (
       <div styleName={searchStyle} className={cls}>
         <form action="." >
-          <input value={this.state.term}
+          <input
+            value={this.state.term}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}
             styleName="search-input"
@@ -106,8 +107,8 @@ class Search extends Component {
             type="search"
           />
         </form>
-        <Icon styleName="head-icon" name="magnifying-glass" onClick={this.handleClickSearch}/>
-        <Icon styleName="close-icon" name="close" onClick={this.props.toggleActive}/>
+        <Icon styleName="head-icon" name="magnifying-glass" onClick={this.handleClickSearch} />
+        <Icon styleName="close-icon" name="close" onClick={this.props.toggleActive} />
       </div>
     );
   }

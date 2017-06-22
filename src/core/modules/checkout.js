@@ -199,7 +199,7 @@ export function saveGiftCard(code: string): Function {
 export function removeGiftCard(code: string): Function {
   return (dispatch) => {
     return foxApi.cart.removeGiftCard(code)
-      .then(res => {
+      .then((res) => {
         dispatch(updateCart(res.result));
       });
   };
@@ -208,7 +208,7 @@ export function removeGiftCard(code: string): Function {
 export function saveCouponCode(code: string): Function {
   return (dispatch) => {
     return foxApi.cart.addCoupon(code)
-      .then(res => {
+      .then((res) => {
         dispatch(updateCart(res.result));
       });
   };

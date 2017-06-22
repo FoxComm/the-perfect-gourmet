@@ -61,7 +61,7 @@ class LineItem extends Component {
               {this.props.name}
             </div>
             <div styleName="price">
-              <Currency value={this.props.totalPrice}/>
+              <Currency value={this.props.totalPrice} />
             </div>
           </div>
           <div styleName="quantity">

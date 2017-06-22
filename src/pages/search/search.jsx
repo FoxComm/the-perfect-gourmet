@@ -74,7 +74,7 @@ class Search extends Component {
       <div styleName="search">
         <h1 styleName="search-title">
           <span styleName="label">{t('Search results for')}</span>
-          <strong styleName="term">"{term}"</strong>
+          <strong styleName="term">&quot;{term}&quot;</strong>
         </h1>
         <div styleName="product-list">
           <ProductsList

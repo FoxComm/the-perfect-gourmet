@@ -43,7 +43,7 @@ const plugins = [
     },
   }),
   require('postcss-url')({
-    url: url => {
+    url: (url) => {
       // drop leading slash in URLs to load static from prefixed environment by relative path:
       // stage.foxcommerce.com/app-name/...
       return url.startsWith('/') ? url.substr(1) : url;

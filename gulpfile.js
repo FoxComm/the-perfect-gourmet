@@ -13,7 +13,7 @@ const del = require('del');
 
 for (const task of fs.readdirSync('./tasks')) {
   const file = path.join('./tasks', task);
-  const taskModule = require(path.resolve(file));
+  const taskModule = require(path.resolve(file)); // eslint-disable-line import/no-dynamic-require
   if (typeof taskModule == 'function') {
     taskModule(gulp, $, opts);
   }
