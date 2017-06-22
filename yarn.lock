@@ -494,7 +494,7 @@ babel-eslint@^4.1.8:
     lodash.assign "^3.2.0"
     lodash.pick "^3.1.0"
 
-babel-generator@^6.24.1, babel-generator@^6.7.7:
+babel-generator@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-generator/-/babel-generator-6.24.1.tgz#e715f486c58ded25649d888944d52aa07c5d9497"
   dependencies:
@@ -1094,12 +1094,6 @@ babel-plugin-transform-strict-mode@^6.24.1:
 babel-plugin-transform-system-register@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-system-register/-/babel-plugin-transform-system-register-0.0.1.tgz#9dff40390c2763ac518f0b2ad7c5ea4f65a5be25"
-
-"babel-plugin-typecheck@github:anru/babel-plugin-typecheck#dont-throw-2":
-  version "3.9.0"
-  resolved "https://codeload.github.com/anru/babel-plugin-typecheck/tar.gz/9082bd8b817d93f2f1b6851d3a8b642b33689940"
-  dependencies:
-    babel-generator "^6.7.7"
 
 babel-plugin-undeclared-variables-check@^1.0.2:
   version "1.0.2"
@@ -3387,16 +3381,13 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.23.0:
-  version "0.23.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.23.1.tgz#eb6522bb7c6719184593adef46ab22381cc188a6"
-  dependencies:
-    bin-wrapper "^3.0.2"
-    logalot "^2.0.0"
-
 flow-bin@^0.36.0:
   version "0.36.0"
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.36.0.tgz#557907bd9c2ab0670cfad9e7e906a74b0631e39a"
+
+flow-bin@^0.48.0:
+  version "0.48.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.48.0.tgz#72d075143524358db8901525e3c784dc13a7c7ee"
 
 for-in@^1.0.1:
   version "1.0.2"

@@ -1,11 +1,10 @@
 
-import React from 'react';
+import React, { Element } from 'react';
 import styles from './css/term-value-line.css';
 
-import type { HTMLElement } from 'types';
 
 type PropsType = {
-  children: Array<HTMLElement|string>,
+  children: Array<Element<*>|string>,
   className?: string,
 };
 

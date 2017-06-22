@@ -2,8 +2,7 @@
 
 // libs
 import _ from 'lodash';
-import React, { Component } from 'react';
-import type { HTMLElement } from 'types';
+import React, { Component, Element } from 'react';
 import { browserHistory } from 'lib/history';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
@@ -170,7 +169,7 @@ const mapStateToProps = state => {
 
 class Products extends Component {
   props: Props;
-  lastFetch: ?Promise;
+  lastFetch: ?AbortablePromise<*>;
   filters: FiltersType = initialFilterValues;
   _facetsToBeApplied: ?SelectedFacetsType;
 
@@ -553,7 +552,7 @@ class Products extends Component {
       </div>
     );
   }
-  render(): HTMLElement {
+  render(): Element<*> {
     return (
       <section styleName="catalog">
         {this.renderHeader()}

@@ -21,7 +21,7 @@ export type RestorePasswordFormProps = Localized & {
   topMessage: string,
   title: string,
   t: (value: string) => string,
-  restorePassword: (email: string) => Promise,
+  restorePassword: (email: string) => Promise<*>,
 };
 
 export type SignUpPayload = {

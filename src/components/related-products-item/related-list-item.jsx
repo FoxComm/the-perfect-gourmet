@@ -1,7 +1,6 @@
 /* @flow */
 
-import React from 'react';
-import type { HTMLElement } from 'types';
+import React, { Element } from 'react';
 import styles from './related-list-item.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -90,7 +89,7 @@ class RelatedListItem extends React.Component {
     tracking.clickPdp(props, props.index);
   }
 
-  isOnSale(): HTMLElement {
+  isOnSale(): Element<*> {
     const { currency } = this.props;
 
     let {
@@ -121,14 +120,14 @@ class RelatedListItem extends React.Component {
       );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const {
       productId,
       slug,
       title,
     } = this.props;
 
-    const productSlug = _.isEmpty(slug) ? productId : slug;
+    const productSlug = !slug ? productId : slug;
 
     return (
       <div styleName="list-item">

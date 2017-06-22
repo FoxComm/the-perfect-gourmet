@@ -69,17 +69,19 @@ export default class ProductAttributes extends React.Component {
   }
 
   attributeDescription (attributeName: string, attributeValue: string) {
-    const description = (attributeName == 'Amount of Servings' ||
-          attributeName == 'Serving Size') ? <div styleName="servings">{attributeValue}</div> :
-          attributeValue;
-    if (description == attributeValue) {
+    if (attributeName == 'Amount of Servings' || attributeName == 'Serving Size') {
       return (
-        <div styleName="attribute-description"
-          dangerouslySetInnerHTML={{__html: description}}
-        />
+        <div styleName="attribute-description">
+          <div styleName="servings">{attributeValue}</div>
+        </div>
       );
     }
-    return <div styleName="attribute-description" >{description}</div>;
+    return (
+      <div
+        styleName="attribute-description"
+        dangerouslySetInnerHTML={{__html: attributeValue}}
+      />
+    );
   }
 
   displayAttribute (product: Object, attributeName: string, isDetails: boolean) {

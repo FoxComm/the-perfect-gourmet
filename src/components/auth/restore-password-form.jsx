@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -20,7 +20,6 @@ import Button from 'ui/buttons';
 import * as actions from 'modules/auth';
 
 // types
-import type { HTMLElement } from 'types';
 import type { RestorePasswordFormProps } from 'types/auth';
 import type { User } from 'types/auth';
 
@@ -53,7 +52,7 @@ class RestorePasswordForm extends Component {
   }
 
   @autobind
-  handleSubmit(): ?Promise {
+  handleSubmit(): ?Promise<*> {
     const { email } = this.state;
     const { t } = this.props;
 
@@ -77,7 +76,7 @@ class RestorePasswordForm extends Component {
     );
   }
 
-  get topMessage(): HTMLElement {
+  get topMessage(): Element<*> {
     const { emailSent, error, email } = this.state;
     const { t } = this.props;
 
@@ -111,7 +110,7 @@ class RestorePasswordForm extends Component {
     });
   }
 
-  get emailField(): ?HTMLElement {
+  get emailField(): ?Element<*> {
     const { emailSent, email } = this.state;
     const { t } = this.props;
 
@@ -144,7 +143,7 @@ class RestorePasswordForm extends Component {
     browserHistory.push(linkTo);
   };
 
-  get primaryButton(): HTMLElement {
+  get primaryButton(): Element<any> {
     const { emailSent } = this.state;
     const { t } = this.props;
 
@@ -159,7 +158,7 @@ class RestorePasswordForm extends Component {
     return <Button styleName="primary-button" type="submit">{t('SUBMIT')}</Button>;
   }
 
-  get stageSwitch(): ?HTMLElement {
+  get stageSwitch(): ?Element<*> {
     const { emailSent } = this.state;
     const { t } = this.props;
 
@@ -177,7 +176,7 @@ class RestorePasswordForm extends Component {
     }
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     return (
       <div styleName="auth-block">
         <div styleName="title">{this.props.title}</div>

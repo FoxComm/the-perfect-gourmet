@@ -2,14 +2,13 @@
 
 // libs
 import _ from 'lodash';
-import React from 'react';
+import React, { Element } from 'react';
 
 // components
 import { Currency, Select } from '@foxcomm/storefront-react';
 import AddToCartBtn from 'ui/add-to-cart-btn';
 
 // types
-import type { HTMLElement } from 'types';
 
 // styles
 import styles from './pdp.css';
@@ -18,7 +17,7 @@ const QUANTITY_ITEMS = _.range(1, 1 + 10, 1);
 
 type Props = {
   product: Object,
-  children: HTMLElement,
+  children: Element<*>,
   quantity: number,
   onQuantityChange: Function,
   addToCart: Function,

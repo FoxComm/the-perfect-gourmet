@@ -29,6 +29,6 @@ clean-build:
 	rm -rf ./build/* ./lib/* ./public/app-*.css ./public/app-*.js
 
 test:
-	yarn test
+	yarn test && yarn flow && yarn lint
 
 .PHONY: dev d setup build docker docker-push clean test

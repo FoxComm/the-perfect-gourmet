@@ -1,14 +1,13 @@
 /* @flow */
 
-import React from 'react';
+import React, { Element } from 'react';
 import styles from './overlay.css';
-import type { HTMLElement } from 'types';
 
 import { Link } from 'react-router';
 import { Icon } from '@foxcomm/storefront-react';
 
 type OverlayProps = {
-  children: HTMLElement,
+  children: Element<*>,
   path: string|Object,
 };
 

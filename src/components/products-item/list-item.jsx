@@ -1,8 +1,7 @@
 /* @flow */
 
-import React from 'react';
+import React, { Element } from 'react';
 import { findDOMNode } from 'react-dom';
-import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -105,7 +104,7 @@ class ListItem extends React.Component {
     tracking.clickPdp(props, props.index);
   }
 
-  isOnSale(): HTMLElement {
+  isOnSale(): Element<*> {
     const { currency } = this.props;
 
     let {
@@ -136,7 +135,7 @@ class ListItem extends React.Component {
       );
   }
 
-  servings(): ?HTMLElement {
+  servings(): ?Element<*> {
     const {
       showServings,
       amountOfServings,
@@ -153,7 +152,7 @@ class ListItem extends React.Component {
     );
   }
 
-  hoverInfo(description): ?HTMLElement {
+  hoverInfo(description): ?Element<*> {
     const { showDescriptionOnHover } = this.props;
 
     if (!showDescriptionOnHover) return null;
@@ -168,7 +167,7 @@ class ListItem extends React.Component {
     );
   }
 
-  addToCartButton(): ?HTMLElement {
+  addToCartButton(): ?Element<*> {
     const { showAddToCartButton } = this.props;
 
     if (!showAddToCartButton) return null;
@@ -180,7 +179,7 @@ class ListItem extends React.Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const {
       productId,
       slug,

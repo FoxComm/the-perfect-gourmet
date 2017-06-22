@@ -2,7 +2,7 @@
 
 // libs
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
@@ -20,7 +20,6 @@ import { addLineItem, toggleCart } from 'modules/cart';
 import { fetchRelatedProducts, clearRelatedProducts } from 'modules/cross-sell';
 
 // types
-import type { HTMLElement } from 'types';
 import type { ProductResponse} from 'modules/product-details';
 import type { RelatedProductResponse } from 'modules/cross-sell';
 
@@ -114,7 +113,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Pdp extends Component {
   props: Props;
-  productPromise: Promise;
+  productPromise: Promise<*>;
 
   state: State = {
     quantity: 1,
@@ -342,7 +341,7 @@ class Pdp extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<any> {
     const { t, isLoading, notFound, fetchError } = this.props;
 
     if (isLoading) {

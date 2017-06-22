@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import React, { Element } from 'react';
 
 // libs
 import { connect } from 'react-redux';
@@ -21,7 +21,6 @@ import { fetch as fetchCart } from 'modules/cart';
 import * as actions from 'modules/sidebar';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
 
 import styles from './sidebar.css';
@@ -32,7 +31,7 @@ type SidebarProps = Localized & {
   path: string,
 };
 
-const Sidebar = (props: SidebarProps): HTMLElement => {
+const Sidebar = (props: SidebarProps): Element<*> => {
   const { t } = props;
   const sidebarClass = classNames({
     'sidebar-hidden': !props.isVisible,

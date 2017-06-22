@@ -1,11 +1,9 @@
 // @flow
 
-import React from 'react';
+import React, { Element } from 'react';
 import styles from './profile.css';
 
 import Breadcrumb from './breadcrumb';
-
-import type { HTMLElement } from 'types';
 
 type Route = {
   component: {
@@ -14,7 +12,7 @@ type Route = {
 }
 
 type Props = {
-  children: HTMLElement|Array<HTMLElement>,
+  children: Element<*>|Array<Element<*>>,
   routes: Array<Route>,
   params: Object,
 }
@@ -27,7 +25,7 @@ const ProfileUnit = (props: Props) => {
   }
   return (
     <div styleName="profile">
-      <Breadcrumb title={title} />
+      <Breadcrumb title={title || ''} />
       {props.children}
     </div>
   );

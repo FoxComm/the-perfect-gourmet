@@ -23,7 +23,6 @@ import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import styles from './checkout.css';
 
 // types
-import type { Promise as PromiseType } from 'types/promise';
 import type { CheckoutState, EditStage } from 'modules/checkout';
 import type { CheckoutActions } from './types';
 import type { AsyncStatus } from 'types/async-actions';
@@ -37,8 +36,8 @@ import { fetchUser } from 'modules/auth';
 
 type Props = CheckoutState & CheckoutActions & {
   setEditStage: (stage: EditStage) => Object,
-  hideCart: () => PromiseType,
-  fetchCart: () => PromiseType,
+  hideCart: () => Promise<*>,
+  fetchCart: () => Promise<*>,
   addresses: Array<any>,
   shippingMethods: Object,
   cart: Object,
@@ -99,6 +98,7 @@ class Checkout extends Component {
 
   @autobind
   checkScroll() {
+    //$FlowFixMe: there will be number
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const checkoutHeaderHeight = 136;
     const isScrolled = scrollTop > checkoutHeaderHeight;

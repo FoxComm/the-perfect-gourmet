@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -20,7 +20,6 @@ import { toggleCart } from 'modules/cart';
 import { toggleUserMenu } from 'modules/usermenu';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Auth } from 'types/auth';
 
 import styles from './usertools.css';
@@ -78,7 +77,7 @@ class UserTools extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     return (
       <div styleName="tools">
         <div styleName="login">

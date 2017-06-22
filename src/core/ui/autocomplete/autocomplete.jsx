@@ -38,7 +38,7 @@ type State = {
   value: string|number,
   isOpen: boolean,
   menuDirection: string,
-  highlightedIndex?: any,
+  highlightedIndex: ?number,
   changingStarted?: boolean,
 };
 
@@ -151,7 +151,7 @@ class Autocomplete extends Component {
   }
 
   maybeScrollItemIntoView() {
-    if (this.state.isOpen && this.state.highlightedIndex !== null) {
+    if (this.state.isOpen && this.state.highlightedIndex != null) {
       const itemNode = this.refs[`item-${this.state.highlightedIndex}`];
       if (itemNode) {
         const menuNode = this.refs.menu;
@@ -283,7 +283,7 @@ class Autocomplete extends Component {
 
     if (this.props.sortItems) {
       items.sort((a, b) => (
-        this.sortItems(a, b, this.state.value)
+        this.sortItems(a, b)
       ));
     }
 

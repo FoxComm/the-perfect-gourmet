@@ -2,7 +2,7 @@
 
 // libs
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 import { autobind, debounce } from 'core-decorators';
 import { isElementInViewport } from 'lib/dom-utils';
 import * as tracking from 'lib/analytics';
@@ -15,7 +15,6 @@ import ListItem from '../products-item/list-item';
 import Loader from 'ui/loader';
 
 // types
-import type { HTMLElement } from 'types';
 
 export const LoadingBehaviors = {
   ShowLoader: 0,
@@ -144,7 +143,7 @@ class ProductsList extends Component {
     }, 250);
   }
 
-  get loadingWrapper(): ?HTMLElement {
+  get loadingWrapper(): ?Element<*> {
     if (this.props.isLoading) {
       return (
         <div styleName="loading-wrapper">
@@ -156,7 +155,7 @@ class ProductsList extends Component {
     }
   }
 
-  get title(): ?HTMLElement {
+  get title(): ?Element<*> {
     const { title } = this.props;
 
     if (!title) return null;
@@ -168,7 +167,7 @@ class ProductsList extends Component {
     );
   }
 
-  render() : HTMLElement {
+  render() : Element<any> {
     const {
       loadingBehavior = LoadingBehaviors.ShowLoader,
       isLoading,

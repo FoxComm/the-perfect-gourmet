@@ -16,7 +16,6 @@ import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/profile';
 
-import type { Promise as PromiseType } from 'types/promise';
 import type { AsyncStatus } from 'types/async-actions';
 
 function mapStateToProps(state) {
@@ -27,16 +26,16 @@ function mapStateToProps(state) {
 }
 
 type Account = {
-  name: string,
-  email: string,
+  name: ?string,
+  email: ?string,
   isGuest: boolean,
   id: number,
 }
 
 type EditNameProps = {
-  account: Account|{},
-  fetchAccount: () => PromiseType,
-  updateAccount: (payload: Object) => PromiseType,
+  account: Account,
+  fetchAccount: () => Promise<*>,
+  updateAccount: (payload: Object) => Promise<*>,
   updateState: AsyncStatus,
   clearErrorsFor: (...args: Array<string>) => void,
 }

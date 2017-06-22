@@ -3,7 +3,7 @@
 // libs
 import React from 'react';
 import _ from 'lodash';
-import formatCurrency from 'lib/format-currency';
+import formatCurrency from '@foxcomm/storefront-react/lib/lib/format-currency';
 import { email } from 'ui/forms/validators';
 
 // styles

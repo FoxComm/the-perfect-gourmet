@@ -1,8 +1,7 @@
 /* flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 import classNames from 'classnames';
-import type { HTMLElement } from 'types';
 import { browserHistory } from 'lib/history';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
@@ -85,7 +84,7 @@ class Search extends Component {
     this.setState({ term: target.value });
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const searchStyle = this.props.isActive ? 'search-expanded' : 'search';
 
     const cls = classNames({

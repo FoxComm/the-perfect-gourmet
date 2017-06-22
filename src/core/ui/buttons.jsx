@@ -1,13 +1,12 @@
 import classNames from 'classnames/dedupe';
-import React from 'react';
+import React, { Element } from 'react';
 
 import styles from './css/buttons.css';
-import type { HTMLElement } from 'types';
 
 import { Icon } from '@foxcomm/storefront-react';
 
 type ButtonProps = {
-  children: HTMLElement|string,
+  children: Element<*>|string,
   icon?: string,
   isLoading?: boolean,
   className?: string,

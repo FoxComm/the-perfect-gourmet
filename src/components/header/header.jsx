@@ -57,6 +57,7 @@ class Header extends React.Component {
 
   @autobind
   checkScroll() {
+    // $FlowFixMe: there will be number
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const isScrolled = scrollTop > 136;
 

@@ -38,9 +38,9 @@ function globalActions(dispatch) {
 type Props = {
   updateAddressState: AsyncStatus,
   routeParams: Object,
-  fetchAddress: (addressId: number) => Promise,
+  fetchAddress: (addressId: number) => Promise<*>,
   checkoutActions: {
-    updateAddress: (address: Address, id?: number) => Promise,
+    updateAddress: (address: Address, id?: number) => Promise<*>,
   },
   address: Address|void,
 }

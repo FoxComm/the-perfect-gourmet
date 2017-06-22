@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -23,7 +23,6 @@ import * as actions from 'modules/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
-import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'types/auth';
 import type { Localized } from 'lib/i18n';
 
@@ -41,10 +40,10 @@ type AuthState = {
 type Props = Localized & {
   location: Object | {},
   isLoading: boolean,
-  fetchCart: () => Promise,
-  saveLineItemsAndCoupons: (merge: boolean) => Promise,
+  fetchCart: () => Promise<*>,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise<*>,
   onLoginClick: (event: SyntheticEvent) => void,
-  title?: string|Element|null,
+  title?: string|Element<*>|null,
   onAuthenticated?: Function,
   inCheckout: boolean
 };
@@ -168,7 +167,7 @@ class Signup extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const { email, password, username, emailError, usernameError } = this.state;
     const { t, isLoading } = this.props;
 

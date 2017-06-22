@@ -1,7 +1,7 @@
 /* @flow */
 
 // libs
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 import { autobind } from 'core-decorators';
 import { nodeApi } from 'lib/api';
 
@@ -63,7 +63,7 @@ class ContactUsPage extends Component {
       });
   }
 
-  get errorAlert() {
+  get errorAlert(): ?Element<*> {
     return this.state.error ? (
       <div styleName="error">
         <ErrorAlerts error={this.state.error} />
@@ -71,11 +71,11 @@ class ContactUsPage extends Component {
     ) : null;
   }
 
-  get loader() {
+  get loader(): ?Element<*> {
     return this.state.sending ? <Loader size="m" /> : null;
   }
 
-  get submitButton() {
+  get submitButton(): ?Element<*> {
     return !this.state.sending ? (
       <Button styleName="submit-btn" type="submit">
         Submit
@@ -83,7 +83,7 @@ class ContactUsPage extends Component {
     ) : null;
   }
 
-  renderForm() {
+  renderForm(): Element<*> {
     const {
       name = '',
       email = '',

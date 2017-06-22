@@ -1,7 +1,6 @@
 /* @flow */
 
-import React from 'react';
-import type { HTMLElement } from 'types';
+import React, { Element } from 'react';
 
 import styles from './footer.css';
 
@@ -10,7 +9,7 @@ import { Link } from 'react-router';
 import SubscriptionForm from '../email-subscription/form';
 import Copyright from './copyright';
 
-const Footer = () : HTMLElement => {
+const Footer = () : Element<*> => {
   return (
     <section styleName="footer">
       <header styleName="heading">

@@ -24,7 +24,7 @@ type Props = {
   location: Object,
   isBannerVisible: boolean,
   user: User | {},
-  fetchCart: () => Promise,
+  fetchCart: () => Promise<*>,
 };
 
 class Auth extends Component {
