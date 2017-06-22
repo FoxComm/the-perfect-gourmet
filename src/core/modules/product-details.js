@@ -79,7 +79,7 @@ function fetchProduct(id: ProductSlug): global.Promise {
   return this.api.get(`/v1/public/products/${id}`);
 }
 
-const {fetch, resetReadyFlag, ...actions} = createAsyncActions('pdp', fetchProduct);
+const {fetch, resetReadyFlag, clearErrors, ...actions} = createAsyncActions('pdp', fetchProduct);
 
 export const resetProduct = createAction('RESET_PRODUCT');
 
@@ -105,5 +105,6 @@ const reducer = createReducer({
 export {
   fetch,
   resetReadyFlag,
+  clearErrors,
   reducer as default,
 };
