@@ -13,7 +13,7 @@ import styles from './gift-card-form.css';
 import { TextInput } from 'ui/inputs';
 import { Form, FormField } from 'ui/forms';
 import AddToCartBtn from 'ui/add-to-cart-btn';
-import Select from 'ui/select/select';
+import { Select } from '@foxcomm/storefront-react';
 
 
 type Props = {
@@ -54,9 +54,6 @@ const GiftCardForm = (props: Props) => {
       <Form styleName="form" onSubmit={props.addToCart}>
         <div styleName="price-selector">
           <Select
-            inputProps={{
-              type: 'text',
-            }}
             items={skus}
             getItemValue={formatSkuPrice}
             selectedItem={props.selectedSku}

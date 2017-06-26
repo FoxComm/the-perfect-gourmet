@@ -28,7 +28,7 @@ const AddToCartBtn = (props: Props) => {
   return (
     <button className={classNames} onClick={onClick} {...restProps}>
       <span className={iconWrapper}>
-        <Icon name="add" prefix="tpg-icon-" styleName="add-icon" />
+        <Icon name="add" styleName="add-icon" />
       </span>
       <span className={buttonTitle}>ADD TO CART</span>
     </button>

@@ -1,6 +1,6 @@
 @import "colors.css";
 @import "variables.css";
-@import "media-queries";
+@import "media-queries.css";
 
 .add-to-cart-btn {
   white-space: nowrap;
@@ -39,9 +39,10 @@
 }
 
 .add-icon {
-  width: 12px;
-  height: 12px;
-  stroke: none;
+  width: 18px;
+  height: 18px;
+  color: white;
+  stroke-width: 1.4;
 }
 
 .add-btn-title {

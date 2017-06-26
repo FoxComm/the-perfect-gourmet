@@ -9,12 +9,13 @@ module.exports = function(gulp, $) {
     'src/css/inputs.css',
     'node_modules/@foxcomm/wings/lib/bundle.css',
     'node_modules/@foxcomm/storefront-react/lib/bundle.css',
+    'build/theme.css',
     'build/bundle.css',
     'node_modules/slick-carousel/slick/slick.css',
     'node_modules/slick-carousel/slick/slick-theme.css',
   ];
 
-  gulp.task('css', function() {
+  gulp.task('css', ['css-theme'], function() {
     return gulp.src(src)
       .pipe($.concat('app.css'))
       .pipe(_if(process.env.NODE_ENV === 'production', cssnano()))
@@ -22,8 +23,22 @@ module.exports = function(gulp, $) {
       .pipe(browserSync.stream({ match: '**/*.css' }));
   });
 
+  const srcTheme = [
+    'src/theme/**/*.css',
+  ];
+
+  gulp.task('css-theme', () => {
+    const postcss = require('gulp-postcss');
+    const plugins = require('../postcss.config').pluginsNoModules;
+
+    return gulp
+      .src(srcTheme)
+      .pipe(postcss(plugins))
+      .pipe($.concat('theme.css'))
+      .pipe(gulp.dest('build/'));
+  });
 
   gulp.task('css.watch', function() {
-    gulp.watch(src, ['css']);
+    gulp.watch([...src, ...srcTheme], ['css']);
   });
 };

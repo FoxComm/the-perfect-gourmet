@@ -27,3 +27,14 @@
   font-size: 13px;
   color: #212121;
 }
+
+.state-select:global(.fc-select__block) {
+  border-color: #f4f4f4;
+}
+
+@media (--small-only) {
+  & :global(.fc-select__select) {
+    height: 46px;
+    font-size: 14px;
+  }
+}

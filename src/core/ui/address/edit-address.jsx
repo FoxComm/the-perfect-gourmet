@@ -15,10 +15,9 @@ import type { Localized } from 'lib/i18n';
 import MaskedInput from 'react-text-mask';
 import { TextInput } from '../inputs';
 import { FormField } from 'ui/forms';
-import Select from 'ui/select/select';
 import Autocomplete from 'ui/autocomplete';
 import Checkbox from '../checkbox/checkbox';
-import Loader from '../loader';
+import { WaitAnimation, Select } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './address.css';
@@ -269,7 +268,7 @@ export default class EditAddress extends Component {
   }
 
   render() {
-    if (!this.isAddressLoaded) return <Loader size="m" />;
+    if (!this.isAddressLoaded) return <WaitAnimation size="m" />;
 
     const props: EditAddressProps = this.props;
     const { t, withCountry } = props;
@@ -310,9 +309,7 @@ export default class EditAddress extends Component {
         { withCountry && this.countryInput }
         <FormField styleName="text-field">
           <Select
-            inputProps={{
-              placeholder: t('STATE'),
-            }}
+            styleName="state-select"
             getItemValue={item => item.name}
             items={selectedCountry.regions}
             onSelect={this.changeState}

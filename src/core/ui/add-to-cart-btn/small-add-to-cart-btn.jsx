@@ -11,7 +11,7 @@ import styles from './small-add-to-cart-btn.css';
 import { Icon } from '@foxcomm/storefront-react';
 
 type Props = {
-  pdp?: bool,
+  pdp?: boolean,
   onClick?: Function,
   className?: string,
 };
@@ -24,7 +24,7 @@ const SmallAddToCartBtn = (props: Props) => {
   return (
     <button className={classNames} onClick={onClick} {...restProps}>
       <span className={iconWrapper}>
-        <Icon name="add" prefix="tpg-icon-" styleName="add-icon" />
+        <Icon name="add" styleName="add-icon" />
       </span>
     </button>
   );

@@ -6,11 +6,11 @@ import React, { Component, Element } from 'react';
 import { browserHistory } from 'lib/history';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
-import * as actions from 'modules/products';
 import { assetsUrl } from 'lib/env';
-import { PAGE_SIZE } from 'modules/products';
 import { update, deepMerge, assoc } from 'sprout-data';
-import Select from 'ui/select/select';
+// redux
+import { PAGE_SIZE } from 'modules/products';
+import * as actions from 'modules/products';
 
 
 // components
@@ -19,11 +19,14 @@ import ProductsList, { LoadingBehaviors } from '../../components/products-list/p
 import Filters from '@foxcomm/storefront-react/lib/components/core/filters/filters';
 import FilterGroup from '@foxcomm/storefront-react/lib/components/core/filters/filter-group';
 import FilterCheckboxes from '@foxcomm/storefront-react/lib/components/core/filters/filter-checkboxes';
+import { Select } from '@foxcomm/storefront-react';
 
 // styles
 import styles from './products.css';
 
 // types
+
+import type { FacetValue, Facet } from 'types/facets';
 
 type Route = {
   path?: string,
@@ -32,21 +35,6 @@ type Route = {
   indexRoute?: Object,
   titleParam?: Object,
 };
-
-type FacetValue = {
-  label: string,
-  value: Object|string,
-  count?: number,
-  selected?: boolean,
-};
-
-type Facet = {
-  key?: string,
-  name: string,
-  kind: 'color' | 'circle' | 'checkbox',
-  values: Array<FacetValue>,
-};
-
 
 type SelectedFacetsType = {
   [key: string]: Array<string>,
@@ -472,10 +460,6 @@ class Products extends Component {
         </button>
         <div styleName="sorting-trigger">
           <Select
-            inputProps={{
-              type: 'string',
-            }}
-            getItemValue={_.identity}
             items={SORTING_ITEMS}
             onSelect={this.onSort}
             selectedItem={this.state.sortOption}
@@ -539,10 +523,6 @@ class Products extends Component {
         <div>Sort:</div>
         <div>
           <Select
-            inputProps={{
-              type: 'string',
-            }}
-            getItemValue={_.identity}
             items={SORTING_ITEMS}
             onSelect={this.onSort}
             selectedItem={this.state.sortOption}
