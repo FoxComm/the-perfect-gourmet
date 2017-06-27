@@ -9,7 +9,7 @@ import Copyright from '../../../components/footer/copyright';
 import Guest from '../../../components/auth/guest';
 import Login from '../../../components/auth/login';
 import Signup from '../../../components/auth/signup';
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 import * as checkoutActions from 'modules/checkout';
 import * as authActions from 'modules/auth';

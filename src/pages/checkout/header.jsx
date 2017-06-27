@@ -9,7 +9,7 @@ import styles from './header.css';
 
 // components
 import { Link } from 'react-router';
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 import { EditStages } from 'modules/checkout';
 

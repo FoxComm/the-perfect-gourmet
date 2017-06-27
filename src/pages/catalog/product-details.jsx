@@ -5,7 +5,7 @@ import _ from 'lodash';
 import React, { Element } from 'react';
 
 // components
-import { Currency, Select } from '@foxcomm/storefront-react';
+import { Currency, Select } from '@foxcomm/storefront-react/tpg';
 import AddToCartBtn from 'ui/add-to-cart-btn';
 
 // types

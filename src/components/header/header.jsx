@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { autobind } from 'core-decorators';
 
 // components
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import Search from '../search/search';
 import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';

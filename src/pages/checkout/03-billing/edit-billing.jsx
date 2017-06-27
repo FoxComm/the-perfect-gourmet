@@ -24,7 +24,7 @@ import PromoCode from '../../../components/promo-code/promo-code';
 import CheckoutForm from '../checkout-form';
 import Accordion from '../../../components/accordion/accordion';
 
-import { Icon, WaitAnimation } from '@foxcomm/storefront-react';
+import { Icon, WaitAnimation } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './billing.css';

@@ -14,7 +14,7 @@ import AddToCartBtn from 'ui/add-to-cart-btn';
 import ImagePlaceholder from './image-placeholder';
 import ProductImage from '../imgix/product-image';
 
-import { Currency } from '@foxcomm/storefront-react';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 type Image = {
   alt?: string,

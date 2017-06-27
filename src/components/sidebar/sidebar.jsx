@@ -11,7 +11,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import Categories from '../navigation/navigation';
 import Search from '../search/search';
 

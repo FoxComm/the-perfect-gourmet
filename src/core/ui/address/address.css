@@ -33,7 +33,7 @@
 }
 
 @media (--small-only) {
-  & :global(.fc-select__select) {
+  .state-select :global(.fc-select__select) {
     height: 46px;
     font-size: 14px;
   }

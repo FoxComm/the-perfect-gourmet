@@ -3,7 +3,7 @@ import React, { Element } from 'react';
 
 import styles from './css/buttons.css';
 
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 type ButtonProps = {
   children: Element<*>|string,

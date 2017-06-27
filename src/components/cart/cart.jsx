@@ -19,7 +19,7 @@ import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { skuIdentity } from '@foxcomm/wings/lib/paragons/sku';
 import { parseError } from '@foxcomm/api-js';
 import CouponCode from '../promo-code/promo-code';
-import { Currency, Icon } from '@foxcomm/storefront-react';
+import { Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './cart.css';

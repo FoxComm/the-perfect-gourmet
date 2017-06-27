@@ -5,7 +5,7 @@ import _ from 'lodash';
 import React from 'react';
 
 // components
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import { AddressDetails } from 'ui/address';
 
 // styles

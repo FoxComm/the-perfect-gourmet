@@ -11,7 +11,7 @@ import styles from './search.css';
 import localized from 'lib/i18n';
 import type { Localized } from 'lib/i18n';
 
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 import { toggleActive, forceSearch } from 'modules/search';
 

@@ -4,7 +4,7 @@ import React, { Element } from 'react';
 
 import styles from './footer.css';
 
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import { Link } from 'react-router';
 import SubscriptionForm from '../email-subscription/form';
 import Copyright from './copyright';

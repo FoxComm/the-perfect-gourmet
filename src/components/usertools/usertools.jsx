@@ -11,7 +11,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 import localized from 'lib/i18n';
 
 // components
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import { Link } from 'react-router';
 import UserMenu from './usermenu';
 

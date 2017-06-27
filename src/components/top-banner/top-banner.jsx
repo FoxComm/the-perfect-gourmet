@@ -3,7 +3,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 import styles from './top-banner.css';
 

@@ -8,7 +8,7 @@ module.exports = function(gulp, $) {
     'src/css/reset.css',
     'src/css/inputs.css',
     'node_modules/@foxcomm/wings/lib/bundle.css',
-    'node_modules/@foxcomm/storefront-react/lib/bundle.css',
+    'node_modules/@foxcomm/storefront-react/tpg/bundle.css',
     'build/theme.css',
     'build/bundle.css',
     'node_modules/slick-carousel/slick/slick.css',

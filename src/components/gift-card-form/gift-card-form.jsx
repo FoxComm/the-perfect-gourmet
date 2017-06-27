@@ -3,7 +3,7 @@
 // libs
 import React from 'react';
 import _ from 'lodash';
-import formatCurrency from '@foxcomm/storefront-react/lib/lib/format-currency';
+import formatCurrency from '@foxcomm/storefront-react/tpg/lib/format-currency';
 import { email } from 'ui/forms/validators';
 
 // styles
@@ -13,7 +13,7 @@ import styles from './gift-card-form.css';
 import { TextInput } from 'ui/inputs';
 import { Form, FormField } from 'ui/forms';
 import AddToCartBtn from 'ui/add-to-cart-btn';
-import { Select } from '@foxcomm/storefront-react';
+import { Select } from '@foxcomm/storefront-react/tpg';
 
 
 type Props = {

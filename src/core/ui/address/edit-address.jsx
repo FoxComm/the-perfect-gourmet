@@ -17,7 +17,7 @@ import { TextInput } from '../inputs';
 import { FormField } from 'ui/forms';
 import Autocomplete from 'ui/autocomplete';
 import Checkbox from '../checkbox/checkbox';
-import { WaitAnimation, Select } from '@foxcomm/storefront-react';
+import { WaitAnimation, Select } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './address.css';

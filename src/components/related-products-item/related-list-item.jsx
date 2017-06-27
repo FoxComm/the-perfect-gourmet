@@ -13,7 +13,7 @@ import * as tracking from 'lib/analytics';
 import SmallAddToCartBtn from 'ui/add-to-cart-btn/small-add-to-cart-btn';
 import ImagePlaceholder from '../products-item/image-placeholder';
 import ProductImage from '../imgix/product-image';
-import { Currency } from '@foxcomm/storefront-react';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 
 type Image = {

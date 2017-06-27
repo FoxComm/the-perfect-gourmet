@@ -3,11 +3,10 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import createHistory from 'history/lib/createMemoryHistory';
 import { useQueries, useBasename } from 'history';
-import { Provider } from 'react-redux';
 
 import makeStore from './store';
 import makeRoutes from './routes';
-import I18nProvider from 'lib/i18n/provider';
+import App from './app';
 import renderPage from '../build/main.html';
 
 const createServerHistory = useQueries(useBasename(createHistory));
@@ -51,11 +50,9 @@ export function* renderReact() {
     this.status = 404;
   } else {
     const rootElement = (
-      <I18nProvider locale={i18n.language} translation={i18n.translation}>
-        <Provider store={store} key="provider">
-          <RouterContext {...renderProps} />
-        </Provider>
-      </I18nProvider>
+      <App language={i18n.language} translation={i18n.translation} store={store}>
+        <RouterContext {...renderProps} />
+      </App>
     );
 
     const appHtml = yield store.renderToString(renderToString, rootElement);

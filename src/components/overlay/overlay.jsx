@@ -4,7 +4,7 @@ import React, { Element } from 'react';
 import styles from './overlay.css';
 
 import { Link } from 'react-router';
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 type OverlayProps = {
   children: Element<*>,

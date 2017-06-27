@@ -6,7 +6,7 @@ import React from 'react';
 import { autobind } from 'core-decorators';
 import cx from 'classnames';
 import { Link } from 'react-router';
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './pdp.css';

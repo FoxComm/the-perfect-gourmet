@@ -16,7 +16,7 @@ module.exports = function(gulp) {
           Object.assign({selfcontained: true}, dot.templateSettings),
           {
             tpgSprite: String(fs.readFileSync('build/svg/fc-sprite.svg')),
-            fcSprite: String(fs.readFileSync('node_modules/@foxcomm/storefront-react/lib/sprite.svg')),
+            fcSprite: String(fs.readFileSync('node_modules/@foxcomm/storefront-react/tpg/sprite.svg')),
           }
         ).toString();
         file.contents = new Buffer(`module.exports = ${fn}`);

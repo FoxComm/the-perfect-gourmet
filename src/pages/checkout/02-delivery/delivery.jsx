@@ -7,7 +7,7 @@ import localized from 'lib/i18n';
 
 // components
 import EditableBlock from 'ui/editable-block';
-import { Currency } from '@foxcomm/storefront-react';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 import EditDelivery from './edit-delivery';
 import ViewDelivery from './view-delivery';
 import { Link } from 'react-router';

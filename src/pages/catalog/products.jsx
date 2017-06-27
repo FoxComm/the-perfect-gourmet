@@ -16,10 +16,7 @@ import * as actions from 'modules/products';
 // components
 import ProductsList, { LoadingBehaviors } from '../../components/products-list/products-list';
 
-import Filters from '@foxcomm/storefront-react/lib/components/core/filters/filters';
-import FilterGroup from '@foxcomm/storefront-react/lib/components/core/filters/filter-group';
-import FilterCheckboxes from '@foxcomm/storefront-react/lib/components/core/filters/filter-checkboxes';
-import { Select } from '@foxcomm/storefront-react';
+import { Select, Filters, FilterGroup, FilterCheckboxes } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './products.css';

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import React from 'react';
 
 // components
-import { Currency } from '@foxcomm/storefront-react';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './view-billing.css';

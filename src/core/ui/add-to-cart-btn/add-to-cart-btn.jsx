@@ -8,7 +8,7 @@ import cx from 'classnames';
 import styles from './add-to-cart-btn.css';
 
 // components
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 type Props = {
   pdp?: bool,

@@ -4,7 +4,7 @@ import moment from 'moment';
 import { stateTitles } from 'paragons/order';
 
 import { Link } from 'react-router';
-import { Currency } from '@foxcomm/storefront-react';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 function convertOrderData(orderDetails) {
   if (!orderDetails.grandTotal) {

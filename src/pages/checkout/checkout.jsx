@@ -15,7 +15,7 @@ import Shipping from './01-shipping/shipping';
 import Delivery from './02-delivery/delivery';
 import Billing from './03-billing/billing';
 import GuestAuth from './05-guest-auth/guest-auth';
-import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react';
+import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react/tpg';
 import Header from './header';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
@@ -26,6 +26,7 @@ import styles from './checkout.css';
 import type { CheckoutState, EditStage } from 'modules/checkout';
 import type { CheckoutActions } from './types';
 import type { AsyncStatus } from 'types/async-actions';
+import type { Cart } from '@foxcomm/api-js/types/api/cart';
 
 // actions
 import * as actions from 'modules/checkout';
@@ -180,6 +181,16 @@ class Checkout extends Component {
     });
   }
 
+  // @TODO: get rid of different format in modules/cart
+  unifyCartFormat(cart: Object): Cart {
+    return {
+      ...cart,
+      lineItems: {
+        skus: cart.skus,
+      },
+    };
+  }
+
   get content() {
     const { props } = this;
     const isGuestMode = isGuest(_.get(props.auth, 'user'));
@@ -192,7 +203,7 @@ class Checkout extends Component {
         <div styleName="summary">
           <OrderSummary
             className={orderSummaryClass}
-            cord={props.cart}
+            cord={this.unifyCartFormat(props.cart)}
             initiallyCollapsed
           />
         </div>

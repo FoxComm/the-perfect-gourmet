@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 // styles
 import styles from './cvc-help.css';
 
-import { Icon } from '@foxcomm/storefront-react';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 
 type State = {
   popupVisible: boolean,

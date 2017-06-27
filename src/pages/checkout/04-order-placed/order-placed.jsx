@@ -10,7 +10,7 @@ import localized from 'lib/i18n';
 
 // components
 import Button from 'ui/buttons';
-import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react';
+import { OrderSummary, WaitAnimation } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './order-placed.css';
@@ -65,6 +65,7 @@ class OrderPlaced extends Component {
 
     return (
       <OrderSummary
+        totalTitle="Order Total"
         header={header}
         styleName="summary"
         cord={order}

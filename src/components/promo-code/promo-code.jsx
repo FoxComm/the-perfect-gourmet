@@ -11,7 +11,7 @@ import { TextInput } from 'ui/inputs';
 import Button from 'ui/buttons';
 import { FormField } from 'ui/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
-import { Currency, Icon } from '@foxcomm/storefront-react';
+import { Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './promo-code.css';
