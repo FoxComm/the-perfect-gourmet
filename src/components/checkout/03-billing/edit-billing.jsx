@@ -28,7 +28,6 @@ import { Icon, WaitAnimation } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './billing.css';
-// $FlowFixMe: there is style name from css module
 import { subtitle } from '../01-shipping/guest-shipping.css';
 
 // actions
