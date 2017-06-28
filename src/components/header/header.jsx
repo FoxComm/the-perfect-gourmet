@@ -9,6 +9,7 @@ import { autobind } from 'core-decorators';
 
 // components
 import { Icon } from '@foxcomm/storefront-react/tpg';
+import LogoIcon from 'components/core/logo-icon/logo-icon';
 import Search from '../search-form/search-form';
 import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';
@@ -85,7 +86,7 @@ class Header extends React.Component {
               <Search isScrolled={this.state.isScrolled} />
             </div>
             <Link to="/" styleName="logo-link">
-              <Icon styleName="logo" name="logo" prefix="tpg-icon-" />
+              <LogoIcon styleName="logo" />
             </Link>
             <div styleName="navigation">
               <Navigation path={this.props.path} />

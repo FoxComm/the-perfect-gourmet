@@ -6,11 +6,11 @@
 }
 
 .text-field {
-  composes: text-field from "..//common.css";
+  composes: text-field from "components/core/common.css";
 }
 
 .text-input {
-  composes: text-input from "..//css/input.css";
+  composes: text-input from "components/core/css/input.css";
 }
 
 .theme-white-bg {

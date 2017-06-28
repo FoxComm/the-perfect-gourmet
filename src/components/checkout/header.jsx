@@ -9,7 +9,7 @@ import styles from './header.css';
 
 // components
 import { Link } from 'react-router';
-import { Icon } from '@foxcomm/storefront-react/tpg';
+import LogoIcon from 'components/core/logo-icon/logo-icon';
 
 import { EditStages } from 'modules/checkout';
 
@@ -67,7 +67,7 @@ const Header = (props: Props) => {
     <header styleName={headerStyle}>
       <div styleName="logo">
         <Link to="/">
-          <Icon styleName="logo-icon" name="logo" prefix="tpg-icon-" />
+          <LogoIcon styleName="logo-icon" />
         </Link>
       </div>
       <h1 styleName="title">Checkout</h1>

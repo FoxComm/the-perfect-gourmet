@@ -30,7 +30,7 @@
 }
 
 .input {
-  composes: text-input from "..//css/input.css";
+  composes: text-input from "components/core/css/input.css";
   width: 100%;
   border-color: var(--additional-color);
 

@@ -7,7 +7,7 @@ const through = require('through2');
 const spriteHead = new Buffer(`<svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    id="fc-sprite" style="display:none">`);
+    id="tpg-sprite" style="display:none">`);
 
 const spriteTail = new Buffer('</svg>');
 
