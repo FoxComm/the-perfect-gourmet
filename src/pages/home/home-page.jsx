@@ -295,11 +295,6 @@ class HomePage extends Component {
             {magazineBlocks}
           </div>
         </div>
-        <div styleName="instagram-gallery">
-          <div styleName="gallery-wrap">
-            <div styleName="feed" id="pixlee_container" />
-          </div>
-        </div>
       </div>
     );
   }
