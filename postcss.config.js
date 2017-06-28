@@ -65,7 +65,7 @@ const pluginsNoModules = configurePlugins({
 });
 
 exports.installHook = function() {
-  const map = require('./build/css-modules.json');
+  const map = require('./build/css-modules.json'); // eslint-disable-line import/no-unresolved
 
   require.extensions['.css'] = function(m, filename) {
     const relativePath = path.relative(process.cwd(), filename);

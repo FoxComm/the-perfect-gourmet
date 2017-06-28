@@ -14,7 +14,7 @@ const path = require('path');
 const serve = require('koa-better-static');
 const koaMount = require('koa-mount');
 const test = require('./conditional-use');
-const { renderReact } = require('../lib/server');
+const { renderReact } = require('../lib/server'); // eslint-disable-line import/no-unresolved
 
 const isProduction = process.env.NODE_ENV === 'production';
 

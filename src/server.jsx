@@ -7,7 +7,7 @@ import { useQueries, useBasename } from 'history';
 import makeStore from './store';
 import makeRoutes from './routes';
 import App from './app';
-import renderPage from '../build/main.html';
+import renderPage from '../build/main.html'; // eslint-disable-line import/no-unresolved
 
 const createServerHistory = useQueries(useBasename(createHistory));
 
