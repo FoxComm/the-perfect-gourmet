@@ -291,12 +291,17 @@ export default class EditAddress extends Component {
         <FormField styleName="text-field">
           <TextInput
             required
-            name="address1" placeholder={t('STREET ADDRESS 1')} value={data.address1} onChange={this.changeFormData}
+            name="address1"
+            placeholder={t('STREET ADDRESS 1')}
+            value={data.address1}
+            onChange={this.changeFormData}
           />
         </FormField>
         <FormField styleName="text-field">
           <TextInput
-            name="address2" placeholder={t('STREET ADDRESS 2 (optional)')} value={data.address2}
+            name="address2"
+            placeholder={t('STREET ADDRESS 2 (optional)')}
+            value={data.address2}
             onChange={this.changeFormData}
           />
         </FormField>

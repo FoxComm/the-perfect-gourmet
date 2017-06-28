@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 // libs
 import React, { Component } from 'react';

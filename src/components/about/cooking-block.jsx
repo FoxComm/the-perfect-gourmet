@@ -32,7 +32,7 @@ const cookingData = [
 
 const cookingSections = cookingData.map(({ imgUrl, title, description }, i) => (
   <div styleName="section" key={i}>
-    <img styleName="section-img" src={assetsUrl(imgUrl)} />
+    <img styleName="section-img" alt={title} src={assetsUrl(imgUrl)} />
     <div styleName="section-title">{title}</div>
     <div styleName="section-description">{description}</div>
   </div>

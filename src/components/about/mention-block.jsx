@@ -18,6 +18,7 @@ const MentionBlock = ({ urlPrefix, mention }) => {
   return (
     <div styleName="mention">
       <img
+        alt={avatarName}
         src={`${url}.${avatarExt}`}
         srcSet={`${url}@2x.${avatarExt} 2x, ${url}@2x.${avatarExt} 3x`}
         styleName="avatar"

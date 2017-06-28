@@ -31,7 +31,7 @@ const imageNames = [
 const introSliderImages = imageNames.map(img =>
   (<div key={img}>
     <div styleName="img-wrap">
-      <img styleName="img" src={assetsUrl(`/images/about-page/${img}.svg`)} />
+      <img styleName="img" alt="Intro" src={assetsUrl(`/images/about-page/${img}.svg`)} />
     </div>
   </div>)
 );

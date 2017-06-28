@@ -25,7 +25,7 @@ type Props = {
   addresses: Array<any>,
   collapsed: boolean,
   saveShippingAddress: (id: number) => Promise<*>,
-  updateAddress: (address: Address, id?: number) => Promise<*>,
+  updateAddress: (address: Address, id: ?number) => Promise<*>,
   editAction: Function,
   onComplete: () => void,
   saveShippingState: AsyncStatus,
@@ -87,6 +87,7 @@ class AddressList extends Component {
     if (this.state.isEditFormActive == nextState.isEditFormActive &&
         this.props.addresses !== nextProps.addresses &&
         nextProps.addresses.length > 0) {
+      // eslint-disable-next-line react/no-will-update-set-state
       this.setState({
         addressToEdit: {},
         isEditFormActive: false,
