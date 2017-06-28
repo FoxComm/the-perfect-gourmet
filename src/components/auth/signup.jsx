@@ -12,10 +12,10 @@ import localized from 'lib/i18n';
 
 // components
 import { Link } from 'react-router';
-import { TextInput } from 'ui/inputs';
-import ShowHidePassword from 'ui/forms/show-hide-password';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import { TextInput } from 'components/core/inputs';
+import ShowHidePassword from 'components/core/forms/show-hide-password';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 // actions

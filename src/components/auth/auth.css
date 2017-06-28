@@ -1,5 +1,5 @@
-@import "colors.css";
-@import "media-queries.css";
+@import "css/colors.css";
+@import "css/media-queries.css";
 
 .auth-block {
   position: relative;
@@ -31,7 +31,7 @@
 }
 
 .google-login {
-  composes: button from "ui/css/buttons.css";
+  composes: button from "../core/css/buttons.css";
   background-color: var(--redish);
   border: 1px solid color(var(--redish));
   margin-bottom: calc(46px - var(--dividerMargin));
@@ -47,12 +47,12 @@
 }
 
 .divider {
-  composes: block from "ui/css/wrap-to-lines.css";
+  composes: block from "../core/css/wrap-to-lines.css";
   margin-bottom: calc(30px - var(--dividerMargin));
 }
 
 .form-field-input {
-  composes: text-input from "ui/css/input.css";
+  composes: text-input from "../core/css/input.css";
   height: 50px;
   width: 100%;
   font-weight: 400;
@@ -98,7 +98,7 @@
 }
 
 .primary-button {
-  composes: button from "ui/css/buttons.css";
+  composes: button from "../core/css/buttons.css";
   width: 100%;
 }
 
@@ -179,7 +179,7 @@
   }
 
   .divider {
-    composes: block from "ui/css/wrap-to-lines.css";
+    composes: block from "../core/css/wrap-to-lines.css";
     margin-bottom: calc(20px - var(--dividerMargin));
   }
 

@@ -1,0 +1,106 @@
+@import "css/variables.css";
+@import "css/media-queries.css";
+@import "css/colors.css";
+
+.instagram-info {
+  text-align: center;
+  margin: 0 30px 30px;
+}
+
+.instagram-title {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 18px;
+  color: #212121;
+  letter-spacing: 2.04px;
+}
+
+.instagram-description {
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: 16px;
+  color: #212121;
+  line-height: 33px;
+  margin-top: 30px;
+}
+
+.hashtag-image {
+  background: url('/images/home-page/MyGourmet-hashtag.svg') center no-repeat;
+  height: 152px;
+  background-size: contain;
+}
+
+.gallery-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 40px;
+  background: #fbfbfb;
+}
+
+.gallery-wrap iframe {
+  height: 500px !important;
+  min-width: 100%;
+}
+
+.feed {
+  width: 100%;
+  margin-bottom: 120px;
+  overflow: hidden;
+}
+
+.as-seen-in {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.as-seen-in-title {
+  font-family: var(--font-main);
+  font-size: 18px;
+  letter-spacing: 2.04px;
+  color: #212121;
+  text-transform: uppercase;
+}
+
+.magazine-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 65px;
+}
+
+.magazine-logo {
+  flex: 0 0 51%;
+  margin-bottom: 45px;
+}
+
+@media (--medium), (--large) {
+  .instagram-image {
+    width: 209px;
+    height: 209px;
+  }
+}
+
+@media (--large) {
+  .instagram-image {
+    margin-right: 40px;
+  }
+
+  .as-seen-in {
+    margin: 60px 0;
+  }
+
+  .magazine-logos {
+    flex-wrap: nowrap;
+    width: 79%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .magazine-logo {
+    flex: 1;
+    padding-bottom: 0;
+    padding-right: 50px;
+  }
+}

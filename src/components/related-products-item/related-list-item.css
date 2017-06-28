@@ -1,6 +1,6 @@
-@import "colors.css";
-@import "variables.css";
-@import "media-queries.css";
+@import "css/colors.css";
+@import "css/variables.css";
+@import "css/media-queries.css";
 
 .list-item {
   width: 25%;
@@ -34,7 +34,7 @@
 }
 
 .title {
-  composes: title-devider from 'ui/css/layout.css';
+  composes: title-devider from '../core/css/layout.css';
   margin-top: 6px;
   margin-bottom: 20px;
   font-weight: 400;

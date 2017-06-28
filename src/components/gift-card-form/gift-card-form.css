@@ -1,13 +1,13 @@
-@import "colors.css";
-@import "variables.css";
-@import "media-queries.css";
+@import "css/colors.css";
+@import "css/variables.css";
+@import "css/media-queries.css";
 
 .title {
-  composes: title from '../../pages/catalog/pdp.css';
+  composes: title from '../catalog/pdp.css';
 }
 
 .description {
-  composes: description from '../../pages/catalog/pdp.css';
+  composes: description from '../catalog/pdp.css';
 }
 
 .form {
@@ -20,7 +20,7 @@
 }
 
 .input-field {
-  composes: text-input from "ui/css/input.css";
+  composes: text-input from "../core/css/input.css";
   width: 100%;
   border: 1px solid #3E3436;
   margin-bottom: 15px;

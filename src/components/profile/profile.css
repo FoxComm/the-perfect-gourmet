@@ -1,14 +1,14 @@
 
-@import "colors.css";
-@import "media-queries.css";
-@import "variables.css";
+@import "css/colors.css";
+@import "css/media-queries.css";
+@import "css/variables.css";
 
 .profile {
-  composes: inner-wrap from "ui/css/layout.css";
+  composes: inner-wrap from "../core/css/layout.css";
 }
 
 .link-button {
-  composes: button from "ui/css/buttons.css";
+  composes: button from "../core/css/buttons.css";
   border: 1px solid #8D757A;
   background-color: #FFFFFF;
   font-size: 13px;
@@ -92,7 +92,7 @@
 }
 
 .text-input {
-  composes: text-input from "ui/css/input.css";
+  composes: text-input from "../core/css/input.css";
   background-color: #f4f4f4;
   color: var(--text-color-dark);
   width: 100%;
@@ -134,7 +134,7 @@
 }
 
 .payment-icon {
-  composes: payment-icon from '../../pages/checkout/03-billing/view-billing.css';
+  composes: payment-icon from '../checkout/03-billing/view-billing.css';
 }
 
 .payment-method {

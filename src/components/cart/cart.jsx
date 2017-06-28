@@ -14,7 +14,7 @@ import localized from 'lib/i18n';
 
 // components
 import LineItem from './line-item';
-import Button from 'ui/buttons';
+import Button from 'components/core/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { skuIdentity } from '@foxcomm/wings/lib/paragons/sku';
 import { parseError } from '@foxcomm/api-js';

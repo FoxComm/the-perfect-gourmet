@@ -1,0 +1,61 @@
+@import "css/variables.css";
+@import "css/media-queries.css";
+
+.mention {
+  width: 338px;
+  height: 384px;
+  border: solid 1px #3e3436;
+  padding: 40px 20px;
+  text-align: center;
+  color: #212121;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.text {
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 2.54;
+  letter-spacing: normal;
+  margin-top: 26px;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    background: url(/images/about-page/Quotes_Start.svg) no-repeat;
+    background-size: 70px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 38px;
+    left: 108px;
+    opacity: 0.6;
+  }
+}
+
+.author {
+  font-family: var(--font-main);
+  font-size: 13px;
+  line-height: 2.08;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 42px;
+}
+
+.location {
+  opacity: 0.32;
+  font-family: var(--font-main);
+  font-size: 13px;
+  line-height: 2.08;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+@media (--large) {
+}

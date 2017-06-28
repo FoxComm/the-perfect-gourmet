@@ -1,5 +1,5 @@
-@import "media-queries.css";
-@import "colors.css";
+@import "css/media-queries.css";
+@import "css/colors.css";
 
 .header-base {
   position: fixed;
@@ -24,7 +24,7 @@
 }
 
 .wrap {
-  composes: wrap from "ui/css/layout.css";
+  composes: wrap from "../core/css/layout.css";
   display: flex;
   justify-content: space-between;
   align-items: center;

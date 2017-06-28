@@ -1,5 +1,5 @@
-@import "media-queries.css";
-@import "colors.css";
+@import "css/media-queries.css";
+@import "css/colors.css";
 
 .image-placeholder {
   position: relative;

@@ -31,7 +31,7 @@ function configurePlugins(options = {}) {
   }
   return _.compact([
     require('postcss-import')({
-      path: ['src/css', 'node_modules'],
+      path: ['src', 'node_modules'],
     }),
     require('postcss-css-variables'),
     require('lost')({

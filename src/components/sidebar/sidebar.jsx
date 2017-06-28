@@ -13,7 +13,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 import { Link } from 'react-router';
 import { Icon } from '@foxcomm/storefront-react/tpg';
 import Categories from '../navigation/navigation';
-import Search from '../search/search';
+import Search from '../search-form/search-form';
 
 // actions
 import { logout } from 'modules/auth';

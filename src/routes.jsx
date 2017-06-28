@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { Route, IndexRoute } from 'react-router';
 import Site from './components/layout/site';
 import StoreFront from './components/layout/storefront';
-import Products from './pages/catalog/products';
-import Pdp from './pages/catalog/pdp';
-import Search from './pages/search/search';
-import ShippingAndReturns from './pages/static/shipping-and-returns';
-import PrivacyPolicy from './pages/static/privacy-policy';
-import TermsOfUse from './pages/static/terms-of-use';
+import Products from './components/catalog/products';
+import Pdp from './components/catalog/pdp';
+import SearchResults from './components/search-results/search-results';
+import ShippingAndReturns from './components/static-pages/shipping-and-returns';
+import PrivacyPolicy from './components/static-pages/privacy-policy';
+import TermsOfUse from './components/static-pages/terms-of-use';
 
 import ProfilePage from './components/profile/page';
 import Profile from './components/profile/profile';
@@ -19,14 +19,14 @@ import ChangePassword from './components/profile/blocks/change-password';
 import Order from './components/profile/blocks/order';
 import AddressForm from './components/profile/blocks/address-form';
 
-import StoresPage from './pages/stores/stores-page';
-import HomePage from './pages/home/home-page';
-import FAQPage from './pages/static/faqs-page';
-import ContactUsPage from './pages/static/contact-us-page';
-import AboutPage from './pages/about/about-page';
+import StoresPage from './components/stores-page/stores-page';
+import HomePage from './components/home/home-page';
+import FAQPage from './components/static-pages/faqs-page';
+import ContactUsPage from './components/static-pages/contact-us-page';
+import AboutPage from './components/about/about-page';
 
-import Checkout from './pages/checkout/checkout';
-import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
+import Checkout from './components/checkout/checkout';
+import OrderPlaced from './components/checkout/04-order-placed/order-placed';
 
 import Auth from './components/auth/auth';
 import RestorePassword from './components/auth/restore-password';
@@ -76,7 +76,7 @@ export default function makeRoutes(store) {
         <Route path="/checkout/done" component={OrderPlaced} />
         <Route path="/products/:productSlug" component={Pdp} name="product" />
         <Route path="/gift-cards" component={Pdp} name="gift-cards" />
-        <Route path="/search/:term" component={Search} name="search" />
+        <Route path="/search/:term" component={SearchResults} name="search" />
         <Route path=":categoryName" component={Products} name="category" />
       </Route>
     </Route>

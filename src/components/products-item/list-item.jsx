@@ -10,7 +10,7 @@ import { addLineItem, toggleCart } from 'modules/cart';
 import { connect } from 'react-redux';
 import * as tracking from 'lib/analytics';
 
-import AddToCartBtn from 'ui/add-to-cart-btn';
+import AddToCartBtn from 'components/core/add-to-cart-btn';
 import ImagePlaceholder from './image-placeholder';
 import ProductImage from '../imgix/product-image';
 

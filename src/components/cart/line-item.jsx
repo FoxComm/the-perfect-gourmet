@@ -12,7 +12,7 @@ import styles from './line-item.css';
 import localized from 'lib/i18n';
 
 // components
-import ProductImage from '../../components/imgix/product-image';
+import ProductImage from 'components/imgix/product-image';
 import { Currency, Select, Icon } from '@foxcomm/storefront-react/tpg';
 
 const QUANTITY_ITEMS = _.range(1, 1 + 10, 1).map(x => x.toString());

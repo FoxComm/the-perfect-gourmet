@@ -9,9 +9,9 @@ import { clearErrorsFor } from '@foxcomm/wings';
 
 import { Link } from 'react-router';
 import Block from '../common/block';
-import Button from 'ui/buttons';
-import { TextInput } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
+import Button from 'components/core/buttons';
+import { TextInput } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/profile';

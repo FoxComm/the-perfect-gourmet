@@ -7,9 +7,9 @@ import _ from 'lodash';
 import sanitizePromoErrors from 'sanitizers/promocodes';
 
 // components
-import { TextInput } from 'ui/inputs';
-import Button from 'ui/buttons';
-import { FormField } from 'ui/forms';
+import { TextInput } from 'components/core/inputs';
+import Button from 'components/core/buttons';
+import { FormField } from 'components/core/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { Currency, Icon } from '@foxcomm/storefront-react/tpg';
 

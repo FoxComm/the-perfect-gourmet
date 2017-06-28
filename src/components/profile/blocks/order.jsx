@@ -7,7 +7,7 @@ import { autobind } from 'core-decorators';
 
 import Block from '../common/block';
 import OrderRow from './order-row';
-import AddressDetails from 'ui/address/address-details';
+import AddressDetails from 'components/core/address/address-details';
 import { OrderSummary, WaitAnimation, Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 import * as actions from 'modules/orders';

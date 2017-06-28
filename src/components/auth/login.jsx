@@ -11,9 +11,9 @@ import localized from 'lib/i18n';
 
 // components
 import { Link } from 'react-router';
-import { TextInput, TextInputWithLabel } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import { TextInput, TextInputWithLabel } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 
 // actions
 import * as actions from 'modules/auth';

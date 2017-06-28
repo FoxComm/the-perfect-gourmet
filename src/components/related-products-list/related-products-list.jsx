@@ -8,7 +8,7 @@ import React, { Component, Element } from 'react';
 import styles from './related-products-list.css';
 
 // components
-import Loader from 'ui/loader';
+import { WaitAnimation } from '@foxcomm/storefront-react/tpg';
 import RelatedListItem from '../related-products-item/related-list-item';
 
 // types
@@ -52,7 +52,7 @@ class RelatedProductsList extends Component {
       return (
         <div styleName="loading-wrapper">
           <div styleName="loader">
-            <Loader />
+            <WaitAnimation />
           </div>
         </div>
       );
@@ -63,7 +63,7 @@ class RelatedProductsList extends Component {
     const { loadingBehavior = LoadingBehaviors.ShowLoader, isLoading, list, title } = this.props;
 
     if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
-      return <Loader />;
+      return <WaitAnimation />;
     }
 
     if (_.isEmpty(list)) return null;

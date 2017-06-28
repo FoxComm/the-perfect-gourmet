@@ -10,9 +10,9 @@ import { browserHistory } from 'lib/history';
 // components
 import { Link } from 'react-router';
 import Block from '../common/block';
-import Button from 'ui/buttons';
-import ShowHidePassword from 'ui/forms/show-hide-password';
-import { Form, FormField } from 'ui/forms';
+import Button from 'components/core/buttons';
+import ShowHidePassword from 'components/core/forms/show-hide-password';
+import { Form, FormField } from 'components/core/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 // styles

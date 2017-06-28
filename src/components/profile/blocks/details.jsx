@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'lib/history';
 
 import Block from '../common/block';
-import Button from 'ui/buttons';
+import Button from 'components/core/buttons';
 import { Link } from 'react-router';
 
 import * as actions from 'modules/profile';

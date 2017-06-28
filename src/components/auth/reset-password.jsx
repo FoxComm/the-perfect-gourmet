@@ -12,9 +12,9 @@ import { isAuthorizedUser } from 'paragons/auth';
 import classNames from 'classnames';
 
 // components
-import ShowHidePassword from 'ui/forms/show-hide-password';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import ShowHidePassword from 'components/core/forms/show-hide-password';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 import AuthContainer from './auth-container';
 
 // actions

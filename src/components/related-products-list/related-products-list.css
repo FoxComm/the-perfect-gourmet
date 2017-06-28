@@ -1,7 +1,7 @@
-@import "variables";
+@import "css/variables.css";
 @import "typography";
-@import "media-queries";
-@import "colors";
+@import "css/media-queries.css";
+@import "css/colors.css";
 
 .list-wrapper {
   margin: 0 -18px;

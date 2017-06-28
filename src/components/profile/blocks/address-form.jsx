@@ -8,11 +8,11 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'lib/history';
 import sanitizeAddresses from 'sanitizers/addresses';
 
-import { Form } from 'ui/forms';
+import { Form } from 'components/core/forms';
 import Block from '../common/block';
 import { Link } from 'react-router';
-import Button from 'ui/buttons';
-import EditAddress from 'ui/address/edit-address';
+import Button from 'components/core/buttons';
+import EditAddress from 'components/core/address/edit-address';
 import makeLocalStore from 'lib/local-store';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 

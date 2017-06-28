@@ -4,15 +4,15 @@
 import React from 'react';
 import _ from 'lodash';
 import formatCurrency from '@foxcomm/storefront-react/tpg/lib/format-currency';
-import { email } from 'ui/forms/validators';
+import { email } from 'components/core/forms/validators';
 
 // styles
 import styles from './gift-card-form.css';
 
 // components
-import { TextInput } from 'ui/inputs';
-import { Form, FormField } from 'ui/forms';
-import AddToCartBtn from 'ui/add-to-cart-btn';
+import { TextInput } from 'components/core/inputs';
+import { Form, FormField } from 'components/core/forms';
+import AddToCartBtn from 'components/core/add-to-cart-btn';
 import { Select } from '@foxcomm/storefront-react/tpg';
 
 

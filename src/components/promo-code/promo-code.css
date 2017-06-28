@@ -22,7 +22,7 @@
 }
 
 .code {
-  composes: text-input from "ui/css/input.css";
+  composes: text-input from "../core/css/input.css";
   width: 100%;
   border-right: none;
   background-color: white;

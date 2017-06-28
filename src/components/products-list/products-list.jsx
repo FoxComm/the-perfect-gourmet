@@ -12,7 +12,7 @@ import styles from './products-list.css';
 
 // components
 import ListItem from '../products-item/list-item';
-import Loader from 'ui/loader';
+import { WaitAnimation } from '@foxcomm/storefront-react/tpg';
 
 // types
 
@@ -148,7 +148,7 @@ class ProductsList extends Component {
       return (
         <div styleName="loading-wrapper">
           <div styleName="loader">
-            <Loader />
+            <WaitAnimation />
           </div>
         </div>
       );
@@ -176,7 +176,7 @@ class ProductsList extends Component {
     } = this.props;
 
     if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
-      return <Loader />;
+      return <WaitAnimation />;
     }
 
     const items = list && list.length > 0
