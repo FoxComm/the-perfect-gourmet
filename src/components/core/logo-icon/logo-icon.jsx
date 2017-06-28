@@ -1,4 +1,4 @@
-import React, { Element } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 
 import { Icon } from '@foxcomm/storefront-react/tpg';

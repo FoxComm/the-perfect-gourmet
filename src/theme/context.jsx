@@ -5,5 +5,5 @@ import ProductImage from 'components/imgix/product-image';
 import type { LineItem } from '@foxcomm/api-js/types/api/cord/line-items';
 
 export function renderLineItemImage(lineItem: LineItem): Element<*> {
-  return <ProductImage src={lineItem.imagePath} width={63} height={63} />
+  return <ProductImage src={lineItem.imagePath} width={63} height={63} />;
 }

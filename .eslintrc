@@ -11,10 +11,10 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["src/core"]
+        "paths": ["src"]
       }
     },
-    "import/external-module-folders": ["src/core", "node_modules"],
+    "import/external-module-folders": ["src", "node_modules"],
     "import/extensions": [".js", ".jsx"]
   },
   "rules": {
