@@ -7,9 +7,9 @@ const through = require('through2');
 const spriteHead = new Buffer(`<svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    id="fc-sprite" style="display:none">`);
+    id="tpg-sprite" style="display:none">`);
 
-const spriteTail = new Buffer(`</svg>`);
+const spriteTail = new Buffer('</svg>');
 
 function svgoOpts(file) {
   const plugins = [
@@ -18,11 +18,6 @@ function svgoOpts(file) {
     },
     {
       mergePaths: false,
-    },
-    {
-      convertPathData: {
-        leadingZero: false,
-      },
     },
     {
       convertToSymbols: {
@@ -37,7 +32,7 @@ function svgoOpts(file) {
               name: 'id',
               local: 'id',
               prefix: '',
-              value: `fc-${path.basename(file.path, '.svg').toLowerCase()}-icon`,
+              value: `tpg-icon-${path.basename(file.path, '.svg').toLowerCase()}`,
             });
           }
         },
@@ -63,6 +58,6 @@ module.exports = function(gulp, $) {
   });
 
   gulp.task('sprites.watch', function() {
-    gulp.watch([src], ['sprites']);
+    gulp.watch([src], ['templates']);
   });
 };

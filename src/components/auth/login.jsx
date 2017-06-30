@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -11,16 +11,15 @@ import localized from 'lib/i18n';
 
 // components
 import { Link } from 'react-router';
-import { TextInput, TextInputWithLabel } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import { TextInput, TextInputWithLabel } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 
 // actions
 import * as actions from 'modules/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
 import type { LoginPayload } from 'types/auth';
 
@@ -34,11 +33,11 @@ type AuthState = {
 
 type Props = Localized & {
   isLoading: boolean,
-  authenticate: (payload: LoginPayload) => Promise,
-  fetchCart: () => Promise,
-  saveLineItemsAndCoupons: (merge: boolean) => Promise,
+  authenticate: (payload: LoginPayload) => Promise<*>,
+  fetchCart: () => Promise<*>,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise<*>,
   onAuthenticated?: Function,
-  title?: string|Element|null,
+  title?: string|Element<*>|null,
   onSignupClick: (event: SyntheticEvent) => void,
   inCheckout: boolean,
   location: Object | {},
@@ -141,7 +140,7 @@ class Login extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const { password, email } = this.state;
     const { t, isLoading } = this.props;
 

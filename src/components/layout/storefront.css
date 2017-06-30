@@ -1,6 +1,6 @@
-@import "media-queries.css";
-@import "variables.css";
-@import "colors.css";
+@import "css/media-queries.css";
+@import "css/variables.css";
+@import "css/colors.css";
 
 .container {
   width: 100%;

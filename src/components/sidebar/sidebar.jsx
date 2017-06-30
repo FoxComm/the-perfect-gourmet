@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import React, { Element } from 'react';
 
 // libs
 import { connect } from 'react-redux';
@@ -11,9 +11,9 @@ import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import Categories from '../navigation/navigation';
-import Search from '../search/search';
+import Search from '../search-form/search-form';
 
 // actions
 import { logout } from 'modules/auth';
@@ -21,7 +21,6 @@ import { fetch as fetchCart } from 'modules/cart';
 import * as actions from 'modules/sidebar';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
 
 import styles from './sidebar.css';
@@ -32,7 +31,7 @@ type SidebarProps = Localized & {
   path: string,
 };
 
-const Sidebar = (props: SidebarProps): HTMLElement => {
+const Sidebar = (props: SidebarProps): Element<*> => {
   const { t } = props;
   const sidebarClass = classNames({
     'sidebar-hidden': !props.isVisible,
@@ -94,16 +93,16 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
 
   return (
     <div styleName={sidebarClass}>
-      <div styleName="overlay" onClick={props.toggleSidebar}></div>
+      <div styleName="overlay" onClick={props.toggleSidebar} />
       <div styleName="container">
         <div styleName="controls">
           <div styleName="controls-close">
             <a styleName="close-button" onClick={props.toggleSidebar}>
-              <Icon name="fc-close" className="close-icon"/>
+              <Icon name="close" className="close-icon" />
             </a>
           </div>
           <div styleName="controls-search">
-            <Search onSearch={props.toggleSidebar} isActive/>
+            <Search onSearch={props.toggleSidebar} isActive />
           </div>
           <div styleName="links-group" onClick={onLinkClick}>
             <div styleName="controls-categories">

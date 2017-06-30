@@ -1,7 +1,6 @@
 /* @flow */
 
-import React from 'react';
-import type { HTMLElement } from 'types';
+import React, { Element } from 'react';
 import styles from './related-list-item.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -11,10 +10,10 @@ import { connect } from 'react-redux';
 
 import * as tracking from 'lib/analytics';
 
-import SmallAddToCartBtn from 'ui/add-to-cart-btn/small-add-to-cart-btn';
-import Currency from 'ui/currency';
+import SmallAddToCartBtn from 'components/core/add-to-cart-btn/small-add-to-cart-btn';
 import ImagePlaceholder from '../products-item/image-placeholder';
 import ProductImage from '../imgix/product-image';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 
 type Image = {
@@ -69,7 +68,7 @@ class RelatedListItem extends React.Component {
       .then(() => {
         this.props.toggleCart();
       })
-      .catch(ex => {
+      .catch((ex) => {
         this.setState({
           error: ex,
         });
@@ -90,7 +89,7 @@ class RelatedListItem extends React.Component {
     tracking.clickPdp(props, props.index);
   }
 
-  isOnSale(): HTMLElement {
+  isOnSale(): Element<*> {
     const { currency } = this.props;
 
     let {
@@ -121,14 +120,14 @@ class RelatedListItem extends React.Component {
       );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const {
       productId,
       slug,
       title,
     } = this.props;
 
-    const productSlug = _.isEmpty(slug) ? productId : slug;
+    const productSlug = !slug ? productId : slug;
 
     return (
       <div styleName="list-item">

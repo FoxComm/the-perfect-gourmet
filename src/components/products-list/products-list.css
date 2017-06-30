@@ -1,6 +1,6 @@
-@import "variables";
-@import "media-queries";
-@import "colors";
+@import "css/variables.css";
+@import "css/media-queries.css";
+@import "css/colors.css";
 
 .list-wrapper, .list-wrapper-small {
   position: relative;

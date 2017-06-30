@@ -10,13 +10,13 @@ import { browserHistory } from 'lib/history';
 
 // components
 import { Link } from 'react-router';
-import EditableBlock from 'ui/editable-block';
-import RadioButton from 'ui/radiobutton/radiobutton';
-import { AddressDetails } from 'ui/address';
+import EditableBlock from 'components/core/editable-block';
+import RadioButton from 'components/core/radiobutton/radiobutton';
+import { AddressDetails } from 'components/core/address';
 import Block from '../common/block';
 
 // styles
-import addressStyles from '../../../pages/checkout/01-shipping/address-list.css';
+import addressStyles from 'components/checkout/01-shipping/address-list.css';
 import profileStyles from '../profile.css';
 
 import type { Address } from 'types/address';
@@ -26,11 +26,11 @@ const styles = {...addressStyles, ...profileStyles};
 import * as checkoutActions from 'modules/checkout';
 
 type Props = {
-  fetchAddresses: () => Promise,
+  fetchAddresses: () => Promise<*>,
   addresses: Array<Address>,
-  deleteAddress: (id: number) => Promise,
-  restoreAddress: (id: number) => Promise,
-  setAddressAsDefault: (id: number) => Promise,
+  deleteAddress: (id: number) => Promise<*>,
+  restoreAddress: (id: number) => Promise<*>,
+  setAddressAsDefault: (id: number) => Promise<*>,
   cleanDeletedAddresses: () => void,
   t: any,
 };

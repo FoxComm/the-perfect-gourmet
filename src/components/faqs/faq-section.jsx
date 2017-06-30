@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 // components
-import FAQ from '../../components/faqs/faq';
+import FAQ from 'components/faqs/faq';
 
 // styles
 import styles from './faq.css';
@@ -27,11 +27,11 @@ class FAQSection extends Component {
         <h2 styleName="title">{this.props.title}</h2>
         {this.props.faqs.map(
           qa =>
-              <FAQ
-                question={qa.question}
-                answer={qa.answer}
-                key={generateKey()}
-              />
+            (<FAQ
+              question={qa.question}
+              answer={qa.answer}
+              key={generateKey()}
+            />)
         )}
       </div>
     );

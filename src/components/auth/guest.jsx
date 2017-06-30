@@ -4,9 +4,9 @@
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 
-import Button from 'ui/buttons';
-import { TextInput } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
+import Button from 'components/core/buttons';
+import { TextInput } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
 
 import styles from './auth.css';
 
@@ -40,7 +40,7 @@ class Guest extends Component {
       <Form onSubmit={this.onClick}>
         <div styleName="title">CHECKOUT AS GUEST</div>
         <FormField key="email" styleName="form-field">
-          <TextInput placeholder="EMAIL" type="email" value={this.state.email} onChange={this.onEmailChange}/>
+          <TextInput placeholder="EMAIL" type="email" value={this.state.email} onChange={this.onEmailChange} />
         </FormField>
         <Button
           styleName="primary-button"

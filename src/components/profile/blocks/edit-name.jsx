@@ -9,14 +9,13 @@ import { clearErrorsFor } from '@foxcomm/wings';
 
 import { Link } from 'react-router';
 import Block from '../common/block';
-import Button from 'ui/buttons';
-import { TextInput } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
+import Button from 'components/core/buttons';
+import { TextInput } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/profile';
 
-import type { Promise as PromiseType } from 'types/promise';
 import type { AsyncStatus } from 'types/async-actions';
 
 function mapStateToProps(state) {
@@ -27,16 +26,16 @@ function mapStateToProps(state) {
 }
 
 type Account = {
-  name: string,
-  email: string,
+  name: ?string,
+  email: ?string,
   isGuest: boolean,
   id: number,
 }
 
 type EditNameProps = {
-  account: Account|{},
-  fetchAccount: () => PromiseType,
-  updateAccount: (payload: Object) => PromiseType,
+  account: Account,
+  fetchAccount: () => Promise<*>,
+  updateAccount: (payload: Object) => Promise<*>,
   updateState: AsyncStatus,
   clearErrorsFor: (...args: Array<string>) => void,
 }

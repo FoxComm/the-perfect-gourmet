@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -11,7 +11,7 @@ import { isAuthorizedUser } from 'paragons/auth';
 import localized from 'lib/i18n';
 
 // components
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react/tpg';
 import { Link } from 'react-router';
 import UserMenu from './usermenu';
 
@@ -20,7 +20,6 @@ import { toggleCart } from 'modules/cart';
 import { toggleUserMenu } from 'modules/usermenu';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Auth } from 'types/auth';
 
 import styles from './usertools.css';
@@ -78,14 +77,14 @@ class UserTools extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     return (
       <div styleName="tools">
         <div styleName="login">
           {this.renderUserInfo}
         </div>
         <button styleName="cart" onClick={this.props.toggleCart}>
-          <Icon name="fc-cart" styleName="head-icon"/>
+          <Icon name="cart" styleName="head-icon" />
           <sup styleName="cart-quantity">{this.props.quantity}</sup>
         </button>
       </div>
@@ -93,7 +92,7 @@ class UserTools extends Component {
   }
 }
 
-const mapState = (state) => ({
+const mapState = state => ({
   auth: _.get(state, 'auth', {}),
   isMenuVisible: _.get(state.usermenu, 'isVisible', false),
   quantity: _.get(state.cart, 'quantity', 0),

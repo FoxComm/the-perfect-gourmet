@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+
 const PRE_PUSH = '.git/hooks/pre-push';
 
 const hookScript = `#!/bin/sh

@@ -2,17 +2,16 @@
 
 // libs
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // styles
 import styles from './related-products-list.css';
 
 // components
-import Loader from 'ui/loader';
+import { WaitAnimation } from '@foxcomm/storefront-react/tpg';
 import RelatedListItem from '../related-products-item/related-list-item';
 
 // types
-import type { HTMLElement } from 'types';
 
 export const LoadingBehaviors = {
   ShowLoader: 0,
@@ -48,23 +47,23 @@ class RelatedProductsList extends Component {
     });
   }
 
-  get loadingWrapper(): ?HTMLElement {
+  get loadingWrapper(): ?Element<*> {
     if (this.props.isLoading) {
       return (
         <div styleName="loading-wrapper">
           <div styleName="loader">
-            <Loader />
+            <WaitAnimation />
           </div>
         </div>
       );
     }
   }
 
-  render(): HTMLElement {
+  render(): Element<any>|null {
     const { loadingBehavior = LoadingBehaviors.ShowLoader, isLoading, list, title } = this.props;
 
     if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
-      return <Loader />;
+      return <WaitAnimation />;
     }
 
     if (_.isEmpty(list)) return null;
@@ -75,7 +74,7 @@ class RelatedProductsList extends Component {
         <div styleName="related-title">
           {title}
         </div>
-        <div styleName="line"/>
+        <div styleName="line" />
         <div styleName="list">
           {this.renderProducts}
         </div>

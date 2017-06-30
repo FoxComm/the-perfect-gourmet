@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
 import _ from 'lodash';
 
-import Button from 'ui/buttons';
-import { TextInput } from 'ui/inputs';
-import { FormField } from 'ui/forms';
+import Button from 'components/core/buttons';
+import { TextInput } from 'components/core/inputs';
+import { FormField } from 'components/core/forms';
 
-import { email as validateEmail } from 'ui/forms/validators';
+import { email as validateEmail } from 'components/core/forms/validators';
 
 import styles from './form.css';
 

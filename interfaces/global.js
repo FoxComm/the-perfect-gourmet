@@ -19,6 +19,10 @@ declare class SEvent<TargetType: HTMLElement> {
   type: string;
 }
 
+declare type AbortablePromise<T> = Promise<T> & {
+  abort: () => void,
+}
+
 type Thenable = {
  then: (onSuccess: Function, onFailure: Function) => any;
 }
@@ -26,4 +30,18 @@ type Thenable = {
 declare function makeXhr(url: string): XMLHttpRequest & Thenable;
 
 declare function ga(...args: Array<any>): void;
+
+type EnvType = {
+  API_URL: string,
+  URL_PREFIX: string,
+  STRIPE_PUBLISHABLE_KEY: string,
+  FIREBIRD_CONTEXT: string,
+};
+
+declare var process: {
+  env: EnvType,
+};
+
+
+declare var env: EnvType;
 

@@ -4,11 +4,10 @@ import { Router, applyRouterMiddleware } from 'react-router';
 import { browserHistory } from 'lib/history';
 
 import useScroll from 'react-router-scroll';
-import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import makeStore from './store';
 import makeRoutes from './routes';
-import I18nProvider from 'lib/i18n/provider';
+import App from './app';
 import { initTracker, trackPageView } from 'lib/analytics';
 
 const DEBUG = process.env.NODE_ENV != 'production';
@@ -37,19 +36,17 @@ export function renderApp() {
   const userId = _.get(store.getState(), 'state.auth.user.id');
   initTracker(userId);
 
-  history.listenBefore(location => {
+  history.listenBefore((location) => {
     trackPageView(location.pathname);
   });
 
   const {language, translation} = window.__i18n;
 
   render((
-    <I18nProvider locale={language} translation={translation}>
-      <Provider store={store} key="provider">
-        <Router history={history} render={applyRouterMiddleware(useScroll(scrollHandler))}>
-          {routes}
-        </Router>
-      </Provider>
-    </I18nProvider>
+    <App language={language} translation={translation} store={store}>
+      <Router history={history} render={applyRouterMiddleware(useScroll(scrollHandler))}>
+        {routes}
+      </Router>
+    </App>
   ), document.getElementById('app'));
 }

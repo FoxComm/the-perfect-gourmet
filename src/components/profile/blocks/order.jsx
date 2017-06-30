@@ -7,11 +7,8 @@ import { autobind } from 'core-decorators';
 
 import Block from '../common/block';
 import OrderRow from './order-row';
-import Loader from 'ui/loader';
-import AddressDetails from 'ui/address/address-details';
-import Currency from 'ui/currency';
-import Icon from 'ui/icon';
-import OrderSummary from '../../order-summary/order-summary';
+import AddressDetails from 'components/core/address/address-details';
+import { OrderSummary, WaitAnimation, Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 import * as actions from 'modules/orders';
 
@@ -47,7 +44,7 @@ class Order extends Component {
     return (
       <div styleName="payment-method" key={paymentMethod.type}>
         <div>
-          <Icon styleName="payment-icon" name={`fc-payment-${paymentMethod.brand.toLowerCase()}`} />
+          <Icon styleName="payment-icon" name={`payment-${paymentMethod.brand.toLowerCase()}`} />
         </div>
         <div>
           <strong>{paymentMethod.holderName}</strong>
@@ -101,20 +98,20 @@ class Order extends Component {
   render() {
     const { order } = this.props;
     if (!order) {
-      return <Loader/>;
+      return <WaitAnimation />;
     }
 
     return (
       <Block title={`Order ${order.referenceNumber}`}>
         <table styleName="simple-table">
           <thead>
-          <tr>
-            <th>Date</th>
-            <th>Order #</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Tracking</th>
-          </tr>
+            <tr>
+              <th>Date</th>
+              <th>Order #</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Tracking</th>
+            </tr>
           </thead>
           <tbody>
             <OrderRow order={order} />
@@ -142,13 +139,11 @@ class Order extends Component {
           </tbody>
         </table>
         <OrderSummary
-          isCollapsed={false}
           header={null}
           totalTitle="ORDER TOTAL"
           embedded
           styleName="order-summary"
-          { ...order }
-          skus={order.lineItems.skus}
+          cord={order}
         />
       </Block>
     );

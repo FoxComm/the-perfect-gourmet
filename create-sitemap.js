@@ -1,10 +1,10 @@
 const path = require('path');
 
-process.env.NODE_PATH = `${process.env.NODE_PATH}:${path.resolve('./lib/core')}`;
+process.env.NODE_PATH = `${process.env.NODE_PATH}:${path.resolve('./lib')}`;
 
-require('./src/postcss').installHook();
+require('./postcss.config').installHook();
 
-const makeRoutes = require('./lib/routes').default;
+const makeRoutes = require('./lib/routes').default; // eslint-disable-line import/no-unresolved
 const Sitemap = require('react-router-sitemap').default;
 const {
   categories,

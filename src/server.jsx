@@ -3,12 +3,11 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import createHistory from 'history/lib/createMemoryHistory';
 import { useQueries, useBasename } from 'history';
-import { Provider } from 'react-redux';
 
 import makeStore from './store';
 import makeRoutes from './routes';
-import I18nProvider from 'lib/i18n/provider';
-import renderPage from '../build/main.html';
+import App from './app';
+import renderPage from '../build/main.html'; // eslint-disable-line import/no-unresolved
 
 const createServerHistory = useQueries(useBasename(createHistory));
 
@@ -17,7 +16,7 @@ function getAssetsNames() {
   let appCss = 'app.css';
 
   if (process.env.NODE_ENV === 'production') {
-    const revManifest = require('../build/rev-manifest.json');
+    const revManifest = require('../build/rev-manifest.json'); // eslint-disable-line import/no-unresolved
 
     appJs = revManifest['app.js'];
     appCss = revManifest['app.css'];
@@ -28,7 +27,7 @@ function getAssetsNames() {
 
 const assetsNames = getAssetsNames();
 
-export function *renderReact() {
+export function* renderReact() {
   const history = createServerHistory({
     entries: [this.url],
     basename: process.env.URL_PREFIX || null,
@@ -51,11 +50,9 @@ export function *renderReact() {
     this.status = 404;
   } else {
     const rootElement = (
-      <I18nProvider locale={i18n.language} translation={i18n.translation}>
-        <Provider store={store} key="provider">
-          <RouterContext {...renderProps} />
-        </Provider>
-      </I18nProvider>
+      <App language={i18n.language} translation={i18n.translation} store={store}>
+        <RouterContext {...renderProps} />
+      </App>
     );
 
     const appHtml = yield store.renderToString(renderToString, rootElement);

@@ -8,8 +8,9 @@ import classNames from 'classnames';
 import { autobind } from 'core-decorators';
 
 // components
-import Icon from 'ui/icon';
-import Search from '../search/search';
+import { Icon } from '@foxcomm/storefront-react/tpg';
+import LogoIcon from 'components/core/logo-icon/logo-icon';
+import Search from '../search-form/search-form';
 import UserTools from '../usertools/usertools';
 import Navigation from '../navigation/navigation';
 import TopBanner from '../top-banner/top-banner';
@@ -57,6 +58,7 @@ class Header extends React.Component {
 
   @autobind
   checkScroll() {
+    // $FlowFixMe: there will be number
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const isScrolled = scrollTop > 136;
 
@@ -78,13 +80,13 @@ class Header extends React.Component {
         <div className={headerClass}>
           <div styleName="wrap">
             <div styleName="hamburger" onClick={this.props.toggleSidebar}>
-              <Icon name="fc-hamburger" styleName="head-icon"/>
+              <Icon name="hamburger" styleName="head-icon" />
             </div>
             <div styleName="search">
-              <Search isScrolled={this.state.isScrolled}/>
+              <Search isScrolled={this.state.isScrolled} />
             </div>
             <Link to="/" styleName="logo-link">
-              <Icon styleName="logo" name="fc-logo"/>
+              <LogoIcon styleName="logo" />
             </Link>
             <div styleName="navigation">
               <Navigation path={this.props.path} />

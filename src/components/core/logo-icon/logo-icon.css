@@ -1,0 +1,14 @@
+@import "css/media-queries.css";
+
+.block {
+  width: 120px;
+  height: 56px;
+  stroke: none;
+}
+
+@media (--large) {
+  .block {
+    width: 150px;
+    height: 74px;
+  }
+}

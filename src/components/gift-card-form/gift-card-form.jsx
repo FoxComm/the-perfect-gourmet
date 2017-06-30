@@ -3,17 +3,17 @@
 // libs
 import React from 'react';
 import _ from 'lodash';
-import formatCurrency from 'lib/format-currency';
-import { email } from 'ui/forms/validators';
+import formatCurrency from '@foxcomm/storefront-react/tpg/lib/format-currency';
+import { email } from 'components/core/forms/validators';
 
 // styles
 import styles from './gift-card-form.css';
 
 // components
-import { TextInput } from 'ui/inputs';
-import { Form, FormField } from 'ui/forms';
-import AddToCartBtn from 'ui/add-to-cart-btn';
-import Select from 'ui/select/select';
+import { TextInput } from 'components/core/inputs';
+import { Form, FormField } from 'components/core/forms';
+import AddToCartBtn from 'components/core/add-to-cart-btn';
+import { Select } from '@foxcomm/storefront-react/tpg';
 
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
   onAttributeChange: Function,
 };
 
-const formatSkuPrice = sku => {
+const formatSkuPrice = (sku) => {
   const price = _.get(sku, 'attributes.salePrice.v', {});
   const value = _.get(price, 'value', 0);
   const currency = _.get(price, 'currency', 'USD');
@@ -54,9 +54,6 @@ const GiftCardForm = (props: Props) => {
       <Form styleName="form" onSubmit={props.addToCart}>
         <div styleName="price-selector">
           <Select
-            inputProps={{
-              type: 'text',
-            }}
             items={skus}
             getItemValue={formatSkuPrice}
             selectedItem={props.selectedSku}

@@ -3,8 +3,8 @@ import React from 'react';
 import moment from 'moment';
 import { stateTitles } from 'paragons/order';
 
-import Currency from 'ui/currency';
 import { Link } from 'react-router';
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 function convertOrderData(orderDetails) {
   if (!orderDetails.grandTotal) {
@@ -19,7 +19,7 @@ function convertOrderData(orderDetails) {
   return orderDetails;
 }
 
-const OrderRow = props => {
+const OrderRow = (props) => {
   const { showDetailsLink } = props;
   const order = convertOrderData(props.order);
 

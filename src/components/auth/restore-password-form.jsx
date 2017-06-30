@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -12,15 +12,14 @@ import { isAuthorizedUser } from 'paragons/auth';
 
 // components
 import { Link } from 'react-router';
-import { TextInput } from 'ui/inputs';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import { TextInput } from 'components/core/inputs';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 
 // actions
 import * as actions from 'modules/auth';
 
 // types
-import type { HTMLElement } from 'types';
 import type { RestorePasswordFormProps } from 'types/auth';
 import type { User } from 'types/auth';
 
@@ -53,7 +52,7 @@ class RestorePasswordForm extends Component {
   }
 
   @autobind
-  handleSubmit(): ?Promise {
+  handleSubmit(): ?Promise<*> {
     const { email } = this.state;
     const { t } = this.props;
 
@@ -71,13 +70,13 @@ class RestorePasswordForm extends Component {
         });
       }).catch(() => {
         this.setState({
-          error: t(`Oops! We don’t have a user with that email. Please check your entry and try again.`),
+          error: t('Oops! We don’t have a user with that email. Please check your entry and try again.'),
         });
       }
     );
   }
 
-  get topMessage(): HTMLElement {
+  get topMessage(): Element<*> {
     const { emailSent, error, email } = this.state;
     const { t } = this.props;
 
@@ -111,7 +110,7 @@ class RestorePasswordForm extends Component {
     });
   }
 
-  get emailField(): ?HTMLElement {
+  get emailField(): ?Element<*> {
     const { emailSent, email } = this.state;
     const { t } = this.props;
 
@@ -144,7 +143,7 @@ class RestorePasswordForm extends Component {
     browserHistory.push(linkTo);
   };
 
-  get primaryButton(): HTMLElement {
+  get primaryButton(): Element<Button> {
     const { emailSent } = this.state;
     const { t } = this.props;
 
@@ -159,7 +158,7 @@ class RestorePasswordForm extends Component {
     return <Button styleName="primary-button" type="submit">{t('SUBMIT')}</Button>;
   }
 
-  get stageSwitch(): ?HTMLElement {
+  get stageSwitch(): ?Element<*> {
     const { emailSent } = this.state;
     const { t } = this.props;
 
@@ -177,7 +176,7 @@ class RestorePasswordForm extends Component {
     }
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     return (
       <div styleName="auth-block">
         <div styleName="title">{this.props.title}</div>

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -12,10 +12,10 @@ import localized from 'lib/i18n';
 
 // components
 import { Link } from 'react-router';
-import { TextInput } from 'ui/inputs';
-import ShowHidePassword from 'ui/forms/show-hide-password';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import { TextInput } from 'components/core/inputs';
+import ShowHidePassword from 'components/core/forms/show-hide-password';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 // actions
@@ -23,7 +23,6 @@ import * as actions from 'modules/auth';
 import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 // types
-import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'types/auth';
 import type { Localized } from 'lib/i18n';
 
@@ -41,10 +40,10 @@ type AuthState = {
 type Props = Localized & {
   location: Object | {},
   isLoading: boolean,
-  fetchCart: () => Promise,
-  saveLineItemsAndCoupons: (merge: boolean) => Promise,
+  fetchCart: () => Promise<*>,
+  saveLineItemsAndCoupons: (merge: boolean) => Promise<*>,
   onLoginClick: (event: SyntheticEvent) => void,
-  title?: string|Element|null,
+  title?: string|Element<*>|null,
   onAuthenticated?: Function,
   inCheckout: boolean
 };
@@ -110,7 +109,7 @@ class Signup extends Component {
       operation.then(() => {
         browserHistory.push(inCheckout ? '/checkout' : this.redirectPath);
       });
-    }).catch(err => {
+    }).catch((err) => {
       const errors = _.get(err, ['responseJson', 'errors'], [err.toString()]);
       let emailError = false;
       let usernameError = false;
@@ -132,7 +131,7 @@ class Signup extends Component {
         usernameError,
         generalErrors: restErrors,
       });
-    }).then(response => {
+    }).then((response) => {
       analytics.completeRegistration();
       return response;
     });
@@ -168,7 +167,7 @@ class Signup extends Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const { email, password, username, emailError, usernameError } = this.state;
     const { t, isLoading } = this.props;
 

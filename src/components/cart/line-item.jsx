@@ -12,10 +12,8 @@ import styles from './line-item.css';
 import localized from 'lib/i18n';
 
 // components
-import Icon from 'ui/icon';
-import Currency from 'ui/currency';
-import Select from 'ui/select/select';
-import ProductImage from '../../components/imgix/product-image';
+import ProductImage from 'components/imgix/product-image';
+import { Currency, Select, Icon } from '@foxcomm/storefront-react/tpg';
 
 const QUANTITY_ITEMS = _.range(1, 1 + 10, 1).map(x => x.toString());
 
@@ -63,7 +61,7 @@ class LineItem extends Component {
               {this.props.name}
             </div>
             <div styleName="price">
-              <Currency value={this.props.totalPrice}/>
+              <Currency value={this.props.totalPrice} />
             </div>
           </div>
           <div styleName="quantity">
@@ -81,7 +79,7 @@ class LineItem extends Component {
         </div>
         <div styleName="controls">
           <a styleName="delete-button" onClick={this.deleteItem}>
-            <Icon name="fc-close" styleName="delete-icon" />
+            <Icon name="close" styleName="delete-icon" />
           </a>
         </div>
       </div>

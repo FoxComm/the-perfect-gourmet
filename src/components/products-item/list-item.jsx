@@ -1,8 +1,7 @@
 /* @flow */
 
-import React from 'react';
+import React, { Element } from 'react';
 import { findDOMNode } from 'react-dom';
-import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -11,10 +10,11 @@ import { addLineItem, toggleCart } from 'modules/cart';
 import { connect } from 'react-redux';
 import * as tracking from 'lib/analytics';
 
-import AddToCartBtn from 'ui/add-to-cart-btn';
-import Currency from 'ui/currency';
+import AddToCartBtn from 'components/core/add-to-cart-btn';
 import ImagePlaceholder from './image-placeholder';
 import ProductImage from '../imgix/product-image';
+
+import { Currency } from '@foxcomm/storefront-react/tpg';
 
 type Image = {
   alt?: string,
@@ -78,7 +78,7 @@ class ListItem extends React.Component {
       .then(() => {
         this.props.toggleCart();
       })
-      .catch(ex => {
+      .catch((ex) => {
         this.setState({
           error: ex,
         });
@@ -104,7 +104,7 @@ class ListItem extends React.Component {
     tracking.clickPdp(props, props.index);
   }
 
-  isOnSale(): HTMLElement {
+  isOnSale(): Element<*> {
     const { currency } = this.props;
 
     let {
@@ -116,18 +116,18 @@ class ListItem extends React.Component {
     retailPrice = Number(retailPrice);
 
     return (retailPrice > salePrice) ? (
-        <div styleName="price">
-          <Currency
-            styleName="retail-price"
-            value={retailPrice}
-            currency={currency}
-          />
-          <Currency
-            styleName="on-sale-price"
-            value={salePrice}
-            currency={currency}
-          />
-        </div>
+      <div styleName="price">
+        <Currency
+          styleName="retail-price"
+          value={retailPrice}
+          currency={currency}
+        />
+        <Currency
+          styleName="on-sale-price"
+          value={salePrice}
+          currency={currency}
+        />
+      </div>
       ) : (
         <div styleName="price">
           <Currency value={salePrice} currency={currency} />
@@ -135,7 +135,7 @@ class ListItem extends React.Component {
       );
   }
 
-  servings(): ?HTMLElement {
+  servings(): ?Element<*> {
     const {
       showServings,
       amountOfServings,
@@ -152,7 +152,7 @@ class ListItem extends React.Component {
     );
   }
 
-  hoverInfo(description): ?HTMLElement {
+  hoverInfo(description): ?Element<*> {
     const { showDescriptionOnHover } = this.props;
 
     if (!showDescriptionOnHover) return null;
@@ -167,7 +167,7 @@ class ListItem extends React.Component {
     );
   }
 
-  addToCartButton(): ?HTMLElement {
+  addToCartButton(): ?Element<*> {
     const { showAddToCartButton } = this.props;
 
     if (!showAddToCartButton) return null;
@@ -179,7 +179,7 @@ class ListItem extends React.Component {
     );
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const {
       productId,
       slug,

@@ -22,7 +22,7 @@
 }
 
 .code {
-  composes: text-input from "ui/css/input.css";
+  composes: text-input from "../core/css/input.css";
   width: 100%;
   border-right: none;
   background-color: white;
@@ -109,12 +109,9 @@
 
 .delete-promo-btn {
   composes: delete-button from '../../components/cart/line-item.css';
+  composes: delete-icon from '../../components/cart/line-item.css';
   line-height: 15px;
   margin-left: 10px;
-}
-
-.delete-promo-icon {
-  composes: delete-icon from '../../components/cart/line-item.css';
 }
 
 @media (--small-only) {

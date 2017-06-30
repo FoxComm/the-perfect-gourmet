@@ -13,14 +13,13 @@ import * as tracking from 'lib/analytics';
 import localized from 'lib/i18n';
 
 // components
-import Currency from 'ui/currency';
 import LineItem from './line-item';
-import Button from 'ui/buttons';
-import Icon from 'ui/icon';
+import Button from 'components/core/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import { skuIdentity } from '@foxcomm/wings/lib/paragons/sku';
 import { parseError } from '@foxcomm/api-js';
 import CouponCode from '../promo-code/promo-code';
+import { Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './cart.css';
@@ -70,7 +69,7 @@ class Cart extends Component {
   @autobind
   deleteLineItem(sku) {
     tracking.removeFromCart(sku, sku.quantity);
-    this.props.deleteLineItem(sku).catch(ex => {
+    this.props.deleteLineItem(sku).catch((ex) => {
       this.setState({
         errors: parseError(ex),
       });
@@ -85,7 +84,7 @@ class Cart extends Component {
     } else if (diff < 0) {
       tracking.removeFromCart(sku, -diff);
     }
-    this.props.updateLineItemQuantity(sku, quantity).catch(ex => {
+    this.props.updateLineItemQuantity(sku, quantity).catch((ex) => {
       this.setState({
         errors: parseError(ex),
       });
@@ -101,7 +100,7 @@ class Cart extends Component {
       );
     }
 
-    return _.map(this.props.skus, sku => {
+    return _.map(this.props.skus, (sku) => {
       return (
         <LineItem
           {...sku}
@@ -159,10 +158,10 @@ class Cart extends Component {
 
     return (
       <div styleName={cartClass}>
-        <div styleName="overlay" onClick={toggleCart}></div>
+        <div styleName="overlay" onClick={toggleCart} />
         <div styleName="cart-box">
           <div styleName="cart-header" onClick={toggleCart}>
-            <Icon name="fc-chevron-left" styleName="back-icon"/>
+            <Icon name="chevron-left" styleName="back-icon" />
             <div styleName="header-text">{t('KEEP SHOPPING')}</div>
           </div>
 
@@ -185,7 +184,7 @@ class Cart extends Component {
             <div styleName="cart-subtotal">
               <div styleName="subtotal-title">{t('SUBTOTAL')}</div>
               <div styleName="subtotal-price">
-                <Currency value={ totals.subTotal } />
+                <Currency value={totals.subTotal} />
               </div>
             </div>
 

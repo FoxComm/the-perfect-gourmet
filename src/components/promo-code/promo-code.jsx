@@ -7,12 +7,11 @@ import _ from 'lodash';
 import sanitizePromoErrors from 'sanitizers/promocodes';
 
 // components
-import { TextInput } from 'ui/inputs';
-import Button from 'ui/buttons';
-import { FormField } from 'ui/forms';
+import { TextInput } from 'components/core/inputs';
+import Button from 'components/core/buttons';
+import { FormField } from 'components/core/forms';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
-import Currency from 'ui/currency';
-import Icon from 'ui/icon';
+import { Currency, Icon } from '@foxcomm/storefront-react/tpg';
 
 // styles
 import styles from './promo-code.css';
@@ -80,14 +79,14 @@ class PromoCode extends Component {
 
     this.props.saveCode(code)
       .then(() => this.setState({ code: '', error: false }))
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
 
   removeCode(code?: string) {
     this.props.removeCode(code)
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
   }
@@ -106,8 +105,7 @@ class PromoCode extends Component {
         {this.props.allowDelete &&
           <Icon
             onClick={() => this.removeCode(code)}
-            name="fc-close"
-            styleName="delete-promo-icon"
+            name="close"
             styleName="delete-promo-btn"
           />
         }
@@ -127,8 +125,7 @@ class PromoCode extends Component {
 
           {this.props.allowDelete &&
             <Icon
-              name="fc-close"
-              styleName="delete-promo-icon"
+              name="close"
               styleName="delete-promo-btn"
               onClick={() => this.removeCode()}
             />

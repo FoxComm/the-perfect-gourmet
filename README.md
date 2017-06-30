@@ -16,7 +16,7 @@ The Perfect Gourmet store. Isomorphic React app powered by FoxComm's backend API
 
 * [Flow](http://flowtype.org)
 
-  We're using [Flow](http://flowtype.org) to perform type checks and `babel-plugin-typecheck` for same thing at runtime. Install Flow per the instructions on the website. Checkout required version in `.flowconfig` file.
+  We're using [Flow](http://flowtype.org) to perform type checks and `babel-plugin-typecheck` for same thing at runtime. Checkout required version in `.flowconfig` file.
 
 * `public_key.pem` in the root of the project, as described in the [engineering wiki](https://github.com/FoxComm/engineering-wiki/blob/master/development/setup.md#developing-frontend-applications)
 
@@ -83,23 +83,32 @@ exports.autoInstallHooks = false;
 
 ## Base infrastructure
 
-For achieve right isomorphism [redux-wait](https://www.npmjs.com/package/redux-wait) is used.
+For achieve right isomorphism [redux-isomorphic-render](https://www.npmjs.com/package/redux-isomorphic-render) is used.
 It utilizes multiple rendering calls for get all async dependencies for project.
-Read about code organization limitations in redux-wait's README.
+Read about code organization limitations in redux-isomorphic-render's README.
 
-For **grids** [lost](https://www.npmjs.com/package/lost) postcss plugin is used. It's really good.
+For **grids** [lost](https://www.npmjs.com/package/lost) postcss plugin is used. It's really good if you need complex
+ grid layouts.
 For different margins which depends on viewport size use `--grid-margin` css variable: `margin: 0 var(--grid-margin)`.
 
-For **static type checking** [flowtype](http://flowtype.org/) is used. You can run check manually by `npm run flow` command.
+For **static type checking** [flowtype](http://flowtype.org/) is used. You can run check manually by `yarn flow` 
+command.
 
 For **icons** svg icons is used. Just place svg icon to `src/images/svg` folder and gulp sprites task builds sprite for you
-automatically. Name for each icon in a sprite will be `fc-<file-name-lowecased>` Usage:
+automatically. Name for each icon in a sprite will be `tpg-icon-<file-name-lowecased>` Usage:
 
 ```jsx
-import Icon from 'ui/icon';
+import { Icon } from '@foxcomm/storefront-react';
 
-const icon = <Icon name="fc-google" />;
+const icon = <Icon name="<file-name-lowercased>" prefix="tpg-icon-" />;
+```
 
+Or in case using strorefront-react's icon:
+
+```jsx
+import { Icon } from '@foxcomm/storefront-react';
+
+const icon = <Icon name="add" />;
 ```
 
 ![Firebird and Phoenix](http://i.imgur.com/7Cyj5q8.jpg "Firebird and Phoenix")

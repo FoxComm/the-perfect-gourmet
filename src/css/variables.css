@@ -1,4 +1,4 @@
-@import 'media-queries.css';
+@import "./media-queries.css";
 
 :root {
   --grid-margin: 1.7%;

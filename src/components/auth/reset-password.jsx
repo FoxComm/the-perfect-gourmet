@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 
 // libs
 import _ from 'lodash';
@@ -12,16 +12,15 @@ import { isAuthorizedUser } from 'paragons/auth';
 import classNames from 'classnames';
 
 // components
-import ShowHidePassword from 'ui/forms/show-hide-password';
-import { FormField, Form } from 'ui/forms';
-import Button from 'ui/buttons';
+import ShowHidePassword from 'components/core/forms/show-hide-password';
+import { FormField, Form } from 'components/core/forms';
+import Button from 'components/core/buttons';
 import AuthContainer from './auth-container';
 
 // actions
 import { resetPassword } from 'modules/auth';
 
 // types
-import type { HTMLElement } from 'types';
 import type { Localized } from 'lib/i18n';
 import type { User } from 'types/auth';
 
@@ -38,7 +37,7 @@ type ResetState = {
 
 type Props = Localized & {
   location: Object,
-  resetPassword: (code: string, password: string) => Promise,
+  resetPassword: (code: string, password: string) => Promise<*>,
   user: User | {},
   isBannerVisible: boolean,
 };
@@ -60,7 +59,7 @@ class ResetPassword extends Component {
   }
 
   @autobind
-  handleSubmit(): ?Promise {
+  handleSubmit(): ?Promise<*> {
     const { passwd1, passwd2 } = this.state;
     const code = _.get(this.props, 'location.query.code');
 
@@ -96,7 +95,7 @@ class ResetPassword extends Component {
     });
   }
 
-  get topMessage(): HTMLElement {
+  get topMessage(): Element<*> {
     const { isReseted, error } = this.state;
     const { t } = this.props;
 
@@ -130,7 +129,7 @@ class ResetPassword extends Component {
     });
   }
 
-  get passwordFields(): ?HTMLElement[] {
+  get passwordFields(): ?Element<*>[] {
     const { isReseted, passwd1, passwd2, error } = this.state;
     const { t } = this.props;
 
@@ -168,7 +167,7 @@ class ResetPassword extends Component {
     browserHistory.push('/login');
   };
 
-  get primaryButton(): HTMLElement {
+  get primaryButton(): Element<any> {
     const { isReseted } = this.state;
     const { t } = this.props;
 
@@ -181,7 +180,7 @@ class ResetPassword extends Component {
     return <Button styleName="primary-button" type="submit">{t('RESET PASSWORD')}</Button>;
   }
 
-  render(): HTMLElement {
+  render(): Element<*> {
     const { t, isBannerVisible, location } = this.props;
 
     const className = classNames(s.forms, {

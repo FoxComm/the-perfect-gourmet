@@ -2,7 +2,7 @@
 
 // libs
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Element } from 'react';
 import { autobind, debounce } from 'core-decorators';
 import { isElementInViewport } from 'lib/dom-utils';
 import * as tracking from 'lib/analytics';
@@ -12,10 +12,9 @@ import styles from './products-list.css';
 
 // components
 import ListItem from '../products-item/list-item';
-import Loader from 'ui/loader';
+import { WaitAnimation } from '@foxcomm/storefront-react/tpg';
 
 // types
-import type { HTMLElement } from 'types';
 
 export const LoadingBehaviors = {
   ShowLoader: 0,
@@ -51,9 +50,9 @@ class ProductsList extends Component {
     showDescriptionOnHover: true,
   };
 
- componentDidMount() {
-   window.addEventListener('scroll', this.handleScroll);
- }
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
 
   componentWillUnmount() {
     this._willUnmount = true;
@@ -101,7 +100,7 @@ class ProductsList extends Component {
     const shownProducts = {};
 
     if (visibleProducts.length > 0) {
-      _.each(visibleProducts, item => {
+      _.each(visibleProducts, (item) => {
         shownProducts[item.id] = 1;
         tracking.addImpression(item, item.index);
       });
@@ -144,19 +143,19 @@ class ProductsList extends Component {
     }, 250);
   }
 
-  get loadingWrapper(): ?HTMLElement {
+  get loadingWrapper(): ?Element<*> {
     if (this.props.isLoading) {
       return (
         <div styleName="loading-wrapper">
           <div styleName="loader">
-            <Loader/>
+            <WaitAnimation />
           </div>
         </div>
       );
     }
   }
 
-  get title(): ?HTMLElement {
+  get title(): ?Element<*> {
     const { title } = this.props;
 
     if (!title) return null;
@@ -168,7 +167,7 @@ class ProductsList extends Component {
     );
   }
 
-  render() : HTMLElement {
+  render() : Element<any> {
     const {
       loadingBehavior = LoadingBehaviors.ShowLoader,
       isLoading,
@@ -177,7 +176,7 @@ class ProductsList extends Component {
     } = this.props;
 
     if (loadingBehavior == LoadingBehaviors.ShowLoader && isLoading) {
-      return <Loader/>;
+      return <WaitAnimation />;
     }
 
     const items = list && list.length > 0

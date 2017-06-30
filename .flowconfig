@@ -7,6 +7,7 @@
 .*/node_modules/systemjs-builder/.*
 .*/node_modules/.tmp/.*
 .*/node_modules/invariant/*
+.*/node_modules/date-fns/.*
 
 [include]
 src
@@ -16,12 +17,8 @@ interfaces/
 
 [options]
 esproposal.decorators=ignore
-esproposal.class_static_fields=enable
-esproposal.class_instance_fields=enable
-module.name_mapper='.+css$' -> 'CSSModule'
-strip_root=true
-module.system=haste
+module.name_mapper='.+css$' -> 'CSSMod  ule'
 module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=src/core
+module.system.node.resolve_dirname=src
 unsafe.enable_getters_and_setters=true
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe

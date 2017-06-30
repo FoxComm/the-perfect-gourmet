@@ -14,7 +14,7 @@ const path = require('path');
 const serve = require('koa-better-static');
 const koaMount = require('koa-mount');
 const test = require('./conditional-use');
-const { renderReact } = require('../lib/server');
+const { renderReact } = require('../lib/server'); // eslint-disable-line import/no-unresolved
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -74,7 +74,7 @@ class App extends KoaApp {
   logInfo() {
     const description = require('../package.json').description;
     /* eslint-disable no-console-log/no-console-log */
-    console.log(
+    console.info(
       `%s: %s ${chalk.blue('%s')} ${chalk.green('api: %s')} ${chalk.red('development url: http://localhost:%d')}`,
       timestamp(),
       description,

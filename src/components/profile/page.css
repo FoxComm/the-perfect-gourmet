@@ -1,5 +1,5 @@
 
-@import "variables.css";
+@import "css/variables.css";
 
 .title {
   font-family: var(--font-playfair);
@@ -22,7 +22,7 @@
 }
 
 .content {
-  composes: wrap from "ui/css/layout.css";
+  composes: wrap from "../core/css/layout.css";
 }
 
 .profile {
