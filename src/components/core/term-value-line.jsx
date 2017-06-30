@@ -1,4 +1,4 @@
-
+// @flow
 import React, { Element } from 'react';
 import styles from './css/term-value-line.css';
 

@@ -1,8 +1,7 @@
-
-
+// @flow
 import React from 'react';
 
-function formatPhoneNumber(value) {
+function formatPhoneNumber(value: string): string {
   const numbers = value.replace(/[^\d]/g, '');
 
   if (numbers.length === 10) {
@@ -11,7 +10,11 @@ function formatPhoneNumber(value) {
   return value;
 }
 
-const PhoneNumber = (props) => {
+type Props = {
+  children: string,
+}
+
+const PhoneNumber = (props: Props) => {
   return (
     <span>{formatPhoneNumber(props.children)}</span>
   );

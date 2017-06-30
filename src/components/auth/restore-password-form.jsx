@@ -143,7 +143,7 @@ class RestorePasswordForm extends Component {
     browserHistory.push(linkTo);
   };
 
-  get primaryButton(): Element<any> {
+  get primaryButton(): Element<Button> {
     const { emailSent } = this.state;
     const { t } = this.props;
 
